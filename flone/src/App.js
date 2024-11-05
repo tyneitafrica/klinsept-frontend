@@ -22,7 +22,7 @@ const BlogStandard = lazy(() => import("./pages/blog/BlogStandard"));
 // other pages
 const About = lazy(() => import("./pages/other/About"));
 const Contact = lazy(() => import("./pages/other/Contact"));
-const MyAccount = lazy(() => import("./pages/other/MyAccount"));
+// const MyAccount = lazy(() => import("./pages/other/MyAccount"));
 const LoginRegister = lazy(() => import("./pages/other/LoginRegister"));
 
 const Cart = lazy(() => import("./pages/other/Cart"));

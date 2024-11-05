@@ -4,14 +4,8 @@ import { Link } from "react-router-dom";
 import { animateScroll } from "react-scroll";
 import FooterCopyright from "../../components/footer/FooterCopyright";
 import FooterNewsletter from "../../components/footer/FooterNewsletter";
-import {
-  FaXTwitter,
-  FaFacebookF,
-  FaInstagram,
-  FaYoutube,
-} from "react-icons/fa6";
 
-const FooterOne = ({
+const FooterFour = ({
   backgroundColorClass,
   spaceTopClass,
   spaceBottomClass,
@@ -19,7 +13,7 @@ const FooterOne = ({
   spaceRightClass,
   containerClass,
   extraFooterClass,
-  sideMenu,
+  sideMenu
 }) => {
   const [scroll, setScroll] = useState(0);
   const [top, setTop] = useState(0);
@@ -59,8 +53,9 @@ const FooterOne = ({
           >
             {/* footer copyright */}
             <FooterCopyright
-              footerLogo="/assets/img/logo/logo.png"
+              footerLogo="/assets/img/logo/logo-2.png"
               spaceBottomClass="mb-30"
+              colorClass="copyright-white"
             />
           </div>
           <div
@@ -68,7 +63,7 @@ const FooterOne = ({
               sideMenu ? "col-xl-2 col-sm-4" : "col-lg-2 col-sm-4"
             }`}
           >
-            <div className="footer-widget mb-30 ml-30">
+            <div className="footer-widget footer-widget-white mb-30 ml-30">
               <div className="footer-title">
                 <h3>ABOUT US</h3>
               </div>
@@ -104,8 +99,8 @@ const FooterOne = ({
             <div
               className={`${
                 sideMenu
-                  ? "footer-widget mb-30 ml-95"
-                  : "footer-widget mb-30 ml-50"
+                  ? "footer-widget footer-widget-white mb-30 ml-95"
+                  : "footer-widget footer-widget-white mb-30 ml-50"
               }`}
             >
               <div className="footer-title">
@@ -139,8 +134,8 @@ const FooterOne = ({
             <div
               className={`${
                 sideMenu
-                  ? "footer-widget mb-30 ml-145"
-                  : "footer-widget mb-30 ml-75"
+                  ? "footer-widget footer-widget-white mb-30 ml-145"
+                  : "footer-widget footer-widget-white mb-30 ml-75"
               }`}
             >
               <div className="footer-title">
@@ -148,14 +143,13 @@ const FooterOne = ({
               </div>
               <div className="footer-list">
                 <ul>
-                  <li></li>
                   <li>
                     <a
                       href="//www.facebook.com"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <FaFacebookF size={25}/>
+                      Facebook
                     </a>
                   </li>
                   <li>
@@ -164,7 +158,7 @@ const FooterOne = ({
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <FaXTwitter size={25}/>
+                      Twitter
                     </a>
                   </li>
                   <li>
@@ -173,7 +167,7 @@ const FooterOne = ({
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <FaInstagram size={25}/>
+                      Instagram
                     </a>
                   </li>
                   <li>
@@ -182,7 +176,7 @@ const FooterOne = ({
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <FaYoutube size={30} />
+                      Youtube
                     </a>
                   </li>
                 </ul>
@@ -199,6 +193,8 @@ const FooterOne = ({
               spaceBottomClass="mb-30"
               spaceLeftClass="ml-70"
               sideMenu={sideMenu}
+              colorClass="subscribe-style-white"
+              widgetColorClass="footer-widget-white"
             />
           </div>
         </div>
@@ -213,7 +209,7 @@ const FooterOne = ({
   );
 };
 
-FooterOne.propTypes = {
+FooterFour.propTypes = {
   backgroundColorClass: PropTypes.string,
   containerClass: PropTypes.string,
   extraFooterClass: PropTypes.string,
@@ -221,7 +217,7 @@ FooterOne.propTypes = {
   spaceBottomClass: PropTypes.string,
   spaceTopClass: PropTypes.string,
   spaceLeftClass: PropTypes.string,
-  spaceRightClass: PropTypes.string,
+  spaceRightClass: PropTypes.string
 };
 
-export default FooterOne;
+export default FooterFour;
