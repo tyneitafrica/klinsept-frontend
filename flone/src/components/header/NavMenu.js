@@ -20,18 +20,13 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
             </Link>
           </li>
           <li>
-            <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
+            <Link to={process.env.PUBLIC_URL + "/products"}>
               {" "}
-              {strings["shop"]}
+              {strings[""]}products
 
             </Link>
 
           </li>
-          {/* <li>
-            <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
-              {strings["collection"]}
-            </Link>
-          </li> */}
           <li>
             <Link to={process.env.PUBLIC_URL + "/"}>
               {strings["pages"]}
