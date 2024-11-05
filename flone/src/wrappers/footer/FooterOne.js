@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { animateScroll } from "react-scroll";
-import FooterCopyright from "../../components/footer/FooterCopyright";
 import FooterNewsletter from "../../components/footer/FooterNewsletter";
 
 const FooterOne = ({
@@ -13,7 +12,8 @@ const FooterOne = ({
   spaceRightClass,
   containerClass,
   extraFooterClass,
-  sideMenu
+  sideMenu,
+  footerLogo,
 }) => {
   const [scroll, setScroll] = useState(0);
   const [top, setTop] = useState(0);
@@ -36,15 +36,13 @@ const FooterOne = ({
 
   return (
     <footer
-      className={`footer-area ${
-        backgroundColorClass ? backgroundColorClass : ""
-      } ${spaceTopClass ? spaceTopClass : ""} ${
-        spaceBottomClass ? spaceBottomClass : ""
-      } ${extraFooterClass ? extraFooterClass : ""} ${
-        spaceLeftClass ? spaceLeftClass : ""
-      } ${spaceRightClass ? spaceRightClass : ""}`}
+      className={`footer-area ${backgroundColorClass || ""} ${
+        spaceTopClass || ""
+      } ${spaceBottomClass || ""} ${extraFooterClass || ""} ${
+        spaceLeftClass || ""
+      } ${spaceRightClass || ""}`}
     >
-      <div className={`${containerClass ? containerClass : "container"}`}>
+      <div className={`${containerClass || "container"}`}>
         <div className="row">
           <div
             className={`${
@@ -52,10 +50,30 @@ const FooterOne = ({
             }`}
           >
             {/* footer copyright */}
-            <FooterCopyright
-              footerLogo="/assets/img/logo/logo.png"
-              spaceBottomClass="mb-30"
-            />
+            <div className={`copyright mb-30`}>
+              <div className="footer-logo d-flex justify-content-center">
+                <Link to={process.env.PUBLIC_URL + "/"}>
+                  <img
+                    alt="Company Logo"
+                    src={process.env.PUBLIC_URL + "/assets/img/logo/logo.png"}
+                    className="img-fluid"
+                    style={{ maxWidth: "100%", height: "auto" }}
+                  />
+                </Link>
+              </div>
+
+              <p>
+                © 2020{" "}
+                <a
+                  href="https://www.klinsept.com/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Klinsept
+                </a>
+                .<br /> All Rights Reserved
+              </p>
+            </div>
           </div>
           <div
             className={`${
@@ -198,7 +216,7 @@ const FooterOne = ({
       </div>
       <button
         className={`scroll-top ${scroll > top ? "show" : ""}`}
-        onClick={() => scrollToTop()}
+        onClick={scrollToTop}
       >
         <i className="fa fa-angle-double-up"></i>
       </button>
@@ -214,7 +232,8 @@ FooterOne.propTypes = {
   spaceBottomClass: PropTypes.string,
   spaceTopClass: PropTypes.string,
   spaceLeftClass: PropTypes.string,
-  spaceRightClass: PropTypes.string
+  spaceRightClass: PropTypes.string,
+  footerLogo: PropTypes.string, // Added footerLogo prop
 };
 
 export default FooterOne;
