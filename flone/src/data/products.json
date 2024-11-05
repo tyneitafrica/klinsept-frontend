@@ -94,7 +94,7 @@
     "new": false,
     "rating": 3,
     "saleCount": 12,
-    "category": ["fashion", "women"],
+    "category": ["fashion"],
     "tag": ["fashion", "women", "coat", "full sleeve"],
     "variation": [
       {
@@ -266,7 +266,7 @@
     "new": true,
     "rating": 4,
     "saleCount": 20,
-    "category": ["fashion", "women"],
+    "category": ["fashion"],
     "tag": ["fashion", "women", "coat", "full sleeve"],
     "variation": [
       {
@@ -351,7 +351,7 @@
     "new": true,
     "rating": 5,
     "saleCount": 25,
-    "category": ["fashion", "women"],
+    "category": ["fashion"],
     "tag": ["fashion", "women", "coat", "full sleeve"],
     "variation": [
       {
@@ -522,7 +522,7 @@
     "new": true,
     "rating": 5,
     "saleCount": 55,
-    "category": ["fashion", "women"],
+    "category": ["fashion"],
     "tag": ["fashion", "women", "coat", "full sleeve"],
     "variation": [
       {
@@ -630,7 +630,7 @@
     "new": false,
     "rating": 4,
     "saleCount": 95,
-    "category": ["fashion", "women"],
+    "category": ["fashion"],
     "tag": ["fashion", "women", "top", "sleeveless"],
     "stock": 5,
     "affiliateLink": "//www.amazon.com",
@@ -653,8 +653,8 @@
     "new": false,
     "rating": 4,
     "saleCount": 90,
-    "category": ["electronics"],
-    "tag": ["electronics"],
+    "category": [],
+    "tag": [""],
     "stock": 15,
     "image": [
       "/assets/img/product/electronics/1.jpg",
@@ -675,7 +675,7 @@
     "new": true,
     "rating": 5,
     "saleCount": 190,
-    "category": ["electronics"],
+    "category": [],
     "tag": ["electronics"],
     "stock": 25,
     "image": [
@@ -697,7 +697,7 @@
     "new": true,
     "rating": 3,
     "saleCount": 90,
-    "category": ["electronics"],
+    "category": [],
     "tag": ["electronics"],
     "stock": 20,
     "image": [
@@ -719,7 +719,7 @@
     "new": false,
     "rating": 4,
     "saleCount": 100,
-    "category": ["electronics"],
+    "category": [],
     "tag": ["electronics"],
     "stock": 40,
     "image": [
@@ -741,7 +741,7 @@
     "new": true,
     "rating": 5,
     "saleCount": 120,
-    "category": ["electronics"],
+    "category": [],
     "tag": ["electronics"],
     "stock": 45,
     "image": [
@@ -763,7 +763,7 @@
     "new": false,
     "rating": 4,
     "saleCount": 20,
-    "category": ["electronics"],
+    "category": [],
     "tag": ["electronics"],
     "stock": 5,
     "image": [
@@ -785,7 +785,7 @@
     "new": true,
     "rating": 5,
     "saleCount": 25,
-    "category": ["electronics"],
+    "category": [],
     "tag": ["electronics"],
     "stock": 7,
     "image": [
@@ -807,7 +807,7 @@
     "new": true,
     "rating": 4,
     "saleCount": 15,
-    "category": ["electronics"],
+    "category": [],
     "tag": ["electronics"],
     "stock": 6,
     "image": [
@@ -1005,7 +1005,7 @@
     "new": false,
     "rating": 4,
     "saleCount": 90,
-    "category": ["plant"],
+    "category": [],
     "tag": ["plant"],
     "stock": 15,
     "image": [
@@ -1027,8 +1027,7 @@
     "new": true,
     "rating": 5,
     "saleCount": 190,
-    "category": ["plant"],
-    "tag": ["plant"],
+    "category": [],
     "stock": 25,
     "image": [
       "/assets/img/product/plants/2.jpg",
@@ -1049,7 +1048,7 @@
     "new": true,
     "rating": 3,
     "saleCount": 90,
-    "category": ["plant"],
+    "category": [],
     "tag": ["plant"],
     "stock": 20,
     "image": [
@@ -1071,7 +1070,7 @@
     "new": false,
     "rating": 4,
     "saleCount": 100,
-    "category": ["plant"],
+    "category": [],
     "tag": ["plant"],
     "stock": 40,
     "image": [
@@ -1093,7 +1092,7 @@
     "new": true,
     "rating": 5,
     "saleCount": 120,
-    "category": ["plant"],
+    "category": [],
     "tag": ["plant"],
     "stock": 45,
     "image": [
@@ -1115,7 +1114,7 @@
     "new": false,
     "rating": 4,
     "saleCount": 20,
-    "category": ["plant"],
+    "category": [],
     "tag": ["plant"],
     "stock": 5,
     "image": [
@@ -1137,7 +1136,7 @@
     "new": true,
     "rating": 5,
     "saleCount": 25,
-    "category": ["plant"],
+    "category": [],
     "tag": ["plant"],
     "stock": 7,
     "image": [
@@ -1159,7 +1158,7 @@
     "new": true,
     "rating": 4,
     "saleCount": 15,
-    "category": ["plant"],
+    "category": [],
     "tag": ["plant"],
     "stock": 6,
     "image": [
@@ -1357,7 +1356,7 @@
     "new": true,
     "rating": 4,
     "saleCount": 15,
-    "category": ["electronics"],
+    "category": [],
     "tag": ["electronics"],
     "stock": 7,
     "image": [
@@ -1379,7 +1378,7 @@
     "new": false,
     "rating": 5,
     "saleCount": 5,
-    "category": ["electronics"],
+    "category": [],
     "tag": ["electronics"],
     "stock": 6,
     "image": [

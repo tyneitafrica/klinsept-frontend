@@ -1,16 +1,30 @@
 [
   {
     "id": 1,
-    "title": "Covid - 19 Collection",
-    "subtitle": "Medicine & PPE Stay Safe",
-    "image": "/assets/img/slider/slider-26.jpg",
-    "url": "/shop-grid-standard"
+    "title": "Antiseptics",
+    "subtitle": "kill microorganisms on your skin.",
+    "image": "/assets/img/slider/single-slide-hm1-2.png",
+    "url": "/products"
   },
   {
     "id": 2,
-    "title": "Covid - 19 Collection",
-    "subtitle": "Medicine & PPE Stay Safe",
-    "image": "/assets/img/slider/slider-27.jpg",
-    "url": "/shop-grid-standard"
+    "title": "Detergents",
+    "subtitle": "Washing and cleaning processes.",
+    "image": "/assets/img/slider/single-slide-1.png",
+    "url": "/products"
+  },
+  {
+    "id": 3,
+    "title": "Disinfectants",
+    "subtitle": "kill germs on nonliving surfaces.",
+    "image": "/assets/img/slider/single-slide-1.png",
+    "url": "/products"
+  },
+  {
+    "id": 4,
+    "title": "Handwash",
+    "subtitle": "Promotes hand hygiene,",
+    "image": "/assets/img/slider/single-slide-1.png",
+    "url": "/products"
   }
 ]

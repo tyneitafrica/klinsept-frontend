@@ -16,8 +16,8 @@ const FooterCopyright = ({ footerLogo, spaceBottomClass, colorClass }) => {
       </div>
       <p>
         © 2020{" "}
-        <a href="https://www.klinsept.com/" rel="noopener noreferrer" target="_blank">
-          Klinsept
+        <a href="//hasthemes.com" rel="noopener noreferrer" target="_blank">
+          Flone
         </a>
         .<br /> All Rights Reserved
       </p>

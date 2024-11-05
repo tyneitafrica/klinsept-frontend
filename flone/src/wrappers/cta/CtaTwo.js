@@ -26,7 +26,7 @@ const CtaTwo = ({ spaceTopClass, spaceBottomClass }) => {
               </p>
               <Link
                 className="cta-btn"
-                to={process.env.PUBLIC_URL + "/product"}
+                to={process.env.PUBLIC_URL + "/shop-grid-standard"}
               >
                 SHOP NOW
               </Link>

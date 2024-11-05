@@ -4,12 +4,6 @@ import { Link } from "react-router-dom";
 import { animateScroll } from "react-scroll";
 import FooterCopyright from "../../components/footer/FooterCopyright";
 import FooterNewsletter from "../../components/footer/FooterNewsletter";
-import {
-  FaXTwitter,
-  FaFacebookF,
-  FaInstagram,
-  FaYoutube,
-} from "react-icons/fa6";
 
 const FooterOne = ({
   backgroundColorClass,
@@ -19,7 +13,7 @@ const FooterOne = ({
   spaceRightClass,
   containerClass,
   extraFooterClass,
-  sideMenu,
+  sideMenu
 }) => {
   const [scroll, setScroll] = useState(0);
   const [top, setTop] = useState(0);
@@ -148,14 +142,13 @@ const FooterOne = ({
               </div>
               <div className="footer-list">
                 <ul>
-                  <li></li>
                   <li>
                     <a
                       href="//www.facebook.com"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <FaFacebookF size={25}/>
+                      Facebook
                     </a>
                   </li>
                   <li>
@@ -164,7 +157,7 @@ const FooterOne = ({
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <FaXTwitter size={25}/>
+                      Twitter
                     </a>
                   </li>
                   <li>
@@ -173,7 +166,7 @@ const FooterOne = ({
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <FaInstagram size={25}/>
+                      Instagram
                     </a>
                   </li>
                   <li>
@@ -182,7 +175,7 @@ const FooterOne = ({
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <FaYoutube size={30} />
+                      Youtube
                     </a>
                   </li>
                 </ul>
@@ -221,7 +214,7 @@ FooterOne.propTypes = {
   spaceBottomClass: PropTypes.string,
   spaceTopClass: PropTypes.string,
   spaceLeftClass: PropTypes.string,
-  spaceRightClass: PropTypes.string,
+  spaceRightClass: PropTypes.string
 };
 
 export default FooterOne;

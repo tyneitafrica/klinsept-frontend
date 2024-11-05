@@ -8,21 +8,39 @@ import { connect } from "react-redux";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
 
 // home pages
-const HomeFashion = lazy(() => import("./pages/home/HomeFashion"));
+const HomeMedicalEquipment = lazy(() =>
+  import("./pages/home/HomeMedicalEquipment")
+);
 
 // shop pages
 const ShopGridStandard = lazy(() => import("./pages/shop/ShopGridStandard"));
 
 // product pages
 const Product = lazy(() => import("./pages/shop-product/Product"));
+const ProductTabLeft = lazy(() =>
+  import("./pages/shop-product/ProductTabLeft")
+);
+const ProductTabRight = lazy(() =>
+  import("./pages/shop-product/ProductTabRight")
+);
+const ProductSticky = lazy(() => import("./pages/shop-product/ProductSticky"));
+const ProductSlider = lazy(() => import("./pages/shop-product/ProductSlider"));
+const ProductFixedImage = lazy(() =>
+  import("./pages/shop-product/ProductFixedImage")
+);
 
 // blog pages
 const BlogStandard = lazy(() => import("./pages/blog/BlogStandard"));
+const BlogNoSidebar = lazy(() => import("./pages/blog/BlogNoSidebar"));
+const BlogRightSidebar = lazy(() => import("./pages/blog/BlogRightSidebar"));
+const BlogDetailsStandard = lazy(() =>
+  import("./pages/blog/BlogDetailsStandard")
+);
 
 // other pages
 const About = lazy(() => import("./pages/other/About"));
 const Contact = lazy(() => import("./pages/other/Contact"));
-// const MyAccount = lazy(() => import("./pages/other/MyAccount"));
+const MyAccount = lazy(() => import("./pages/other/MyAccount"));
 const LoginRegister = lazy(() => import("./pages/other/LoginRegister"));
 
 const Cart = lazy(() => import("./pages/other/Cart"));
@@ -39,8 +57,8 @@ const App = (props) => {
         languages: {
           en: require("./translations/english.json"),
           fn: require("./translations/french.json"),
-          de: require("./translations/germany.json"),
-        },
+          de: require("./translations/germany.json")
+        }
       })
     );
   });
@@ -64,21 +82,21 @@ const App = (props) => {
                 <Route
                   exact
                   path={process.env.PUBLIC_URL + "/"}
-                  component={HomeFashion}
+                  component={HomeMedicalEquipment}
                 />
 
                 {/* Homepages */}
-                <Route
-                  path={process.env.PUBLIC_URL + "/home-fashion"}
-                  component={HomeFashion}
-                />
+                
+                {/* <Route
+                  path={process.env.PUBLIC_URL + "/home-medical-equipment"}
+                  component={HomeMedicalEquipment}
+                /> */}
 
                 {/* Shop pages */}
                 <Route
-                  path={process.env.PUBLIC_URL + "/products"}
+                  path={process.env.PUBLIC_URL + "/shop-grid-standard"}
                   component={ShopGridStandard}
                 />
-
                 {/* Shop product pages */}
                 <Route
                   path={process.env.PUBLIC_URL + "/product/:id"}
@@ -86,11 +104,43 @@ const App = (props) => {
                     <Product {...routeProps} key={routeProps.match.params.id} />
                   )}
                 />
+                <Route
+                  path={process.env.PUBLIC_URL + "/product-tab-left/:id"}
+                  component={ProductTabLeft}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/product-tab-right/:id"}
+                  component={ProductTabRight}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/product-sticky/:id"}
+                  component={ProductSticky}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/product-slider/:id"}
+                  component={ProductSlider}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/product-fixed-image/:id"}
+                  component={ProductFixedImage}
+                />
 
                 {/* Blog pages */}
                 <Route
                   path={process.env.PUBLIC_URL + "/blog-standard"}
                   component={BlogStandard}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/blog-no-sidebar"}
+                  component={BlogNoSidebar}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/blog-right-sidebar"}
+                  component={BlogRightSidebar}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/blog-details-standard"}
+                  component={BlogDetailsStandard}
                 />
 
                 {/* Other pages */}
@@ -101,6 +151,10 @@ const App = (props) => {
                 <Route
                   path={process.env.PUBLIC_URL + "/contact"}
                   component={Contact}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/my-account"}
+                  component={MyAccount}
                 />
                 <Route
                   path={process.env.PUBLIC_URL + "/login-register"}
@@ -124,6 +178,11 @@ const App = (props) => {
                   component={Checkout}
                 />
 
+                <Route
+                  path={process.env.PUBLIC_URL + "/not-found"}
+                  component={NotFound}
+                />
+
                 <Route exact component={NotFound} />
               </Switch>
             </Suspense>
@@ -135,7 +194,7 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  dispatch: PropTypes.func,
+  dispatch: PropTypes.func
 };
 
 export default connect()(multilanguage(App));

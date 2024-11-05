@@ -15,15 +15,16 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
       <nav>
         <ul>
           <li>
-            <Link to={process.env.PUBLIC_URL + "/home-fashion"}>
+            <Link to={process.env.PUBLIC_URL + "/"}>
               {strings["home"]}
             </Link>
+
           </li>
           <li>
-            <Link to={process.env.PUBLIC_URL + "/products"}>
+            <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
               {" "}
-              {strings[""]}products
-
+              {strings["shop"]}
+             
             </Link>
 
           </li>
@@ -75,13 +76,42 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
                   {strings["contact_us"]}
                 </Link>
               </li>
+
             </ul>
           </li>
           <li>
             <Link to={process.env.PUBLIC_URL + "/blog-standard"}>
               {strings["blog"]}
-
+              {sidebarMenu ? (
+                <span>
+                  <i className="fa fa-angle-right"></i>
+                </span>
+              ) : (
+                <i className="fa fa-angle-down" />
+              )}
             </Link>
+            <ul className="submenu">
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/blog-standard"}>
+                  {strings["blog_standard"]}
+                </Link>
+              </li>
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/blog-no-sidebar"}>
+                  {strings["blog_no_sidebar"]}
+                </Link>
+              </li>
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/blog-right-sidebar"}>
+                  {strings["blog_right_sidebar"]}
+                </Link>
+              </li>
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/blog-details-standard"}>
+                  {strings["blog_details_standard"]}
+                </Link>
+              </li>
+            </ul>
           </li>
           <li>
             <Link to={process.env.PUBLIC_URL + "/contact"}>
@@ -97,7 +127,7 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
 NavMenu.propTypes = {
   menuWhiteClass: PropTypes.string,
   sidebarMenu: PropTypes.bool,
-  strings: PropTypes.object,
+  strings: PropTypes.object
 };
 
 export default multilanguage(NavMenu);
