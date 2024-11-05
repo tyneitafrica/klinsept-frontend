@@ -36,7 +36,7 @@ const HomeMedicalEquipment = () => {
         {/* banner */}
         <BannerTwentySix spaceBottomClass="pb-70" />
         {/* product slider */}
-        <ProductSlider category="medical" />
+        <ProductSlider category="handwash" />
         {/* blog */}
         <BlogFeaturedFour spaceBottomClass="pb-55" spaceTopClass="pt-95" />
         {/* contact */}

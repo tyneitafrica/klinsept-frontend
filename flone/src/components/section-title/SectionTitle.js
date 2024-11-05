@@ -16,9 +16,11 @@ const SectionTitle = ({
       } ${borderClass ? borderClass : ""}`}
     >
       <h2>{titleText}</h2>
-      <p className={subtitleColorClass ? subtitleColorClass : ""}>
-        {subtitleText}
-      </p>
+      {subtitleText && ( // Only render the subtitle if subtitleText is provided
+        <p className={subtitleColorClass ? subtitleColorClass : ""}>
+          {subtitleText}
+        </p>
+      )}
     </div>
   );
 };

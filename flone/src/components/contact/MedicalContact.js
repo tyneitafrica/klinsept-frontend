@@ -14,7 +14,7 @@ const MedicalContact = () => {
         <div className="row align-items-center">
           <div className="col-lg-6 col-md-5">
             <div className="medical-contact-text">
-              <h3>Please Call </h3>
+              <h3>Call here for</h3>
               <h2>Emergency Order</h2>
             </div>
           </div>
@@ -43,7 +43,7 @@ const MedicalContact = () => {
                     />
                   </div>
                   <div className="medical-contact-number">
-                    <h2>+88 254 254 123</h2>
+                    <h2>+257 79 07 61 98</h2>
                   </div>
                 </div>
               </div>

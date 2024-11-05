@@ -11,18 +11,18 @@ const ProductSlider = ({ spaceBottomClass, category }) => {
     grabCursor: true,
     breakpoints: {
       1024: {
-        slidesPerView: 4
+        slidesPerView: 4,
       },
       768: {
-        slidesPerView: 3
+        slidesPerView: 3,
       },
       640: {
-        slidesPerView: 2
+        slidesPerView: 2,
       },
       320: {
-        slidesPerView: 1
-      }
-    }
+        slidesPerView: 1,
+      },
+    },
   };
 
   return (
@@ -34,10 +34,13 @@ const ProductSlider = ({ spaceBottomClass, category }) => {
       <div className="container">
         <SectionTitle
           titleText="Top Products"
+          subtitleText="Discover our most popular items"
+          subtitleColorClass="text-dark" 
           positionClass="text-center"
           spaceClass="mb-55"
           borderClass="no-border"
         />
+
         <div className="row">
           <Swiper {...settings}>
             <ProductGridTwo
@@ -55,7 +58,7 @@ const ProductSlider = ({ spaceBottomClass, category }) => {
 
 ProductSlider.propTypes = {
   category: PropTypes.string,
-  spaceBottomClass: PropTypes.string
+  spaceBottomClass: PropTypes.string,
 };
 
 export default ProductSlider;
