@@ -1,0 +1,5 @@
+Date   : 11 November, 2020
+Version: 2.0 
+========================
+1. React version updated to 17.0.1
+2. "node-sass" plugin replaced with "sass"
