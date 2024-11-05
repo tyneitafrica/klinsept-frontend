@@ -32,7 +32,7 @@ const HomeMedicalEquipment = () => {
         {/* feature icon */}
         <FeatureIconFive spaceBottomClass="pb-100" />
         {/* tab product */}
-        <TabProductSixteen spaceBottomClass="pb-70" category="medical" />
+        <TabProductSixteen spaceBottomClass="pb-70" category="detergents" />
         {/* banner */}
         <BannerTwentySix spaceBottomClass="pb-70" />
         {/* product slider */}
