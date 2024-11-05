@@ -14,7 +14,7 @@ const HomeMedicalEquipment = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Medical Equipment Home</title>
+        <title>Klinsept | Home</title>
         <meta
           name="description"
           content="Medical Equipment home of flone react minimalist eCommerce template."

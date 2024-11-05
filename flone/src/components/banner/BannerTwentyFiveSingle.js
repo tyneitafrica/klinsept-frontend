@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
 
-const BannerTwentyFourSingle = ({ data, spaceBottomClass }) => {
+const BannerTwentyFiveSingle = ({ data, spaceBottomClass }) => {
   return (
     <div className="col-lg-4">
       <div
@@ -25,9 +25,9 @@ const BannerTwentyFourSingle = ({ data, spaceBottomClass }) => {
   );
 };
 
-BannerTwentyFourSingle.propTypes = {
+BannerTwentyFiveSingle.propTypes = {
   data: PropTypes.object,
   spaceBottomClass: PropTypes.string
 };
 
-export default BannerTwentyFourSingle;
+export default BannerTwentyFiveSingle;

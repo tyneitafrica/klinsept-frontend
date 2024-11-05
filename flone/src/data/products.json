@@ -260,13 +260,13 @@
   {
     "id": "4",
     "sku": "asdf126",
-    "name": "Lorem ipsum fashion coat",
+    "name": "antiseptics 1",
     "price": 15.5,
     "discount": 0,
     "new": true,
     "rating": 4,
     "saleCount": 20,
-    "category": ["fashion"],
+    "category": ["antiseptics"],
     "tag": ["fashion", "women", "coat", "full sleeve"],
     "variation": [
       {
@@ -3600,14 +3600,14 @@
   {
     "id": "124",
     "sku": "asdf238",
-    "name": "Lorem ipsum medical one",
+    "name": "antiseptics 2",
     "price": 6.4,
     "discount": 0,
     "new": false,
     "rating": 5,
     "saleCount": 10,
-    "category": ["medical"],
-    "tag": ["medical"],
+    "category": ["antiseptics"],
+    "tag": ["antiseptics"],
     "stock": 20,
     "image": [
       "/assets/img/product/medical/1.jpg",
