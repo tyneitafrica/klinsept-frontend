@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import MetaTags from "react-meta-tags";
 import { Link } from "react-router-dom";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
@@ -7,9 +7,28 @@ import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import { useLocation } from "react-router-dom";
 
-const LoginRegister = ({ location }) => {
-  const { pathname } = location;
+const LoginRegister = () => {
+  const { pathname } = useLocation();
+  const [loginData, setLoginData] = useState({ username: "", password: "" });
+  const [registerData, setRegisterData] = useState({
+    username: "",
+    password: "",
+    email: ""
+  });
+
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+    console.log("Login submitted with:", loginData);
+    // You can add more logic for login submission here
+  };
+
+  const handleRegisterSubmit = (e) => {
+    e.preventDefault();
+    console.log("Register submitted with:", registerData);
+    // You can add more logic for registration submission here
+  };
 
   return (
     <Fragment>
@@ -49,16 +68,30 @@ const LoginRegister = ({ location }) => {
                       <Tab.Pane eventKey="login">
                         <div className="login-form-container">
                           <div className="login-register-form">
-                            <form>
+                            <form onSubmit={handleLoginSubmit}>
                               <input
                                 type="text"
                                 name="user-name"
                                 placeholder="Username"
+                                value={loginData.username}
+                                onChange={(e) =>
+                                  setLoginData({
+                                    ...loginData,
+                                    username: e.target.value
+                                  })
+                                }
                               />
                               <input
                                 type="password"
                                 name="user-password"
                                 placeholder="Password"
+                                value={loginData.password}
+                                onChange={(e) =>
+                                  setLoginData({
+                                    ...loginData,
+                                    password: e.target.value
+                                  })
+                                }
                               />
                               <div className="button-box">
                                 <div className="login-toggle-btn">
@@ -79,21 +112,42 @@ const LoginRegister = ({ location }) => {
                       <Tab.Pane eventKey="register">
                         <div className="login-form-container">
                           <div className="login-register-form">
-                            <form>
+                            <form onSubmit={handleRegisterSubmit}>
                               <input
                                 type="text"
                                 name="user-name"
                                 placeholder="Username"
+                                value={registerData.username}
+                                onChange={(e) =>
+                                  setRegisterData({
+                                    ...registerData,
+                                    username: e.target.value
+                                  })
+                                }
                               />
                               <input
                                 type="password"
                                 name="user-password"
                                 placeholder="Password"
+                                value={registerData.password}
+                                onChange={(e) =>
+                                  setRegisterData({
+                                    ...registerData,
+                                    password: e.target.value
+                                  })
+                                }
                               />
                               <input
                                 name="user-email"
                                 placeholder="Email"
                                 type="email"
+                                value={registerData.email}
+                                onChange={(e) =>
+                                  setRegisterData({
+                                    ...registerData,
+                                    email: e.target.value
+                                  })
+                                }
                               />
                               <div className="button-box">
                                 <button type="submit">

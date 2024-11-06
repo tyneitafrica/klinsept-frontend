@@ -15,7 +15,7 @@ import {
 } from "../../redux/actions/cartActions";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-
+import { useLocation } from "react-router-dom";
 const Cart = ({
   location,
   cartItems,
@@ -27,7 +27,7 @@ const Cart = ({
 }) => {
   const [quantityCount] = useState(1);
   const { addToast } = useToasts();
-  const { pathname } = location;
+  const { pathname } = useLocation();
   let cartTotalPrice = 0;
 
   return (
