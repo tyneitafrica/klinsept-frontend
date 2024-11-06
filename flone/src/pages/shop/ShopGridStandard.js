@@ -10,8 +10,9 @@ import Breadcrumb from '../../wrappers/breadcrumb/Breadcrumb';
 import ShopSidebar from '../../wrappers/product/ShopSidebar';
 import ShopTopbar from '../../wrappers/product/ShopTopbar';
 import ShopProducts from '../../wrappers/product/ShopProducts';
+import { useLocation } from "react-router-dom";
 
-const ShopGridStandard = ({location, products}) => {
+const ShopGridStandard = ({ products}) => {
     const [layout, setLayout] = useState('grid three-column');
     const [sortType, setSortType] = useState('');
     const [sortValue, setSortValue] = useState('');
@@ -21,6 +22,7 @@ const ShopGridStandard = ({location, products}) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [currentData, setCurrentData] = useState([]);
     const [sortedProducts, setSortedProducts] = useState([]);
+    const location = useLocation(); // Use useLocation to get the location object
 
     const pageLimit = 15;
     const {pathname} = location;

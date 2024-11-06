@@ -2,12 +2,10 @@ import React from "react";
 import bannerData from "../../data/banner/banner-twenty-five.json";
 import BannerTwentyFiveSingle from "../../components/banner/BannerTwentyFiveSingle.js";
 
-const BannerTwentyFive = ({ spaceTopClass, spaceBottomClass }) => {
+const BannerTwentyFive = () => {
   return (
     <div
-      className={`banner-area hm9-section-padding ${
-        spaceTopClass ? spaceTopClass : ""
-      }  ${spaceBottomClass ? spaceBottomClass : ""}`}
+      className={`banner-area hm9-section-padding pb-60  pb-70`}
     >
       <div className="container-fluid">
         <div className="row">
@@ -17,7 +15,6 @@ const BannerTwentyFive = ({ spaceTopClass, spaceBottomClass }) => {
                 <BannerTwentyFiveSingle
                   data={single}
                   key={key}
-                  spaceBottomClass="mb-30"
                 />
               );
             })}

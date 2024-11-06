@@ -15,7 +15,7 @@ const MedicalContact = () => {
           <div className="col-lg-6 col-md-5">
             <div className="medical-contact-text">
               <h3>Call here for</h3>
-              <h2>Emergency Order</h2>
+              <h2>Urgent Order</h2>
             </div>
           </div>
           <div className="col-lg-6 col-md-7">

@@ -1,25 +1,33 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
+import "../../assets/css/BannerTwentyFiveSingle.css";  // Make sure the correct path
 
-const BannerTwentyFiveSingle = ({ data, spaceBottomClass }) => {
+const BannerTwentyFiveSingle = ({ data }) => {
   return (
-    <div className="col-lg-4">
-      <div
-        className={`single-banner ${spaceBottomClass ? spaceBottomClass : ""}`}
-      >
+    <div className="whole col-lg-4 col-md-6 col-sm-12 mb-4">
+      <div className="single-banner mb-30 mt-30 p-30">
         <Link to={process.env.PUBLIC_URL + data.link}>
-          <img src={process.env.PUBLIC_URL + data.image} alt="" />
-        </Link>
-        <div>
-          <div className="banner-content-33">
-            <h3>{data.title}</h3>
-            <h2 dangerouslySetInnerHTML={{ __html: data.subtitle }} />
+          <div className="banner-image-container">
+            <img 
+              src={process.env.PUBLIC_URL + data.image} 
+              alt="" 
+              className="img-fluid rounded banner-image" 
+            />
+            <div className="overlay"></div> {/* Dark overlay on hover */}
           </div>
-          <div className="banner-33-offer">
-            <h2>{data.text}</h2>
+        </Link>
+        
+        <div className="mt-3">
+          <div className="banner-content-33 text-center">
+            <h1 className="">{data.title}</h1>
+            <h2 className="">{data.subtitle}</h2>
+          </div>
+          <div className="banner-33-offer text-center">
+            <h2 className="h6 font-weight-bold">{data.text}</h2>
           </div>
         </div>
+        
       </div>
     </div>
   );
@@ -27,7 +35,6 @@ const BannerTwentyFiveSingle = ({ data, spaceBottomClass }) => {
 
 BannerTwentyFiveSingle.propTypes = {
   data: PropTypes.object,
-  spaceBottomClass: PropTypes.string
 };
 
 export default BannerTwentyFiveSingle;

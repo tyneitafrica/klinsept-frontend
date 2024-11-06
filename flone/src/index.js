@@ -12,6 +12,7 @@ import products from "./data/products.json";
 import App from "./App";
 import "./assets/scss/style.scss";
 import * as serviceWorker from "./serviceWorker";
+import '../src/assets/css/index.css'
 
 import { composeWithDevTools } from "redux-devtools-extension";
 

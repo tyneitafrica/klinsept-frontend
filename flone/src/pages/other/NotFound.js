@@ -5,8 +5,10 @@ import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import { useLocation } from "react-router-dom";
+const NotFound = () => {
+  const location = useLocation(); // Use useLocation to get the location object
 
-const NotFound = ({ location }) => {
   const { pathname } = location;
 
   return (

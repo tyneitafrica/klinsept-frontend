@@ -1,0 +1,49 @@
+/* Banner card styles */
+.single-banner {
+    position: relative;
+    overflow: hidden;
+    /* height: 100%; Ensure consistent height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .single-banner img {
+    width: 100%;
+    height: auto; 
+  }
+  
+  .banner-card {
+    max-height: 450px; /* Limit the height for consistent card size */
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .banner-content-33-2 {
+    position: absolute;
+    bottom: 10%;
+    left: 10%;
+    right: 10%;
+    color: white;
+    /* background-color: rgba(0, 0, 0, 0.5); Semi-transparent background */
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .banner-content-33-2 h2 {
+    margin: 10px 0;
+    font-size: 1.5rem;
+  }
+  
+  .banner-content-33-2 h4 {
+    margin: 5px 0;
+    font-size: 1.2rem;
+  }
+  
+
+  
+  .banner-content-33-2 a:hover {
+    background-color: #e55e4b; /* Darker shade on hover */
+  }
+  

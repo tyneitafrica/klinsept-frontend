@@ -2,10 +2,31 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
 import SectionTitle from "../../components/section-title/SectionTitle";
-
-const BannerTwentySix = ({ spaceBottomClass }) => {
+import '../../assets/css/banner.css'
+const BannerTwentySix = () => {
   // Define banner data as an array of objects
   const banners = [
+    {
+      image: `${process.env.PUBLIC_URL}/assets/img/banner/banner-4.jpg`,
+      title: "Covid - 19",
+      subtitle: "Medix Mask",
+      discount: "Up To 40% Off",
+      link: "/shop-grid-standard",
+    },
+    {
+      image: `${process.env.PUBLIC_URL}/assets/img/banner/banner-7.jpg`,
+      title: "",
+      subtitle: "Hand Gloves",
+      discount: "Up To 30% Off",
+      link: "/shop-grid-standard",
+    },
+    {
+      image: `${process.env.PUBLIC_URL}/assets/img/banner/banner-3.jpg`,
+      title: "Covid - 19",
+      subtitle: "Hand Sanitizer",
+      discount: "Up To 40% Off",
+      link: "/shop-grid-standard",
+    },
     {
       image: `${process.env.PUBLIC_URL}/assets/img/banner/banner-4.jpg`,
       title: "Covid - 19",
@@ -30,7 +51,7 @@ const BannerTwentySix = ({ spaceBottomClass }) => {
   ];
 
   return (
-    <div className={`banner-area ${spaceBottomClass ? spaceBottomClass : ""}`}>
+    <div className={`banner-area pb-70`}>
       {/* Section Title */}
       <SectionTitle
         titleText="Gallery section"
@@ -43,17 +64,16 @@ const BannerTwentySix = ({ spaceBottomClass }) => {
         <div className="row no-gutters">
           {banners.map((banner, index) => (
             <div
-              className={`col-width-banner33-${index % 2 === 0 ? "1" : "2"}`}
+              className={`col-md-4 mb-4`} // Bootstrap grid: 3 columns for medium screens
               key={index}
             >
-              <div className="single-banner mb-30">
+              <div className="single-banner mb-30 banner-card">
                 <a href="product-details.html">
-                  <img src={banner.image} alt="" />
+                  {/* Add Bootstrap img-fluid for responsiveness */}
+                  <img src={banner.image} alt="" className="img-fluid" />
                 </a>
                 <div
-                  className={`banner-content-33-2 banner-content-33-2-position${
-                    index + 1
-                  }`}
+                  className={`banner-content-33-2 banner-content-33-2`}
                 >
                   {banner.title && <h4>{banner.title}</h4>}
                   <h2>

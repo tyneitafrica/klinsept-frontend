@@ -4,17 +4,15 @@ import blogFeaturedData from "../../data/blog-featured/blog-featured-two.json";
 import BlogFeaturedSingle from "../../components/blog-featured/BlogFeaturedSingle";
 import SectionTitle from "../../components/section-title/SectionTitle";
 
-const BlogFeaturedFour = ({ spaceTopClass, spaceBottomClass }) => {
+const BlogFeaturedFour = () => {
   return (
     <div
-      className={`blog-area ${spaceTopClass ? spaceTopClass : ""} ${
-        spaceBottomClass ? spaceBottomClass : ""
-      }`}
+      className={`blog-area pt-95 pb-55`}
     >
       <div className="container">
         <SectionTitle
           titleText="Latest News"
-          subtitleText="But I must explain to you how all this mistaken idea of denouncing."
+          subtitleText="Stay updated with the most recent developments and insights."
           positionClass="text-center"
           spaceClass="mb-55"
           borderClass="no-border"

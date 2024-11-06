@@ -6,6 +6,7 @@ import BannerTwentyFive from "../../wrappers/banner/BannerTwentyFive";
 import FeatureIconFive from "../../wrappers/feature-icon/FeatureIconFive";
 import TabProductSixteen from "../../wrappers/product/TabProductSixteen";
 import BlogFeaturedFour from "../../wrappers/blog-featured/BlogFeaturedFour";
+import TestimonialThree from "../../wrappers/testimonial/TestimonialThree";
 import MedicalContact from "../../components/contact/MedicalContact";
 import BannerTwentySix from "../../wrappers/banner/BannerTwentySix";
 import ProductSlider from "../../wrappers/product/ProductSlider";
@@ -28,17 +29,20 @@ const HomeMedicalEquipment = () => {
         {/* hero slider */}
         <HeroSliderTwentyFive />
         {/* banner */}
-        <BannerTwentyFive spaceTopClass="pt-60" spaceBottomClass="pb-70" />
-        {/* feature icon */}
+        <BannerTwentyFive  />
+        {/* Good Services */}
         <FeatureIconFive spaceBottomClass="pb-100" />
-        {/* tab product */}
+        {/* Our product */}
         <TabProductSixteen spaceBottomClass="pb-70" category="detergents" />
-        {/* banner */}
-        <BannerTwentySix spaceBottomClass="pb-70" />
+        {/* gallery */}
+        <BannerTwentySix  />
         {/* product slider */}
         <ProductSlider category="handwash" />
         {/* blog */}
-        <BlogFeaturedFour spaceBottomClass="pb-55" spaceTopClass="pt-95" />
+        <BlogFeaturedFour />
+        {/* testimonials */}
+
+        <TestimonialThree />  
         {/* contact */}
         <MedicalContact />
       </LayoutOne>
