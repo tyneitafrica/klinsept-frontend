@@ -22,7 +22,7 @@ const ShopGridStandard = ({ products}) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [currentData, setCurrentData] = useState([]);
     const [sortedProducts, setSortedProducts] = useState([]);
-    const location = useLocation(); // Use useLocation to get the location object
+    const location = useLocation(); 
 
     const pageLimit = 15;
     const {pathname} = location;

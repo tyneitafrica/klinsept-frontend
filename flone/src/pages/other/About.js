@@ -10,9 +10,10 @@ import TextGridOne from "../../wrappers/text-grid/TextGridOne";
 import FunFactOne from "../../wrappers/fun-fact/FunFactOne";
 import TeamMemberOne from "../../wrappers/team-member/TeamMemberOne";
 import BrandLogoSliderOne from "../../wrappers/brand-logo/BrandLogoSliderOne";
+import { useLocation } from "react-router-dom";
 
-const About = ({ location }) => {
-  const { pathname } = location;
+const About = () => {
+  const  pathname  = useLocation();
 
   return (
     <Fragment>

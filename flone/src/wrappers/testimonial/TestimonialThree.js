@@ -4,21 +4,23 @@ import Swiper from "react-id-swiper";
 import testimonialData from "../../data/testimonial/testimonial-three.json";
 
 const TestimonialThree = () => {
-  // swiper slider settings
+  // Swiper slider settings
   const settings = {
     slidesPerView: 1,
     loop: true,
     autoplay: {
       delay: 5000,
-      disableOnInteraction: false
-    }
+      disableOnInteraction: false,
+    },
   };
 
   return (
     <div
       className="testimonial-area bg-img mt-195"
       style={{
-        backgroundImage: `url(${process.env.PUBLIC_URL + "/assets/img/bg/testimonial-bg-2.jpg"})`
+        backgroundImage: `url(${
+          process.env.PUBLIC_URL + "/assets/img/bg/testimonial-bg-2.jpg"
+        })`,
       }}
     >
       <div className="container p-5">
@@ -45,11 +47,17 @@ const TestimonialThree = () => {
           </div>
           <div className="col-lg-6 col-md-5">
             <div className="testimonial-img-2">
-              <img
-                className="wow fadeInUp"
-                src={process.env.PUBLIC_URL + "/assets/img/testimonial/testi-2.png"}
-                alt="Testimonial"
-              />
+              <Swiper {...settings}>
+                {testimonialData &&
+                  testimonialData.map((single, key) => (
+                    <img
+                      key={key}
+                      className="wow fadeInUp"
+                      src={process.env.PUBLIC_URL + single.image}
+                      alt="Testimonial"
+                    />
+                  ))}
+              </Swiper>
             </div>
           </div>
         </div>
@@ -58,9 +66,9 @@ const TestimonialThree = () => {
   );
 };
 
-// Prop validation (optional, but good for ensuring correct data is passed)
+// Prop validation
 TestimonialThree.propTypes = {
-  testimonialData: PropTypes.array
+  testimonialData: PropTypes.array,
 };
 
 export default TestimonialThree;

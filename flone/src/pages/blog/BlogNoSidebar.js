@@ -6,9 +6,10 @@ import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import BlogPagination from "../../wrappers/blog/BlogPagination";
 import BlogPostsNoSidebar from "../../wrappers/blog/BlogPostsNoSidebar";
+import { useLocation } from "react-router-dom";
 
 const BlogNoSidebar = ({ location }) => {
-  const { pathname } = location;
+  const  pathname  = useLocation();
 
   return (
     <Fragment>

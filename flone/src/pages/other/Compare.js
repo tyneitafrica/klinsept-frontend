@@ -11,17 +11,17 @@ import { getDiscountPrice } from "../../helpers/product";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import Rating from "../../components/product/sub-components/ProductRating";
+import { useLocation } from "react-router-dom";
 
 const Compare = ({
-  location,
   cartItems,
   compareItems,
   addToCart,
   deleteFromCompare,
   currency
 }) => {
-  const { pathname } = location;
   const { addToast } = useToasts();
+  const  pathname  = useLocation();
 
   return (
     <Fragment>
