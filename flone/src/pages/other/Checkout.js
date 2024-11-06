@@ -7,9 +7,10 @@ import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import { getDiscountPrice } from "../../helpers/product";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import { useLocation } from "react-router-dom";
 
-const Checkout = ({ location, cartItems, currency }) => {
-  const { pathname } = location;
+const Checkout = ({  cartItems, currency }) => {
+  const { pathname } = useLocation();
   let cartTotalPrice = 0;
 
   return (
