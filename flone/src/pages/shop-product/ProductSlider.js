@@ -8,9 +8,10 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import RelatedProductSlider from "../../wrappers/product/RelatedProductSlider";
 import ProductDescriptionTab from "../../wrappers/product/ProductDescriptionTab";
 import ProductImageDescriptionSlider from "../../wrappers/product/ProductImageDescriptionSlider";
+import { useLocation } from "react-router-dom";
 
 const ProductSlider = ({ location, product }) => {
-  const { pathname } = location;
+  const { pathname } = useLocation();
 
   return (
     <Fragment>

@@ -8,9 +8,14 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import RelatedProductSlider from "../../wrappers/product/RelatedProductSlider";
 import ProductDescriptionTab from "../../wrappers/product/ProductDescriptionTab";
 import ProductImageDescription from "../../wrappers/product/ProductImageDescription";
+import { useLocation, useParams } from "react-router-dom";
 
-const Product = ({ location, product }) => {
-  const { pathname } = location;
+const Product = ({ products }) => {
+  const { id } = useParams(); // Get the product id from the route
+  const { pathname } = useLocation();
+
+  // Find the product based on the id
+  const product = products.find(single => single.id === id);
 
   return (
     <Fragment>
@@ -18,7 +23,7 @@ const Product = ({ location, product }) => {
         <title> | Product Page</title>
         <meta
           name="description"
-          content="Product page of  react minimalist eCommerce template."
+          content="Product page of react minimalist eCommerce template."
         />
       </MetaTags>
 
@@ -32,40 +37,40 @@ const Product = ({ location, product }) => {
         <Breadcrumb />
 
         {/* product description with image */}
-        <ProductImageDescription
-          spaceTopClass="pt-100"
-          spaceBottomClass="pb-100"
-          product={product}
-        />
+        {product ? (
+          <>
+            <ProductImageDescription
+              spaceTopClass="pt-100"
+              spaceBottomClass="pb-100"
+              product={product}
+            />
 
-        {/* product description tab */}
-        <ProductDescriptionTab
-          spaceBottomClass="pb-90"
-          productFullDesc={product.fullDescription}
-        />
+            {/* product description tab */}
+            <ProductDescriptionTab
+              spaceBottomClass="pb-90"
+              productFullDesc={product.fullDescription}
+            />
 
-        {/* related product slider */}
-        <RelatedProductSlider
-          spaceBottomClass="pb-95"
-          category={product.category[0]}
-        />
+            {/* related product slider */}
+            <RelatedProductSlider
+              spaceBottomClass="pb-95"
+              category={product.category[0]}
+            />
+          </>
+        ) : (
+          <p>Product not found</p>
+        )}
       </LayoutOne>
     </Fragment>
   );
 };
 
 Product.propTypes = {
-  location: PropTypes.object,
-  product: PropTypes.object
+  products: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = (state, ownProps) => {
-  const itemId = ownProps.match.params.id;
-  return {
-    product: state.productData.products.filter(
-      single => single.id === itemId
-    )[0]
-  };
-};
+const mapStateToProps = (state) => ({
+  products: state.productData.products,
+});
 
 export default connect(mapStateToProps)(Product);
