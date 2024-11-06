@@ -52,10 +52,10 @@ const Register = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Register</title>
+        <title> | Register</title>
         <meta
           name="description"
-          content="Register page of Flone eCommerce template."
+          content="Register page of  eCommerce template."
         />
       </MetaTags>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>

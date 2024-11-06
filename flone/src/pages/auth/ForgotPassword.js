@@ -29,10 +29,10 @@ const ForgotPassword = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Forgot </title>
+        <title>Klinsept | Forgot </title>
         <meta
           name="description"
-          content="Login page of Flone eCommerce template."
+          content="Login page of Klinsept eCommerce template."
         />
       </MetaTags>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>

@@ -21,7 +21,7 @@ const About = () => {
         <title>Klinsept | About us</title>
         <meta
           name="description"
-          content="About page of flone react minimalist eCommerce template."
+          content="About page of  react minimalist eCommerce template."
         />
       </MetaTags>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>

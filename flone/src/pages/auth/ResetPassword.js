@@ -46,10 +46,10 @@ const ResetPassword = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Reset Password</title>
+        <title> | Reset Password</title>
         <meta
           name="description"
-          content="Reset password page of Flone eCommerce template."
+          content="Reset password page of  eCommerce template."
         />
       </MetaTags>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>

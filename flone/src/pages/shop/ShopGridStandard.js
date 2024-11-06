@@ -53,7 +53,7 @@ const ShopGridStandard = ({ products}) => {
         <Fragment>
             <MetaTags>
                 <title>Klinsept</title>
-                <meta name="description" content="Shop page of flone react minimalist eCommerce template." />
+                <meta name="description" content="Shop page of  react minimalist eCommerce template." />
             </MetaTags>
 
             <BreadcrumbsItem to={process.env.PUBLIC_URL + '/'}>Home</BreadcrumbsItem>

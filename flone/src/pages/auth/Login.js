@@ -42,10 +42,10 @@ const Login = () => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Login</title>
+        <title>Klinsept | Login</title>
         <meta
           name="description"
-          content="Login page of Flone eCommerce template."
+          content="Login page of Klinsept eCommerce template."
         />
       </MetaTags>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
