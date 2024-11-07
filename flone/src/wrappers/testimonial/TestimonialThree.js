@@ -16,12 +16,7 @@ const TestimonialThree = () => {
 
   return (
     <div
-      className="testimonial-area bg-img mt-195"
-      style={{
-        backgroundImage: `url(${
-          process.env.PUBLIC_URL + "/assets/img/bg/testimonial-bg-2.jpg"
-        })`,
-      }}
+      className="testimonial-area mt-195"
     >
       <div className="container p-5">
         <div className="row align-items-center">

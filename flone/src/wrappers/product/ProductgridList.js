@@ -24,7 +24,6 @@ const ProductGrid = ({
         return (
           <ProductGridListSingle
             sliderClassName={sliderClassName}
-            spaceBottomClass={spaceBottomClass}
             product={product}
             currency={currency}
             addToCart={addToCart}

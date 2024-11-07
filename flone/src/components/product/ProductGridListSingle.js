@@ -15,8 +15,7 @@ const ProductGridListSingle = ({
   cartItem,
   wishlistItem,
   compareItem,
-  sliderClassName,
-  spaceBottomClass
+  sliderClassName
 }) => {
   const [modalShow, setModalShow] = useState(false);
   const { addToast } = useToasts();
@@ -35,7 +34,7 @@ const ProductGridListSingle = ({
         }`}
       >
         <div
-          className={`product-wrap ${spaceBottomClass ? spaceBottomClass : ""}`}
+          className={`product-wrap mb-25`}
         >
           <div className="product-img">
             <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>

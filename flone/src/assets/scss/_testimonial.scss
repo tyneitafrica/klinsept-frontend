@@ -79,11 +79,16 @@
 }
 
 .testimonial-area {
+  // Remove or comment out any background image settings here if they exist
+  // background-image: url('/assets/img/bg/testimonial-bg-2.jpg');
+
+  background-color: #000000; // Replace with the color you want
+
   &:hover .nav-style-1.owl-carousel > .owl-nav div {
     visibility: visible;
-
     opacity: 1;
   }
+  
   &.ml-70 {
     @media #{$xl-layout} {
       margin-left: 15px;
@@ -101,6 +106,7 @@
       margin-left: 30px;
     }
   }
+  
   &.mr-70 {
     @media #{$xl-layout} {
       margin-right: 15px;
@@ -118,6 +124,7 @@
       margin-right: 30px;
     }
   }
+  
   @media #{$lg-layout} {
     &.mt-195 {
       margin-top: 125px;
@@ -140,7 +147,15 @@
 .testimonial-img-2 {
   overflow: hidden;
 
-  margin-top: -197px;
+  // Define a fixed width and height for the container
+  // width: 150px; 
+  height: 200px; // Adjust as needed
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  // Responsive adjustments for different screen sizes
   @media #{$lg-layout} {
     margin-top: -130px;
   }
@@ -150,10 +165,17 @@
   @media #{$xs-layout} {
     margin-top: 30px;
   }
-  img {
-    width: 100%;
-  }
+  
+    // Ensure the images have the same size and are responsive
+    img {
+      width: 100%; 
+      height: 100%;
+      object-fit: cover; 
+      // border-radius: 50%; 
+    }
+  
 }
+
 
 .single-testimonial-2 {
   img {
@@ -208,6 +230,12 @@
 }
 
 .testimonial-active-2 {
+    width: 100%; 
+  .swiper-slide {
+    // display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .owl-dots {
     margin: 15px 0 0;
 

@@ -17,17 +17,6 @@ const ShopGridStandard = lazy(() => import("./pages/shop/ShopGridStandard"));
 
 // product pages
 const Product = lazy(() => import("./pages/shop-product/Product"));
-const ProductTabLeft = lazy(() =>
-  import("./pages/shop-product/ProductTabLeft")
-);
-const ProductTabRight = lazy(() =>
-  import("./pages/shop-product/ProductTabRight")
-);
-const ProductSticky = lazy(() => import("./pages/shop-product/ProductSticky"));
-const ProductSlider = lazy(() => import("./pages/shop-product/ProductSlider"));
-const ProductFixedImage = lazy(() =>
-  import("./pages/shop-product/ProductFixedImage")
-);
 
 // blog pages
 const BlogNoSidebar = lazy(() => import("./pages/blog/BlogNoSidebar"));
@@ -91,26 +80,7 @@ const App = (props) => {
                   path={process.env.PUBLIC_URL + "/product/:id"}
                   element={<Product />}
                 />
-                <Route
-                  path={process.env.PUBLIC_URL + "/product-tab-left/:id"}
-                  element={<ProductTabLeft />}
-                />
-                <Route
-                  path={process.env.PUBLIC_URL + "/product-tab-right/:id"}
-                  element={<ProductTabRight />}
-                />
-                <Route
-                  path={process.env.PUBLIC_URL + "/product-sticky/:id"}
-                  element={<ProductSticky />}
-                />
-                <Route
-                  path={process.env.PUBLIC_URL + "/product-slider/:id"}
-                  element={<ProductSlider />}
-                />
-                <Route
-                  path={process.env.PUBLIC_URL + "/product-fixed-image/:id"}
-                  element={<ProductFixedImage />}
-                />
+
 
                 {/* Blog pages */}
                 <Route

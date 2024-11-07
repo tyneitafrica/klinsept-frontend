@@ -40,8 +40,6 @@ const Product = ({ products }) => {
         {product ? (
           <>
             <ProductImageDescription
-              spaceTopClass="pt-100"
-              spaceBottomClass="pb-100"
               product={product}
             />
 
