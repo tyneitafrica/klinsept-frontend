@@ -9,6 +9,7 @@ import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useLocation } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
+import {LoginFetch} from '../../helpers/backendFectch'
 
 const Login = () => {
   const { pathname } = useLocation();
@@ -16,20 +17,27 @@ const Login = () => {
   const [validated, setValidated] = useState(false);
   const [error, setError] = useState("");
 
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
     const form = e.currentTarget;
 
     if (form.checkValidity() === false) {
       e.stopPropagation();
     } else {
-      setError("");
-      console.log("Login submitted with:", loginData);
-      // Add more login submission logic here
+      try {
+        // Send the data to the backend
+        const response = await LoginFetch(loginData);
+        console.log('Registration successful:', response);
+        // Handle success (e.g., redirect, show success message, etc.)
+      } catch (error) {
+        console.error('Registration failed:', error);
+        setError('Registration failed. Please try again.');
+      }
     }
 
     setValidated(true);
   };
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

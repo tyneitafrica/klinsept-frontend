@@ -30,7 +30,7 @@ const Wishlist = ({
   return (
     <Fragment>
       <MetaTags>
-        <title> | Wishlist</title>
+        <title> Klinsept | Wishlist</title>
         <meta
           name="description"
           content="Wishlist page of  react minimalist eCommerce template."

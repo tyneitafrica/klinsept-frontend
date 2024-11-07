@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import RelatedProductSlider from "../../wrappers/product/RelatedProductSlider";
-import ProductDescriptionTab from "../../wrappers/product/ProductDescriptionTab";
+// imphort ProductDescriptionTab from "../../wrappers/product/ProductDescriptionTab";
 import ProductImageDescription from "../../wrappers/product/ProductImageDescription";
 import { useLocation, useParams } from "react-router-dom";
 
@@ -44,10 +44,10 @@ const Product = ({ products }) => {
             />
 
             {/* product description tab */}
-            <ProductDescriptionTab
+            {/* <ProductDescriptionTab
               spaceBottomClass="pb-90"
               productFullDesc={product.fullDescription}
-            />
+            /> */}
 
             {/* related product slider */}
             <RelatedProductSlider

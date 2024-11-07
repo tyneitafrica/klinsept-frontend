@@ -10,6 +10,8 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useLocation } from "react-router-dom";
 import { Form, Row, Col, Button, Alert } from "react-bootstrap";
 
+import {registerFetch} from '../../helpers/backendFectch'
+
 const Register = () => {
   const { pathname } = useLocation();
   const [registerData, setRegisterData] = useState({
@@ -23,7 +25,7 @@ const Register = () => {
   const [validated, setValidated] = useState(false);
   const [error, setError] = useState("");
 
-  const handleRegisterSubmit = (e) => {
+  const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     const form = e.currentTarget;
 
@@ -35,7 +37,16 @@ const Register = () => {
     } else {
       setError("");
       console.log("Register submitted with:", registerData);
-      // Add more registration submission logic here
+
+      try {
+        // Send the data to the backend
+        const response = await registerFetch(registerData);
+        console.log('Registration successful:', response);
+        // Handle success (e.g., redirect, show success message, etc.)
+      } catch (error) {
+        console.error('Registration failed:', error);
+        setError('Registration failed. Please try again.');
+      }
     }
 
     setValidated(true);

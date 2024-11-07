@@ -13,7 +13,7 @@ export const fetchProducts = () => {
   return async dispatch => {
     try {
       const response = await axios.get("http://localhost:3000/products.json"); // Replace with your API endpoint
-      console.log(response.data)
+      // console.log(response.data)
       dispatch(fetchProductsSuccess(response.data));
     } catch (error) {
       console.error("Failed to fetch products:", error);

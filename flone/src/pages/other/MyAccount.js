@@ -13,7 +13,7 @@ const MyAccount = ({ location }) => {
   return (
     <Fragment>
       <MetaTags>
-        <title> | My Account</title>
+        <title> Klinsept | My Account</title>
         <meta
           name="description"
           content="Compare page of  react minimalist eCommerce template."

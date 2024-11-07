@@ -5,14 +5,15 @@ import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import LocationMap from "../../components/contact/LocationMap";
+import { useLocation } from "react-router-dom";
 
-const Contact = ({ location }) => {
-  const { pathname } = location;
+const Contact = () => {
+  const { pathname } = useLocation();
 
   return (
     <Fragment>
       <MetaTags>
-        <title> | Contact</title>
+        <title> Klinsept | Contact</title>
         <meta
           name="description"
           content="Contact of  react minimalist eCommerce template."

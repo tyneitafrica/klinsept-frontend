@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import MetaTags from "react-meta-tags";
 import { connect } from "react-redux";
@@ -8,26 +8,55 @@ import { getDiscountPrice } from "../../helpers/product";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useLocation } from "react-router-dom";
+import { Form, Button, } from "react-bootstrap";
 
-const Checkout = ({  cartItems, currency }) => {
+const Checkout = ({ cartItems, currency }) => {
   const { pathname } = useLocation();
   let cartTotalPrice = 0;
+
+  // State for handling form validation and order details
+  const [validated, setValidated] = useState(false);
+  const [orderDetails, setOrderDetails] = useState(null);
+
+  // Form fields
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    phone: '',
+    email: '',
+    country: '',
+    state: '',
+    city: '',
+    street: '',
+    postcode: '',
+    orderNotes: '',
+    products: cartItems
+  });
+
+  // Handle form submission
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    } else {
+      event.preventDefault();
+      setOrderDetails(formData); // Set the order details for logging
+      console.log("Order Details:", formData,orderDetails);
+    }
+    setValidated(true);
+  };
+
 
   return (
     <Fragment>
       <MetaTags>
-        <title> | Checkout</title>
-        <meta
-          name="description"
-          content="Checkout page of  react minimalist eCommerce template."
-        />
+        <title> Klinsept | Checkout</title>
+        <meta name="description" content="Checkout page of react minimalist eCommerce template." />
       </MetaTags>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
-        Checkout
-      </BreadcrumbsItem>
+      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>Checkout</BreadcrumbsItem>
       <LayoutOne headerTop="visible">
-        {/* breadcrumb */}
         <Breadcrumb />
         <div className="checkout-area pt-95 pb-100">
           <div className="container">
@@ -35,96 +64,149 @@ const Checkout = ({  cartItems, currency }) => {
               <div className="row">
                 <div className="col-lg-7">
                   <div className="billing-info-wrap">
-                    <h3>Billing Details</h3>
-                    <div className="row">
-                      <div className="col-lg-6 col-md-6">
-                        <div className="billing-info mb-20">
-                          <label>First Name</label>
-                          <input type="text" />
+                    <h3>Customer Details</h3>
+                    <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                      <div className="row">
+                        <div className="col-lg-6 col-md-6">
+                          <Form.Group controlId="firstName">
+                            <Form.Label>First Name</Form.Label>
+                            <Form.Control
+                              type="text"
+                              required
+                              value={formData.firstName}
+                              onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                            />
+                            <Form.Control.Feedback type="invalid">Please provide your first name.</Form.Control.Feedback>
+                          </Form.Group>
                         </div>
-                      </div>
-                      <div className="col-lg-6 col-md-6">
-                        <div className="billing-info mb-20">
-                          <label>Last Name</label>
-                          <input type="text" />
+                        <div className="col-lg-6 col-md-6">
+                          <Form.Group controlId="lastName">
+                            <Form.Label>Last Name</Form.Label>
+                            <Form.Control
+                              type="text"
+                              required
+                              value={formData.lastName}
+                              onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                            />
+                            <Form.Control.Feedback type="invalid">Please provide your last name.</Form.Control.Feedback>
+                          </Form.Group>
                         </div>
-                      </div>
-                      <div className="col-lg-12">
-                        <div className="billing-info mb-20">
-                          <label>Company Name</label>
-                          <input type="text" />
+                        <div className="col-lg-6 col-md-6">
+                          <Form.Group controlId="phone">
+                            <Form.Label>Phone</Form.Label>
+                            <Form.Control
+                              type="text"
+                              required
+                              value={formData.phone}
+                              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                            />
+                            <Form.Control.Feedback type="invalid">Please provide a valid phone number.</Form.Control.Feedback>
+                          </Form.Group>
                         </div>
-                      </div>
-                      <div className="col-lg-12">
-                        <div className="billing-select mb-20">
-                          <label>Country</label>
-                          <select>
-                            <option>Select a country</option>
-                            <option>Azerbaijan</option>
-                            <option>Bahamas</option>
-                            <option>Bahrain</option>
-                            <option>Bangladesh</option>
-                            <option>Barbados</option>
-                          </select>
+                        <div className="col-lg-6 col-md-6">
+                          <Form.Group controlId="email">
+                            <Form.Label>Email Address</Form.Label>
+                            <Form.Control
+                              type="email"
+                              required
+                              value={formData.email}
+                              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                            />
+                            <Form.Control.Feedback type="invalid">Please provide a valid email address.</Form.Control.Feedback>
+                          </Form.Group>
                         </div>
-                      </div>
-                      <div className="col-lg-12">
-                        <div className="billing-info mb-20">
-                          <label>Street Address</label>
-                          <input
-                            className="billing-address"
-                            placeholder="House number and street name"
-                            type="text"
-                          />
-                          <input
-                            placeholder="Apartment, suite, unit etc."
-                            type="text"
-                          />
+                        <div className="col-lg-12">
+                          <Form.Group controlId="country">
+                            <Form.Label>Country</Form.Label>
+                            <Form.Control
+                              as="select"
+                              required
+                              value={formData.country}
+                              onChange={(e) =>
+                                setFormData({ ...formData, country: e.target.value })
+                              }
+                            >
+                              <option value="">Select a country</option>
+                              <option value="Kenya">Kenya</option>
+                              <option value="Burundi">Burundi</option>
+                              <option value="Congo">Congo</option>
+                              <option value="DRC">DRC</option>
+                              <option value="Rwanda">Rwanda</option>
+                              <option value="Tanzania">Tanzania</option>
+                            </Form.Control>
+                            <Form.Control.Feedback type="invalid">
+                              Please select a country.
+                            </Form.Control.Feedback>
+                          </Form.Group>
                         </div>
-                      </div>
-                      <div className="col-lg-12">
-                        <div className="billing-info mb-20">
-                          <label>Town / City</label>
-                          <input type="text" />
+                        <div className="col-lg-6 col-md-6">
+                          <Form.Group controlId="state">
+                            <Form.Label>State / County</Form.Label>
+                            <Form.Control
+                              type="text"
+                              required
+                              value={formData.state}
+                              onChange={(e) => setFormData({ ...formData, state: e.target.value })}
+                            />
+                            <Form.Control.Feedback type="invalid">State cannot be empty.</Form.Control.Feedback>
+                          </Form.Group>
                         </div>
-                      </div>
-                      <div className="col-lg-6 col-md-6">
-                        <div className="billing-info mb-20">
-                          <label>State / County</label>
-                          <input type="text" />
+                        <div className="col-lg-6 col-md-6">
+                          <Form.Group controlId="city">
+                            <Form.Label>Town / City</Form.Label>
+                            <Form.Control
+                              type="text"
+                              required
+                              value={formData.city}
+                              onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                            />
+                          </Form.Group>
                         </div>
-                      </div>
-                      <div className="col-lg-6 col-md-6">
-                        <div className="billing-info mb-20">
-                          <label>Postcode / ZIP</label>
-                          <input type="text" />
-                        </div>
-                      </div>
-                      <div className="col-lg-6 col-md-6">
-                        <div className="billing-info mb-20">
-                          <label>Phone</label>
-                          <input type="text" />
-                        </div>
-                      </div>
-                      <div className="col-lg-6 col-md-6">
-                        <div className="billing-info mb-20">
-                          <label>Email Address</label>
-                          <input type="text" />
-                        </div>
-                      </div>
-                    </div>
+                        <div className="col-lg-6 col-md-6">
+                          <Form.Group controlId="street">
+                            <Form.Label>Street Address</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="House number and street name"
+                              required
+                              value={formData.street}
+                              onChange={(e) => setFormData({ ...formData, street: e.target.value })}
+                            />
+                          </Form.Group>
 
-                    <div className="additional-info-wrap">
-                      <h4>Additional information</h4>
-                      <div className="additional-info">
-                        <label>Order notes</label>
-                        <textarea
-                          placeholder="Notes about your order, e.g. special notes for delivery. "
-                          name="message"
-                          defaultValue={""}
-                        />
+                        </div>
+                        <div className="col-lg-6 col-md-6">
+                          <Form.Group controlId="postcode">
+                            <Form.Label>Postcode / ZIP</Form.Label>
+                            <Form.Control
+                              type="text"
+                              required
+                              value={formData.postcode}
+                              onChange={(e) => setFormData({ ...formData, postcode: e.target.value })}
+                            />
+                          </Form.Group>
+                        </div>
                       </div>
-                    </div>
+
+                      <div className="additional-info-wrap">
+                        <h4>Additional information</h4>
+                        <div className="additional-info">
+                          <Form.Group controlId="orderNotes">
+                            <Form.Label>Order notes</Form.Label>
+                            <Form.Control
+                              as="textarea"
+                              placeholder="Notes about your order, e.g. special notes for delivery."
+                              value={formData.orderNotes}
+                              onChange={(e) => setFormData({ ...formData, orderNotes: e.target.value })}
+                            />
+                          </Form.Group>
+                        </div>
+                      </div>
+
+                      <div className="place-order mt-25">
+                        <Button variant="primary" type="submit">Place Order</Button>
+                      </div>
+                    </Form>
                   </div>
                 </div>
 
@@ -180,13 +262,13 @@ const Checkout = ({  cartItems, currency }) => {
                             })}
                           </ul>
                         </div>
-                        <div className="your-order-bottom">
+                        {/* <div className="your-order-bottom">
                           <ul>
                             <li className="your-order-shipping">Shipping</li>
                             <li>Free shipping</li>
                           </ul>
-                        </div>
-                        <div className="your-order-total">
+                        </div> */}
+                        <div className="your-order-bottom total">
                           <ul>
                             <li className="order-total">Total</li>
                             <li>
@@ -198,9 +280,7 @@ const Checkout = ({  cartItems, currency }) => {
                       </div>
                       <div className="payment-method"></div>
                     </div>
-                    <div className="place-order mt-25">
-                      <button className="btn-hover">Place Order</button>
-                    </div>
+
                   </div>
                 </div>
               </div>
@@ -231,13 +311,13 @@ const Checkout = ({  cartItems, currency }) => {
 Checkout.propTypes = {
   cartItems: PropTypes.array,
   currency: PropTypes.object,
-  location: PropTypes.object
+  location: PropTypes.object,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     cartItems: state.cartData,
-    currency: state.currencyData
+    currency: state.currencyData,
   };
 };
 
