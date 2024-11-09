@@ -21,28 +21,25 @@ const HomeMedicalEquipment = () => {
           content="Medical Equipment home of  react minimalist eCommerce template."
         />
       </MetaTags>
-      <LayoutOne
-        headerContainerClass="container-fluid"
-        headerPaddingClass="header-padding-2"
-        headerTop="visible"
-      >
+
+      <LayoutOne>
         {/* hero slider */}
         <HeroSliderTwentyFive />
         {/* banner */}
-        <BannerTwentyFive  />
+        <BannerTwentyFive />
         {/* Good Services */}
-        <FeatureIconFive spaceBottomClass="pb-100" />
+        <FeatureIconFive />
         {/* Our product */}
-        <TabProductSixteen spaceBottomClass="pb-70" category="detergents" />
+        <TabProductSixteen category="detergents" />
         {/* gallery */}
-        <BannerTwentySix  />
+        <BannerTwentySix />
         {/* product slider */}
         <ProductSlider category="handwash" />
         {/* blog */}
         <BlogFeaturedFour />
         {/* testimonials */}
 
-        <TestimonialThree />  
+        <TestimonialThree />
         {/* contact */}
         <MedicalContact />
       </LayoutOne>

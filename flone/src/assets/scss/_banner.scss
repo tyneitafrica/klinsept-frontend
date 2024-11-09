@@ -877,348 +877,348 @@
 
 /* banner hm4 */
 
-.banner-area-2 {
-  .container-fluid {
-    padding-right: 10px;
-    padding-left: 10px;
-    @media #{$md-layout} {
-      padding-right: 30px;
-      padding-left: 30px;
-    }
-    @media #{$xs-layout} {
-      padding-right: 15px;
-      padding-left: 15px;
-    }
-  }
-  &.pb-85 {
-    @media #{$xs-layout} {
-      padding-bottom: 42px;
-    }
-  }
-  &.banner-area-2 {
-    .single-banner {
-      @media #{$xx-layout} {
-        .banner-content {
-          top: 15px;
-          left: 15px;
-          h3 {
-            font-size: 25px;
-          }
-          h4 {
-            margin: 3px 0 10px;
-          }
-        }
-      }
-      @media #{$xl-layout} {
-        .banner-content {
-          top: 15px;
-          left: 15px;
-          h3 {
-            font-size: 25px;
-          }
-          h4 {
-            margin: 3px 0 10px;
-          }
-        }
-      }
-      @media #{$md-layout} {
-        .banner-content {
-          top: 25px;
-          h3 {
-            font-size: 30px;
-          }
-          h4 {
-            margin: 3px 0 40px;
-          }
-        }
-      }
-    }
-    @media #{$md-layout} {
-      &.pt-10 {
-        padding-top: 30px;
-      }
-    }
-  }
-}
+// .banner-area-2 {
+//   .container-fluid {
+//     padding-right: 10px;
+//     padding-left: 10px;
+//     @media #{$md-layout} {
+//       padding-right: 30px;
+//       padding-left: 30px;
+//     }
+//     @media #{$xs-layout} {
+//       padding-right: 15px;
+//       padding-left: 15px;
+//     }
+//   }
+//   &.pb-85 {
+//     @media #{$xs-layout} {
+//       padding-bottom: 42px;
+//     }
+//   }
+//   &.banner-area-2 {
+//     .single-banner {
+//       @media #{$xx-layout} {
+//         .banner-content {
+//           top: 15px;
+//           left: 15px;
+//           h3 {
+//             font-size: 25px;
+//           }
+//           h4 {
+//             margin: 3px 0 10px;
+//           }
+//         }
+//       }
+//       @media #{$xl-layout} {
+//         .banner-content {
+//           top: 15px;
+//           left: 15px;
+//           h3 {
+//             font-size: 25px;
+//           }
+//           h4 {
+//             margin: 3px 0 10px;
+//           }
+//         }
+//       }
+//       @media #{$md-layout} {
+//         .banner-content {
+//           top: 25px;
+//           h3 {
+//             font-size: 30px;
+//           }
+//           h4 {
+//             margin: 3px 0 40px;
+//           }
+//         }
+//       }
+//     }
+//     @media #{$md-layout} {
+//       &.pt-10 {
+//         padding-top: 30px;
+//       }
+//     }
+//   }
+// }
 
 /* banner hm9 */
 
-.single-banner-2 {
-  position: relative;
+// .single-banner-2 {
+//   position: relative;
 
-  overflow: hidden;
-  a {
-    img {
-      width: 100%;
+//   overflow: hidden;
+//   a {
+//     img {
+//       width: 100%;
 
-      transition: all 0.5s ease 0s;
-      transform: scale(1);
-    }
-  }
-  .banner-content-2 {
-    position: absolute;
-    top: 50%;
-    left: 40px;
+//       transition: all 0.5s ease 0s;
+//       transform: scale(1);
+//     }
+//   }
+//   .banner-content-2 {
+//     position: absolute;
+//     top: 50%;
+//     left: 40px;
 
-    transform: translateY(-50%);
-    @media #{$xs-layout} {
-      left: 20px;
-    }
-    h3 {
-      font-family: "Cormorant Garamond";
-      font-size: 48px;
+//     transform: translateY(-50%);
+//     @media #{$xs-layout} {
+//       left: 20px;
+//     }
+//     h3 {
+//       font-family: "Cormorant Garamond";
+//       font-size: 48px;
 
-      margin: 0;
+//       margin: 0;
 
-      color: #915342;
-      @media #{$md-layout} {
-        font-size: 35px;
-      }
-      @media #{$xs-layout} {
-        font-size: 33px;
-      }
-    }
-    h4 {
-      font-family: "Cormorant Garamond";
-      font-size: 24px;
-      font-weight: 500;
+//       color: #915342;
+//       @media #{$md-layout} {
+//         font-size: 35px;
+//       }
+//       @media #{$xs-layout} {
+//         font-size: 33px;
+//       }
+//     }
+//     h4 {
+//       font-family: "Cormorant Garamond";
+//       font-size: 24px;
+//       font-weight: 500;
 
-      margin: 22px 0 94px;
+//       margin: 22px 0 94px;
 
-      color: #010101;
-      @media #{$lg-layout} {
-        margin: 22px 0 34px;
-      }
-      @media #{$md-layout} {
-        margin: 15px 0 25px;
-      }
-      @media #{$xs-layout} {
-        margin: 10px 0 20px;
-      }
-      span {
-        color: #935644;
-      }
-    }
-    a {
-      font-size: 14px;
+//       color: #010101;
+//       @media #{$lg-layout} {
+//         margin: 22px 0 34px;
+//       }
+//       @media #{$md-layout} {
+//         margin: 15px 0 25px;
+//       }
+//       @media #{$xs-layout} {
+//         margin: 10px 0 20px;
+//       }
+//       span {
+//         color: #935644;
+//       }
+//     }
+//     a {
+//       font-size: 14px;
 
-      display: inline-block;
+//       display: inline-block;
 
-      width: 28px;
-      height: 28px;
+//       width: 28px;
+//       height: 28px;
 
-      text-align: center;
+//       text-align: center;
 
-      color: #97584a;
-      border: 2px solid #97584a;
-      border-radius: 100%;
-      &:hover {
-        color: #000;
-        border: 2px solid #000;
-      }
-    }
-    &.jewellery-banner {
-      h3 {
-        font-weight: 600;
-      }
-    }
-    &--style2 {
-      h3 {
-        font-size: 36px;
-        font-weight: 500;
+//       color: #97584a;
+//       border: 2px solid #97584a;
+//       border-radius: 100%;
+//       &:hover {
+//         color: #000;
+//         border: 2px solid #000;
+//       }
+//     }
+//     &.jewellery-banner {
+//       h3 {
+//         font-weight: 600;
+//       }
+//     }
+//     &--style2 {
+//       h3 {
+//         font-size: 36px;
+//         font-weight: 500;
 
-        color: #1c1c1c;
-        @media #{$lg-layout} {
-          font-size: 30px;
-        }
-        @media #{$md-layout} {
-          font-size: 30px;
-        }
-        @media #{$xxs-layout} {
-          font-size: 30px;
-        }
-      }
-      h4 {
-        font-size: 16px;
-        font-weight: 600;
+//         color: #1c1c1c;
+//         @media #{$lg-layout} {
+//           font-size: 30px;
+//         }
+//         @media #{$md-layout} {
+//           font-size: 30px;
+//         }
+//         @media #{$xxs-layout} {
+//           font-size: 30px;
+//         }
+//       }
+//       h4 {
+//         font-size: 16px;
+//         font-weight: 600;
 
-        margin-bottom: 70px;
-        @media #{$xx-layout} {
-          margin-bottom: 40px;
-        }
-        @media #{$xs-layout} {
-          margin-bottom: 40px;
-        }
-        @media #{$lg-layout} {
-          margin: 10px 0;
-        }
-        @media #{$md-layout} {
-          margin: 10px 0;
-        }
-        @media #{$xxs-layout} {
-          margin: 0;
-        }
-      }
-      a {
-        color: #1c1c1c;
-      }
+//         margin-bottom: 70px;
+//         @media #{$xx-layout} {
+//           margin-bottom: 40px;
+//         }
+//         @media #{$xs-layout} {
+//           margin-bottom: 40px;
+//         }
+//         @media #{$lg-layout} {
+//           margin: 10px 0;
+//         }
+//         @media #{$md-layout} {
+//           margin: 10px 0;
+//         }
+//         @media #{$xxs-layout} {
+//           margin: 0;
+//         }
+//       }
+//       a {
+//         color: #1c1c1c;
+//       }
 
-      &--violet {
-        a {
-          color: #ab87cd;
-          border-color: #ab87cd;
-        }
-      }
+//       &--violet {
+//         a {
+//           color: #ab87cd;
+//           border-color: #ab87cd;
+//         }
+//       }
 
-      &--pink {
-        a {
-          color: #ed59a0;
-          border-color: #ed59a0;
-        }
-      }
-    }
+//       &--pink {
+//         a {
+//           color: #ed59a0;
+//           border-color: #ed59a0;
+//         }
+//       }
+//     }
 
-    &--style3 {
-      h3 {
-        font-size: 36px;
-        font-weight: 600;
+//     &--style3 {
+//       h3 {
+//         font-size: 36px;
+//         font-weight: 600;
 
-        color: #1c1c1c;
-      }
-      h4 {
-        font-size: 18px;
-        font-weight: 600;
+//         color: #1c1c1c;
+//       }
+//       h4 {
+//         font-size: 18px;
+//         font-weight: 600;
 
-        margin: 3px 0 58px;
-      }
+//         margin: 3px 0 58px;
+//       }
 
-      a {
-        color: #c61a32;
-        border-color: #c61a32;
-      }
-    }
-    &.banner-content-2-black {
-      h3 {
-        color: #fff;
-      }
-      h4 {
-        color: #fff;
-        span {
-          color: #af163b;
-        }
-      }
-      a {
-        color: #af163b;
-        border: 2px solid #af163b;
-        &:hover {
-          color: #fff;
-          border: 2px solid #fff;
-        }
-      }
-    }
-  }
-  &:hover a img {
-    transform: scale(1.1);
-  }
+//       a {
+//         color: #c61a32;
+//         border-color: #c61a32;
+//       }
+//     }
+//     &.banner-content-2-black {
+//       h3 {
+//         color: #fff;
+//       }
+//       h4 {
+//         color: #fff;
+//         span {
+//           color: #af163b;
+//         }
+//       }
+//       a {
+//         color: #af163b;
+//         border: 2px solid #af163b;
+//         &:hover {
+//           color: #fff;
+//           border: 2px solid #fff;
+//         }
+//       }
+//     }
+//   }
+//   &:hover a img {
+//     transform: scale(1.1);
+//   }
 
-  &.align_right {
-    .banner-content-2 {
-      position: absolute;
-      top: 50%;
-      right: 40px;
-      left: auto;
+//   &.align_right {
+//     .banner-content-2 {
+//       position: absolute;
+//       top: 50%;
+//       right: 40px;
+//       left: auto;
 
-      transform: translateY(-50%);
-      text-align: right;
-    }
-  }
-}
+//       transform: translateY(-50%);
+//       text-align: right;
+//     }
+//   }
+// }
 
-.single-banner-3 {
-  position: relative;
-  img {
-    transition-duration: 1.3s;
-  }
-  .banner-content-3 {
-    position: absolute;
-    top: 20%;
-    left: 50px;
+// .single-banner-3 {
+//   position: relative;
+//   img {
+//     transition-duration: 1.3s;
+//   }
+//   .banner-content-3 {
+//     position: absolute;
+//     top: 20%;
+//     left: 50px;
 
-    padding-right: 15px;
+//     padding-right: 15px;
 
-    &--right {
-      left: 50%;
-    }
+//     &--right {
+//       left: 50%;
+//     }
 
-    h4 {
-      font-family: $josefin;
-      font-size: 30px;
-      font-weight: bold;
-      line-height: 1.4em;
+//     h4 {
+//       font-family: $josefin;
+//       font-size: 30px;
+//       font-weight: bold;
+//       line-height: 1.4em;
 
-      color: #000000;
+//       color: #000000;
 
-      @media #{$lg-layout} {
-        font-size: 25px;
-      }
+//       @media #{$lg-layout} {
+//         font-size: 25px;
+//       }
 
-      @media #{$xs-layout} {
-        font-size: 25px;
-      }
+//       @media #{$xs-layout} {
+//         font-size: 25px;
+//       }
 
-      @media #{$xxs-layout} {
-        font-size: 15px;
-      }
-    }
-    a {
-      font-family: $josefin;
-      font-size: 18px;
-      font-weight: 400;
+//       @media #{$xxs-layout} {
+//         font-size: 15px;
+//       }
+//     }
+//     a {
+//       font-family: $josefin;
+//       font-size: 18px;
+//       font-weight: 400;
 
-      position: relative;
+//       position: relative;
 
-      padding-bottom: 7px;
+//       padding-bottom: 7px;
 
-      color: #000000;
+//       color: #000000;
 
-      @media #{$xxs-layout} {
-        font-size: 13px;
-      }
+//       @media #{$xxs-layout} {
+//         font-size: 13px;
+//       }
 
-      &:after {
-        position: absolute;
-        bottom: 0;
-        left: 0;
+//       &:after {
+//         position: absolute;
+//         bottom: 0;
+//         left: 0;
 
-        width: 30px;
-        height: 1px;
+//         width: 30px;
+//         height: 1px;
 
-        content: "";
+//         content: "";
 
-        background-color: $black;
-      }
-    }
+//         background-color: $black;
+//       }
+//     }
 
-    &--white-content {
-      h4 {
-        color: #fff;
-      }
-      a {
-        color: #fff;
+//     &--white-content {
+//       h4 {
+//         color: #fff;
+//       }
+//       a {
+//         color: #fff;
 
-        &:after {
-          background-color: #fff;
-        }
-      }
-    }
-  }
+//         &:after {
+//           background-color: #fff;
+//         }
+//       }
+//     }
+//   }
 
-  &:hover {
-    img {
-      transform: translateY(-8px);
-    }
-  }
-}
+//   &:hover {
+//     img {
+//       transform: translateY(-8px);
+//     }
+//   }
+// }
 
 @media #{$xs-layout} {
   .banner-area.pt-80 {

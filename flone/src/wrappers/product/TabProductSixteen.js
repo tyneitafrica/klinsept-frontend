@@ -5,20 +5,12 @@ import Nav from "react-bootstrap/Nav";
 import ProductGridTwo from "./ProductGridTwo";
 import SectionTitle from "../../components/section-title/SectionTitle";
 
-const TabProductSixteen = ({
-  spaceTopClass,
-  spaceBottomClass,
-  productTabClass,
-}) => {
+const TabProductSixteen = () => {
   // State to track the currently selected category
-  const [selectedCategory, setSelectedCategory] = useState("antiseptics"); // Default category
+  const [selectedCategory, setSelectedCategory] = useState("antiseptics"); 
 
   return (
-    <div
-      className={`product-area ${spaceTopClass ? spaceTopClass : ""} ${
-        spaceBottomClass ? spaceBottomClass : ""
-      }`}
-    >
+    <div className={`product-area pb-70`}>
       <div className="container">
         <SectionTitle
           titleText="Our Products"
@@ -28,13 +20,11 @@ const TabProductSixteen = ({
         />
         <Tab.Container
           activeKey={selectedCategory}
-          onSelect={(key) => setSelectedCategory(key)} // Update selected category on tab select
+          onSelect={(key) => setSelectedCategory(key)} 
         >
           <Nav
             variant="pills"
-            className={`product-tab-list-5 mb-60 justify-content-center ${
-              productTabClass ? productTabClass : ""
-            }`}
+            className={`product-tab-list-5 mb-60 justify-content-center `}
           >
             <Nav.Item>
               <Nav.Link eventKey="antiseptics">
@@ -61,7 +51,7 @@ const TabProductSixteen = ({
             <Tab.Pane eventKey="antiseptics">
               <div className="row">
                 <ProductGridTwo
-                  category={selectedCategory} // Pass dynamic category
+                  category={selectedCategory} 
                   type="antiseptics"
                   limit={8}
                   spaceBottomClass="mb-25"
@@ -72,7 +62,7 @@ const TabProductSixteen = ({
             <Tab.Pane eventKey="disinfectants">
               <div className="row">
                 <ProductGridTwo
-                  category={selectedCategory} // Pass dynamic category
+                  category={selectedCategory} 
                   type="disinfectants"
                   limit={8}
                   spaceBottomClass="mb-25"
@@ -83,7 +73,7 @@ const TabProductSixteen = ({
             <Tab.Pane eventKey="detergents">
               <div className="row">
                 <ProductGridTwo
-                  category={selectedCategory} // Pass dynamic category
+                  category={selectedCategory} 
                   type="detergents"
                   limit={8}
                   spaceBottomClass="mb-25"
@@ -94,7 +84,7 @@ const TabProductSixteen = ({
             <Tab.Pane eventKey="handwash">
               <div className="row">
                 <ProductGridTwo
-                  category={selectedCategory} // Pass dynamic category
+                  category={selectedCategory} 
                   type="handwash"
                   limit={8}
                   spaceBottomClass="mb-25"
@@ -111,7 +101,6 @@ const TabProductSixteen = ({
 
 TabProductSixteen.propTypes = {
   productTabClass: PropTypes.string,
-  spaceBottomClass: PropTypes.string,
   spaceTopClass: PropTypes.string,
 };
 
