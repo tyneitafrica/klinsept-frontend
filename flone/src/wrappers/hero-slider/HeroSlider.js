@@ -3,7 +3,7 @@ import Swiper from "react-id-swiper";
 import sliderData from "../../data/hero-sliders/hero-slider-twenty-five.json";
 import HeroSliderTwentyFiveSingle from "../../components/hero-slider/HeroSliderTwentyFiveSingle.js";
 
-const HeroSliderTwentyFive = () => {
+const HeroSlider = () => {
   const params = {
     effect: "fade",
     loop: true,
@@ -48,4 +48,4 @@ const HeroSliderTwentyFive = () => {
   );
 };
 
-export default HeroSliderTwentyFive;
+export default HeroSlider;

@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import MetaTags from "react-meta-tags";
 import LayoutOne from "../../layouts/LayoutOne";
-import HeroSliderTwentyFive from "../../wrappers/hero-slider/HeroSliderTwentyFive";
+import HeroSlider from "../../wrappers/hero-slider/HeroSlider";
 import BannerTwentyFive from "../../wrappers/banner/BannerTwentyFive";
 import FeatureIconFive from "../../wrappers/feature-icon/FeatureIconFive";
 import TabProductSixteen from "../../wrappers/product/TabProductSixteen";
@@ -24,7 +24,7 @@ const HomeMedicalEquipment = () => {
 
       <LayoutOne>
         {/* hero slider */}
-        <HeroSliderTwentyFive />
+        <HeroSlider />
         {/* banner */}
         <BannerTwentyFive />
         {/* Good Services */}
