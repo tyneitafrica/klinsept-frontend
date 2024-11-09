@@ -81,7 +81,6 @@ const App = (props) => {
                   element={<Product />}
                 />
 
-
                 {/* Blog pages */}
                 <Route
                   path={process.env.PUBLIC_URL + "/blogs"}
