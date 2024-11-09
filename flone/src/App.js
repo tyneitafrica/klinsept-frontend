@@ -9,18 +9,16 @@ import { connect } from "react-redux";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
 
 // home pages
-const HomeMedicalEquipment = lazy(() =>
-  import("./pages/home/HomeMedicalEquipment")
-);
+const Home = lazy(() => import("./pages/Home"));
 
 // shop pages
-const ShopGridStandard = lazy(() => import("./pages/shop/ShopGridStandard"));
+const ShopGridStandard = lazy(() => import("./pages/ShopGridStandard"));
 
 // product pages
 const Product = lazy(() => import("./pages/shop-product/Product"));
 
 // blog pages
-const BlogNoSidebar = lazy(() => import("./pages/blog/BlogNoSidebar"));
+const Blogs = lazy(() => import("./pages/Blogs"));
 
 // other pages
 const About = lazy(() => import("./pages/other/About"));
@@ -67,10 +65,7 @@ const App = (props) => {
               }
             >
               <Routes>
-                <Route
-                  path={process.env.PUBLIC_URL + "/"}
-                  element={<HomeMedicalEquipment />}
-                />
+                <Route path={process.env.PUBLIC_URL + "/"} element={<Home />} />
                 {/* Shop pages */}
                 <Route
                   path={process.env.PUBLIC_URL + "/products"}
@@ -85,7 +80,7 @@ const App = (props) => {
                 {/* Blog pages */}
                 <Route
                   path={process.env.PUBLIC_URL + "/blogs"}
-                  element={<BlogNoSidebar />}
+                  element={<Blogs />}
                 />
 
                 {/* auth */}

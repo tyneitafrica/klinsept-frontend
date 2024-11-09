@@ -1,70 +1,71 @@
-/* BannerTwentyFiveSingle.css */
+/* Custom styles for the banner */
+.custom-banner-container {
+  position: flex;
+  overflow: hidden; /* To ensure the overlay is contained within the image */
+}
 
-/* Container for the banner image */
-.banner-image-container {
-    position: relative;
-    overflow: hidden; /* To ensure the overlay is contained within the image */
-  }
-  
-  /* Styling for the image */
-  .banner-image {
-    transition: all 0.3s ease; /* Smooth transition on hover */
-  }
-  
-  /* Dark overlay for hover effect */
-  .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.4); /* Dark overlay with opacity */
-    opacity: 0; /* Hidden by default */
-    transition: opacity 0.3s ease;
-  }
-  
-  /* On hover, show the dark overlay */
-  .whole:hover .overlay {
-    opacity: 1;
-    cursor: pointer;
-  }
-  
-  /* Styling for the content */
-  .banner-content-33 h1,
-  .banner-content-33 h2 {
-    color: #333; /* Dark text for readability */
-    font-weight: 700;
-  }
-  
-  .banner-33-offer h2 {
-    color: #007bff; /* Primary color for offer text */
-  }
-  
-  /* Adding some spacing and text styling */
-  .single-banner {
-    border-radius: 8px; /* Rounded corners for the banner */
-    background-color: #fff; /* White background for the banner */
-    /* padding: 15px; Padding around the content */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Light shadow for elevation */
-  }
-  
-  .single-banner:hover {
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
-  }
-  
+.custom-holder {
+  align-items: center;
+  justify-content: center;
+}
 
-  /* Ensure text is centered */
-  .text-center {
-    text-align: center;
+/* Styling for the image */
+.custom-banner-img {
+  transition: all 0.3s ease; /* Smooth transition on hover */
+}
+
+/* Dark overlay for hover effect */
+.custom-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4); /* Dark overlay with opacity */
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.3s ease;
+}
+
+/* On hover, show the dark overlay */
+.custom-banner:hover .custom-overlay {
+  opacity: 1;
+  cursor: pointer;
+}
+
+/* Styling for the content */
+.custom-banner-title,
+.custom-banner-subtitle {
+  color: #333; /* Dark text for readability */
+  font-weight: 700;
+}
+
+.custom-offer-text {
+  color: #007bff; /* Primary color for offer text */
+}
+
+/* Adding some spacing and text styling */
+.custom-single-banner {
+  border-radius: 8px; /* Rounded corners for the banner */
+  background-color: #fff; /* White background for the banner */
+  /* padding: 15px; Padding around the content */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Light shadow for elevation */
+}
+
+.custom-single-banner:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
+}
+
+/* Ensure text is centered */
+.custom-text-center {
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .custom-single-banner {
+    padding: 30px; /* Less padding on smaller screens */
   }
-  
-  @media (max-width: 767px) {
-    .single-banner {
-      padding: 30px; /* Less padding on smaller screens */
-    }
-  
-    .banner-image {
-      height: auto; /* Ensure image resizes correctly on small screens */
-    }
+
+  .custom-banner-img {
+    height: auto; /* Ensure image resizes correctly on small screens */
   }
-  
+}
