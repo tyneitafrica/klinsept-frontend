@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+// eslint-disable-next-line
 import React, { useEffect, Suspense, lazy } from "react";
 import ScrollToTop from "./helpers/scroll-top";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -72,7 +73,7 @@ const App = (props) => {
                 />
                 {/* Shop pages */}
                 <Route
-                  path={process.env.PUBLIC_URL + "/shop-grid-standard"}
+                  path={process.env.PUBLIC_URL + "/products"}
                   element={<ShopGridStandard />}
                 />
                 {/* Shop product pages */}

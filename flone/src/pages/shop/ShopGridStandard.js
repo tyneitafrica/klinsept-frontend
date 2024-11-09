@@ -22,10 +22,9 @@ const ShopGridStandard = ({ products}) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [currentData, setCurrentData] = useState([]);
     const [sortedProducts, setSortedProducts] = useState([]);
-    const location = useLocation(); 
+    const pathname = useLocation(); 
 
     const pageLimit = 15;
-    const {pathname} = location;
 
     const getLayout = (layout) => {
         setLayout(layout)
@@ -101,7 +100,6 @@ const ShopGridStandard = ({ products}) => {
 }
 
 ShopGridStandard.propTypes = {
-  location: PropTypes.object,
   products: PropTypes.array
 }
 

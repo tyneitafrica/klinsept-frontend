@@ -17,12 +17,12 @@ export const getProducts = (products, category, type, limit) => {
       })
       .slice(0, limit ? limit : finalProducts.length);
   }
-  if (type && type === "saleItems") {
-    const saleItems = finalProducts.filter(
-      single => single.discount && single.discount > 0
-    );
-    return saleItems.slice(0, limit ? limit : saleItems.length);
-  }
+  // if (type && type === "saleItems") {
+  //   const saleItems = finalProducts.filter(
+  //     single => single.discount && single.discount > 0
+  //   );
+  //   return saleItems.slice(0, limit ? limit : saleItems.length);
+  // }
   return finalProducts.slice(0, limit ? limit : finalProducts.length);
 };
 
@@ -70,22 +70,22 @@ export const getSortedProducts = (products, sortType, sortValue) => {
         product => product.tag.filter(single => single === sortValue)[0]
       );
     }
-    if (sortType === "color") {
-      return products.filter(
-        product =>
-          product.variation &&
-          product.variation.filter(single => single.color === sortValue)[0]
-      );
-    }
-    if (sortType === "size") {
-      return products.filter(
-        product =>
-          product.variation &&
-          product.variation.filter(
-            single => single.size.filter(single => single.name === sortValue)[0]
-          )[0]
-      );
-    }
+    // if (sortType === "color") {
+    //   return products.filter(
+    //     product =>
+    //       product.variation &&
+    //       product.variation.filter(single => single.color === sortValue)[0]
+    //   );
+    // }
+    // if (sortType === "size") {
+    //   return products.filter(
+    //     product =>
+    //       product.variation &&
+    //       product.variation.filter(
+    //         single => single.size.filter(single => single.name === sortValue)[0]
+    //       )[0]
+    //   );
+    // }
     if (sortType === "filterSort") {
       let sortProducts = [...products];
       if (sortValue === "default") {

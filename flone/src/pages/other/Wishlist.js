@@ -14,9 +14,9 @@ import {
 import { addToCart } from "../../redux/actions/cartActions";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import { useLocation } from "react-router-dom";
 
 const Wishlist = ({
-  location,
   cartItems,
   currency,
   addToCart,
@@ -25,7 +25,7 @@ const Wishlist = ({
   deleteAllFromWishlist
 }) => {
   const { addToast } = useToasts();
-  const { pathname } = location;
+  const { pathname } = useLocation();
 
   return (
     <Fragment>
