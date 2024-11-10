@@ -4,11 +4,12 @@ import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import TextGridOne from "../../wrappers/text-grid/TextGridOne";
-import FunFactOne from "../../wrappers/fun-fact/FunFactOne";
+import FunFactOne from "../../wrappers/FunFactOne";
 import TeamMemberOne from "../../wrappers/team-member/TeamMemberOne";
 import BrandLogoSliderOne from "../../wrappers/brand-logo/BrandLogoSliderOne";
 import { useLocation } from "react-router-dom";
 import { Nav, Tab } from "react-bootstrap";
+import SectionTitleTwo from "../../components/section-title/SectionTitleTwo";
 
 const About = () => {
   const pathname = useLocation();
@@ -32,17 +33,19 @@ const About = () => {
         <Breadcrumb />
 
         {/* section title with text */}
-        <div className={`welcome-area pt-100 pb-95`}>
+        <div className={`welcome-are a pt-100 pb-95`}>
           <div className="container">
             <div className="welcome-content text-center">
-              <h5>Who Are We</h5>
-              <h1>Who Are We Are at Klinsept</h1>
+              {/* <h5>Who Are We</h5> */}
+              <h1>Who We Are </h1>
               <p>
                 KLINSEPT is a janitorial and disinfectant products manufacturing
                 company located in Bujumbura-Burundi. KLINSEPT began operation
                 in May 2022 having fulfilled the entire registration
-                requirements. We got a clean bill of health from BBN. We
-                officially introduced our products into the market in August
+                requirements. We got a clean bill of health from BBN.
+              </p>
+              <p>
+                We officially introduced our products into the market in August
                 2022 and within four months; we were able to achieve the minimum
                 sales that enabled us to be enlisted among organizations that
                 have to submit TVA to OBR meaning our products were appreciated
@@ -60,8 +63,12 @@ const About = () => {
         <div className="welcome-area pt-100 pb-95">
           <div className="container">
             <div className="welcome-content text-center mb-50">
-              <h5>We manufacture a wide range of products:</h5>
-              <h1>Our Products</h1>
+              <SectionTitleTwo
+                titleText="Our Products"
+                subTitleText="We manufacture a wide range of products:"
+                positionClass="text-center"
+                spaceClass="mb-60"
+              />
               <p>
                 We can deliver a wide range of fragrances, and packaging volumes
                 as per the client’s requirement.

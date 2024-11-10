@@ -8,13 +8,13 @@ const textGridData = [
   },
   {
     id: "2",
-    title: "Our Mission",
-    text: `Contribute effectively to economic and social development by providing our customers and partners with the highest quality of detergents and health care products. To offer excellent prices through the adoption of the best international practices in production and marketing.`,
+    title: "Our Goal",
+    text: "Quality that is internationally accepted.Assured delivery schedule to ensure customers get products on time.Competitive prices that favour everyone.An attitude of long term relationship with all our customers.Cleanliness to protect your family.",
   },
   {
     id: "3",
-    title: "Our Goal",
-    text: "Quality that is internationally accepted.Assured delivery schedule to ensure customers get products on time.Competitive prices that favour everyone.An attitude of long term relationship with all our customers.Cleanliness to protect your family.",
+    title: "Our Mission",
+    text: `Contribute effectively to economic and social development by providing our customers and partners with the highest quality of detergents and health care products. To offer excellent prices through the adoption of the best international practices in production and marketing.`,
   },
 ];
 
