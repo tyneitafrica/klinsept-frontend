@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import MenuCart from "./sub-components/MenuCart";
 import { deleteFromCart } from "../../redux/actions/cartActions";
+import { FaRegUserCircle  } from "react-icons/fa";
+
 
 const IconGroup = ({
   currency,
@@ -11,7 +13,6 @@ const IconGroup = ({
   wishlistData,
   compareData,
   deleteFromCart,
-  iconWhiteClass
 }) => {
   const handleClick = e => {
     e.currentTarget.nextSibling.classList.toggle("active");
@@ -26,40 +27,41 @@ const IconGroup = ({
 
   return (
     <div
-      className={`header-right-wrap ${iconWhiteClass ? iconWhiteClass : ""}`}
+      className={`header-right-wrap `}
     >
       <div className="same-style header-search d-none d-lg-block">
         <button className="search-active" onClick={e => handleClick(e)}>
           <i className="pe-7s-search" />
         </button>
-        <div className="search-content">
+        {/* <div className="search-content">
           <form action="#">
             <input type="text" placeholder="Search" />
             <button className="button-search">
               <i className="pe-7s-search" />
             </button>
           </form>
-        </div>
+        </div> */}
       </div>
       <div className="same-style account-setting d-none d-lg-block">
         <button
           className="account-setting-active"
           onClick={e => handleClick(e)}
         >
-          <i className="pe-7s-user-female" />
+          {/* <i className="text-2xl pe-7s-user-female" /> */}
+          <FaRegUserCircle/>
         </button>
         <div className="account-dropdown">
           <ul>
             <li>
-              <Link to={process.env.PUBLIC_URL + "/login-register"}>Login</Link>
+              <Link to={"/login"}>Login</Link>
             </li>
             <li>
-              <Link to={process.env.PUBLIC_URL + "/login-register"}>
+              <Link to={"/register"}>
                 Register
               </Link>
             </li>
             <li>
-              <Link to={process.env.PUBLIC_URL + "/my-account"}>
+              <Link to={"/my-account"}>
                 my account
               </Link>
             </li>
@@ -67,7 +69,7 @@ const IconGroup = ({
         </div>
       </div>
       <div className="same-style header-compare">
-        <Link to={process.env.PUBLIC_URL + "/compare"}>
+        <Link to={"/compare"}>
           <i className="pe-7s-shuffle" />
           <span className="count-style">
             {compareData && compareData.length ? compareData.length : 0}
@@ -75,7 +77,7 @@ const IconGroup = ({
         </Link>
       </div>
       <div className="same-style header-wishlist">
-        <Link to={process.env.PUBLIC_URL + "/wishlist"}>
+        <Link to={"/wishlist"}>
           <i className="pe-7s-like" />
           <span className="count-style">
             {wishlistData && wishlistData.length ? wishlistData.length : 0}
@@ -97,7 +99,7 @@ const IconGroup = ({
         />
       </div>
       <div className="same-style cart-wrap d-block d-lg-none">
-        <Link className="icon-cart" to={process.env.PUBLIC_URL + "/cart"}>
+        <Link className="icon-cart" to={"/cart"}>
           <i className="pe-7s-shopbag" />
           <span className="count-style">
             {cartData && cartData.length ? cartData.length : 0}

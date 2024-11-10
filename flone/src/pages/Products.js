@@ -4,15 +4,15 @@ import MetaTags from 'react-meta-tags';
 import Paginator from 'react-hooks-paginator';
 import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
 import { connect } from 'react-redux';
-import { getSortedProducts } from '../../helpers/product';
-import LayoutOne from '../../layouts/LayoutOne';
-import Breadcrumb from '../../wrappers/breadcrumb/Breadcrumb';
-import ShopSidebar from '../../wrappers/product/ShopSidebar';
-import ShopTopbar from '../../wrappers/product/ShopTopbar';
-import ShopProducts from '../../wrappers/product/ShopProducts';
+import { getSortedProducts } from '../helpers/product';
+import LayoutOne from '../layouts/LayoutOne';
+import Breadcrumb from '../wrappers/breadcrumb/Breadcrumb';
+import ShopSidebar from '../wrappers/product/ShopSidebar';
+import ShopTopbar from '../wrappers/product/ShopTopbar';
+import ShopProducts from '../wrappers/product/ShopProducts';
 import { useLocation } from "react-router-dom";
 
-const ShopGridStandard = ({ products}) => {
+const Products = ({ products}) => {
     const [layout, setLayout] = useState('grid three-column');
     const [sortType, setSortType] = useState('');
     const [sortValue, setSortValue] = useState('');
@@ -55,8 +55,8 @@ const ShopGridStandard = ({ products}) => {
                 <meta name="description" content="Shop page of  react minimalist eCommerce template." />
             </MetaTags>
 
-            <BreadcrumbsItem to={process.env.PUBLIC_URL + '/'}>Home</BreadcrumbsItem>
-            <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>Shop</BreadcrumbsItem>
+            <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem>
+            <BreadcrumbsItem to={`/`+pathname}>Shop</BreadcrumbsItem>
 
             <LayoutOne headerTop="visible">
                 {/* breadcrumb */}
@@ -67,7 +67,7 @@ const ShopGridStandard = ({ products}) => {
                         <div className="row">
                             <div className="col-lg-3 order-2 order-lg-1">
                                 {/* shop sidebar */}
-                                <ShopSidebar products={products} getSortParams={getSortParams} sideSpaceClass="mr-30"/>
+                                <ShopSidebar products={products} getSortParams={getSortParams} />
                             </div>
                             <div className="col-lg-9 order-1 order-lg-2">
                                 {/* shop topbar default */}
@@ -99,7 +99,7 @@ const ShopGridStandard = ({ products}) => {
     )
 }
 
-ShopGridStandard.propTypes = {
+Products.propTypes = {
   products: PropTypes.array
 }
 
@@ -109,4 +109,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(ShopGridStandard);
+export default connect(mapStateToProps)(Products);

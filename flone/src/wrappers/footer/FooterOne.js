@@ -207,8 +207,6 @@ const FooterOne = ({
           >
             {/* footer newsletter */}
             <FooterNewsletter
-              spaceBottomClass="mb-30"
-              spaceLeftClass="ml-70"
               sideMenu={sideMenu}
             />
           </div>
