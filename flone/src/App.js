@@ -12,7 +12,7 @@ import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
 const Home = lazy(() => import("./pages/Home"));
 
 // shop pages
-const ShopGridStandard = lazy(() => import("./pages/ShopGridStandard"));
+const Products = lazy(() => import("./pages/Products"));
 
 // product pages
 const Product = lazy(() => import("./pages/shop-product/Product"));
@@ -65,73 +65,73 @@ const App = (props) => {
               }
             >
               <Routes>
-                <Route path={process.env.PUBLIC_URL + "/"} element={<Home />} />
+                <Route path={"/"} element={<Home />} />
                 {/* Shop pages */}
                 <Route
-                  path={process.env.PUBLIC_URL + "/products"}
-                  element={<ShopGridStandard />}
+                  path={"/products"}
+                  element={<Products />}
                 />
                 {/* Shop product pages */}
                 <Route
-                  path={process.env.PUBLIC_URL + "/product/:id"}
+                  path={"/product/:id"}
                   element={<Product />}
                 />
 
                 {/* Blog pages */}
                 <Route
-                  path={process.env.PUBLIC_URL + "/blogs"}
+                  path={"/blogs"}
                   element={<Blogs />}
                 />
 
                 {/* auth */}
                 <Route
-                  path={process.env.PUBLIC_URL + "/register"}
+                  path={"/register"}
                   element={<Register />}
                 />
                 <Route
-                  path={process.env.PUBLIC_URL + "/login"}
+                  path={"/login"}
                   element={<Login />}
                 />
                 <Route
-                  path={process.env.PUBLIC_URL + "/reset"}
+                  path={"/reset"}
                   element={<ResetPassword />}
                 />
                 <Route
-                  path={process.env.PUBLIC_URL + "/forgot"}
+                  path={"/forgot"}
                   element={<ForgotPassword />}
                 />
 
                 {/* Other pages */}
                 <Route
-                  path={process.env.PUBLIC_URL + "/about"}
+                  path={"/about"}
                   element={<About />}
                 />
                 <Route
-                  path={process.env.PUBLIC_URL + "/contact"}
+                  path={"/contact"}
                   element={<Contact />}
                 />
                 <Route
-                  path={process.env.PUBLIC_URL + "/my-account"}
+                  path={"/my-account"}
                   element={<MyAccount />}
                 />
                 <Route
-                  path={process.env.PUBLIC_URL + "/cart"}
+                  path={"/cart"}
                   element={<Cart />}
                 />
                 <Route
-                  path={process.env.PUBLIC_URL + "/wishlist"}
+                  path={"/wishlist"}
                   element={<Wishlist />}
                 />
                 <Route
-                  path={process.env.PUBLIC_URL + "/compare"}
+                  path={"/compare"}
                   element={<Compare />}
                 />
                 <Route
-                  path={process.env.PUBLIC_URL + "/checkout"}
+                  path={"/checkout"}
                   element={<Checkout />}
                 />
                 <Route
-                  path={process.env.PUBLIC_URL + "*"}
+                  path={"*"}
                   element={<NotFound />}
                 />
               </Routes>

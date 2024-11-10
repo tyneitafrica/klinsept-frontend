@@ -10,7 +10,7 @@ const bannerData = [
     title: "Antiseptics",
     subtitle: "Kills Microorganisms on Skin",
     text: "20% OFF",
-    link: "/shop-grid-standard",
+    link: "/products",
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ const bannerData = [
     title: "Detergents",
     subtitle: "Efficient Cleaning Power",
     text: "30% OFF",
-    link: "/shop-grid-standard",
+    link: "/products",
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ const bannerData = [
     title: "Disinfectants",
     subtitle: "Kills Germs on Surfaces",
     text: "40% OFF",
-    link: "/shop-grid-standard",
+    link: "/products",
   },
 ];
 

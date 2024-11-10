@@ -8,7 +8,7 @@ import TabProductSixteen from "../wrappers/product/TabProductSixteen";
 import BlogFeaturedFour from "../wrappers/blog-featured/BlogFeaturedFour";
 import TestimonialThree from "../wrappers/testimonial/TestimonialThree";
 import MedicalContact from "../components/contact/MedicalContact";
-import BannerTwentySix from "../wrappers/banner/BannerTwentySix";
+import Gallery from "../wrappers/banner/Gallery";
 import ProductSlider from "../wrappers/product/ProductSlider";
 
 const Home = () => {
@@ -32,7 +32,7 @@ const Home = () => {
         {/* Our product */}
         <TabProductSixteen category="detergents" />
         {/* gallery */}
-        <BannerTwentySix />
+        <Gallery />
         {/* product slider */}
         <ProductSlider category="handwash" />
         {/* blog */}
