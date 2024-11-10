@@ -5,11 +5,13 @@ import FooterOne from "../wrappers/footer/FooterOne";
 
 const LayoutOne = ({
   children,
+  headerTop,
   headerPositionClass
 }) => {
   return (
     <Fragment>
       <HeaderOne
+        top={headerTop}
         headerPositionClass={headerPositionClass}
       />
       {children}
@@ -25,7 +27,8 @@ const LayoutOne = ({
 LayoutOne.propTypes = {
   children: PropTypes.any,
   headerContainerClass: PropTypes.string,
-  headerPositionClass: PropTypes.string
+  headerPositionClass: PropTypes.string,
+  headerTop: PropTypes.string
 };
 
 export default LayoutOne;
