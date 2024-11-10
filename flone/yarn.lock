@@ -10093,6 +10093,11 @@ react-hooks-paginator@^0.4.0:
   resolved "https://registry.yarnpkg.com/react-hooks-paginator/-/react-hooks-paginator-0.4.4.tgz#5d3be0d145b6d12a4839591dcf433eec2bb240f9"
   integrity sha512-x0QoTO95IoilOVyqjdlprso6UelIXpeD5ctRVBEA3scSdzSVCLDtIr73l42jzTekNEwEizDuWAM0Iie+pdDuIg==
 
+react-icons@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-5.3.0.tgz#ccad07a30aebd40a89f8cfa7d82e466019203f1c"
+  integrity sha512-DnUk8aFbTyQPSkCfF8dbX6kQjXA9DktMeJqfjrg6cK9vwQVMxmcA3BfP4QoiztVmEHtwlTgLFsPuH2NskKT6eg==
+
 react-id-swiper@2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/react-id-swiper/-/react-id-swiper-2.4.0.tgz#7080b2e49f2a6db82649360c2ac218eb50facd21"
