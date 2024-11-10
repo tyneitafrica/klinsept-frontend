@@ -1,5 +1,5 @@
 import  products from "../../data/products.json"
-import axios from "axios";
+// import axios from "axios";
 export const FETCH_PRODUCTS_SUCCESS = "FETCH_PRODUCTS_SUCCESS";
 
 const fetchProductsSuccess = products => ({
