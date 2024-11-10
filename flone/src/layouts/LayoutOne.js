@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
 import React, { Fragment } from "react";
-import HeaderOne from "../wrappers/header/HeaderOne";
+import Header from "../wrappers/Header";
 import FooterOne from "../wrappers/FooterOne";
 
 const LayoutOne = ({ children, headerTop, headerPositionClass }) => {
   return (
     <Fragment>
-      <HeaderOne top={headerTop} headerPositionClass={headerPositionClass} />
+      <Header top={headerTop} headerPositionClass={headerPositionClass} />
       {children}
       <FooterOne />
     </Fragment>
