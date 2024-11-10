@@ -3,10 +3,10 @@ import React from "react";
 import featureIconData from "../../data/feature-icons/feature-icon-five.json";
 import FeatureIconFiveSingle from "../../components/feature-icon/FeatureIconFiveSingle.js";
 
-const FeatureIconFive = ({ spaceBottomClass }) => {
+const FeatureIconFive = () => {
   return (
     <div
-      className={`support-area  ${spaceBottomClass ? spaceBottomClass : ""}`}
+      className={`support-area pb-100`}
     >
       <div className="container">
         <div className="support-wrap-4-border">

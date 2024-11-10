@@ -8,77 +8,72 @@ const MobileNavMenu = ({ strings }) => {
     <nav className="offcanvas-navigation" id="offcanvas-navigation">
       <ul>
         <li className="menu-item-has-children">
-          <Link to={process.env.PUBLIC_URL + "/"}>{strings["home"]}</Link>
+          <Link to={"/"}>{strings["home"]}</Link>
 
         </li>
 
         <li className="menu-item-has-children">
-          <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
-            {strings["shop"]}
-          </Link>
-        </li>
-        <li>
-          <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
-            {strings["collection"]}
+          <Link to={"/Products"}>
+            {strings["Products"]}
           </Link>
         </li>
         <li className="menu-item-has-children">
-          <Link to={process.env.PUBLIC_URL + "/"}>{strings["pages"]}</Link>
+          <Link to={"/"}>{strings["pages"]}</Link>
           <ul className="sub-menu">
             <li>
-              <Link to={process.env.PUBLIC_URL + "/cart"}>
+              <Link to={"/cart"}>
                 {strings["cart"]}
               </Link>
             </li>
             <li>
-              <Link to={process.env.PUBLIC_URL + "/checkout"}>
+              <Link to={"/checkout"}>
                 {strings["checkout"]}
               </Link>
             </li>
             <li>
-              <Link to={process.env.PUBLIC_URL + "/wishlist"}>
+              <Link to={"/wishlist"}>
                 {strings["wishlist"]}
               </Link>
             </li>
             <li>
-              <Link to={process.env.PUBLIC_URL + "/compare"}>
+              <Link to={"/compare"}>
                 {strings["compare"]}
               </Link>
             </li>
             <li>
-              <Link to={process.env.PUBLIC_URL + "/my-account"}>
+              <Link to={"/my-account"}>
                 {strings["my_account"]}
               </Link>
             </li>
             <li>
-                <Link to={process.env.PUBLIC_URL + "/login"}>
+                <Link to={"/login"}>
                   {strings["login"]}
                 </Link>
               </li>
               <li>
-                <Link to={process.env.PUBLIC_URL + "/register"}>
+                <Link to={"/register"}>
                   {strings["register"]}
                 </Link>
               </li>
             <li>
-              <Link to={process.env.PUBLIC_URL + "/about"}>
+              <Link to={"/about"}>
                 {strings["about_us"]}
               </Link>
             </li>
             <li>
-              <Link to={process.env.PUBLIC_URL + "/contact"}>
+              <Link to={"/contact"}>
                 {strings["contact_us"]}
               </Link>
             </li>
           </ul>
         </li>
         <li className="menu-item-has-children">
-          <Link to={process.env.PUBLIC_URL + "/blogs"}>
+          <Link to={"/blogs"}>
             {strings["blog"]}s
           </Link>
         </li>
         <li>
-          <Link to={process.env.PUBLIC_URL + "/contact"}>
+          <Link to={"/contact"}>
             {strings["contact_us"]}
           </Link>
         </li>

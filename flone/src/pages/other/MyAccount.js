@@ -6,9 +6,10 @@ import Card from "react-bootstrap/Card";
 import Accordion from "react-bootstrap/Accordion";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import { useLocation } from "react-router-dom";
 
-const MyAccount = ({ location }) => {
-  const { pathname } = location;
+const MyAccount = () => {
+  const { pathname } = useLocation();
 
   return (
     <Fragment>
@@ -19,13 +20,14 @@ const MyAccount = ({ location }) => {
           content="Compare page of  react minimalist eCommerce template."
         />
       </MetaTags>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
+      <BreadcrumbsItem to={"/"}>Home</BreadcrumbsItem>
+      <BreadcrumbsItem to={pathname}>
         My Account
       </BreadcrumbsItem>
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
         <Breadcrumb />
+        
         <div className="myaccount-area pb-80 pt-100">
           <div className="container">
             <div className="row">
