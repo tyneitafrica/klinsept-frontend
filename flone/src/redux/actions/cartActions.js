@@ -8,7 +8,6 @@ export const addToCart = (
   item,
   addToast,
   quantityCount,
-  selectedProductColor,
   selectedProductSize
 ) => {
   return dispatch => {
@@ -20,11 +19,6 @@ export const addToCart = (
       payload: {
         ...item,
         quantity: quantityCount,
-        selectedProductColor: selectedProductColor
-          ? selectedProductColor
-          : item.selectedProductColor
-          ? item.selectedProductColor
-          : null,
         selectedProductSize: selectedProductSize
           ? selectedProductSize
           : item.selectedProductSize
