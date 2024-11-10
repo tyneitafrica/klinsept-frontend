@@ -9,7 +9,7 @@ const fetchProductsSuccess = products => ({
 
 export const fetchProducts = () => {
   return dispatch => {
-    dispatch(fetchProductsSuccess(products));
+    dispatch(fetchProductsSuccess(products)); // Use local mock data
   };
 };
 
