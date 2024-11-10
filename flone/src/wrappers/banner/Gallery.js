@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
 import SectionTitle from "../../components/section-title/SectionTitle";
-// import '../../assets/css/banner.css'
+import '../../assets/css/banner.css'
 
 const banners = [
   {
@@ -52,14 +52,14 @@ const Gallery = () => {
   // Define banner data as an array of objects
 
   return (
-    <div className={`banner-area `}>
+    <div className={`banner-area`}>
       {/* Section Title */}
       <SectionTitle
         titleText="Gallery section"
         subtitleText=""
         subtitleColorClass="text-muted" // Optional custom class for subtitle
         positionClass="text-center"
-        spaceClass="mb-"
+        spaceClass="mb-30"
       />
       <div className="container-fluid p-70">
         <div className="row no-gutters">

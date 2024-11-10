@@ -3,33 +3,29 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { multilanguage } from "redux-multilanguage";
 
-const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
+const NavMenu = ({ strings,  sidebarMenu }) => {
   return (
     <div
-      className={` ${
-        sidebarMenu
-          ? "sidebar-menu"
-          : `main-menu ${menuWhiteClass ? menuWhiteClass : ""}`
-      } `}
+      className={ `main-menu`}
     >
       <nav>
         <ul>
           <li>
-            <Link to={process.env.PUBLIC_URL + "/"}>
+            <Link to={"/"}>
               {strings["home"]}
             </Link>
 
           </li>
           <li>
-            <Link to={process.env.PUBLIC_URL + "/products"}>
+            <Link to={"/products"}>
               {" "}
-              {strings["products"]}
+              {strings["Products"]}
              
             </Link>
 
           </li>
           <li>
-            <Link to={process.env.PUBLIC_URL + "/"}>
+            <Link to={"/"}>
               {strings["pages"]}
               {sidebarMenu ? (
                 <span>
@@ -41,58 +37,58 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
             </Link>
             <ul className="submenu">
               <li>
-                <Link to={process.env.PUBLIC_URL + "/cart"}>
+                <Link to={"/cart"}>
                   {strings["cart"]}
                 </Link>
               </li>
               <li>
-                <Link to={process.env.PUBLIC_URL + "/checkout"}>
+                <Link to={"/checkout"}>
                   {strings["checkout"]}
                 </Link>
               </li>
               <li>
-                <Link to={process.env.PUBLIC_URL + "/wishlist"}>
+                <Link to={"/wishlist"}>
                   {strings["wishlist"]}
                 </Link>
               </li>
               <li>
-                <Link to={process.env.PUBLIC_URL + "/compare"}>
+                <Link to={"/compare"}>
                   {strings["compare"]}
                 </Link>
               </li>
 
               <li>
-                <Link to={process.env.PUBLIC_URL + "/login"}>
+                <Link to={"/login"}>
                   {strings["login"]}
                 </Link>
               </li>
               <li>
-                <Link to={process.env.PUBLIC_URL + "/register"}>
+                <Link to={"/register"}>
                   {strings["register"]}
                 </Link>
               </li>
               <li>
-                <Link to={process.env.PUBLIC_URL + "/about"}>
+                <Link to={"/about"}>
                   {strings["about_us"]}
                 </Link>
               </li>
               <li>
-                <Link to={process.env.PUBLIC_URL + "/contact"}>
+                <Link to={"/contact"}>
                   {strings["contact_us"]}
                 </Link>
               </li>
 
             </ul>
           </li>
-          <li>
-            <Link to={process.env.PUBLIC_URL + "/blogs"}>
+         <li>
+            <Link to={"/blogs"}>
               {strings["blog"]}
 
             </Link>
 
           </li>
           <li>
-            <Link to={process.env.PUBLIC_URL + "/contact"}>
+            <Link to={"/contact"}>
               {strings["contact_us"]}
             </Link>
           </li>
@@ -103,7 +99,6 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
 };
 
 NavMenu.propTypes = {
-  menuWhiteClass: PropTypes.string,
   sidebarMenu: PropTypes.bool,
   strings: PropTypes.object
 };

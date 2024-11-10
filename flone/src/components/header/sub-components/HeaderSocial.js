@@ -1,4 +1,5 @@
 import React from "react";
+import { FaFacebookF, FaDribbble, FaPinterestP, FaTwitter, FaLinkedinIn } from "react-icons/fa";
 
 const HeaderSocial = () => {
   return (
@@ -11,7 +12,7 @@ const HeaderSocial = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <i className="fa fa-facebook" />
+            <FaFacebookF />
           </a>
         </li>
         <li>
@@ -21,7 +22,7 @@ const HeaderSocial = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <i className="fa fa-dribbble" />
+            <FaDribbble />
           </a>
         </li>
         <li>
@@ -31,7 +32,7 @@ const HeaderSocial = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <i className="fa fa-pinterest-p" />
+            <FaPinterestP />
           </a>
         </li>
         <li>
@@ -41,7 +42,7 @@ const HeaderSocial = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <i className="fa fa-twitter" />
+            <FaTwitter />
           </a>
         </li>
         <li>
@@ -51,7 +52,7 @@ const HeaderSocial = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <i className="fa fa-linkedin" />
+            <FaLinkedinIn />
           </a>
         </li>
       </ul>
