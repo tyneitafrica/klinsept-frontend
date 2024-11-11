@@ -3,14 +3,21 @@ import React, { Fragment, useState } from "react";
 import MetaTags from "react-meta-tags";
 import { Link } from "react-router-dom";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
-import Tab from "react-bootstrap/Tab";
-import Nav from "react-bootstrap/Nav";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useLocation } from "react-router-dom";
-import { Form, Row, Col, Button, Alert } from "react-bootstrap";
+import {
+  Spinner,
+  Tab,
+  Nav,
+  Form,
+  Row,
+  Col,
+  Button,
+  Alert,
+} from "react-bootstrap";
 
-import {registerFetch} from '../../helpers/backendFectch'
+import { registerFetch } from "../../helpers/backendFectch";
 
 const Register = () => {
   const { pathname } = useLocation();
@@ -24,6 +31,7 @@ const Register = () => {
   });
   const [validated, setValidated] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setloading] = useState(!false);
 
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
@@ -37,16 +45,17 @@ const Register = () => {
     } else {
       setError("");
       console.log("Register submitted with:", registerData);
-
+      setloading(true);
       try {
         // Send the data to the backend
         const response = await registerFetch(registerData);
-        console.log('Registration successful:', response);
+        console.log("Registration successful:", response);
         // Handle success (e.g., redirect, show success message, etc.)
       } catch (error) {
-        console.error('Registration failed:', error);
-        setError('Registration failed. Please try again.');
+        console.error("Registration failed:", error);
+        setError("Registration failed. Please try again.");
       }
+      setloading(false);
     }
 
     setValidated(true);
@@ -97,7 +106,6 @@ const Register = () => {
                               validated={validated}
                               onSubmit={handleRegisterSubmit}
                             >
-
                               <Row>
                                 <Col md={6}>
                                   <Form.Group controlId="formFirstName">
@@ -220,8 +228,19 @@ const Register = () => {
                                   variant="primary"
                                   className="w-100"
                                   style={{ fontWeight: "bold" }}
+                                  disabled={loading}
                                 >
-                                  Register
+                                  {loading?(
+                                    <>
+                                    <Spinner
+                                    animation="border"
+                                    size="sm"
+                                    variant="secondary"
+                                    />{" "}Registering you</>
+                                  ):(
+                                    "Register"
+                                  )}
+                                  
                                 </Button>
                               </div>
                             </Form>
