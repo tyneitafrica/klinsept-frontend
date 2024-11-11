@@ -5,13 +5,14 @@ import { Link } from "react-router-dom";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import { useLocation } from "react-router-dom";
-import { Form, Button, Alert,Nav, Tab } from "react-bootstrap";
+import { useLocation, useParams } from "react-router-dom";
+import { Form, Button, Alert, Nav, Tab } from "react-bootstrap";
 
 const ResetPassword = () => {
+  const { otp } = useParams();
   const { pathname } = useLocation();
   const [resetData, setResetData] = useState({
-    otp: "",
+    otp: otp,
     password: "",
     confirmPassword: "",
   });
@@ -52,8 +53,8 @@ const ResetPassword = () => {
           content="Reset password page of  eCommerce template."
         />
       </MetaTags>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
+      <BreadcrumbsItem to={"/"}>Home</BreadcrumbsItem>
+      <BreadcrumbsItem to={pathname}>
         Reset Password
       </BreadcrumbsItem>
       <LayoutOne headerTop="visible">
@@ -62,38 +63,22 @@ const ResetPassword = () => {
           <div className="container">
             <div className="row">
               <div className="col-lg-7 col-md-12 ml-auto mr-auto">
-              <div className="login-register-wrapper">
-              <Tab.Container defaultActiveKey="register">
-
-                <Nav variant="pills" className="login-register-tab-list">
+                <div className="login-register-wrapper">
+                  <Tab.Container defaultActiveKey="register">
+                    <Nav variant="pills" className="login-register-tab-list">
                       <Nav.Item>
                         <Nav.Link eventKey="register">
-                          <h4>Register</h4>
+                          <h4>Reset Password</h4>
                         </Nav.Link>
                       </Nav.Item>
                     </Nav>
-              </Tab.Container>
+                  </Tab.Container>
                   <Form
                     noValidate
                     validated={validated}
                     onSubmit={handleResetPasswordSubmit}
                   >
                     {error && <Alert variant="danger">{error}</Alert>}
-
-                    <Form.Group controlId="formOTP">
-                      <Form.Label>OTP</Form.Label>
-                      <Form.Control
-                        required
-                        type="text"
-                        placeholder="Enter OTP"
-                        name="otp"
-                        value={resetData.otp}
-                        onChange={handleInputChange}
-                      />
-                      <Form.Control.Feedback type="invalid">
-                        Please enter the OTP sent to your email.
-                      </Form.Control.Feedback>
-                    </Form.Group>
 
                     <Form.Group controlId="formPassword">
                       <Form.Label>New Password</Form.Label>
@@ -140,7 +125,7 @@ const ResetPassword = () => {
                       </Button>
                       <div className="mt-3">
                         <Link
-                          to={process.env.PUBLIC_URL + "/login"}
+                          to={"/login"}
                           className="text-primary"
                           style={{ textDecoration: "underline" }}
                         >
