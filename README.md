@@ -66,7 +66,7 @@ git clone https://github.com/tyneitaftica/klinsept.git
 
 If you'd like to contribute, please refer to the see the [CONTRIBUTING.md](./CONTRIBUTING.md) document:
 
-
+## [User Stories](./user-stories.md)
 
 ## [License](./LICENSE)
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).

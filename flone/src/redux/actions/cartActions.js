@@ -7,8 +7,7 @@ export const DELETE_ALL_FROM_CART = "DELETE_ALL_FROM_CART";
 export const addToCart = (
   item,
   addToast,
-  quantityCount,
-  selectedProductSize
+  quantityCount
 ) => {
   return dispatch => {
     if (addToast) {
@@ -19,11 +18,6 @@ export const addToCart = (
       payload: {
         ...item,
         quantity: quantityCount,
-        selectedProductSize: selectedProductSize
-          ? selectedProductSize
-          : item.selectedProductSize
-          ? item.selectedProductSize
-          : null
       }
     });
   };

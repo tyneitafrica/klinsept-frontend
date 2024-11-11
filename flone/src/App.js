@@ -93,7 +93,7 @@ const App = (props) => {
                   element={<Login />}
                 />
                 <Route
-                  path={"/reset"}
+                  path={"/reset/:otp"}
                   element={<ResetPassword />}
                 />
                 <Route

@@ -31,7 +31,7 @@ const Register = () => {
   });
   const [validated, setValidated] = useState(false);
   const [error, setError] = useState("");
-  const [loading, setloading] = useState(!false);
+  const [loading, setloading] = useState(false);
 
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
