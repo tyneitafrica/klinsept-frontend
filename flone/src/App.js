@@ -76,10 +76,22 @@ const App = (props) => {
                 <Route path={"/blogs"} element={<Blogs />} />
 
                 {/* auth */}
-                <Route path={"/register"} element={<Register />} />
-                <Route path={"/login"} element={<Login />} />
-                <Route path={"/reset/:otp"} element={<ResetPassword />} />
-                <Route path={"/forgot"} element={<ForgotPassword />} />
+                <Route
+                  path={"/register"}
+                  element={<Register />}
+                />
+                <Route
+                  path={"/login"}
+                  element={<Login />}
+                />
+                <Route
+                  path={"/reset/:otp"}
+                  element={<ResetPassword />}
+                />
+                <Route
+                  path={"/forgot"}
+                  element={<ForgotPassword />}
+                />
 
                 {/* Other pages */}
                 <Route path={"/about"} element={<About />} />
