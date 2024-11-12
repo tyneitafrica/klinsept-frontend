@@ -2,15 +2,14 @@ import PropTypes from "prop-types";
 import React, { Fragment, useState, useEffect } from 'react';
 import MetaTags from 'react-meta-tags';
 import Paginator from 'react-hooks-paginator';
-import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
+// import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
 import { connect } from 'react-redux';
 import { getSortedProducts } from '../helpers/product';
 import LayoutOne from '../layouts/LayoutOne';
-import Breadcrumb from '../wrappers/breadcrumb/Breadcrumb';
+// import Breadcrumb from '../wrappers/breadcrumb/Breadcrumb';
 import ShopSidebar from '../wrappers/product/ShopSidebar';
 import ShopTopbar from '../wrappers/product/ShopTopbar';
 import ShopProducts from '../wrappers/product/ShopProducts';
-import { useLocation } from "react-router-dom";
 
 const Products = ({ products}) => {
     const [layout, setLayout] = useState('grid three-column');
@@ -22,7 +21,6 @@ const Products = ({ products}) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [currentData, setCurrentData] = useState([]);
     const [sortedProducts, setSortedProducts] = useState([]);
-    const pathname = useLocation(); 
 
     const pageLimit = 15;
 
@@ -56,11 +54,9 @@ const Products = ({ products}) => {
             </MetaTags>
 
             {/* <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem> */}
-            <BreadcrumbsItem to={`/`+pathname}>Shop</BreadcrumbsItem>
+            {/* <BreadcrumbsItem to={`/`+pathname}>Shop</BreadcrumbsItem> */}
 
             <LayoutOne headerTop="visible">
-                {/* breadcrumb */}
-                <Breadcrumb >fffff</Breadcrumb>
 
                 <div className="shop-area pt-95 pb-100">
                     <div className="container">

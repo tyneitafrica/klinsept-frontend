@@ -14,8 +14,7 @@ const ProductGridListSingle = ({
   addToCompare,
   cartItem,
   wishlistItem,
-  compareItem,
-  sliderClassName
+  compareItem
 }) => {
   const [modalShow, setModalShow] = useState(false);
   const { addToast } = useToasts();
@@ -29,9 +28,7 @@ const ProductGridListSingle = ({
   return (
     <Fragment>
       <div
-        className={`col-xl-4 col-sm-6 ${
-          sliderClassName ? sliderClassName : ""
-        }`}
+        className={`col-xl-4 col-sm-6 `}
       >
         <div
           className={`product-wrap mb-25`}
@@ -82,20 +79,7 @@ const ProductGridListSingle = ({
                 </button>
               </div>
               <div className="pro-same-action pro-cart">
-                {product.affiliateLink ? (
-                  <a
-                    href={product.affiliateLink}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    {" "}
-                    Buy now{" "}
-                  </a>
-                ) : product.variation && product.variation.length >= 1 ? (
-                  <Link to={`${process.env.PUBLIC_URL}/product/${product.id}`}>
-                    Select Option
-                  </Link>
-                ) : product.stock && product.stock > 0 ? (
+                {product.stock && product.stock > 0 ? (
                   <button
                     onClick={() => addToCart(product, addToast)}
                     className={
@@ -228,22 +212,7 @@ const ProductGridListSingle = ({
 
                 <div className="shop-list-actions d-flex align-items-center">
                   <div className="shop-list-btn btn-hover">
-                    {product.affiliateLink ? (
-                      <a
-                        href={product.affiliateLink}
-                        rel="noopener noreferrer"
-                        target="_blank"
-                      >
-                        {" "}
-                        Buy now{" "}
-                      </a>
-                    ) : product.variation && product.variation.length >= 1 ? (
-                      <Link
-                        to={`${process.env.PUBLIC_URL}/product/${product.id}`}
-                      >
-                        Select Option
-                      </Link>
-                    ) : product.stock && product.stock > 0 ? (
+                    {product.stock && product.stock > 0 ? (
                       <button
                         onClick={() => addToCart(product, addToast)}
                         className={
