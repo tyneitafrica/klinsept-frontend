@@ -51,12 +51,13 @@ const Gallery = () => {
                     <img src={banner.image} alt="" className="gallery-image" />
                   </div>
                 </a>
-                <div className="gallery-content">
-                  {banner.subtitle && <h3 className="gallery-subtitle">{banner.subtitle}</h3>}
-                  {/* <h2 className="gallery-discount">{banner.discount}</h2> */}
-                  <Link to={process.env.PUBLIC_URL + banner.link} className="gallery-button">
-                    Learn more
-                  </Link>
+                <div className="gallery-overlay">
+                  <div className="gallery-content">
+                    {banner.subtitle && <h3 className="gallery-subtitle">{banner.subtitle}</h3>}
+                    <Link to={process.env.PUBLIC_URL + banner.link} className="gallery-button">
+                      Learn more
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>

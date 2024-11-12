@@ -76,16 +76,13 @@
   );
 }
 
+.gallery-content {
+  padding-top: 20px;
+}
+
 .gallery-subtitle {
   color: #fff;
   font-weight: 600;
-}
-
-.gallery-discount {
-  font-size: 24px;
-  font-weight: 700;
-  margin: 0 0 20px;
-  color: #007bff;
 }
 
 .gallery-button {
@@ -147,18 +144,6 @@
     padding: 8px 20px;
     font-size: 14px;
   }
-}
-
-/* Animation for content on hover */
-.gallery-card .gallery-content {
-  transform: translateY(10px);
-  opacity: 0.9;
-  transition: all 0.3s ease;
-}
-
-.gallery-card:hover .gallery-content {
-  transform: translateY(0);
-  opacity: 1;
 }
 
 /* Optional: Add loading animation for images */
