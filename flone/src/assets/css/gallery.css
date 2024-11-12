@@ -76,13 +76,16 @@
   );
 }
 
-.gallery-content {
-  padding-top: 20px;
-}
-
 .gallery-subtitle {
   color: #fff;
   font-weight: 600;
+}
+
+.gallery-discount {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 20px;
+  color: #007bff;
 }
 
 .gallery-button {

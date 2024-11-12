@@ -14,8 +14,6 @@ const IconGroup = ({
   compareData,
   deleteFromCart,
 }) => {
-  const [searchvalue, setSearchValue] = useState("");
-  const navigate = useNavigate();
   const handleClick = (e) => {
     e.currentTarget.nextSibling.classList.toggle("active");
   };
@@ -41,21 +39,19 @@ const IconGroup = ({
           <i className="pe-7s-search" />
         </button>
         <div className="search-content">
-          <form onSubmit={handleSearch}>
-            <input
-              type="text"
-              placeholder="Search"
-              value={searchvalue}
-              onChange={(e) => setSearchValue(e.target.value)}
-            />
-            <button type="submit" className="button-search">
+          <form action="#">
+            <input type="text" placeholder="Search" />
+            <button className="button-search">
               <i className="pe-7s-search" />
             </button>
           </form>
         </div>
       </div>
       <div className="same-style header-compare ">
-        <button className="count-style" onClick={(e) => handleClick(e)}>
+        <button
+          className="count-style"
+          onClick={(e) => handleClick(e)}
+        >
           <FaRegUserCircle size={25} />
           {/* <i className="text-2xl pe-7s-user-female" /> */}
         </button>
