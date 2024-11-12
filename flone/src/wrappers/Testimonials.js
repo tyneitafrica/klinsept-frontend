@@ -16,7 +16,7 @@ const Testimonials = () => {
 
   return (
     <div
-      className="testimonial-area mt-195"
+      className="testimonial-area mt-95"
     >
       <div className="container p-5">
         <div className="row align-items-center">

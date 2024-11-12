@@ -1,72 +1,65 @@
+// BannerTwentyFiveSingle.jsx
 import React from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import "../../assets/css/BannerTwentyFiveSingle.css";
 
-const bannerData = [
-  {
-    id: 1,
-    image: "/assets/img/banner/KlinSav.jpg",
-    title: "Antiseptics",
-    subtitle: "Kills Microorganisms on Skin",
-    text: "20% OFF",
-    link: "/products",
-  },
-  {
-    id: 2,
-    image: "/assets/img/banner/Liquid-detergent.jpg",
-    title: "Detergents",
-    subtitle: "Efficient Cleaning Power",
-    text: "30% OFF",
-    link: "/products",
-  },
-  {
-    id: 3,
-    image: "/assets/img/banner/klinwash.jpg",
-    title: "Disinfectants",
-    subtitle: "Kills Germs on Surfaces",
-    text: "40% OFF",
-    link: "/products",
-  },
-];
+const BannerTwentyFiveSingle = () => {
+  const bannerData = [
+    {
+      id: 1,
+      image: "/assets/img/banner/KlinSav.jpg",
+      title: "Antiseptics",
+      subtitle: "Kills Microorganisms on Skin",
+      link: "/products",
+    },
+    {
+      id: 2,
+      image: "/assets/img/banner/Liquid-detergent.jpg",
+      title: "Detergents",
+      subtitle: "Efficient Cleaning Power",
+      link: "/products",
+    },
+    {
+      id: 3,
+      image: "/assets/img/banner/klinwash.jpg",
+      title: "Disinfectants",
+      subtitle: "Kills Germs on Surfaces",
+      link: "/products",
+    },
+  ];
 
-const Banner = () => {
   return (
-    <Container fluid className="text-center p-5 py-9">
-      <Row>
-        {bannerData.map((single, key) => (
-          <Col key={key} lg={4} md={6} sm={10} className="custom-holder mb-4">
-            <Link to={single.link}>
-              <Card className="custom-single-banner h-100">
-                <div className="custom-banner-container">
-                  <Card.Img
-                    src={single.image}
-                    alt=""
-                    className="custom-banner-img"
-                  />
-                  <div className="custom-overlay"></div>
-                </div>
-                <Card.Body className="custom-text-center">
-                  <Card.Title as="h5" className="custom-banner-title">
-                    {single.title}
-                  </Card.Title>
-                  <Card.Subtitle
-                    as="h6"
-                    className="text-muted custom-banner-subtitle"
-                  >
-                    {single.subtitle}
-                  </Card.Subtitle>
-                  <Card.Text className="font-weight-bold mt-2 custom-offer-text">
-                    {single.text}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Link>
-          </Col>
-        ))}
-      </Row>
-    </Container>
+    <section className="banner-section py-5">
+      <Container>
+        <Row className="justify-content-center">
+          {bannerData.map((banner) => (
+            <Col key={banner.id} xs={12} sm={6} lg={4} className="mb-4">
+              <Link to={banner.link} className="text-decoration-none">
+                <Card className="banner-card h-100">
+                  <div className="banner-image-wrapper">
+                    <Card.Img
+                      variant="top"
+                      src={banner.image}
+                      alt={banner.title}
+                      className="banner-image"
+                    />
+                    <div className="banner-overlay">
+                      <div className="banner-content">
+                        <h3 className="banner-title">{banner.title}</h3>
+                        <p className="banner-subtitle text-white">{banner.subtitle}</p>
+                        <span className="banner-btn">Shop Now</span>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              </Link>
+            </Col>
+          ))}
+        </Row>
+      </Container>
+    </section>
   );
 };
 
-export default Banner;
+export default BannerTwentyFiveSingle;

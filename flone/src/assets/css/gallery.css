@@ -1,45 +1,185 @@
-/* Banner card styles */
-.single-banner {
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .single-banner img {
-    width: 100%;
-    height: auto; 
-  }
-  
-  .banner-card {
-    max-height: 450px; 
-    overflow: hidden; 
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .banner-content-33-2 {
-    position: absolute;
-    bottom: 10%;
-    left: 10%;
-    right: 10%;
-    color: rgb(0, 0, 0);
-    text-align: center;
-    padding: 10px;
+/* Gallery.css */
+.gallery-area {
+  padding: 60px 0;
+  margin: 50px 0;
+  background-color: #f8f9fa;
+}
+
+.gallery-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.gallery-card:hover {
+  transform: translateY(-5px);
+}
+
+.gallery-image-wrapper {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 75%; /* 4:3 Aspect Ratio */
+}
+
+.gallery-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.gallery-card:hover .gallery-image {
+  transform: scale(1.1);
+}
+
+.gallery-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 30px;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  color: white;
+  transition: background 0.3s ease;
+}
+
+.gallery-card:hover .gallery-content {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+}
+
+.gallery-subtitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 10px;
+  opacity: 0.9;
+}
+
+.gallery-discount {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 20px;
+  color: #00e5ff;
+}
+
+.gallery-button {
+  display: inline-block;
+  padding: 10px 25px;
+  background-color: #00e5ff;
+  color: white;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.gallery-button:hover {
+  background-color: white;
+  color: #00e5ff;
+  text-decoration: none;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .gallery-grid {
+    gap: 20px;
   }
 
-  .banner-content-33-2 a {
-    background-color: rgba(0, 0, 0, 0.5); 
+  .gallery-content {
+    padding: 20px;
   }
-  .banner-content-33-2 h4 {
-    margin: 5px 0;
-    font-size: 1.2rem;
-  }
-  
 
-  
-  .banner-content-33-2 a:hover {
-    background-color: #e55e4b; /* Darker shade on hover */
+  .gallery-subtitle {
+    font-size: 16px;
   }
-  
+
+  .gallery-discount {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-content {
+    padding: 15px;
+  }
+
+  .gallery-subtitle {
+    font-size: 14px;
+  }
+
+  .gallery-discount {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+
+  .gallery-button {
+    padding: 8px 20px;
+    font-size: 14px;
+  }
+}
+
+/* Animation for content on hover */
+.gallery-card .gallery-content {
+  transform: translateY(10px);
+  opacity: 0.9;
+  transition: all 0.3s ease;
+}
+
+.gallery-card:hover .gallery-content {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Optional: Add loading animation for images */
+.gallery-image {
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -7,7 +7,7 @@ import Services from "../wrappers/Services";
 import TabProductSixteen from "../wrappers/product/TabProductSixteen";
 import BlogFeaturedFour from "../wrappers/blog-featured/BlogFeaturedFour";
 import Testimonials from "../wrappers/Testimonials";
-import MedicalContact from "../components/contact/MedicalContact";
+import Testimonial from "../wrappers/Testimonials2";
 import Gallery from "../wrappers/banner/Gallery";
 import ProductSlider from "../wrappers/product/ProductSlider";
 
@@ -39,10 +39,9 @@ const Home = () => {
         <BlogFeaturedFour />
 
         {/* testimonials */}
-        <Testimonials />
+        <Testimonial/>
         
         {/* contact */}
-        <MedicalContact />
       </LayoutOne>
     </Fragment>
   );
