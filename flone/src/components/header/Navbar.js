@@ -1,39 +1,41 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { NavLink, Link } from "react-router-dom";
 import {
   FaBarsStaggered,
+  FaMoon,
+  FaRegSun,
+  FaSoap,
   FaCartShopping,
   FaRegHeart,
   FaCodeCompare,
   FaRegUser,
-  FaMagnifyingGlass,
 } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
-import { Form, Button, Alert } from "react-bootstrap";
-import Logo from "../../assets/logo.png";
 import "../../assets/css/Navbar.css";
+
+import { setDarkMode } from "../../redux/actions/appAction.js";
 
 function Navbar({ loggedin = !true }) {
   const [toggleMenu, setToggleMenu] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [showSearch, setShowSearch] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
-  const [error, setError] = useState("");
   const navigationRef = useRef();
-  const navigate = useNavigate();
 
-  const cartData = useSelector((state) => state.cartData);
-  const wishlistData = useSelector((state) => state.wishlistData);
-  const compareData = useSelector((state) => state.compareData);
+  const darkMode = useSelector((state) => state.app.darkMode);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 20);
     };
 
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -47,144 +49,103 @@ function Navbar({ loggedin = !true }) {
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    const trimmedSearch = searchValue.trim();
-
-    if (!trimmedSearch) {
-      setError("Search cannot be empty");
-      setTimeout(() => setError(""), 3000);
-      return;
-    }
-
-    if (trimmedSearch.length < 3) {
-      setError("Search must be at least 3 characters");
-      setTimeout(() => setError(""), 3000);
-      return;
-    }
-
-    navigate(`/search/${trimmedSearch}`);
-    setError("");
-    setShowSearch(false);
-  };
-
   return (
-    <>
-      {error && (
-        <Alert className="alert-custom" variant="danger">
-          {error}
-        </Alert>
-      )}
-      <div
-        className={`fixed-top ${isScrolled && "scrolled"} ${
-          toggleMenu && "toggled"
-        }`}
-      >
-        <nav>
-          <div className="nav-container">
-            <div className="nav-inner-container">
-              <div className="logo-container">
-                <div>
-                  <Link to="/" className="logo-link text-center">
-                    <img src={Logo} alt="klinset logo" />
-                  </Link>
-                </div>
-                <div className="primary-nav">
-                  <NavLink to="/products">Products</NavLink>
-                  <NavLink to="/blogs">Blogs</NavLink>
-                  <NavLink to="/contact">Contact Us</NavLink>
-                  <NavLink to="/about">About Us</NavLink>
-                  <NavLink to={loggedin ? "/my-account" : "/login"}>
-                    <FaRegUser size={24} />
-                  </NavLink>
-                </div>
+    <div
+      className={`fixed-top ${isScrolled && "scrolled"} ${
+        toggleMenu && "toggled"
+      }`}
+    >
+      <nav>
+        <div className="nav-container">
+          <div className="nav-inner-container">
+            {/* Primary menu and logo */}
+            <div className="logo-container">
+              <div>
+                <Link to="/" className="logo-link text-center">
+                  <FaSoap size={38} className="logo-icon" />
+                  {/* <span>Klinsept</span> */}
+                </Link>
               </div>
-
-              <div className="secondary-nav">
-                <div className="search-container">
-                  {!showSearch && (
-                    <FaMagnifyingGlass
-                      size={22}
-                      onClick={() => setShowSearch(!showSearch)}
-                      className="search-icon"
-                    />
-                  )}
-                  {showSearch && (
-                    <Form onSubmit={handleSearch} className="search-form">
-                      <Form.Control
-                        type="text"
-                        placeholder="Search"
-                        value={searchValue}
-                        onChange={(e) => setSearchValue(e.target.value)}
-                        isInvalid={!!error}
-                      />
-                      <Button
-                        variant="outline-secondary"
-                        type="submit"
-                        onClick={handleSearch}
-                      >
-                        <FaMagnifyingGlass />
-                      </Button>
-                      <IoClose
-                        className="close-icon"
-                        onClick={() => setShowSearch(!showSearch)}
-                      />
-                    </Form>
-                  )}
-                </div>
-
-                <NavLink className="icon-with-badge" to="/cart">
-                  <FaCartShopping size={25} />
-                  <span className="badge badge-light">
-                    {cartData?.length || 0}
-                  </span>
-                </NavLink>
-                <NavLink to="/wishlist">
-                  <FaRegHeart size={25} />
-                  <span className="badge badge-info">
-                    {wishlistData?.length || 0}
-                  </span>
-                </NavLink>
-                <NavLink to="/compare">
-                  <FaCodeCompare size={25} />
-                  <span className="badge badge-danger">
-                    {compareData?.length || 0}
-                  </span>
-                </NavLink>
-
-                <div
-                  className="menu-toggle"
-                  onClick={() => setToggleMenu(!toggleMenu)}
-                >
-                  {!toggleMenu ? (
-                    <FaBarsStaggered size={25} />
+              <div className="primary-nav">
+                <NavLink to="/">Home</NavLink>
+                <NavLink to="/products">products</NavLink>
+                <NavLink to="/blogs">Blogs</NavLink>
+                <NavLink to="/contact">Contact Us</NavLink>
+                <NavLink to="/about">About Us</NavLink>
+                <button className="btn btn-info rounded p-1">
+                  {!loggedin ? (
+                    <Link to="#">Profile</Link>
                   ) : (
-                    <IoClose size={25} />
+                    <Link to="#">Login</Link>
                   )}
-                </div>
+                </button>
+              </div>
+            </div>
+
+            {/* Secondary navigation */}
+            <div className="secondary-nav">
+              {/* <div
+                className="dark-mode-icon"
+                onClick={() => dispatch(setDarkMode(!darkMode))}
+              >
+                {!darkMode ? <FaMoon size={25} /> : <FaRegSun size={25} />}
+              </div> */}
+
+              <NavLink to={loggedin?'/my-account':'/login'}>
+                <FaRegUser size={25} />
+                {/* <i className="text-2xl pe-7s-user-female" /> */}
+              </NavLink>
+
+              <NavLink className="icon-with-badge" to="/cart">
+                <FaCartShopping size={25} />
+                <span class="badge badge-light">4</span>
+              </NavLink>
+              <NavLink to="/wishlist">
+                <FaRegHeart size={25} />
+                <span class="badge badge-info">4</span>
+              </NavLink>
+              <NavLink to="/compare">
+                <FaCodeCompare size={25} />
+                <span class="badge badge-danger">4</span>
+              </NavLink>
+              <div
+                className="menu-toggle"
+                onClick={() => setToggleMenu(!toggleMenu)}
+              >
+                {!toggleMenu ? (
+                  <FaBarsStaggered size={25} />
+                ) : (
+                  <IoClose size={30} />
+                )}
               </div>
             </div>
           </div>
+        </div>
 
-          <div
-            className={`mobile-nav ${toggleMenu ? "expanded" : "collapsed"}`}
-          >
-            <div className="mobile-menu-links">
-              <NavLink to="/products">Products</NavLink>
-              <NavLink to="/blogs">Blogs</NavLink>
-              <NavLink to="/contact">Contact Us</NavLink>
-              <NavLink to="/about">About Us</NavLink>
-              <NavLink to={loggedin ? "/my-account" : "/login"}>
-                  <FaRegUser size={24} />
-                </NavLink>
-            </div>
+        {/* Mobile navigation */}
+        <div className={`mobile-nav ${toggleMenu ? "expanded" : "collapsed"}`}>
+          <div className="mobile-menu-links">
+            <Link to="#">Home</Link>
+            <Link to="#">Shop</Link>
+            <Link to="#">Contact Us</Link>
+            <Link to="#">Profile</Link>
+            <button>
+              {loggedin ? (
+                <Link to="#">Dashboard</Link>
+              ) : (
+                <Link to="#">Get-Started</Link>
+              )}
+            </button>
           </div>
-        </nav>
-      </div>
-    </>
+        </div>
+      </nav>
+    </div>
   );
 }
 

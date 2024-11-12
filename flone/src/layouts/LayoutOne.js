@@ -7,7 +7,7 @@ import Navbar from "../components/header/Navbar";
 const LayoutOne = ({ children, headerTop, headerPositionClass }) => {
   return (
     <Fragment>
-      <Navbar />
+      <Navbar/>
       {/* <Header top={headerTop} headerPositionClass={headerPositionClass} /> */}
       {children}
       <FooterOne />

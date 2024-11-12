@@ -1,32 +1,22 @@
-/* Reset and Base Styles */
-a {
-  color: black;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-a:hover {
-  color: #00f7ff;
-}
-
-a.active {
-  color: #00f7ff;
-}
-
-/* Main Navigation Container */
+/* General container styling */
 .fixed-top {
   position: fixed;
   top: 0;
   width: 100%;
   transition: background-color 0.1s ease-in-out;
+  margin-bottom: 22px;
   backdrop-filter: blur(5px);
-  background-color: #fff;
+  background-color: #fff; /* Adjust as needed */
 }
 
-.fixed-top.scrolled,
-.fixed-top.toggled {
-  background-color: rgba(255, 255, 255, 0.774);
-  background-color: rgba(48, 185, 240, 0.774);
+a.active{
+    color: #00f7ff;
+}
+.toggled {
+  background-color: rgba(48, 185, 240, 0.774); /* Adjust as needed */
+}
+.scrolled {
+  background-color: rgba(48, 185, 240, 0.774); /* Adjust as needed */
 }
 
 .nav-container {
@@ -37,129 +27,91 @@ a.active {
 .nav-inner-container {
   display: flex;
   justify-content: space-between;
-  width: 83.3333%;
+  width: 83.3333%; /* Equivalent to w-5/6 */
   margin: 0 auto;
 }
 
-/* Logo Section */
 .logo-container {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  margin: 1rem 0;
+  gap: 3rem;
+  margin: 1.75rem 0;
 }
 
-.logo-link img {
-  max-width: 100px;
-  width: 90%;
-  height: auto;
+.primary-nav{
+    display: flex;
+    align-items: center;
+    gap: 1rem; 
 }
+@media (max-width: 820px) {
+    .primary-nav{
 
-/* Primary Navigation */
-.primary-nav {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+        display: none;
+    }
+   /* for small screens hide the nav  */
 }
-
-/* Secondary Navigation */
 .secondary-nav {
   display: flex;
-  justify-content: center;
   align-items: center;
   gap: 1rem;
 }
 
 .secondary-nav a {
-  position: relative;
-  display: inline-block;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    font-weight: 600;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.92);
+  }
+  
+
+.primary-nav a,
+.secondary-nav a,
+.primary-nav button,
+.secondary-nav button {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
 }
 
-/* Search Functionality */
-.search-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+.primary-nav a:hover,
+.secondary-nav a:hover {
+  color: #00f7ff; /* Equivalent to hover:text-yellow-500 */
 }
 
-.search-icon {
+/* Dark mode and icons */
+.dark-mode-icon {
   cursor: pointer;
-  color: #333;
+  color: black;
 }
 
-.search-form {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  top: 100%;
-  right: 0;
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 5px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 10;
+.dark-mode-active {
+  color: white;
 }
 
-.search-form input[type="text"] {
-  border: none;
-  outline: none;
-  padding: 2px;
-  margin-right: 5px;
-  width: 150px;
-}
-
-.search-form input[type="text"]:focus {
-  border: 2px;
-}
-
-.search-form .search-icon,
-.search-form .close-icon {
-  cursor: pointer;
-  color: #666;
-  margin-left: 5px;
-}
-
-.search-form .close-icon:hover {
-  color: #333;
-}
-/* Alert Styling */
-.alert-custom {
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1080;
-  margin-top: 1rem;
-  width: 90%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-}
-
-/* Badge Styling */
-.badge {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  font-weight: 600;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.92);
-}
-
-/* Mobile Menu Toggle */
 .menu-toggle {
   display: none;
   cursor: pointer;
 }
 
-/* Mobile Navigation */
+@media (max-width: 820px) {
+  .menu-toggle {
+    display: block;
+  }
+}
+
+/* Mobile menu */
 .mobile-nav {
   margin-bottom: 10px;
   position: fixed;
   width: 100%;
   background-color: rgba(48, 185, 240, 0.774);
-  backdrop-filter: blur(15px);
+  backdrop-filter: blur(10px);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -187,25 +139,4 @@ a.active {
 .mobile-menu-links a {
   color: inherit;
   text-decoration: none;
-}
-
-/* Media Queries */
-@media (max-width: 1000px) {
-  .menu-toggle {
-    display: block;
-  }
-
-  .primary-nav {
-    display: none;
-  }
-
-  .logo-link img {
-    max-width: 90px;
-  }
-}
-
-@media (max-width: 480px) {
-  .logo-link img {
-    max-width: 80px;
-  }
 }
