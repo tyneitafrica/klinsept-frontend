@@ -95,16 +95,39 @@ const App = (props) => {
                 />
 
                 {/* Other pages */}
-                <Route path={"/about"} element={<About />} />
-                <Route path={"/contact"} element={<Contact />} />
-                <Route path={"/my-account"} element={<MyAccount />} />
-                <Route path={"/cart"} element={<Cart />} />
-                <Route path={"/wishlist"} element={<Wishlist />} />
-                <Route path={"/compare"} element={<Compare />} />
-                <Route path={"/checkout"} element={<Checkout />} />
-                <Route path='/payment' element={<Payment/>}/>
-                <Route path="/search/:searchParams" element={<Search />} />
-                <Route path={"*"} element={<NotFound />} />
+                <Route
+                  path={"/about"}
+                  element={<About />}
+                />
+                <Route
+                  path={"/contact"}
+                  element={<Contact />}
+                />
+                <Route
+                  path={"/my-account"}
+                  element={<MyAccount />}
+                />
+                <Route
+                  path={"/cart"}
+                  element={<Cart />}
+                />
+                <Route
+                  path={"/wishlist"}
+                  element={<Wishlist />}
+                />
+                <Route
+                  path={"/compare"}
+                  element={<Compare />}
+                />
+                <Route
+                  path={"/checkout"}
+                  element={<Checkout />}
+                />
+                <Route path="/search/:searchParams" element={<Search/>}/>
+                <Route
+                  path={"*"}
+                  element={<NotFound />}
+                />
               </Routes>
             </Suspense>
           </ScrollToTop>
