@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-// eslint-disable-next-line
 import React, { useEffect, Suspense, lazy } from "react";
 import ScrollToTop from "./helpers/scroll-top";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -7,7 +6,6 @@ import { ToastProvider } from "react-toast-notifications";
 import { multilanguage, loadLanguages } from "redux-multilanguage";
 import { connect } from "react-redux";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
-import Search from "./pages/Search";
 import Search from "./pages/Search";
 
 // home pages
