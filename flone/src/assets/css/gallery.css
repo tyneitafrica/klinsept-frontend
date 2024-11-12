@@ -78,24 +78,22 @@
 }
 
 .gallery-subtitle {
-  font-size: 18px;
+  color: #fff;
   font-weight: 600;
-  margin: 0 0 10px;
-  opacity: 0.9;
 }
 
 .gallery-discount {
   font-size: 24px;
   font-weight: 700;
   margin: 0 0 20px;
-  color: #00e5ff;
+  color: #007bff;
 }
 
 .gallery-button {
   display: inline-block;
   padding: 10px 25px;
-  background-color: #00e5ff;
-  color: white;
+  background-color: white;
+  color: #007bff;
   text-decoration: none;
   border-radius: 25px;
   font-weight: 500;
@@ -103,8 +101,8 @@
 }
 
 .gallery-button:hover {
-  background-color: white;
-  color: #00e5ff;
+  background-color: #007bff;
+  color: white;
   text-decoration: none;
 }
 
