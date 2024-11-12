@@ -10,14 +10,14 @@
     "id": 2,
     "title": "Detergents",
     "subtitle": "Washing and cleaning processes.",
-    "image": "/assets/img/heros1.jpg",
+    "image": "/assets/img/download.jpeg",
     "url": "/products"
   },
   {
     "id": 3,
     "title": "Disinfectants",
     "subtitle": "kill germs on nonliving surfaces.",
-    "image": "/assets/img/hero-2.jpg",
+    "image": "/assets/img/download.jpeg",
     "url": "/products"
   },
   {

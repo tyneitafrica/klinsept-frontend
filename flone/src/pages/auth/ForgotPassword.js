@@ -26,6 +26,7 @@ const ForgotPassword = () => {
     }
     setValidated(true);
   };
+
   return (
     <Fragment>
       <MetaTags>
@@ -42,53 +43,65 @@ const ForgotPassword = () => {
       <LayoutOne headerTop="visible">
         <Breadcrumb />
         <div className="login-register-area pt-100 pb-100">
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-lg-6 col-md-8">
-             <div className="login-register-wrapper">
-              <Tab.Container defaultActiveKey="register">
-
-                <Nav variant="pills" className="login-register-tab-list">
+          <div className="container">
+            <div className="row justify-content-center">
+              <div className="col-lg-6 col-md-8">
+                <div className="login-register-wrapper">
+                  <Tab.Container defaultActiveKey="register">
+                    <Nav variant="pills" className="login-register-tab-list">
                       <Nav.Item>
                         <Nav.Link eventKey="register">
                           <h4>Register</h4>
                         </Nav.Link>
                       </Nav.Item>
                     </Nav>
-              </Tab.Container>
-              <Form noValidate validated={validated} onSubmit={handleForgotPasswordSubmit}>
-                {error && <Alert variant="danger">{error}</Alert>}
+                  </Tab.Container>
+                  <Form
+                    noValidate
+                    validated={validated}
+                    onSubmit={handleForgotPasswordSubmit}
+                  >
+                    {error && <Alert variant="danger">{error}</Alert>}
 
-                <Form.Group controlId="formEmail">
-                  <Form.Label>Email Address</Form.Label>
-                  <Form.Control
-                    required
-                    type="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid email.
-                  </Form.Control.Feedback>
-                </Form.Group>
+                    <Form.Group controlId="formEmail">
+                      <Form.Label>Email Address</Form.Label>
+                      <Form.Control
+                        required
+                        type="email"
+                        placeholder="Enter your email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Please provide a valid email.
+                      </Form.Control.Feedback>
+                    </Form.Group>
 
-                <div className="button-box text-center mt-4">
-                  <Button type="submit" variant="primary" className="w-100" style={{ fontWeight: "bold" }}>
-                    Submit
-                  </Button>
-                  <div className="mt-3">
-                    <Link to={process.env.PUBLIC_URL + "/login"} className="text-primary" style={{ textDecoration: "underline" }}>
-                      Back to Login
-                    </Link>
-                  </div>
+                    <div className="button-box text-center mt-4">
+                      <Button
+                        type="submit"
+                        variant="primary"
+                        className="w-100"
+                        style={{ fontWeight: "bold" }}
+                      >
+                        Submit
+                      </Button>
+                      <div className="mt-3">
+                        <Link
+                          to={process.env.PUBLIC_URL + "/login"}
+                          className="text-primary"
+                          style={{ textDecoration: "underline" }}
+                        >
+                          Back to Login
+                        </Link>
+                      </div>
+                    </div>
+                  </Form>
                 </div>
-              </Form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
       </LayoutOne>
     </Fragment>
   );

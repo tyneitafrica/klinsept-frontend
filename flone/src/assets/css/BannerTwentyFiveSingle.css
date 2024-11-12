@@ -1,71 +1,130 @@
-/* Custom styles for the banner */
-.custom-banner-container {
-  position: flex;
-  overflow: hidden; /* To ensure the overlay is contained within the image */
+/* BannerTwentyFiveSingle.css */
+.banner-section {
+  background-color: #f8f9fa;
 }
 
-.custom-holder {
-  align-items: center;
-  justify-content: center;
+.banner-card {
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
 
-/* Styling for the image */
-.custom-banner-img {
-  transition: all 0.3s ease; /* Smooth transition on hover */
+.banner-card:hover {
+  transform: translateY(-5px);
 }
 
-/* Dark overlay for hover effect */
-.custom-overlay {
+.banner-image-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.banner-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.banner-card:hover .banner-image {
+  transform: scale(1.1);
+}
+
+.banner-overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.4); /* Dark overlay with opacity */
-  opacity: 0; /* Hidden by default */
-  transition: opacity 0.3s ease;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.1) 60%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+  display: flex;
+  align-items: flex-end;
+  padding: 2rem;
+  transition: background 0.3s ease;
 }
 
-/* On hover, show the dark overlay */
-.custom-banner:hover .custom-overlay {
-  opacity: 1;
-  cursor: pointer;
+.banner-card:hover .banner-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
 }
 
-/* Styling for the content */
-.custom-banner-title,
-.custom-banner-subtitle {
-  color: #333; /* Dark text for readability */
-  font-weight: 700;
+.banner-content {
+  color: white;
+  text-align: left;
 }
 
-.custom-offer-text {
-  color: #007bff; /* Primary color for offer text */
+.banner-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Adding some spacing and text styling */
-.custom-single-banner {
-  border-radius: 8px; /* Rounded corners for the banner */
-  background-color: #fff; /* White background for the banner */
-  /* padding: 15px; Padding around the content */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Light shadow for elevation */
+.banner-subtitle {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  opacity: 0.9;
 }
 
-.custom-single-banner:hover {
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
+.banner-btn {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  background-color: white;
+  color: #333;
+  border-radius: 25px;
+  font-weight: 500;
+  transition: all 0.3s ease;
 }
 
-/* Ensure text is centered */
-.custom-text-center {
-  text-align: center;
+.banner-card:hover .banner-btn {
+  background-color: #007bff;
+  color: white;
 }
 
-@media (max-width: 767px) {
-  .custom-single-banner {
-    padding: 30px; /* Less padding on smaller screens */
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .banner-image {
+    height: 250px;
   }
+  
+  .banner-title {
+    font-size: 1.5rem;
+  }
+  
+  .banner-subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .banner-overlay {
+    padding: 1.5rem;
+  }
+}
 
-  .custom-banner-img {
-    height: auto; /* Ensure image resizes correctly on small screens */
+@media (max-width: 576px) {
+  .banner-image {
+    height: 200px;
+  }
+  
+  .banner-title {
+    font-size: 1.25rem;
+  }
+  
+  .banner-content {
+    text-align: center;
+    width: 100%;
+  }
+  
+  .banner-overlay {
+    padding: 1rem;
+    align-items: center;
+    text-align: center;
   }
 }
