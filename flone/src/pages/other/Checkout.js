@@ -8,54 +8,63 @@ import { getDiscountPrice } from "../../helpers/product";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useLocation } from "react-router-dom";
-import { Form, Button, } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
+import LoginModal from "../auth/LoginModal";
 
 const Checkout = ({ cartItems, currency }) => {
   const { pathname } = useLocation();
   let cartTotalPrice = 0;
-
-  // State for handling form validation and order details
+  const [userData, setUserData] = useState(false);
+  const [show, setShow] = useState(false);
   const [validated, setValidated] = useState(false);
   const [orderDetails, setOrderDetails] = useState(null);
 
   // Form fields
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    phone: '',
-    email: '',
-    country: '',
-    state: '',
-    city: '',
-    street: '',
-    postcode: '',
-    orderNotes: '',
-    products: cartItems
+    firstName: "",
+    lastName: "",
+    phone: "",
+    email: "",
+    country: "",
+    state: "",
+    city: "",
+    street: "",
+    postcode: "",
+    orderNotes: "",
+    products: cartItems,
   });
 
   // Handle form submission
   const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+    event.preventDefault();
+    if (userData) {
+      const form = event.currentTarget;
+      if (form.checkValidity() === false) {
+        event.preventDefault();
+        event.stopPropagation();
+      } else {
+        setOrderDetails(formData); // Set the order details for logging
+        console.log("Order Details:", formData, orderDetails);
+      }
+      setValidated(true);
     } else {
-      event.preventDefault();
-      setOrderDetails(formData); // Set the order details for logging
-      console.log("Order Details:", formData,orderDetails);
+      setShow(!show);
     }
-    setValidated(true);
   };
-
 
   return (
     <Fragment>
       <MetaTags>
         <title> Klinsept | Checkout</title>
-        <meta name="description" content="Checkout page of react minimalist eCommerce template." />
+        <meta
+          name="description"
+          content="Checkout page of react minimalist eCommerce template."
+        />
       </MetaTags>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>Checkout</BreadcrumbsItem>
+      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
+        Checkout
+      </BreadcrumbsItem>
       <LayoutOne headerTop="visible">
         <Breadcrumb />
         <div className="checkout-area pt-95 pb-100">
@@ -64,19 +73,30 @@ const Checkout = ({ cartItems, currency }) => {
               <div className="row">
                 <div className="col-lg-7">
                   <div className="billing-info-wrap">
-                    <h3>Customer Details</h3>
-                    <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                    <h3>Delivery Details</h3>
+                    <Form
+                      noValidate
+                      validated={validated}
+                      onSubmit={handleSubmit}
+                    >
                       <div className="row">
-                        <div className="col-lg-6 col-md-6">
+                        {/* <div className="col-lg-6 col-md-6">
                           <Form.Group controlId="firstName">
                             <Form.Label>First Name</Form.Label>
                             <Form.Control
                               type="text"
                               required
                               value={formData.firstName}
-                              onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                              onChange={(e) =>
+                                setFormData({
+                                  ...formData,
+                                  firstName: e.target.value,
+                                })
+                              }
                             />
-                            <Form.Control.Feedback type="invalid">Please provide your first name.</Form.Control.Feedback>
+                            <Form.Control.Feedback type="invalid">
+                              Please provide your first name.
+                            </Form.Control.Feedback>
                           </Form.Group>
                         </div>
                         <div className="col-lg-6 col-md-6">
@@ -86,9 +106,16 @@ const Checkout = ({ cartItems, currency }) => {
                               type="text"
                               required
                               value={formData.lastName}
-                              onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                              onChange={(e) =>
+                                setFormData({
+                                  ...formData,
+                                  lastName: e.target.value,
+                                })
+                              }
                             />
-                            <Form.Control.Feedback type="invalid">Please provide your last name.</Form.Control.Feedback>
+                            <Form.Control.Feedback type="invalid">
+                              Please provide your last name.
+                            </Form.Control.Feedback>
                           </Form.Group>
                         </div>
                         <div className="col-lg-6 col-md-6">
@@ -98,9 +125,16 @@ const Checkout = ({ cartItems, currency }) => {
                               type="text"
                               required
                               value={formData.phone}
-                              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                              onChange={(e) =>
+                                setFormData({
+                                  ...formData,
+                                  phone: e.target.value,
+                                })
+                              }
                             />
-                            <Form.Control.Feedback type="invalid">Please provide a valid phone number.</Form.Control.Feedback>
+                            <Form.Control.Feedback type="invalid">
+                              Please provide a valid phone number.
+                            </Form.Control.Feedback>
                           </Form.Group>
                         </div>
                         <div className="col-lg-6 col-md-6">
@@ -110,11 +144,18 @@ const Checkout = ({ cartItems, currency }) => {
                               type="email"
                               required
                               value={formData.email}
-                              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                              onChange={(e) =>
+                                setFormData({
+                                  ...formData,
+                                  email: e.target.value,
+                                })
+                              }
                             />
-                            <Form.Control.Feedback type="invalid">Please provide a valid email address.</Form.Control.Feedback>
+                            <Form.Control.Feedback type="invalid">
+                              Please provide a valid email address.
+                            </Form.Control.Feedback>
                           </Form.Group>
-                        </div>
+                        </div> */}
                         <div className="col-lg-12">
                           <Form.Group controlId="country">
                             <Form.Label>Country</Form.Label>
@@ -123,7 +164,10 @@ const Checkout = ({ cartItems, currency }) => {
                               required
                               value={formData.country}
                               onChange={(e) =>
-                                setFormData({ ...formData, country: e.target.value })
+                                setFormData({
+                                  ...formData,
+                                  country: e.target.value,
+                                })
                               }
                             >
                               <option value="">Select a country</option>
@@ -146,9 +190,16 @@ const Checkout = ({ cartItems, currency }) => {
                               type="text"
                               required
                               value={formData.state}
-                              onChange={(e) => setFormData({ ...formData, state: e.target.value })}
+                              onChange={(e) =>
+                                setFormData({
+                                  ...formData,
+                                  state: e.target.value,
+                                })
+                              }
                             />
-                            <Form.Control.Feedback type="invalid">State cannot be empty.</Form.Control.Feedback>
+                            <Form.Control.Feedback type="invalid">
+                              State cannot be empty.
+                            </Form.Control.Feedback>
                           </Form.Group>
                         </div>
                         <div className="col-lg-6 col-md-6">
@@ -158,7 +209,12 @@ const Checkout = ({ cartItems, currency }) => {
                               type="text"
                               required
                               value={formData.city}
-                              onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                              onChange={(e) =>
+                                setFormData({
+                                  ...formData,
+                                  city: e.target.value,
+                                })
+                              }
                             />
                           </Form.Group>
                         </div>
@@ -170,10 +226,14 @@ const Checkout = ({ cartItems, currency }) => {
                               placeholder="House number and street name"
                               required
                               value={formData.street}
-                              onChange={(e) => setFormData({ ...formData, street: e.target.value })}
+                              onChange={(e) =>
+                                setFormData({
+                                  ...formData,
+                                  street: e.target.value,
+                                })
+                              }
                             />
                           </Form.Group>
-
                         </div>
                         <div className="col-lg-6 col-md-6">
                           <Form.Group controlId="postcode">
@@ -182,7 +242,12 @@ const Checkout = ({ cartItems, currency }) => {
                               type="text"
                               required
                               value={formData.postcode}
-                              onChange={(e) => setFormData({ ...formData, postcode: e.target.value })}
+                              onChange={(e) =>
+                                setFormData({
+                                  ...formData,
+                                  postcode: e.target.value,
+                                })
+                              }
                             />
                           </Form.Group>
                         </div>
@@ -197,14 +262,21 @@ const Checkout = ({ cartItems, currency }) => {
                               as="textarea"
                               placeholder="Notes about your order, e.g. special notes for delivery."
                               value={formData.orderNotes}
-                              onChange={(e) => setFormData({ ...formData, orderNotes: e.target.value })}
+                              onChange={(e) =>
+                                setFormData({
+                                  ...formData,
+                                  orderNotes: e.target.value,
+                                })
+                              }
                             />
                           </Form.Group>
                         </div>
                       </div>
 
                       <div className="place-order mt-25">
-                        <Button variant="primary" type="submit">Place Order</Button>
+                        <Button variant="primary" type="submit">
+                          Place Order
+                        </Button>
                       </div>
                     </Form>
                   </div>
@@ -280,7 +352,6 @@ const Checkout = ({ cartItems, currency }) => {
                       </div>
                       <div className="payment-method"></div>
                     </div>
-
                   </div>
                 </div>
               </div>
@@ -303,6 +374,9 @@ const Checkout = ({ cartItems, currency }) => {
             )}
           </div>
         </div>
+        {show && (
+          <LoginModal show={show} setShow={setShow} setUserData={setUserData} />
+        )}
       </LayoutOne>
     </Fragment>
   );
