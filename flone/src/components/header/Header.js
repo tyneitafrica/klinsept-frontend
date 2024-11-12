@@ -1,8 +1,9 @@
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import IconGroup from "./IconGroup";
-import MobileMenu from "./MobileMenu";
+import Logo from "../components/header/Logo";
+import NavMenu from "../components/header/NavMenu";
+import IconGroup from "../components/header/IconGroup";
+import MobileMenu from "../components/header/MobileMenu";
 
 const Header = ({ borderStyle, headerPositionClass, headerBgClass }) => {
   const [scroll, setScroll] = useState(0);
@@ -31,7 +32,8 @@ const Header = ({ borderStyle, headerPositionClass, headerBgClass }) => {
         className={`header-padding-2 visible header-top-area ${
           borderStyle === "fluid-border" ? "border-none" : ""
         }`}
-      ></div>
+      >
+      </div>
 
       <div
         className={` header-padding-2 sticky-bar header-res-padding clearfix ${
