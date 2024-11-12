@@ -57,9 +57,6 @@ const Products = ({ products}) => {
 
             {/* <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem> */}
             {/* <BreadcrumbsItem to={`/`+pathname}>Shop</BreadcrumbsItem> */}
-            <BreadcrumbsItem to={`/`+pathname}>Shop</BreadcrumbsItem>
-            {/* <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem> */}
-            {/* <BreadcrumbsItem to={`/`+pathname}>Shop</BreadcrumbsItem> */}
 
             <LayoutOne headerTop="visible">
 
