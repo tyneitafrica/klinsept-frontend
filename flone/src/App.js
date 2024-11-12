@@ -77,57 +77,21 @@ const App = (props) => {
                 <Route path={"/blogs"} element={<Blogs />} />
 
                 {/* auth */}
-                <Route
-                  path={"/register"}
-                  element={<Register />}
-                />
-                <Route
-                  path={"/login"}
-                  element={<Login />}
-                />
-                <Route
-                  path={"/reset/:otp"}
-                  element={<ResetPassword />}
-                />
-                <Route
-                  path={"/forgot"}
-                  element={<ForgotPassword />}
-                />
+                <Route path={"/register"} element={<Register />} />
+                <Route path={"/login"} element={<Login />} />
+                <Route path={"/reset/:otp"} element={<ResetPassword />} />
+                <Route path={"/forgot"} element={<ForgotPassword />} />
 
                 {/* Other pages */}
-                <Route
-                  path={"/about"}
-                  element={<About />}
-                />
-                <Route
-                  path={"/contact"}
-                  element={<Contact />}
-                />
-                <Route
-                  path={"/my-account"}
-                  element={<MyAccount />}
-                />
-                <Route
-                  path={"/cart"}
-                  element={<Cart />}
-                />
-                <Route
-                  path={"/wishlist"}
-                  element={<Wishlist />}
-                />
-                <Route
-                  path={"/compare"}
-                  element={<Compare />}
-                />
-                <Route
-                  path={"/checkout"}
-                  element={<Checkout />}
-                />
-                <Route path="/search/:searchParams" element={<Search/>}/>
-                <Route
-                  path={"*"}
-                  element={<NotFound />}
-                />
+                <Route path={"/about"} element={<About />} />
+                <Route path={"/contact"} element={<Contact />} />
+                <Route path={"/my-account"} element={<MyAccount />} />
+                <Route path={"/cart"} element={<Cart />} />
+                <Route path={"/wishlist"} element={<Wishlist />} />
+                <Route path={"/compare"} element={<Compare />} />
+                <Route path={"/checkout"} element={<Checkout />} />
+                <Route path="/search/:searchParams" element={<Search />} />
+                <Route path={"*"} element={<NotFound />} />
               </Routes>
             </Suspense>
           </ScrollToTop>
