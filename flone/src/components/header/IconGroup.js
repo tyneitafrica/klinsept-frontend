@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import MenuCart from "./sub-components/MenuCart";
 import { deleteFromCart } from "../../redux/actions/cartActions";
@@ -14,6 +14,8 @@ const IconGroup = ({
   compareData,
   deleteFromCart,
 }) => {
+  const [searchvalue, setSearchValue] = useState("");
+  const navigate = useNavigate();
   const handleClick = (e) => {
     e.currentTarget.nextSibling.classList.toggle("active");
   };
@@ -25,6 +27,13 @@ const IconGroup = ({
     offcanvasMobileMenu.classList.add("active");
   };
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchvalue.trim()) {
+      navigate(`/search/${searchvalue}`);
+    }
+  };
+
   return (
     <div className={`header-right-wrap `}>
       <div className="same-style header-search d-none d-lg-block">
@@ -32,19 +41,21 @@ const IconGroup = ({
           <i className="pe-7s-search" />
         </button>
         <div className="search-content">
-          <form action="#">
-            <input type="text" placeholder="Search" />
-            <button className="button-search">
+          <form onSubmit={handleSearch}>
+            <input
+              type="text"
+              placeholder="Search"
+              value={searchvalue}
+              onChange={(e) => setSearchValue(e.target.value)}
+            />
+            <button type="submit" className="button-search">
               <i className="pe-7s-search" />
             </button>
           </form>
         </div>
       </div>
       <div className="same-style header-compare ">
-        <button
-          className="count-style"
-          onClick={(e) => handleClick(e)}
-        >
+        <button className="count-style" onClick={(e) => handleClick(e)}>
           <FaRegUserCircle size={25} />
           {/* <i className="text-2xl pe-7s-user-female" /> */}
         </button>

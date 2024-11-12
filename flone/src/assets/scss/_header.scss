@@ -410,7 +410,8 @@
 
 .stick .logo,
 .stick .header-right-wrap {
-  margin-top: 22px;
+  margin: 13px;
+  // margin-top: 2px;
   @media #{$md-layout} {
     margin-top: 0;
   }
