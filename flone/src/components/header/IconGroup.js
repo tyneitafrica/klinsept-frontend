@@ -55,7 +55,10 @@ const IconGroup = ({
         </div>
       </div>
       <div className="same-style header-compare ">
-        <button className="count-style" onClick={(e) => handleClick(e)}>
+        <button
+          className="count-style"
+          onClick={(e) => handleClick(e)}
+        >
           <FaRegUserCircle size={25} />
           {/* <i className="text-2xl pe-7s-user-female" /> */}
         </button>

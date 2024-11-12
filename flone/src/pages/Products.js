@@ -54,9 +54,13 @@ const Products = ({ products}) => {
             </MetaTags>
 
             {/* <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem> */}
+            <BreadcrumbsItem to={`/`+pathname}>Shop</BreadcrumbsItem>
+            {/* <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem> */}
             {/* <BreadcrumbsItem to={`/`+pathname}>Shop</BreadcrumbsItem> */}
 
             <LayoutOne headerTop="visible">
+                {/* breadcrumb */}
+                <Breadcrumb />
 
                 <div className="shop-area pt-105 pb-100">
                     <div className="container">

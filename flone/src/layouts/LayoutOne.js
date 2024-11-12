@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React, { Fragment } from "react";
-import Header from "../wrappers/Header";
+import Header from "../components/header/Header";
 import FooterOne from "../wrappers/FooterOne";
 import Navbar from "../components/header/Navbar";
 
