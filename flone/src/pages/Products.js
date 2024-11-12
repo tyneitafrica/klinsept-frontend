@@ -55,12 +55,12 @@ const Products = ({ products}) => {
                 <meta name="description" content="Shop page of  react minimalist eCommerce template." />
             </MetaTags>
 
-            <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem>
+            {/* <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem> */}
             <BreadcrumbsItem to={`/`+pathname}>Shop</BreadcrumbsItem>
 
             <LayoutOne headerTop="visible">
                 {/* breadcrumb */}
-                <Breadcrumb />
+                <Breadcrumb >fffff</Breadcrumb>
 
                 <div className="shop-area pt-95 pb-100">
                     <div className="container">

@@ -1,15 +1,11 @@
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import Logo from "../components/header/Logo";
-import NavMenu from "../components/header/NavMenu";
-import IconGroup from "../components/header/IconGroup";
-import MobileMenu from "../components/header/MobileMenu";
+import Logo from "./Logo";
+import { Link } from "react-router-dom";
+import IconGroup from "./IconGroup";
+import MobileMenu from "./MobileMenu";
 
-const Header = ({
-  borderStyle,
-  headerPositionClass,
-  headerBgClass
-}) => {
+const Header = ({ borderStyle, headerPositionClass, headerBgClass }) => {
   const [scroll, setScroll] = useState(0);
   const [headerTop, setHeaderTop] = useState(0);
 
@@ -36,8 +32,7 @@ const Header = ({
         className={`header-padding-2 visible header-top-area ${
           borderStyle === "fluid-border" ? "border-none" : ""
         }`}
-      >
-      </div>
+      ></div>
 
       <div
         className={` header-padding-2 sticky-bar header-res-padding clearfix ${
@@ -48,11 +43,36 @@ const Header = ({
           <div className="row">
             <div className="col-xl-2 col-lg-2 col-md-6 col-4">
               {/* header logo */}
-              <Logo imageUrl="/assets/img/logo/logo.png" logoClass="logo img-fluid w-30 bg-red" />
-              </div>
+              <Logo
+                imageUrl="/assets/img/logo/logo.png"
+                logoClass="logo img-fluid w-30 bg-red"
+              />
+            </div>
             <div className="col-xl-8 col-lg-8 d-none d-lg-block">
               {/* Nav menu */}
-              <NavMenu />
+              
+              <div className={`main-menu`}>
+                <nav>
+                  <ul>
+                    <li>
+                      <Link to={"/"}>Home</Link>
+                    </li>
+                    <li>
+                      <Link to={"/products"}> Products</Link>
+                    </li>
+
+                    <li>
+                      <Link to={"/blogs"}>Blogs</Link>
+                    </li>
+                    <li>
+                      <Link to={"/contact"}>Contact us</Link>
+                    </li>
+                    <li>
+                      <Link to={"/about"}>About</Link>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
             </div>
             <div className="col-xl-2 col-lg-2 col-md-6 col-8">
               {/* Icon group */}
