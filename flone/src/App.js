@@ -8,6 +8,7 @@ import { multilanguage, loadLanguages } from "redux-multilanguage";
 import { connect } from "react-redux";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
 import Search from "./pages/Search";
+import Search from "./pages/Search";
 
 // home pages
 const Home = lazy(() => import("./pages/Home"));
@@ -94,15 +95,39 @@ const App = (props) => {
                 />
 
                 {/* Other pages */}
-                <Route path={"/about"} element={<About />} />
-                <Route path={"/contact"} element={<Contact />} />
-                <Route path={"/my-account"} element={<MyAccount />} />
-                <Route path={"/cart"} element={<Cart />} />
-                <Route path={"/wishlist"} element={<Wishlist />} />
-                <Route path={"/compare"} element={<Compare />} />
-                <Route path={"/checkout"} element={<Checkout />} />
-                <Route path="/search/:searchParams" element={<Search />} />
-                <Route path={"*"} element={<NotFound />} />
+                <Route
+                  path={"/about"}
+                  element={<About />}
+                />
+                <Route
+                  path={"/contact"}
+                  element={<Contact />}
+                />
+                <Route
+                  path={"/my-account"}
+                  element={<MyAccount />}
+                />
+                <Route
+                  path={"/cart"}
+                  element={<Cart />}
+                />
+                <Route
+                  path={"/wishlist"}
+                  element={<Wishlist />}
+                />
+                <Route
+                  path={"/compare"}
+                  element={<Compare />}
+                />
+                <Route
+                  path={"/checkout"}
+                  element={<Checkout />}
+                />
+                <Route path="/search/:searchParams" element={<Search/>}/>
+                <Route
+                  path={"*"}
+                  element={<NotFound />}
+                />
               </Routes>
             </Suspense>
           </ScrollToTop>

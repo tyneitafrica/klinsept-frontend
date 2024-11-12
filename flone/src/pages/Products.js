@@ -3,9 +3,11 @@ import React, { Fragment, useState, useEffect } from 'react';
 import MetaTags from 'react-meta-tags';
 import Paginator from 'react-hooks-paginator';
 // import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
+// import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
 import { connect } from 'react-redux';
 import { getSortedProducts } from '../helpers/product';
 import LayoutOne from '../layouts/LayoutOne';
+// import Breadcrumb from '../wrappers/breadcrumb/Breadcrumb';
 // import Breadcrumb from '../wrappers/breadcrumb/Breadcrumb';
 import ShopSidebar from '../wrappers/product/ShopSidebar';
 import ShopTopbar from '../wrappers/product/ShopTopbar';
@@ -54,13 +56,12 @@ const Products = ({ products}) => {
             </MetaTags>
 
             {/* <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem> */}
+            {/* <BreadcrumbsItem to={`/`+pathname}>Shop</BreadcrumbsItem> */}
             <BreadcrumbsItem to={`/`+pathname}>Shop</BreadcrumbsItem>
             {/* <BreadcrumbsItem to={'/'}>Home</BreadcrumbsItem> */}
             {/* <BreadcrumbsItem to={`/`+pathname}>Shop</BreadcrumbsItem> */}
 
             <LayoutOne headerTop="visible">
-                {/* breadcrumb */}
-                <Breadcrumb />
 
                 <div className="shop-area pt-95 pb-100">
                     <div className="container">
