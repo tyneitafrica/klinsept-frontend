@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
-// import MobileMenuSearch from "./sub-components/MobileSearch";
-import MobileNavMenu from "./sub-components/MobileNavMenu";
-import MobileLangCurChange from "./sub-components/MobileLangCurrChange";
 import MobileWidgets from "./sub-components/MobileWidgets";
+import { Link } from "react-router-dom";
 
 const MobileMenu = () => {
   useEffect(() => {
@@ -21,7 +19,7 @@ const MobileMenu = () => {
     const numMenuExpand = menuExpand.length;
 
     for (let i = 0; i < numMenuExpand; i++) {
-      menuExpand[i].addEventListener("click", e => {
+      menuExpand[i].addEventListener("click", (e) => {
         sideMenuExpand(e);
       });
     }
@@ -33,7 +31,7 @@ const MobileMenu = () => {
     }
   });
 
-  const sideMenuExpand = e => {
+  const sideMenuExpand = (e) => {
     e.currentTarget.parentElement.classList.toggle("active");
   };
 
@@ -56,13 +54,36 @@ const MobileMenu = () => {
       <div className="offcanvas-wrapper">
         <div className="offcanvas-inner-content">
           {/* mobile search */}
-          {/* <MobileMenuSearch /> */}
+          <div className="offcanvas-mobile-search-area">
+            <form action="#">
+              <input type="search" placeholder="Search ..." />
+              <button type="submit">
+                <i className="fa fa-search" />
+              </button>
+            </form>
+          </div>
 
           {/* mobile nav menu */}
-          <MobileNavMenu />
+          <nav className="offcanvas-navigation" id="offcanvas-navigation">
+            <ul>
+              <li className="menu-item-has-children">
+                <Link to={"/"}>Home</Link>
+              </li>
 
-          {/* mobile language and currency */}
-          <MobileLangCurChange />
+              <li className="menu-item-has-children">
+                <Link to={"/Products"}>Products</Link>
+              </li>
+              <li className="menu-item-has-children">
+                <Link to={"/blogs"}>Blogs</Link>
+              </li>
+              <li>
+                <Link to={"/contact"}>contact</Link>
+              </li>
+              <li>
+                <Link to={"/about"}>About</Link>
+              </li>
+            </ul>
+          </nav>
 
           {/* mobile widgets */}
           <MobileWidgets />

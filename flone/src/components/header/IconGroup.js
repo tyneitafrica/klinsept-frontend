@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import MenuCart from "./sub-components/MenuCart";
 import { deleteFromCart } from "../../redux/actions/cartActions";
-import { FaRegUserCircle  } from "react-icons/fa";
-
+// eslint-disable-next-line
+import { FaRegUserCircle } from "react-icons/fa";
 
 const IconGroup = ({
   currency,
@@ -14,7 +14,7 @@ const IconGroup = ({
   compareData,
   deleteFromCart,
 }) => {
-  const handleClick = e => {
+  const handleClick = (e) => {
     e.currentTarget.nextSibling.classList.toggle("active");
   };
 
@@ -26,44 +26,39 @@ const IconGroup = ({
   };
 
   return (
-    <div
-      className={`header-right-wrap `}
-    >
+    <div className={`header-right-wrap `}>
       <div className="same-style header-search d-none d-lg-block">
-        <button className="search-active" onClick={e => handleClick(e)}>
+        <button className="search-active" onClick={(e) => handleClick(e)}>
           <i className="pe-7s-search" />
         </button>
-        {/* <div className="search-content">
+        <div className="search-content">
           <form action="#">
             <input type="text" placeholder="Search" />
             <button className="button-search">
               <i className="pe-7s-search" />
             </button>
           </form>
-        </div> */}
+        </div>
       </div>
-      <div className="same-style account-setting d-none d-lg-block">
+      <div className="same-style header-compare ">
         <button
-          className="account-setting-active"
-          onClick={e => handleClick(e)}
+          className="count-style"
+          onClick={(e) => handleClick(e)}
         >
+          <FaRegUserCircle size={25} />
           {/* <i className="text-2xl pe-7s-user-female" /> */}
-          <FaRegUserCircle/>
         </button>
+
         <div className="account-dropdown">
           <ul>
             <li>
               <Link to={"/login"}>Login</Link>
             </li>
             <li>
-              <Link to={"/register"}>
-                Register
-              </Link>
+              <Link to={"/register"}>Register</Link>
             </li>
             <li>
-              <Link to={"/my-account"}>
-                my account
-              </Link>
+              <Link to={"/my-account"}>my account</Link>
             </li>
           </ul>
         </div>
@@ -85,7 +80,7 @@ const IconGroup = ({
         </Link>
       </div>
       <div className="same-style cart-wrap d-none d-lg-block">
-        <button className="icon-cart" onClick={e => handleClick(e)}>
+        <button className="icon-cart" onClick={(e) => handleClick(e)}>
           <i className="pe-7s-shopbag" />
           <span className="count-style">
             {cartData && cartData.length ? cartData.length : 0}
@@ -124,23 +119,23 @@ IconGroup.propTypes = {
   currency: PropTypes.object,
   iconWhiteClass: PropTypes.string,
   deleteFromCart: PropTypes.func,
-  wishlistData: PropTypes.array
+  wishlistData: PropTypes.array,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     currency: state.currencyData,
     cartData: state.cartData,
     wishlistData: state.wishlistData,
-    compareData: state.compareData
+    compareData: state.compareData,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     deleteFromCart: (item, addToast) => {
       dispatch(deleteFromCart(item, addToast));
-    }
+    },
   };
 };
 

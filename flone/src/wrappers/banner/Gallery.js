@@ -7,19 +7,19 @@ import '../../assets/css/gallery.css'
 const banners = [
   {
     image: `/assets/img/banner/banner-4.jpg`,
-    subtitle: "",
+    subtitle: "Blog 1",
     discount: "Up To 40% Off",
     link: "/",
   },
   {
     image: `/assets/img/banner/banner-7.jpg`,
-    subtitle: "Hand Gloves",
+    subtitle: "Blog 2",
     discount: "Up To 30% Off",
     link: "/",
   },
   {
     image: `/assets/img/banner/banner-3.jpg`,
-    subtitle: "Hand Sanitizer",
+    subtitle: "Blog 3",
     discount: "Up To 40% Off",
     link: "/",
   },
@@ -53,7 +53,7 @@ const Gallery = () => {
                 </a>
                 <div className="gallery-content">
                   {banner.subtitle && <h3 className="gallery-subtitle">{banner.subtitle}</h3>}
-                  <h2 className="gallery-discount">{banner.discount}</h2>
+                  {/* <h2 className="gallery-discount">{banner.discount}</h2> */}
                   <Link to={process.env.PUBLIC_URL + banner.link} className="gallery-button">
                     Learn more
                   </Link>
