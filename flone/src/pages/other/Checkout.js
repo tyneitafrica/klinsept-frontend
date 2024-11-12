@@ -37,19 +37,19 @@ const Checkout = ({ cartItems, currency }) => {
   // Handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    } else {
-        if (!userData) {
+    if (userData) {
+      const form = event.currentTarget;
+      if (form.checkValidity() === false) {
+        event.preventDefault();
+        event.stopPropagation();
+      } else {
         setOrderDetails(formData); // Set the order details for logging
         console.log("Order Details:", formData, orderDetails);
-      } else {
-        setShow(!show);
-      }
       }
       setValidated(true);
+    } else {
+      setShow(!show);
+    }
   };
 
   return (
