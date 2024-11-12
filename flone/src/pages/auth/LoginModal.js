@@ -102,11 +102,11 @@ function LoginModal({ show, setShow }) {
           </div>
 
           <div className="mt-4 d-flex justify-content-center">
-            {!loading &&
-            <Button variant="danger" onClick={handleClose} className="mr-2">
-              Close
-            </Button>
-            }
+            {!loading && (
+              <Button variant="danger" onClick={handleClose} className="mr-2">
+                Close
+              </Button>
+            )}
             <Button
               type="submit"
               variant="primary"
