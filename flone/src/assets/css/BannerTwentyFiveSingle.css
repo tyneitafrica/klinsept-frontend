@@ -46,8 +46,6 @@
   display: flex;
   align-items: flex-end;
   padding: 2rem;
-  width: 100%;
-  box-sizing: border-box;
   transition: background 0.3s ease;
 }
 
@@ -97,15 +95,15 @@
   .banner-image {
     height: 250px;
   }
-
+  
   .banner-title {
     font-size: 1.5rem;
   }
-
+  
   .banner-subtitle {
     font-size: 0.9rem;
   }
-
+  
   .banner-overlay {
     padding: 1.5rem;
   }
@@ -115,16 +113,16 @@
   .banner-image {
     height: 200px;
   }
-
+  
   .banner-title {
     font-size: 1.25rem;
   }
-
+  
   .banner-content {
     text-align: center;
     width: 100%;
   }
-
+  
   .banner-overlay {
     padding: 1rem;
     align-items: center;
