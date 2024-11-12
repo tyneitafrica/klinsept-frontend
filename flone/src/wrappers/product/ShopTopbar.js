@@ -1,9 +1,7 @@
 import PropTypes from "prop-types";
 import React, { Fragment } from "react";
-import ShopTopAction from "../../components/product/ShopTopAction";
 
 const ShopTopbar = ({
-  getLayout,
   getFilterSortParams,
   productCount,
   sortedProductCount
@@ -11,12 +9,23 @@ const ShopTopbar = ({
   return (
     <Fragment>
       {/* shop top action */}
-      <ShopTopAction
-        getLayout={getLayout}
-        getFilterSortParams={getFilterSortParams}
-        productCount={productCount}
-        sortedProductCount={sortedProductCount}
-      />
+      <div className="shop-top-bar mb-35">
+      <div className="select-shoing-wrap">
+        <div className="shop-select">
+          <select
+            onChange={e => getFilterSortParams("filterSort", e.target.value)}
+          >
+            <option value="default">Default</option>
+            <option value="priceHighToLow">Price - High to Low</option>
+            <option value="priceLowToHigh">Price - Low to High</option>
+          </select>
+        </div>
+        <p>
+          Showing {sortedProductCount} of {productCount} result
+        </p>
+      </div>
+
+    </div>
     </Fragment>
   );
 };

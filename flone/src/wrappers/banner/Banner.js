@@ -36,19 +36,23 @@ const BannerTwentyFiveSingle = () => {
           {bannerData.map((banner) => (
             <Col key={banner.id} xs={12} sm={6} lg={4} className="mb-4">
               <Link to={banner.link} className="text-decoration-none">
-                <Card className="banner-card h-100">
+                <Card className="banner-card">
                   <div className="banner-image-wrapper">
                     <Card.Img
-                      variant="top"
+                      // variant="top"
                       src={banner.image}
                       alt={banner.title}
                       className="banner-image"
                     />
-                    <div className="banner-overlay">
-                      <div className="banner-content">
-                        <h3 className="banner-title">{banner.title}</h3>
-                        <p className="banner-subtitle text-white">{banner.subtitle}</p>
-                        <span className="banner-btn">Shop Now</span>
+                  </div>
+                  <div className="banner-content-wrapper">
+                    <div className="banner-content">
+                      <h3 className="banner-title">{banner.title}</h3>
+                      <p className="banner-subtitle">{banner.subtitle}</p>
+                      <div className="banner-btn-wrapper">
+                        <button to={banner.link} className="banner-btn">
+                          Shop Now
+                        </button>
                       </div>
                     </div>
                   </div>

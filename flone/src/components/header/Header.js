@@ -43,14 +43,20 @@ const Header = ({ borderStyle, headerPositionClass, headerBgClass }) => {
           <div className="row">
             <div className="col-xl-2 col-lg-2 col-md-6 col-4">
               {/* header logo */}
-              <Logo
-                imageUrl="/assets/img/logo/logo.png"
-                logoClass="logo img-fluid w-30 bg-red"
-              />
+              <div className={`logo img-fluid w-30 bg-red`}>
+                <Link to={process.env.PUBLIC_URL + "/"}>
+                  <img
+          alt="Logo"
+          src={process.env.PUBLIC_URL + "/assets/img/logo/logo.png"}
+          className='logo img-fluid w-30 bg-red'
+        />
+                  {/* Klinsept */}
+                </Link>
+              </div>
             </div>
             <div className="col-xl-8 col-lg-8 d-none d-lg-block">
               {/* Nav menu */}
-              
+
               <div className={`main-menu`}>
                 <nav>
                   <ul>

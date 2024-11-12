@@ -1,17 +1,12 @@
 import PropTypes from "prop-types";
 import React from "react";
-import {
-  getIndividualCategories,
-  getProductsIndividualSizes
-} from "../../helpers/product";
+import { getIndividualCategories } from "../../helpers/product";
 // import ShopSearch from "../../components/product/ShopSearch";
-import ShopCategories from "../../components/product/ShopCategories";
-import ShopSize from "../../components/product/ShopSize";
+import { setActiveSort } from "../../helpers/product";
 
 const ShopSidebar = ({ products, getSortParams }) => {
-  const uniqueCategories = getIndividualCategories(products);
+  const categories = getIndividualCategories(products);
   // const uniqueColors = getIndividualColors(products);
-  const uniqueSizes = getProductsIndividualSizes(products);
 
   return (
     <div className={`sidebar-style mr-30`}>
@@ -19,23 +14,53 @@ const ShopSidebar = ({ products, getSortParams }) => {
       {/* <ShopSearch /> */}
 
       {/* filter by categories */}
-      <ShopCategories
-        categories={uniqueCategories}
-        getSortParams={getSortParams}
-      />
-
-
-      {/* filter by size */}
-      <ShopSize sizes={uniqueSizes} getSortParams={getSortParams} />
-
-
+      <div className="sidebar-widget">
+        <h4 className="pro-sidebar-title">Categories </h4>
+        <div className="sidebar-widget-list mt-30">
+          {categories ? (
+            <ul>
+              <li>
+                <div className="sidebar-widget-list-left">
+                  <button
+                    onClick={(e) => {
+                      getSortParams("category", "");
+                      setActiveSort(e);
+                    }}
+                  >
+                    <span className="checkmark" /> All Categories
+                  </button>
+                </div>
+              </li>
+              {categories.map((category, key) => {
+                return (
+                  <li key={key}>
+                    <div className="sidebar-widget-list-left">
+                      <button
+                        onClick={(e) => {
+                          getSortParams("category", category);
+                          setActiveSort(e);
+                        }}
+                      >
+                        {" "}
+                        <span className="checkmark" /> {category}{" "}
+                      </button>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : (
+            "No categories found"
+          )}
+        </div>
+      </div>
     </div>
   );
 };
 
 ShopSidebar.propTypes = {
   getSortParams: PropTypes.func,
-  products: PropTypes.array
+  products: PropTypes.array,
 };
 
 export default ShopSidebar;

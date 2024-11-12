@@ -7,6 +7,7 @@ import { ToastProvider } from "react-toast-notifications";
 import { multilanguage, loadLanguages } from "redux-multilanguage";
 import { connect } from "react-redux";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
+import Search from "./pages/Search";
 
 // home pages
 const Home = lazy(() => import("./pages/Home"));
@@ -130,6 +131,7 @@ const App = (props) => {
                   path={"/checkout"}
                   element={<Checkout />}
                 />
+                <Route path="/search/:searchParams" element={<Search/>}/>
                 <Route
                   path={"*"}
                   element={<NotFound />}
