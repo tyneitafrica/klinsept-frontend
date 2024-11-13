@@ -21,7 +21,7 @@ const Home = () => {
         />
       </MetaTags>
 
-      <LayoutOne>
+      <LayoutOne  >
         {/* hero slider */}
         <HeroSlider />
         {/* banner */}
@@ -29,7 +29,7 @@ const Home = () => {
         {/* Good Services */}
         <Services />
         {/* Our product */}
-        <TabProductSixteen category="detergents" />
+        <TabProductSixteen  />
         {/* gallery */}
         <Gallery />
         {/* product slider */}
