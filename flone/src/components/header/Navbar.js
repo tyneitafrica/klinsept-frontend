@@ -97,6 +97,9 @@ function Navbar({ loggedin = !true }) {
                   <NavLink to="/blogs">Blogs</NavLink>
                   <NavLink to="/contact">Contact Us</NavLink>
                   <NavLink to="/about">About Us</NavLink>
+                  <NavLink to={loggedin ? "/my-account" : "/login"}>
+                    <FaRegUser size={24} />
+                  </NavLink>
                 </div>
               </div>
 
@@ -132,10 +135,6 @@ function Navbar({ loggedin = !true }) {
                     </Form>
                   )}
                 </div>
-
-                <NavLink to={loggedin ? "/my-account" : "/login"}>
-                  <FaRegUser size={25} />
-                </NavLink>
 
                 <NavLink className="icon-with-badge" to="/cart">
                   <FaCartShopping size={25} />
@@ -178,6 +177,9 @@ function Navbar({ loggedin = !true }) {
               <NavLink to="/blogs">Blogs</NavLink>
               <NavLink to="/contact">Contact Us</NavLink>
               <NavLink to="/about">About Us</NavLink>
+              <NavLink to={loggedin ? "/my-account" : "/login"}>
+                  <FaRegUser size={24} />
+                </NavLink>
             </div>
           </div>
         </nav>
