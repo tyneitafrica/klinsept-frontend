@@ -22,12 +22,6 @@ const ProductDescriptionInfo = ({
   addToWishlist,
   addToCompare
 }) => {
-  const [selectedProductColor, setSelectedProductColor] = useState(
-    product.variation ? product.variation[0].color : ""
-  );
-  const [selectedProductSize, setSelectedProductSize] = useState(
-    product.variation ? product.variation[0].size[0].name : ""
-  );
   const [productStock, setProductStock] = useState(
     product.variation ? product.variation[0].size[0].stock : product.stock
   );
@@ -35,9 +29,7 @@ const ProductDescriptionInfo = ({
 
   const productCartQty = getProductCartQuantity(
     cartItems,
-    product,
-    selectedProductColor,
-    selectedProductSize
+    product
   );
 
   return (
@@ -83,12 +75,7 @@ const ProductDescriptionInfo = ({
                       type="radio"
                       value={single.color}
                       name="product-color"
-                      checked={
-                        single.color === selectedProductColor ? "checked" : ""
-                      }
                       onChange={() => {
-                        setSelectedProductColor(single.color);
-                        setSelectedProductSize(single.size[0].name);
                         setProductStock(single.size[0].stock);
                         setQuantityCount(1);
                       }}
@@ -99,57 +86,11 @@ const ProductDescriptionInfo = ({
               })}
             </div>
           </div>
-          <div className="pro-details-size">
-            <span>Size</span>
-            <div className="pro-details-size-content">
-              {product.variation &&
-                product.variation.map(single => {
-                  return single.color === selectedProductColor
-                    ? single.size.map((singleSize, key) => {
-                        return (
-                          <label
-                            className={`pro-details-size-content--single`}
-                            key={key}
-                          >
-                            <input
-                              type="radio"
-                              value={singleSize.name}
-                              checked={
-                                singleSize.name === selectedProductSize
-                                  ? "checked"
-                                  : ""
-                              }
-                              onChange={() => {
-                                setSelectedProductSize(singleSize.name);
-                                setProductStock(singleSize.stock);
-                                setQuantityCount(1);
-                              }}
-                            />
-                            <span className="size-name">{singleSize.name}</span>
-                          </label>
-                        );
-                      })
-                    : "";
-                })}
-            </div>
-          </div>
         </div>
       ) : (
         ""
       )}
-      {product.affiliateLink ? (
-        <div className="pro-details-quality">
-          <div className="pro-details-cart btn-hover ml-0">
-            <a
-              href={product.affiliateLink}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              Buy Now
-            </a>
-          </div>
-        </div>
-      ) : (
+      {(
         <div className="pro-details-quality">
           <div className="cart-plus-minus">
             <button
@@ -186,9 +127,7 @@ const ProductDescriptionInfo = ({
                   addToCart(
                     product,
                     addToast,
-                    quantityCount,
-                    selectedProductColor,
-                    selectedProductSize
+                    quantityCount
                   )
                 }
                 disabled={productCartQty >= productStock}
@@ -306,7 +245,7 @@ ProductDescriptionInfo.propTypes = {
   addToWishlist: PropTypes.func,
   addToast: PropTypes.func,
   cartItems: PropTypes.array,
-  compareItem: PropTypes.array,
+  compareItem: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),  // Allow both array or object
   currency: PropTypes.object,
   discountedPrice: PropTypes.number,
   finalDiscountedPrice: PropTypes.number,
@@ -320,17 +259,13 @@ const mapDispatchToProps = dispatch => {
     addToCart: (
       item,
       addToast,
-      quantityCount,
-      selectedProductColor,
-      selectedProductSize
+      quantityCount
     ) => {
       dispatch(
         addToCart(
           item,
           addToast,
-          quantityCount,
-          selectedProductColor,
-          selectedProductSize
+          quantityCount
         )
       );
     },

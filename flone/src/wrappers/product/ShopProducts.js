@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { addToCart } from "../../redux/actions/cartActions";
 import { addToWishlist } from "../../redux/actions/wishlistActions";
 import { addToCompare } from "../../redux/actions/compareActions";
-import ProductGridListSingle from "../../components/product/ProductGridListSingle";
+import ProductGridSingleTwo from "../../components/product/ProductGridSingleTwo";
 
 const ShopProducts = ({
   products,
@@ -21,7 +21,7 @@ const ShopProducts = ({
       <div className={`row grid three-column`}>
         {products.map(product => {
           return (
-            <ProductGridListSingle
+            <ProductGridSingleTwo 
               product={product}
               currency={currency}
               addToCart={addToCart}

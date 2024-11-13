@@ -10,7 +10,7 @@ const TabProductSixteen = () => {
   const [selectedCategory, setSelectedCategory] = useState("antiseptics"); 
 
   return (
-    <div className={`product-area pb-70`}>
+    <div className={`product-are pb-70`}>
       <div className="container">
         <SectionTitle
           titleText="Our Products"
