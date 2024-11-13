@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, {  } from "react";
 import { Link } from "react-router-dom";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
@@ -12,7 +12,7 @@ const NotFound = () => {
   const { pathname } = location;
 
   return (
-    <Fragment>
+    <div className="mt-100">
       <MetaTags>
         <title> Klinsept | Not Found</title>
         <meta
@@ -59,7 +59,7 @@ const NotFound = () => {
           </div>
         </div>
       </LayoutOne>
-    </Fragment>
+    </div>
   );
 };
 

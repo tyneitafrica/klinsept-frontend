@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import MetaTags from "react-meta-tags";
 import { connect } from "react-redux";
@@ -53,7 +53,7 @@ const Checkout = ({ cartItems, currency }) => {
   };
 
   return (
-    <Fragment>
+    <div className="mt-100">
       <MetaTags>
         <title> Klinsept | Checkout</title>
         <meta
@@ -381,7 +381,7 @@ const Checkout = ({ cartItems, currency }) => {
           <LoginModal show={show} setShow={setShow} setUserData={setUserData} />
         )}
       </LayoutOne>
-    </Fragment>
+    </div>
   );
 };
 

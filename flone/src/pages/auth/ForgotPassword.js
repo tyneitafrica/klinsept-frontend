@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { Fragment, useState } from "react";
+import React, {  useState } from "react";
 import MetaTags from "react-meta-tags";
 import { Link } from "react-router-dom";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
@@ -28,7 +28,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <Fragment>
+    <div className="mt-100">
       <MetaTags>
         <title>Klinsept | Forgot </title>
         <meta
@@ -103,7 +103,7 @@ const ForgotPassword = () => {
           </div>
         </div>
       </LayoutOne>
-    </Fragment>
+    </div>
   );
 };
 

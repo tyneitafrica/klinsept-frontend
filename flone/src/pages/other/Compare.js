@@ -24,7 +24,7 @@ const Compare = ({
   const  pathname  = useLocation();
 
   return (
-    <Fragment>
+    <div className="mt-100">
       <MetaTags>
         <title> Klinsept | Compare</title>
         <meta
@@ -235,7 +235,7 @@ const Compare = ({
           </div>
         </div>
       </LayoutOne>
-    </Fragment>
+    </div>
   );
 };
 
