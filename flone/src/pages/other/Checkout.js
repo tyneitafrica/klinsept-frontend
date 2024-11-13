@@ -42,7 +42,7 @@ const Checkout = ({ cartItems, currency }) => {
       event.preventDefault();
       event.stopPropagation();
     } else {
-        if (userData) {
+        if (!userData) {
         setOrderDetails(formData); // Set the order details for logging
         console.log("Order Details:", formData, orderDetails);
       } else {

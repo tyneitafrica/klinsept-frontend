@@ -91,6 +91,7 @@ const App = (props) => {
                 <Route path={"/wishlist"} element={<Wishlist />} />
                 <Route path={"/compare"} element={<Compare />} />
                 <Route path={"/checkout"} element={<Checkout />} />
+                <Route path='/payment' element={<Payment/>}/>
                 <Route path="/search/:searchParams" element={<Search />} />
                 <Route path={"*"} element={<NotFound />} />
               </Routes>
