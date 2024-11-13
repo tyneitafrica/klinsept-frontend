@@ -4,7 +4,7 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import {
   FaBarsStaggered,
   FaCartShopping,
-  FaRegHeart,
+  // FaRegHeart,
   FaCodeCompare,
   FaRegUser,
   FaMagnifyingGlass,
@@ -24,7 +24,7 @@ function Navbar({ loggedin = !true }) {
   const navigate = useNavigate();
 
   const cartData = useSelector((state) => state.cartData);
-  const wishlistData = useSelector((state) => state.wishlistData);
+  // const wishlistData = useSelector((state) => state.wishlistData);
   const compareData = useSelector((state) => state.compareData);
 
   useEffect(() => {
@@ -97,9 +97,9 @@ function Navbar({ loggedin = !true }) {
                   <NavLink to="/blogs">Blogs</NavLink>
                   <NavLink to="/contact">Contact Us</NavLink>
                   <NavLink to="/about">About Us</NavLink>
-                  <NavLink to={loggedin ? "/my-account" : "/login"}>
+                  {/* <NavLink to={loggedin ? "/my-account" : "/login"}>
                     <FaRegUser size={24} />
-                  </NavLink>
+                  </NavLink> */}
                 </div>
               </div>
 
@@ -136,18 +136,21 @@ function Navbar({ loggedin = !true }) {
                   )}
                 </div>
 
+                <NavLink to={loggedin ? "/my-account" : "/login"}>
+                  <FaRegUser size={25} />
+                </NavLink>
                 <NavLink className="icon-with-badge" to="/cart">
                   <FaCartShopping size={25} />
                   <span className="badge badge-light">
                     {cartData?.length || 0}
                   </span>
                 </NavLink>
-                <NavLink to="/wishlist">
+                {/* <NavLink to="/wishlist">
                   <FaRegHeart size={25} />
                   <span className="badge badge-info">
-                    {wishlistData?.length || 0}
+                  {wishlistData?.length || 0}
                   </span>
-                </NavLink>
+                  </NavLink> */}
                 <NavLink to="/compare">
                   <FaCodeCompare size={25} />
                   <span className="badge badge-danger">
@@ -178,8 +181,8 @@ function Navbar({ loggedin = !true }) {
               <NavLink to="/contact">Contact Us</NavLink>
               <NavLink to="/about">About Us</NavLink>
               <NavLink to={loggedin ? "/my-account" : "/login"}>
-                  <FaRegUser size={24} />
-                </NavLink>
+                <FaRegUser size={24} />
+              </NavLink>
             </div>
           </div>
         </nav>

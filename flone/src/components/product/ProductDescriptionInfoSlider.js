@@ -41,7 +41,7 @@ const ProductDescriptionInfoSlider = ({
   );
 
   return (
-    <div className="product-details-content pro-details-slider-content">
+    <div className="mt-100 product-details-content pro-details-slider-content">
       <h2>{product.name}</h2>
       <div className="product-details-price justify-content-center">
         {discountedPrice !== null ? (
