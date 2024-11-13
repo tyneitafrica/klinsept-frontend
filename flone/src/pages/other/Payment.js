@@ -149,7 +149,7 @@ const Payment = ({ cartItems, currency }) => {
   };
 
   return (
-    <>
+    <div className="mt-100">
       <MetaTags>
         <title>Klinsept | Payment</title>
         <meta
@@ -163,7 +163,7 @@ const Payment = ({ cartItems, currency }) => {
 
       <LayoutOne headerTop="visible">
         <Breadcrumb />
-        <div className="checkout-area pt-200 pb-100">
+        <div className="checkout-area pt-50 p mb-50">
           <div className="container">
             {cartItems.length > 0 ? (
               <div className="row">
@@ -277,7 +277,7 @@ const Payment = ({ cartItems, currency }) => {
           </div>
         </div>
       </LayoutOne>
-    </>
+    </div>
   );
 };
 

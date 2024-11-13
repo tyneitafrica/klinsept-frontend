@@ -31,7 +31,7 @@ const Cart = ({
   let cartTotalPrice = 0;
 
   return (
-    <Fragment>
+    <div className="mt-100">
       <MetaTags>
         <title> Klinsept | Cart</title>
         <meta
@@ -337,7 +337,7 @@ const Cart = ({
           </div>
         </div>
       </LayoutOne>
-    </Fragment>
+    </div>
   );
 };
 

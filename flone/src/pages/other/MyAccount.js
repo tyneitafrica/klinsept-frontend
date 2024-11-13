@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, {  } from "react";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import Card from "react-bootstrap/Card";
@@ -12,7 +12,7 @@ const MyAccount = () => {
   const { pathname } = useLocation();
 
   return (
-    <Fragment>
+    <div className="mt-100">
       <MetaTags>
         <title> Klinsept | My Account</title>
         <meta
@@ -177,7 +177,7 @@ const MyAccount = () => {
           </div>
         </div>
       </LayoutOne>
-    </Fragment>
+    </div>
   );
 };
 

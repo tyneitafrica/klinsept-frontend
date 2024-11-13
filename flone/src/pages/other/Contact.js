@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, {  useState } from "react";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../../layouts/LayoutOne";
@@ -29,7 +29,7 @@ const Contact = () => {
   };
 
   return (
-    <Fragment>
+    <div className="mt-100">
       <MetaTags>
         <title>Klinsept | Contact us</title>
         <meta
@@ -166,7 +166,7 @@ const Contact = () => {
           </div>
         </div>
       </LayoutOne>
-    </Fragment>
+    </div>
   );
 };
 

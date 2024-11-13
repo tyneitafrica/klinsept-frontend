@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../../layouts/LayoutOne";
@@ -16,7 +16,7 @@ const About = () => {
   const [activeKey, setActiveKey] = useState("antiseptics");
 
   return (
-    <Fragment>
+    <div className="mt-100">
       <MetaTags>
         <title>Klinsept | About us</title>
         <meta
@@ -142,7 +142,7 @@ const About = () => {
         {/* brand logo slider */}
         <BrandLogoSliderOne />
       </LayoutOne>
-    </Fragment>
+    </div>
   );
 };
 

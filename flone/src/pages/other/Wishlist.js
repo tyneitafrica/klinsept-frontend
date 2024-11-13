@@ -28,7 +28,7 @@ const Wishlist = ({
   const { pathname } = useLocation();
 
   return (
-    <Fragment>
+    <div className="mt-100">
       <MetaTags>
         <title> Klinsept | Wishlist</title>
         <meta
@@ -239,7 +239,7 @@ const Wishlist = ({
           </div>
         </div>
       </LayoutOne>
-    </Fragment>
+    </div>
   );
 };
 
