@@ -10,7 +10,6 @@ import { addToWishlist } from "../redux/actions/wishlistActions";
 import { addToCompare } from "../redux/actions/compareActions";
 import '../assets/css/search.css'
 
-
 const Search = ({ cartItems, wishlistItems, compareItems, addToCart, addToWishlist, addToCompare }) => {
   const { searchParams } = useParams();
 const dummyProducts = Array(15).fill({
