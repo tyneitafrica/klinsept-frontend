@@ -57,12 +57,8 @@ export const deleteAllFromCart = addToast => {
 };
 
 // get stock of cart item
-export const cartItemStock = (item, color, size) => {
+export const cartItemStock = (item) => {
   if (item.stock) {
     return item.stock;
-  } else {
-    return item.variation
-      .filter(single => single.color === color)[0]
-      .size.filter(single => single.name === size)[0].stock;
   }
 };

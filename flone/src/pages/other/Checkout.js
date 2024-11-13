@@ -42,7 +42,7 @@ const Checkout = ({ cartItems, currency }) => {
       event.preventDefault();
       event.stopPropagation();
     } else {
-        if (userData) {
+        if (!userData) {
         setOrderDetails(formData); // Set the order details for logging
         console.log("Order Details:", formData, orderDetails);
       } else {
@@ -274,8 +274,11 @@ const Checkout = ({ cartItems, currency }) => {
                       </div>
 
                       <div className="place-order mt-25">
-                        <Button variant="primary" type="submit">
-                          Place Order
+                        <Button type="submit" variant="primary">
+
+                        <Link to='/payment' >
+                          Proceed to payment
+                        </Link>
                         </Button>
                       </div>
                     </Form>
