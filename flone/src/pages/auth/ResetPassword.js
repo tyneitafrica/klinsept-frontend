@@ -45,7 +45,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="mt-100">
+    <div className="mt-90">
       <MetaTags>
         <title> | Reset Password</title>
         <meta

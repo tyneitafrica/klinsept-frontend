@@ -28,7 +28,7 @@ const Wishlist = ({
   const { pathname } = useLocation();
 
   return (
-    <div className="mt-100">
+    <div className="mt-90">
       <MetaTags>
         <title> Klinsept | Wishlist</title>
         <meta

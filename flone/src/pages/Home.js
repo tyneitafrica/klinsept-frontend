@@ -12,6 +12,9 @@ import ProductSlider from "../wrappers/product/ProductSlider";
 
 const Home = () => {
   return (
+    
+    <div className="mt-90">
+
     <Fragment>
       <MetaTags>
         <title>Klinsept | Home</title>
@@ -43,6 +46,7 @@ const Home = () => {
         {/* contact */}
       </LayoutOne>
     </Fragment>
+    </div>
   );
 };
 

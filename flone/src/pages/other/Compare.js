@@ -24,7 +24,7 @@ const Compare = ({
   const  pathname  = useLocation();
 
   return (
-    <div className="mt-100">
+    <div className="mt-90">
       <MetaTags>
         <title> Klinsept | Compare</title>
         <meta

@@ -26,7 +26,7 @@ const Authorized = ({ isAuthenticated }) => {
   }
 
   return (
-    <div className="mt-100">
+    <div className="mt-90">
       <MetaTags>
         <title> Klinsept | Authorized</title>
         <meta

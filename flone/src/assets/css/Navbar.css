@@ -1,4 +1,25 @@
 /* Reset and Base Styles */
+.language-currency-changer {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 60px;
+  background-color: #ececec;  
+}
+
+.language-selector, .currency-selector {
+  display: inline-block;
+}
+
+select.form-select {
+  padding: 5px 5px;
+  /* font-size: 14px; */
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: white;
+}
+
+
+
 a {
   color: black;
   text-decoration: none;

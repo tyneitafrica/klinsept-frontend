@@ -16,7 +16,7 @@ const About = () => {
   const [activeKey, setActiveKey] = useState("antiseptics");
 
   return (
-    <div className="mt-100">
+    <div className="mt-90">
       <MetaTags>
         <title>Klinsept | About us</title>
         <meta

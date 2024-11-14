@@ -31,7 +31,7 @@ const Cart = ({
   let cartTotalPrice = 0;
 
   return (
-    <div className="mt-100">
+    <div className="mt-90">
       <MetaTags>
         <title> Klinsept | Cart</title>
         <meta
