@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/HeroSlider.css";
-
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const HeroSlider = () => {
@@ -64,14 +62,6 @@ const HeroSlider = () => {
     return () => clearInterval(interval);
   });
 
-  const nextSlide = () => {
-    setActiveSlide((prev) => (prev === sliderData.length - 1 ? 0 : prev + 1));
-  };
-
-  const prevSlide = () => {
-    setActiveSlide((prev) => (prev === 0 ? sliderData.length - 1 : prev - 1));
-  };
-
   return (
     <div className="slider-container">
       {sliderData.map((slide, index) => (
@@ -93,14 +83,6 @@ const HeroSlider = () => {
           </div>
         </div>
       ))}
-
-      <button onClick={prevSlide} className="nav-button prev">
-        <FaChevronLeft />
-      </button>
-
-      <button onClick={nextSlide} className="nav-button next">
-        <FaChevronRight />
-      </button>
 
       <div className="indicators">
         {sliderData.map((_, index) => (

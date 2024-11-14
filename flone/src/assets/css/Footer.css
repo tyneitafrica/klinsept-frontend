@@ -1,0 +1,77 @@
+/* Dark and light mode background colors */
+.bg-light {
+    background-color: #00a2ff; /* equivalent to bg-sky-950 */
+    color: #000000;
+}
+
+.bg-dark {
+    background-color: #38bdf8; /* equivalent to bg-sky-500 */
+}
+
+/* Layout and typography */
+footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding: 24px 16px;
+}
+
+@media (min-width: 768px) {
+    .footer-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+footer .section-title {
+    margin-bottom: 16px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: underline;
+}
+
+footer .section-link {
+    display: block;
+    margin-bottom: 16px;
+    font-weight: 500;
+    color: #2d333c; /* text-gray-400 equivalent */
+}
+
+footer .section-link:hover {
+    text-decoration: underline;
+}
+
+footer .text-center {
+    background-color: #69656543;
+    text-align: center;
+    padding: 6px;
+    border-radius: 10px;
+    
+}
+
+footer .text-gray-400 {
+    color: #94a3b8;
+}
+
+/* Social media icon styling */
+footer .social-icons {
+    display: flex;
+    gap: 16px;
+}
+
+footer .social-icon-link {
+    font-size:larger;
+    color: #94a3b8;
+    transition: color 0.2s;
+}
+
+footer .social-icon-link:hover {
+    color: #000000; /* Light hover color */
+}
+
