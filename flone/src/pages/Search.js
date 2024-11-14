@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { useParams } from "react-router-dom";
-import LayoutOne from "../layouts/LayoutOne";
+import LayoutOne from "../components/LayoutOne";
 import SectionTitleTwo from "../components/section-title/SectionTitleTwo";
 import ProductCard from "../components/product/ProductCard";
 import { Row, Col } from "react-bootstrap";
