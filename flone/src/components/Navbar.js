@@ -108,6 +108,12 @@ function Navbar({ loggedin = !true }) {
               </div>
 
               <div className="secondary-nav">
+
+                <NavLink to={loggedin ? "/my-account" : "/login"}>
+                  {/* <FaRegUser size={25} />  */}
+                  Profile
+                  {/* Client Portal */}
+                </NavLink>
                 <div className="search-container">
                   {!showSearch && (
                     <FaMagnifyingGlass
@@ -139,10 +145,6 @@ function Navbar({ loggedin = !true }) {
                     </Form>
                   )}
                 </div>
-
-                <NavLink to={loggedin ? "/my-account" : "/login"}>
-                  <FaRegUser size={25} />
-                </NavLink>
                 <NavLink className="icon-with-badge" to="/cart">
                   <FaCartShopping size={25} />
                   <span className="badge badge-info">
