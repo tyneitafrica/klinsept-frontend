@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { Fragment, useState, useEffect } from 'react';
+import React, {  useState, useEffect } from 'react';
 import MetaTags from 'react-meta-tags';
 import Paginator from 'react-hooks-paginator';
 // import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
@@ -49,7 +49,7 @@ const Products = ({ products}) => {
     }, [offset, products, sortType, sortValue, filterSortType, filterSortValue ]);
 
     return (
-        <Fragment>
+        <div className="mt-100">
             <MetaTags>
                 <title>Klinsept</title>
                 <meta name="description" content="Shop page of  react minimalist eCommerce template." />
@@ -93,7 +93,7 @@ const Products = ({ products}) => {
                     </div>
                 </div>
             </LayoutOne>
-        </Fragment>
+        </div>
     )
 }
 

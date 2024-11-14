@@ -53,7 +53,7 @@ const Checkout = ({ cartItems, currency }) => {
   };
 
   return (
-    <div className="mt-100">
+    <div className="mt-90">
       <MetaTags>
         <title> Klinsept | Checkout</title>
         <meta

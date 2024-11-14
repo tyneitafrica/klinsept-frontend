@@ -2,11 +2,14 @@ import PropTypes from "prop-types";
 import React, { Fragment } from "react";
 // import Header from "../components/header/Header";
 import FooterOne from "../wrappers/FooterOne";
-import Navbar from "../components/header/Navbar";
-
+import Navbar from "../components/Navbar";
+import LanguageCurrencyChanger from "../components/LanguageCurrencyChanger.j";
 const LayoutOne = ({ children, headerTop, headerPositionClass }) => {
   return (
     <Fragment>
+      <div className="language-currency-container">
+        <LanguageCurrencyChanger />
+      </div>
       <Navbar />
       {/* <Header top={headerTop} headerPositionClass={headerPositionClass} /> */}
       {children}

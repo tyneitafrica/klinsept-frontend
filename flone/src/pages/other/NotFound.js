@@ -12,7 +12,7 @@ const NotFound = () => {
   const { pathname } = location;
 
   return (
-    <div className="mt-100">
+    <div className="mt-90">
       <MetaTags>
         <title> Klinsept | Not Found</title>
         <meta

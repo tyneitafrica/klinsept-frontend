@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, {  } from "react";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../layouts/LayoutOne";
@@ -12,7 +12,7 @@ const BlogNoSidebar = () => {
   const  pathname  = useLocation();
 
   return (
-    <Fragment>
+    <div className="mt-90">
       <MetaTags>
         <title> | Blog</title>
         <meta
@@ -45,7 +45,7 @@ const BlogNoSidebar = () => {
           </div>
         </div>
       </LayoutOne>
-    </Fragment>
+    </div>
   );
 };
 

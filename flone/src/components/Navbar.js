@@ -11,8 +11,8 @@ import {
 } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
 import { Form, Button, Alert } from "react-bootstrap";
-import Logo from "../../assets/logo.png";
-import "../../assets/css/Navbar.css";
+import Logo from "../assets/logo.png";
+import "../assets/css/Navbar.css";
 
 function Navbar({ loggedin = !true }) {
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -78,6 +78,9 @@ function Navbar({ loggedin = !true }) {
           {error}
         </Alert>
       )}
+      {/* Add the LanguageCurrencyChanger Component here */}
+
+
       <div
         className={`fixed-top ${isScrolled && "scrolled"} ${
           toggleMenu && "toggled"
@@ -93,10 +96,11 @@ function Navbar({ loggedin = !true }) {
                   </Link>
                 </div>
                 <div className="primary-nav">
+                  <NavLink to="/">Home</NavLink>
+                  <NavLink to="/about">About Us</NavLink>
                   <NavLink to="/products">Products</NavLink>
                   <NavLink to="/blogs">Blogs</NavLink>
                   <NavLink to="/contact">Contact Us</NavLink>
-                  <NavLink to="/about">About Us</NavLink>
                   {/* <NavLink to={loggedin ? "/my-account" : "/login"}>
                     <FaRegUser size={24} />
                   </NavLink> */}
@@ -141,7 +145,7 @@ function Navbar({ loggedin = !true }) {
                 </NavLink>
                 <NavLink className="icon-with-badge" to="/cart">
                   <FaCartShopping size={25} />
-                  <span className="badge badge-light">
+                  <span className="badge badge-info">
                     {cartData?.length || 0}
                   </span>
                 </NavLink>
@@ -176,13 +180,11 @@ function Navbar({ loggedin = !true }) {
             className={`mobile-nav ${toggleMenu ? "expanded" : "collapsed"}`}
           >
             <div className="mobile-menu-links">
+              <NavLink to="/">Home</NavLink>
+              <NavLink to="/about">About Us</NavLink>
               <NavLink to="/products">Products</NavLink>
               <NavLink to="/blogs">Blogs</NavLink>
               <NavLink to="/contact">Contact Us</NavLink>
-              <NavLink to="/about">About Us</NavLink>
-              <NavLink to={loggedin ? "/my-account" : "/login"}>
-                <FaRegUser size={24} />
-              </NavLink>
             </div>
           </div>
         </nav>
