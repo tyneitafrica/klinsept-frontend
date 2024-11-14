@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import MetaTags from "react-meta-tags";
-import LayoutOne from "../layouts/LayoutOne";
+import LayoutOne from "../components/LayoutOne";
 import HeroSlider from "../wrappers/HeroSlider";
 import Banner from "../wrappers/banner/Banner";
 import Services from "../wrappers/Services";

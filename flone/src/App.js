@@ -15,7 +15,7 @@ const Home = lazy(() => import("./pages/Home"));
 const Products = lazy(() => import("./pages/Products"));
 
 // product pages
-const Product = lazy(() => import("./pages/shop-product/Product"));
+const Product = lazy(() => import("./pages/Product"));
 
 // blog pages
 const Blogs = lazy(() => import("./pages/Blogs"));
