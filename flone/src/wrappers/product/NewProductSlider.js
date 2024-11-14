@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import Swiper from "react-id-swiper";
-import SectionTitleThree from "../../components/section-title/SectionTitleThree";
+import SectionTitle from "../../components/SectionTitle";
 import ProductGridTwo from "./ProductGridTwo";
 
 const NewProductSlider = ({
@@ -36,7 +36,7 @@ const NewProductSlider = ({
       } ${spaceTopClass ? spaceTopClass : ""}`}
     >
       <div className="container">
-        <SectionTitleThree
+        <SectionTitle
           titleText="New Products"
           positionClass="text-center"
           spaceClass="mb-60"

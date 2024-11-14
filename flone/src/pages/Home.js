@@ -3,7 +3,7 @@ import MetaTags from "react-meta-tags";
 import LayoutOne from "../components/LayoutOne";
 import HeroSlider from "../wrappers/HeroSlider";
 import Banner from "../wrappers/banner/Banner";
-import Services from "../wrappers/Services";
+import WhyUs from "../wrappers/WhyUs";
 import TabProductSixteen from "../wrappers/product/TabProductSixteen";
 import BlogFeaturedFour from "../wrappers/blog-featured/BlogFeaturedFour";
 import Testimonial from "../wrappers/Testimonials2";
@@ -30,7 +30,7 @@ const Home = () => {
         {/* banner */}
         <Banner />
         {/* Good Services */}
-        <Services />
+        <WhyUs />
         {/* Our product */}
         <TabProductSixteen  />
         {/* gallery */}

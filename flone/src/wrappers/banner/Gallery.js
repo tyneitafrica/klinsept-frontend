@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import SectionTitle from "../../components/section-title/SectionTitle";
+import SectionTitle from "../../components/SectionTitle";
 import '../../assets/css/gallery.css'
 
 
@@ -28,13 +28,14 @@ const banners = [
 const Gallery = () => {
   return (
     <div className="gallery-area">
-      <SectionTitle
-        titleText="Gallery section"
-        subtitleText=""
-        subtitleColorClass="text-muted"
-        positionClass="text-center"
-        spaceClass="mb-30"
-      />
+<SectionTitle
+  titleText="Gallery section"
+  subtitleText="Explore our wide range of high-quality products showcased in the gallery below."
+  subtitleColorClass="text-muted"
+  positionClass="text-center"
+  spaceClass="mb-30"
+/>
+
       
       <div className="gallery-container">
         <div className="gallery-grid">

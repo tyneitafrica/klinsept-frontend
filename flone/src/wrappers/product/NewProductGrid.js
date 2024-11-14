@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
 import React from "react";
 import ProductGridTwo from "./ProductGridTwo";
-import SectionTitleTwo from "../../components/section-title/SectionTitleTwo";
+import SectionTitle from "../../components/SectionTitle";
 
 const NewProductGrid = ({ category, limit }) => {
   return (
     <div className="product-area pb-60 section-padding-1">
       <div className="container-fluid">
-        <SectionTitleTwo
+        <SectionTitle
           titleText="New Arrival"
           subTitleText="Lorem ipsum dolor sit amet conse ctetu."
           positionClass="text-center"

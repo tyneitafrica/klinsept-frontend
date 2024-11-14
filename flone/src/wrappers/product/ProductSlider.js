@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import Swiper from "react-id-swiper";
-import SectionTitle from "../../components/section-title/SectionTitle";
+import SectionTitle from "../../components/SectionTitle";
 import ProductGridTwo from "./ProductGridTwo";
 
 const ProductSlider = ({ spaceBottomClass, category }) => {
@@ -27,9 +27,7 @@ const ProductSlider = ({ spaceBottomClass, category }) => {
 
   return (
     <div
-      className={`related-product-area ${
-        spaceBottomClass ? spaceBottomClass : ""
-      }`}
+      className={`related-product-area py-5 `}
     >
       <div className="container">
         <SectionTitle

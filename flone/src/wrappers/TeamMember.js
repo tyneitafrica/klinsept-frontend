@@ -1,6 +1,6 @@
 
 import React from "react";
-import SectionTitleTwo from "../components/section-title/SectionTitleTwo";
+import SectionTitle from "../components/SectionTitle";
 
 
 const teamMemberData = [
@@ -48,7 +48,7 @@ const TeamMember = () => {
     >
       <div className="container">
         {/* section title */}
-        <SectionTitleTwo
+        <SectionTitle
           titleText="Team Members"
           subTitleText="Meet the team that makes this company great"
           positionClass="text-center"

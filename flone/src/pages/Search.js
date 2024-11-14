@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { useParams } from "react-router-dom";
 import LayoutOne from "../components/LayoutOne";
-import SectionTitleTwo from "../components/section-title/SectionTitleTwo";
+import SectionTitle from "../components/SectionTitle";
 import ProductCard from "../components/product/ProductCard";
 import { Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
@@ -53,7 +53,7 @@ const relatedProducts = Array(10).fill({
   return (
     <Fragment>
       <LayoutOne headerTop="visible">
-        <SectionTitleTwo titleText={`Search results for ${searchParams}`} positionClass="text-center" spaceClass="mb-10" />
+        <SectionTitle titleText={`Search results for ${searchParams}`} positionClass="text-center" spaceClass="mb-10" />
         <Row className="p-5 justify-content-center">
           {dummyProducts.map((product, index) => (
             <Col xs={12} sm={6} md={5} lg={3} key={index} className="mb-4">
@@ -70,7 +70,7 @@ const relatedProducts = Array(10).fill({
           ))}
         </Row>
 
-        <SectionTitleTwo titleText="Related products" positionClass="text-center" spaceClass="mb-10" />
+        <SectionTitle titleText="Related products" positionClass="text-center" spaceClass="mb-10" />
         <Row className="p-5 justify-content-center">
           {relatedProducts.map((product, index) => (
             <Col xs={12} sm={6} md={5} lg={3} key={index} className="mb-4">
