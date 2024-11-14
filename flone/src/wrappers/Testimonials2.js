@@ -1,7 +1,7 @@
 import React from "react";
 import icon from "../assets/icon.jpg";
 import "../assets/css/Testimonial.css";
-import SectionTitleTwo from "../components/section-title/SectionTitle";
+import SectionTitle from "../components/SectionTitle";
 
 // Array of testimonials
 const testimonialsData = [
@@ -34,19 +34,23 @@ const testimonialsData = [
 function Testimonial() {
   return (
     <div className="testimonial-container">
-      <SectionTitleTwo
-          titleText="What Our Clients Say"
-          subTitleText="Meet the team that makes this company great"
-          positionClass="text-center"
-          spaceClass="mb-10"
-        />
+      <SectionTitle
+        titleText="What Our Clients Say"
+        subTitleText="We are committed to delivering tailored cleaning and disinfectant solutions that meet the unique needs of your business."
+        subtitleColorClass="text-muted"
+        positionClass="text-center"
+        spaceClass="mb-30"
+      />
       <div className="testimonial-wrapper">
-
         <div className="testimonial-grid">
           {testimonialsData.map((testimonial) => (
             <div className="testimonial-card" key={testimonial.id}>
               <div className="testimonial-profile">
-                <img src={testimonial.image} alt={testimonial.name} className="testimonial-image" />
+                <img
+                  src={testimonial.image}
+                  alt={testimonial.name}
+                  className="testimonial-image"
+                />
                 <div className="testimonial-info">
                   <h4 className="testimonial-name">{testimonial.name}</h4>
                   <p className="testimonial-position">{testimonial.position}</p>
