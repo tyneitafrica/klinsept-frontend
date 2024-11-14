@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import blogFeaturedData from "../../data/blog-featured/blog-featured-two.json";
-import SectionTitle from "../../components/section-title/SectionTitle";
+import SectionTitle from "../../components/SectionTitle";
 import { Link } from "react-router-dom";
 
 const BlogFeaturedFour = () => {

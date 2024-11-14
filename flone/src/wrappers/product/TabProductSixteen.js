@@ -3,24 +3,26 @@ import React, { useState } from "react";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import ProductGridTwo from "./ProductGridTwo";
-import SectionTitle from "../../components/section-title/SectionTitle";
+import SectionTitle from "../../components/SectionTitle";
 
 const TabProductSixteen = () => {
   // State to track the currently selected category
-  const [selectedCategory, setSelectedCategory] = useState("antiseptics"); 
+  const [selectedCategory, setSelectedCategory] = useState("antiseptics");
 
   return (
-    <div className={`product-are pb-70`}>
+    <div className={`product-area py-5`}>
       <div className="container">
         <SectionTitle
           titleText="Our Products"
+          subtitleText="Explore our wide range of high-quality products tailored to meet your needs."
+          subtitleColorClass="text-muted"
           positionClass="text-center"
           spaceClass="mb-30"
-          borderClass="no-border"
         />
+
         <Tab.Container
           activeKey={selectedCategory}
-          onSelect={(key) => setSelectedCategory(key)} 
+          onSelect={(key) => setSelectedCategory(key)}
         >
           <Nav
             variant="pills"
@@ -51,7 +53,7 @@ const TabProductSixteen = () => {
             <Tab.Pane eventKey="antiseptics">
               <div className="row">
                 <ProductGridTwo
-                  category={selectedCategory} 
+                  category={selectedCategory}
                   type="antiseptics"
                   limit={8}
                   spaceBottomClass="mb-25"
@@ -62,7 +64,7 @@ const TabProductSixteen = () => {
             <Tab.Pane eventKey="disinfectants">
               <div className="row">
                 <ProductGridTwo
-                  category={selectedCategory} 
+                  category={selectedCategory}
                   type="disinfectants"
                   limit={8}
                   spaceBottomClass="mb-25"
@@ -73,7 +75,7 @@ const TabProductSixteen = () => {
             <Tab.Pane eventKey="detergents">
               <div className="row">
                 <ProductGridTwo
-                  category={selectedCategory} 
+                  category={selectedCategory}
                   type="detergents"
                   limit={8}
                   spaceBottomClass="mb-25"
@@ -84,7 +86,7 @@ const TabProductSixteen = () => {
             <Tab.Pane eventKey="handwash">
               <div className="row">
                 <ProductGridTwo
-                  category={selectedCategory} 
+                  category={selectedCategory}
                   type="handwash"
                   limit={8}
                   spaceBottomClass="mb-25"

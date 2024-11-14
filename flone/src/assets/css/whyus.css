@@ -1,0 +1,59 @@
+/* Ensure container is responsive */
+.support-area {
+    background-color: #f9f9f9;
+  }
+  
+  .support-wrap-4 {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .support-wrap-4:hover {
+    cursor: pointer;
+    background-color: #f6f6f6; 
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2); 
+  }
+  
+  /* Add shake effect on the icon on hover */
+  .support-icon-4 img {
+    transition: transform 0.3s ease;
+  }
+  
+  .support-wrap-4:hover .support-icon-4 svg {
+    animation: shake 0.5s ease-in-out;
+  }
+  
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+  }
+  
+  /* Styling the card content */
+  .text {
+    margin-top: 15px;
+  }
+  
+  .text h5 {
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .text p {
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  @media (max-width: 768px) {
+    .support-wrap-4 {
+      padding: 15px;
+    }
+  }
+  

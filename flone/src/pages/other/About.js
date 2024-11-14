@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
-import LayoutOne from "../../layouts/LayoutOne";
+import LayoutOne from "../../components/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import TextGridOne from "../../wrappers/text-grid/TextGridOne";
 import FunFactOne from "../../wrappers/FunFactOne";
@@ -9,7 +9,7 @@ import TeamMember from "../../wrappers/TeamMember";
 import BrandLogoSliderOne from "../../wrappers/brand-logo/BrandLogoSliderOne";
 import { useLocation } from "react-router-dom";
 import { Nav, Tab } from "react-bootstrap";
-import SectionTitleTwo from "../../components/section-title/SectionTitleTwo";
+import SectionTitle from "../../components/SectionTitle";
 
 const About = () => {
   const pathname = useLocation();
@@ -63,7 +63,7 @@ const About = () => {
         <div className="welcome-area pt-100 pb-95">
           <div className="container">
             <div className="welcome-content text-center mb-50">
-              <SectionTitleTwo
+              <SectionTitle
                 titleText="Our Products"
                 subTitleText="We manufacture a wide range of products:"
                 positionClass="text-center"

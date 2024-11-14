@@ -3,11 +3,11 @@ import React, { Fragment } from "react";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import { connect } from "react-redux";
-import LayoutOne from "../../layouts/LayoutOne";
-import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import RelatedProductSlider from "../../wrappers/product/RelatedProductSlider";
+import LayoutOne from "../components/LayoutOne";
+import Breadcrumb from "../wrappers/breadcrumb/Breadcrumb";
+import RelatedProductSlider from "../wrappers/product/RelatedProductSlider";
 // imphort ProductDescriptionTab from "../../wrappers/product/ProductDescriptionTab";
-import ProductImageDescription from "../../wrappers/product/ProductImageDescription";
+import ProductImageDescription from "../wrappers/product/ProductImageDescription";
 import { useLocation, useParams } from "react-router-dom";
 
 const Product = ({ products }) => {
