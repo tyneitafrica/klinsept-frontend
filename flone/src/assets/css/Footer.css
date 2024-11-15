@@ -36,10 +36,23 @@ footer .section-title {
     text-decoration: underline;
 }
 
-footer .section-links a {
+footer .section-links a  {
     display: block;
     margin-bottom: 16px;
     font-weight: 500;
+    color: #2d3b3c; 
+}
+footer .section-links  p {
+    display: block;
+    margin-bottom: 16px;
+    font-weight: 500;
+    color: #2d3b3c; 
+}
+footer .work-hours  div {
+    line-height: 1px;
+    /* display: flex; */
+    margin-bottom: 20px;
+    /* font-weight: 500; */
     color: #2d3b3c; 
 }
 

@@ -17,26 +17,28 @@ export default function Footer({ darkMode = !true }) {
         <div className="footer-grid">
           <div className="section-links">
             <h2 className={`section-title`}>Company</h2>
-
             <NavLink to="/about">About</NavLink>
-
             <NavLink to="/contact">Contact Us</NavLink>
-
             <NavLink to="/products">products</NavLink>
-
             <NavLink to="/blogs">Blog</NavLink>
-          </div>
-          <div className="section-links">
-            <h2 className="section-title">Help center</h2>
-
             <Link href="/">FAQs</Link>
-
-            <NavLink to="/contact">Contact Us</NavLink>
-
-            <Link href="/">Twitter</Link>
-
-            <Link href="/">Facebook</Link>
           </div>
+          <div className="work-hours">
+            <h2 className="section-title">Working Hours</h2>
+            <div>
+              <p>Monday to Friday:</p>
+              <span className="text-success">9:00 AM - 5:00 PM</span>
+            </div>
+            <div>
+              <p>Saturday:</p>
+              <span className="text-warning">10:00 AM - 4:00 PM</span>
+            </div>
+            <div>
+              <p>Sunday:</p>
+              <span className="text-danger">Closed</span>
+            </div>
+          </div>
+
           <div className="section-links">
             <h2 className="section-title">Categories</h2>
             <Link to="/products">Antiseptics</Link>

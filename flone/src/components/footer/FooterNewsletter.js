@@ -1,8 +1,7 @@
-import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { Button, Form, Alert, Spinner } from "react-bootstrap";
 
-const FooterNewsletter = ({ sideMenu }) => {
+const FooterNewsletter = () => {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -48,7 +47,7 @@ const FooterNewsletter = ({ sideMenu }) => {
   };
 
   return (
-    <div className={`footer-widget mb-30 ${sideMenu ? "ml-ntv5" : "ml-70"}`}>
+    <div className={`footer-widget mb-30 `}>
 
       <div className="subscribe-style">
         <p>Get E-mail updates about our latest shop and special offers.</p>
@@ -110,8 +109,6 @@ const FooterNewsletter = ({ sideMenu }) => {
   );
 };
 
-FooterNewsletter.propTypes = {
-  sideMenu: PropTypes.bool,
-};
+
 
 export default FooterNewsletter;
