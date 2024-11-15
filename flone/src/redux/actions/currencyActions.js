@@ -4,7 +4,7 @@ export const SET_CURRENCY = "SET_CURRENCY";
 export const SET_CURRENCIES = "SET_CURRENCIES"; // New action for setting currencies
 
 const API_KEY = "aa770193026262416728a2807c526e2e";
-const BASE_URL = `http://api.exchangeratesapi.io/v1/latest?access_key=${API_KEY}`;
+const BASE_URL = `https://api.exchangeratesapi.io/v1/latest?access_key=${API_KEY}`;
 
 // Action to fetch currencies for East African countries
 export const fetchCurrencies = () => {
