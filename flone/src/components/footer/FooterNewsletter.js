@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Button, Form, Alert, Spinner } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 
 const FooterNewsletter = () => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -23,7 +25,7 @@ const FooterNewsletter = () => {
         setEmail(""); // Clear the email field
       } else {
         // Simulate backend error
-        throw new Error("Subscription failed. Please try again.");
+        throw new Error(t("Subscription failed. Please try again.")); // Translated error message
       }
     } catch (err) {
       setError(err.message); // Set the error message
@@ -48,16 +50,15 @@ const FooterNewsletter = () => {
 
   return (
     <div className={`footer-widget mb-30 `}>
-
       <div className="subscribe-style">
-        <p>Get E-mail updates about our latest shop and special offers.</p>
+        <p>{t("Get E-mail updates about our latest shop and special offers.")}</p>
 
         {/* Subscription form */}
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formBasicEmail">
             <Form.Control
               type="email"
-              placeholder="Enter email"
+              placeholder={t("Enter email")}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -73,10 +74,10 @@ const FooterNewsletter = () => {
                   role="status"
                   aria-hidden="true"
                 />
-                &nbsp; Submitting...
+                &nbsp; {t("Submitting...")}
               </>
             ) : (
-              "Subscribe"
+              t("Subscribe")
             )}
           </Button>
         </Form>
@@ -89,7 +90,7 @@ const FooterNewsletter = () => {
             dismissible
             className="mt-3"
           >
-            Thank you for subscribing!
+            {t("Thank you for subscribing!")}
           </Alert>
         )}
 
@@ -108,7 +109,5 @@ const FooterNewsletter = () => {
     </div>
   );
 };
-
-
 
 export default FooterNewsletter;
