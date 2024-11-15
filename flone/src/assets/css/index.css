@@ -25,11 +25,12 @@
 .whatsapp-button svg {
   color: white;
 }
-
 .product-img img {
-  height: 200px;
+  height: auto;
+  height: 370px;
   object-fit: cover;
 }
+
 
 .product-img {
   align-items: center;
