@@ -7,7 +7,7 @@ import LayoutOne from "../../components/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useLocation } from "react-router-dom";
 import { Form, Button, Alert, Nav, Tab } from "react-bootstrap";
-
+import { forgotPassword } from "../../helpers/backendFectch";
 const ForgotPassword = () => {
   const { pathname } = useLocation();
   const [email, setEmail] = useState("");
@@ -22,6 +22,7 @@ const ForgotPassword = () => {
     } else {
       setError("");
       console.log("Forgot Password requested for:", email);
+      forgotPassword(email)
       // Implement forgot password logic here
     }
     setValidated(true);

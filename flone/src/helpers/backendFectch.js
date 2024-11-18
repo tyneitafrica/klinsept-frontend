@@ -1,50 +1,86 @@
 import axios from 'axios';
 
-// Assuming your .env has the API URL and API key
-// const API_URL = 'http://192.168.1.61:8000'; 
-const API_URL = 'https://klinsept-backend.onrender.com/'
-const API_KEY = 'f6c52669-b6a9-4901-8558-5bc72b7e983a';
+// Use the environment variables
+const API_URL = process.env.REACT_APP_API_URL;
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 export const registerFetch = async (registerData) => {
   try {
     const response = await axios.post(
-      `${API_URL}api/v1.0/auth/signin/`,  // Adjust your API endpoint here
+      `${API_URL}api/v1.0/auth/signin/`,
       registerData,
       {
         headers: {
-          'x-api-key':`f6c52669-b6a9-4901-8558-5bc72b7e983a`, 
-          // 'Content-Type': 'application/json',
+          'x-api-key': API_KEY,
+          'Content-Type': 'application/json',
         },
       }
     );
     if (response.data) {
-      localStorage.setItem('userData', JSON.stringify(response.data));  // Store user data in localStorage
+      localStorage.setItem('userData', JSON.stringify(response.data));
     }
-    return response.data; // return the response data
+    return response.data;
   } catch (error) {
     console.error('Registration error:', error);
-    throw error; // rethrow or handle as needed
+    throw error;
   }
 };
 
 export const LoginFetch = async (loginData) => {
   try {
     const response = await axios.post(
-      `${API_URL}api/v1.0/auth/login/`,  // Adjust your API endpoint here
+      `${API_URL}api/v1.0/auth/login/`,
       loginData,
       {
         headers: {
-          'x-api-key':`${API_KEY}`, 
+          'x-api-key': API_KEY,
           'Content-Type': 'application/json',
         },
       }
     );
     if (response.data) {
-      localStorage.setItem('userData', JSON.stringify(response.data));  // Store user data in localStorage
+      localStorage.setItem('userData', JSON.stringify(response.data));
     }
-    return response.data; // return the response data
+    return response.data;
   } catch (error) {
-    console.error('Registration error:', error);
-    throw error; // rethrow or handle as needed
+    console.error('Login error:', error);
+    throw error;
   }
 };
+
+export const forgotPassword = async (email) =>{
+  try {
+    const response = await axios.post(
+      `${API_URL}api/v1.0/auth/otp/request/`,
+      { email },
+      {
+        headers: {
+          'x-api-key': API_KEY,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    console.log(response)
+    return response.data;
+  } catch (error) {
+    console.error('Forgot Password error:', error);
+    throw error;
+  }
+}
+
+export const getProducts = async ()=>{
+  try {
+    const response = await axios.get(
+      `${API_URL}api/v1.0/products/`,
+      {
+        headers: {
+          'x-api-key': API_KEY,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Get Products error:', error);
+    throw error;
+  }
+}

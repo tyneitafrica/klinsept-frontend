@@ -162,39 +162,7 @@ export const getIndividualColors = products => {
   return individualProductColors;
 };
 
-// get individual sizes
-export const getProductsIndividualSizes = products => {
-  let productSizes = [];
-  products &&
-    products.map(product => {
-      return (
-        product.variation &&
-        product.variation.map(single => {
-          return single.size.map(single => {
-            return productSizes.push(single.name);
-          });
-        })
-      );
-    });
-  const individualProductSizes = getIndividualItemArray(productSizes);
-  return individualProductSizes;
-};
 
-// get product individual sizes
-export const getIndividualSizes = product => {
-  let productSizes = [];
-  product.variation &&
-    product.variation.map(singleVariation => {
-      return (
-        singleVariation.size &&
-        singleVariation.size.map(singleSize => {
-          return productSizes.push(singleSize.name);
-        })
-      );
-    });
-  const individualSizes = getIndividualItemArray(productSizes);
-  return individualSizes;
-};
 
 export const setActiveSort = e => {
   const filterButtons = document.querySelectorAll(

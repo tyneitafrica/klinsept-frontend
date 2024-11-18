@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { useParams } from "react-router-dom";
 import LayoutOne from "../components/LayoutOne";
 import SectionTitle from "../components/SectionTitle";
-import ProductCard from "../components/product/ProductCard";
+import ProductCard from "../components/ProductCard";
 import { Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
 import { addToCart } from "../redux/actions/cartActions";

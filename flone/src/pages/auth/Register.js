@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import MetaTags from "react-meta-tags";
 import { Link } from "react-router-dom";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
@@ -22,10 +22,10 @@ import { registerFetch } from "../../helpers/backendFectch";
 const Register = () => {
   const { pathname } = useLocation();
   const [registerData, setRegisterData] = useState({
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     email: "",
-    phone: "",
+    phone_number: "",
     password: "",
     confirmPassword: "",
   });
@@ -114,8 +114,8 @@ const Register = () => {
                                       required
                                       type="text"
                                       placeholder="First name"
-                                      name="firstName"
-                                      value={registerData.firstName}
+                                      name="first_name"
+                                      value={registerData.first_name}
                                       onChange={handleInputChange}
                                     />
                                     <Form.Control.Feedback type="invalid">
@@ -130,8 +130,8 @@ const Register = () => {
                                       required
                                       type="text"
                                       placeholder="Last name"
-                                      name="lastName"
-                                      value={registerData.lastName}
+                                      name="last_name"
+                                      value={registerData.last_name}
                                       onChange={handleInputChange}
                                     />
                                     <Form.Control.Feedback type="invalid">
@@ -162,9 +162,9 @@ const Register = () => {
                                   required
                                   type="text"
                                   placeholder="+<country_code> <number>"
-                                  name="phone"
+                                  name="phone_number"
                                   pattern="^\+\d{1,3}\d{10}$"
-                                  value={registerData.phone}
+                                  value={registerData.phone_number}
                                   onChange={handleInputChange}
                                   maxLength={12}
                                 />
@@ -230,17 +230,18 @@ const Register = () => {
                                   style={{ fontWeight: "bold" }}
                                   disabled={loading}
                                 >
-                                  {loading?(
+                                  {loading ? (
                                     <>
-                                    <Spinner
-                                    animation="border"
-                                    size="sm"
-                                    variant="secondary"
-                                    />{" "}Registering you</>
-                                  ):(
+                                      <Spinner
+                                        animation="border"
+                                        size="sm"
+                                        variant="secondary"
+                                      />{" "}
+                                      Registering you
+                                    </>
+                                  ) : (
                                     "Register"
                                   )}
-                                  
                                 </Button>
                               </div>
                             </Form>
