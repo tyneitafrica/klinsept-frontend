@@ -73,7 +73,6 @@ const ProductGridSingleTwo = ({
                 src={product.image[0]}
                 alt=""
               />
-              {console.log(product)}
               {product.image.length > 1 ? (
                 <img
                   className="hover-img"
@@ -153,20 +152,7 @@ const ProductGridSingleTwo = ({
                   {product.name}
                 </Link>
               </h3>
-              <div className="price-2">
-                {discountedPrice !== null ? (
-                  <Fragment>
-                    <span>
-                      {currency.currencySymbol + finalDiscountedPrice}
-                    </span>
-                    <span className="old">
-                      {currency.currencySymbol + finalProductPrice}
-                    </span>
-                  </Fragment>
-                ) : (
-                  <span>{currency.currencySymbol + finalProductPrice}</span>
-                )}
-              </div>
+
             </div>
             <div className="pro-wishlist-2">
               <button

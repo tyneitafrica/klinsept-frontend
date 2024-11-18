@@ -15,8 +15,8 @@ const TabProductSixteen = () => {
   ];
 
   return (
-    <div className={`product-area py-5`}>
-      <div className="container">
+    <div className={`product-are a py-5`}>
+      <div className=" ">
         <SectionTitle
           titleText="Our Products"
           subtitleText="Explore our wide range of high-quality products tailored to meet your needs."
@@ -44,7 +44,7 @@ const TabProductSixteen = () => {
           <Tab.Content>
             {tabConfig.map((tab) => (
               <Tab.Pane eventKey={tab.key} key={tab.key}>
-                <div className="row">
+                <div className="ro w">
                   <ProductGridTwo
                     category={selectedCategory}
                     type={tab.key}

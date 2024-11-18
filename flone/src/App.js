@@ -61,7 +61,7 @@ const App = (props) => {
   }
 
   return (
-    <ToastProvider placement="bottom-left">
+    <ToastProvider placement="bottom-left ">
       <BreadcrumbsProvider>
         <Router>
           <ScrollToTop>

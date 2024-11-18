@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 // Use the environment variables
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = 'http://192.168.1.88:8000/';
+// const API_URL = process.env.REACT_APP_API_URL;
 const API_KEY = process.env.REACT_APP_API_KEY;
 // const API_URL2 = process.env.REACT_APP_API_URL2;
 
@@ -80,7 +81,7 @@ export const getProducts = async ()=>{
         },
       }
     );
-    console.log(response.data)
+    // console.log(response.data)
     return response.data;
   } catch (error) {
     console.error('Get Products error:', error);

@@ -1,12 +1,11 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, {  } from "react";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import { connect } from "react-redux";
 import LayoutOne from "../components/LayoutOne";
 import Breadcrumb from "../wrappers/breadcrumb/Breadcrumb";
 import RelatedProductSlider from "../wrappers/product/RelatedProductSlider";
-// imphort ProductDescriptionTab from "../../wrappers/product/ProductDescriptionTab";
 import ProductImageDescription from "../wrappers/product/ProductImageDescription";
 import { useLocation, useParams } from "react-router-dom";
 
@@ -15,10 +14,9 @@ const Product = ({ products }) => {
   const { pathname } = useLocation();
 
   // Find the product based on the id
-  const product = products.find(single => single.id === id);
-
+  const product = products.find(product => product.id === Number(id));
   return (
-    <Fragment>
+    <div className="mt-100">
       <MetaTags>
         <title> | Product Page</title>
         <meta
@@ -43,23 +41,17 @@ const Product = ({ products }) => {
               product={product}
             />
 
-            {/* product description tab */}
-            {/* <ProductDescriptionTab
-              spaceBottomClass="pb-90"
-              productFullDesc={product.fullDescription}
-            /> */}
-
             {/* related product slider */}
             <RelatedProductSlider
               spaceBottomClass="pb-95"
-              category={product.category[0]}
+              category={product.category[2]}
             />
           </>
         ) : (
           <p>Product not found</p>
         )}
       </LayoutOne>
-    </Fragment>
+    </div>
   );
 };
 

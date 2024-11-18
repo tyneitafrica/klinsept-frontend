@@ -48,10 +48,8 @@ const relatedProducts = Array(10).fill({
 });
 
 
-
-
   return (
-    <Fragment>
+    <div className="mt-100">
       <LayoutOne headerTop="visible">
         <SectionTitle titleText={`Search results for ${searchParams}`} positionClass="text-center" spaceClass="mb-10" />
         <Row className="p-5 justify-content-center">
@@ -87,7 +85,7 @@ const relatedProducts = Array(10).fill({
           ))}
         </Row>
       </LayoutOne>
-    </Fragment>
+    </div>
   );
 };
 

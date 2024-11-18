@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { getIndividualCategories } from "../../helpers/product";
-// import ShopSearch from "../../components/product/ShopSearch";
 import { setActiveSort } from "../../helpers/product";
 
 const ShopSidebar = ({ products, getSortParams }) => {
@@ -10,8 +9,7 @@ const ShopSidebar = ({ products, getSortParams }) => {
 
   return (
     <div className={`sidebar-style mr-30`}>
-      {/* shop search */}
-      {/* <ShopSearch /> */}
+
 
       {/* filter by categories */}
       <div className="sidebar-widget">
@@ -38,6 +36,7 @@ const ShopSidebar = ({ products, getSortParams }) => {
                       <button
                         onClick={(e) => {
                           getSortParams("category", category);
+                          console.log(category)
                           setActiveSort(e);
                         }}
                       >
