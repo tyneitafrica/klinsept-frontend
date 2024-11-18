@@ -3,6 +3,7 @@ import axios from 'axios';
 // Use the environment variables
 const API_URL = process.env.REACT_APP_API_URL;
 const API_KEY = process.env.REACT_APP_API_KEY;
+// const API_URL2 = process.env.REACT_APP_API_URL2;
 
 export const registerFetch = async (registerData) => {
   try {
@@ -72,12 +73,14 @@ export const getProducts = async ()=>{
   try {
     const response = await axios.get(
       `${API_URL}api/v1.0/products/`,
+      // `${API_URL}products`,
       {
         headers: {
           'x-api-key': API_KEY,
         },
       }
     );
+    console.log(response.data)
     return response.data;
   } catch (error) {
     console.error('Get Products error:', error);
