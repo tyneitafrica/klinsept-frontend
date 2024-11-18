@@ -8,8 +8,9 @@ function LanguageCurrencyChanger() {
   const [selectedCurrency, setSelectedCurrency] = useState("EUR"); // Default is Euro
   const dispatch = useDispatch();
 
-  const availableCurrencies = useSelector((state) => state.currencyData.availableCurrencies); // Get available currencies from state
-
+  const availableCurrencies = useSelector(
+    (state) => state.currencyData
+  );
   useEffect(() => {
     // Fetch the list of available currencies when the component mounts
     dispatch(fetchCurrencies());
@@ -52,11 +53,12 @@ function LanguageCurrencyChanger() {
           className="form-select"
         >
           {/* Map over available currencies and display them in the dropdown */}
-          {availableCurrencies && availableCurrencies.map((currency) => (
-            <option key={currency} value={currency}>
-              {currency}
-            </option>
-          ))}
+          {availableCurrencies.availableCurrencies &&
+            availableCurrencies.availableCurrencies.map((currency) => (
+              <option key={currency} value={currency}>
+                {currency}
+              </option>
+            ))}
         </select>
       </div>
     </div>

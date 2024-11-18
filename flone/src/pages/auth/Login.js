@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import MetaTags from "react-meta-tags";
 import { Link } from "react-router-dom";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
@@ -14,7 +14,7 @@ const Login = () => {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [validated, setValidated] = useState(false);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
@@ -23,17 +23,17 @@ const Login = () => {
     if (form.checkValidity() === false) {
       e.stopPropagation();
     } else {
-      setLoading(true)
+      setLoading(true);
       try {
         // Send the data to the backend
-        const response = await LoginFetch(loginData);
-        console.log("Registration successful:", response);
-        // Handle success (e.g., redirect, show success message, etc.)
+        console.log(loginData);
+         await LoginFetch(loginData);
+        // console.log("Registration successful:", response);
       } catch (error) {
-        console.error("Registration failed:", error);
-        setError("Registration failed. Please try again.");
+        // console.error("Registration failed:", error);
+        setError(error.message);
       }
-      setLoading(false)
+      setLoading(false);
     }
 
     setValidated(true);
@@ -151,19 +151,19 @@ const Login = () => {
                             style={{ fontWeight: "bold" }}
                             disabled={loading}
                           >
-                            {loading?(
+                            {loading ? (
                               <>
-                              <Spinner
-                              as="span"
-                              animation="border"
-                              size="sm"
-                              role="status"
-                              arai-hidden="true"
-                              />{"  "}
-                              Logging in...
+                                <Spinner
+                                  as="span"
+                                  animation="border"
+                                  size="sm"
+                                  role="status"
+                                  arai-hidden="true"
+                                />
+                                {"  "}
+                                Logging in...
                               </>
-                            ):(
-
+                            ) : (
                               "Login"
                             )}
                           </Button>
