@@ -11,6 +11,7 @@ function LoginModal({ show, setShow }) {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
   const [validated, setValidated] = useState(false);
 
   const handleInputChange = (e) => {
@@ -38,13 +39,16 @@ function LoginModal({ show, setShow }) {
 
     try {
       // Send the data to the backend
-      const response = await LoginFetch(loginData);
-      console.log("Login successful:", response);
+       await LoginFetch(loginData);
+       setError("");
+       setMessage("Login successful");
       // Handle success (e.g., close modal, redirect, show success message, etc.)
       setShow(false); // Example of closing the modal on success
     } catch (error) {
-      console.error("Login failed:", error);
+      // console.error("Login failed:", error);
       setError("Login failed. Please try again.");
+      setMessage("");
+      setError(error.message);
     }
 
     setLoading(false);
@@ -58,6 +62,7 @@ function LoginModal({ show, setShow }) {
       <Modal.Body>
         <Form noValidate validated={validated} onSubmit={handleLoginSubmit}>
           {error && <Alert variant="danger">{error}</Alert>}
+          {message && <Alert variant="success">{message}</Alert>}
 
           <Form.Group controlId="formEmail">
             <Form.Label>Email</Form.Label>

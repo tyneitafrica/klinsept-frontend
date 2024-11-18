@@ -29,7 +29,6 @@ const fetchRates = async () => {
     // Fetch rates from external API
     const response = await axios.get(BASE_URL+`access_key=${API_KEY}`);
     const rates = response.data.rates;
-    console.log(response);
 
     // Merge fetched rates with fallback data
     const mergedRates = Object.keys(fallbackRates).reduce((acc, currency) => {

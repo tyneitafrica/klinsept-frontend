@@ -1,4 +1,5 @@
 import axios from "axios";
+import { setUserData } from "../redux/actions/appAction";
 
 // Use the environment variables
 const API_URL = "http://192.168.1.88:8000/";
@@ -28,7 +29,7 @@ export const registerFetch = async (registerData) => {
   }
 };
 
-export const LoginFetch = async (loginData) => {
+export const LoginFetch = async (loginData, dispatch) => {
   try {
     const response = await axios.post(
       `${API_URL}api/v1.0/auth/login/`,
@@ -41,7 +42,7 @@ export const LoginFetch = async (loginData) => {
       }
     );
     if (response.data) {
-      localStorage.setItem("userData", JSON.stringify(response.data));
+      dispatch(setUserData(response.data));
     }
 
     return response.data;

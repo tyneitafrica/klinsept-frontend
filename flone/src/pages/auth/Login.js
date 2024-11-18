@@ -8,13 +8,16 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useLocation } from "react-router-dom";
 import { Spinner, Nav, Form, Button, Alert } from "react-bootstrap";
 import { LoginFetch } from "../../helpers/backendFectch";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const { pathname } = useLocation();
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [validated, setValidated] = useState(false);
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
@@ -25,12 +28,11 @@ const Login = () => {
     } else {
       setLoading(true);
       try {
-        // Send the data to the backend
-        console.log(loginData);
-         await LoginFetch(loginData);
-        // console.log("Registration successful:", response);
+        await LoginFetch(loginData, dispatch);
+        setError("");
+        setMessage("Login successful");
       } catch (error) {
-        // console.error("Registration failed:", error);
+        setMessage("");
         setError(error.message);
       }
       setLoading(false);
@@ -82,6 +84,7 @@ const Login = () => {
                         onSubmit={handleLoginSubmit}
                       >
                         {error && <Alert variant="danger">{error}</Alert>}
+                        {message && <Alert variant="success">{message}</Alert>}
 
                         <Form.Group controlId="formEmail">
                           <Form.Label>Email</Form.Label>

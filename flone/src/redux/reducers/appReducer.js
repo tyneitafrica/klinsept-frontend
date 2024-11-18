@@ -1,21 +1,25 @@
 // appReducer.js
 const initialState = {
   darkMode: localStorage.getItem("darkMode") === "true",
-  trades: [],
+  userData: [],
 };
 
-const productReducer = (state = initialState, action) => {
+const appReducer = (state = initialState, action) => {
   switch (action.type) {
     case "SET_DARK_MODE":
-      localStorage.setItem("darkMode", !state.darkMode);
       return {
         ...state,
         darkMode: !state.darkMode,
       };
+    case "SET_USER_DATA":
+      return {
+        ...state,
+        userData: action.payload,
+      }
 
     default:
       return state;
   }
 };
 
-export default productReducer;
+export default appReducer;

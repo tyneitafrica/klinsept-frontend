@@ -7,15 +7,11 @@ import { connect } from "react-redux";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
 import Search from "./pages/Search";
 import { getProducts } from "./helpers/backendFectch";
-// home pages
+
 const Home = lazy(() => import("./pages/Home"));
-// shop pages
 const Products = lazy(() => import("./pages/Products"));
-// product pages
 const Product = lazy(() => import("./pages/Product"));
-// blog pages
 const Blogs = lazy(() => import("./pages/Blogs"));
-// other pages
 const About = lazy(() => import("./pages/other/About"));
 const Contact = lazy(() => import("./pages/other/Contact"));
 const MyAccount = lazy(() => import("./pages/other/MyAccount"));
@@ -31,7 +27,7 @@ const Register = lazy(() => import("./pages/auth/Register"));
 const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"));
 const ResetPassword = lazy(() => import("./pages/auth/ResetPassword"));
 
-const App = (props) => {
+const App = ({ userData }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -48,6 +44,9 @@ const App = (props) => {
     fetchData(); // Fetch data on initial load
   }, []);
 
+  if (userData) {
+    console.log("User data:", userData);
+  }
   if (isLoading) {
     // Show the preloader or loading UI while fetching products
     return (
@@ -109,7 +108,12 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  dispatch: PropTypes.func,
+  userData: PropTypes.object, // Adjust based on the structure of userData
 };
 
-export default connect()(App);
+const mapStateToProps = (state) => ({
+  userData: state.app.userData, // Mapping the Redux state to component props
+});
+
+// Connecting the component to Redux
+export default connect(mapStateToProps)(App);
