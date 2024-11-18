@@ -41,7 +41,6 @@ const App = () => {
         setIsLoading(false); // Set loading state to false after fetching
       }
     };
-
     fetchData(); // Fetch data on initial load
   }, []);
 
@@ -109,11 +108,11 @@ const App = () => {
 };
 
 App.propTypes = {
-  userData: PropTypes.object, // Adjust based on the structure of userData
+  userData: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
-  userData: state.app.userData, // Mapping the Redux state to component props
+  authData: state.app.authData, // Mapping the Redux state to component props
 });
 
 // Connecting the component to Redux
