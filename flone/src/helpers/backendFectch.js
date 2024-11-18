@@ -82,7 +82,7 @@ export const forgotPassword = async (email) => {
 export const resetPassword = async (data) => {
   try {
     const response = await axios.post(
-      `${API_URL}api/v1.0/auth/otp/verify/`,
+      `${API_URL}api/v1.0/auth/otp/confirm/`,
       data,
       {
         headers: {

@@ -15,6 +15,8 @@ import {
 import "../../assets/css/ProductCard.css";
 import { Card } from "react-bootstrap";
 import { ProductModal } from "../../components/ProductModal";
+import {useToasts} from 'react-toast-notifications'
+
 const ProductGridTwo = ({
   products,
   currency,
@@ -27,6 +29,7 @@ const ProductGridTwo = ({
 }) => {
   const [modalShow, setModalShow] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null); // Track selected product
+  const { addToast } = useToasts();
 
   return (
     <Fragment>
@@ -38,7 +41,7 @@ const ProductGridTwo = ({
             : product.price; // Use default price if no rate
 
           return (
-            <Card key={index} className="product-card mb-3">
+            <Card key={index} className="product-car mb-3">
               <div className="image-container">
                 <img
                   src={product.image[0]}
@@ -55,7 +58,9 @@ const ProductGridTwo = ({
                     className="icon"
                     title="View Details"
                   />
-                  <AiOutlineSwap className="icon" title="Compare" />
+                  <AiOutlineSwap onClick={()=>{
+                    addToWishlist(product, addToast);
+                  }} className="icon" title="Compare" />
                 </div>
               </div>
               <Card.Body>
@@ -70,9 +75,7 @@ const ProductGridTwo = ({
                 </div>
 
                 <Card.Text className="product-price">
-                  {currency.currencySymbol || "$"}
-                  {" "}
-                  {convertedPrice}
+                  {currency.currencySymbol || "$"} {convertedPrice}
                 </Card.Text>
               </Card.Body>
             </Card>
@@ -99,8 +102,6 @@ ProductGridTwo.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  // console.log("Currencies:", ownProps);
-
   return {
     products: getProducts(
       state.productData.products,
@@ -130,28 +131,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductGridTwo);
-// <ProductGridSingleTwo
-//   sliderClassName={sliderClassName}
-//   spaceBottomClass={spaceBottomClass}
-//   colorClass={colorClass}
-//   product={product}
-//   currency={currency}
-//   addToCart={addToCart}
-//   addToWishlist={addToWishlist}
-//   addToCompare={addToCompare}
-//   cartItem={
-//     cartItems.filter((cartItem) => cartItem.id === product.id)[0]
-//   }
-//   wishlistItem={
-//     wishlistItems.filter(
-//       (wishlistItem) => wishlistItem.id === product.id
-//     )[0]
-//   }
-//   compareItem={
-//     compareItems.filter(
-//       (compareItem) => compareItem.id === product.id
-//     )[0]
-//   }
-//   key={product.id}
-//   titlePriceClass={titlePriceClass}
-// />

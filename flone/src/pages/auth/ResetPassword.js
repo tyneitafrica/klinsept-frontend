@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, {useState } from "react";
+import React, { useState } from "react";
 import MetaTags from "react-meta-tags";
 import { Link } from "react-router-dom";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
@@ -24,43 +24,33 @@ const ResetPassword = () => {
   const handleResetPasswordSubmit = async (e) => {
     e.preventDefault();
     const form = e.currentTarget;
-  
+
     // Validate form
     if (form.checkValidity() === false) {
       e.stopPropagation();
       return;
     }
-  
+
     // Validate matching passwords
     if (resetData.password !== resetData.confirmPassword) {
       setError("Passwords do not match.");
       return;
     }
-  
-    // Prepare the data object for API
-    const requestData = {
-      otp: resetData.otp, // Ensure this is from the input field
-      new_password: resetData.password, // User's new password
-      email: 'stevekid705@gmail.com'
-    };
-  
+
     try {
-      setError(""); // Clear any previous errors
-      console.log("Sending data for password reset:", requestData);
-  
-      const response = await resetPassword(requestData); // API call
-      console.log("Password reset successful:", response);
-  
-      // Optional: Add success handling
+      setError("");
+
+      await resetPassword({
+        otp: resetData.otp,
+        new_password: resetData.password,
+      });
       setMessage("Password reset successfully! You can now log in.");
     } catch (error) {
-      // Set error message from the API response
       setError(error.message || "Failed to reset password.");
     }
-  
+
     setValidated(true);
   };
-  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -80,9 +70,7 @@ const ResetPassword = () => {
         />
       </MetaTags>
       <BreadcrumbsItem to={"/"}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={pathname}>
-        Reset Password
-      </BreadcrumbsItem>
+      <BreadcrumbsItem to={pathname}>Reset Password</BreadcrumbsItem>
       <LayoutOne headerTop="visible">
         <Breadcrumb />
         <div className="reset-password-area pt-100 pb-100">
