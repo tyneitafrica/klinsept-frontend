@@ -69,13 +69,38 @@ export const forgotPassword = async (email) => {
         },
       }
     );
-    console.log(response);
     return response.data;
   } catch (error) {
-    console.error("Forgot Password error:", error);
-    throw error;
+    // Extract a readable error message
+    const errorMessage =
+      error.response?.data?.error || "An unexpected error occurred. Please try again.";
+    console.error("Forgot Password error:", errorMessage);
+    throw new Error(errorMessage);
   }
 };
+
+export const resetPassword = async (data) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}api/v1.0/auth/otp/verify/`,
+      data,
+      {
+        headers: {
+          "x-api-key": API_KEY,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    // Extract a readable error message
+    const errorMessage =
+      error.response?.data?.error || "An unexpected error occurred. Please try again.";
+    console.error("Reset Password error:", error);
+    throw new Error(errorMessage);
+  }
+}
+
 
 export const getProducts = async () => {
   try {

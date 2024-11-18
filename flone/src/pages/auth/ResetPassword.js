@@ -7,6 +7,7 @@ import LayoutOne from "../../components/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useLocation, useParams } from "react-router-dom";
 import { Form, Button, Alert, Nav, Tab } from "react-bootstrap";
+import { resetPassword } from "../../helpers/backendFectch";
 
 const ResetPassword = () => {
   const { otp } = useParams();
@@ -18,23 +19,48 @@ const ResetPassword = () => {
   });
   const [validated, setValidated] = useState(false);
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
 
-  const handleResetPasswordSubmit = (e) => {
+  const handleResetPasswordSubmit = async (e) => {
     e.preventDefault();
     const form = e.currentTarget;
-
+  
+    // Validate form
     if (form.checkValidity() === false) {
       e.stopPropagation();
-    } else if (resetData.password !== resetData.confirmPassword) {
+      return;
+    }
+  
+    // Validate matching passwords
+    if (resetData.password !== resetData.confirmPassword) {
       setError("Passwords do not match.");
       return;
-    } else {
-      setError("");
-      console.log("Password reset with:", resetData);
-      // Implement reset password logic here
     }
+  
+    // Prepare the data object for API
+    const requestData = {
+      otp: resetData.otp, // Ensure this is from the input field
+      new_password: resetData.password, // User's new password
+      email: 'stevekid705@gmail.com'
+    };
+  
+    try {
+      setError(""); // Clear any previous errors
+      console.log("Sending data for password reset:", requestData);
+  
+      const response = await resetPassword(requestData); // API call
+      console.log("Password reset successful:", response);
+  
+      // Optional: Add success handling
+      setMessage("Password reset successfully! You can now log in.");
+    } catch (error) {
+      // Set error message from the API response
+      setError(error.message || "Failed to reset password.");
+    }
+  
     setValidated(true);
   };
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -79,6 +105,7 @@ const ResetPassword = () => {
                     onSubmit={handleResetPasswordSubmit}
                   >
                     {error && <Alert variant="danger">{error}</Alert>}
+                    {message && <Alert variant="success">{message}</Alert>}
 
                     <Form.Group controlId="formPassword">
                       <Form.Label>New Password</Form.Label>
