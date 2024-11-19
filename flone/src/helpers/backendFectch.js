@@ -1,5 +1,6 @@
 import axios from "axios";
 // import { setUserData } from "../redux/actions/appAction";
+import { logoutUser } from "../redux/actions/appAction";
 
 
 // Use the environment variables
@@ -40,7 +41,7 @@ export const LoginFetch = async (loginData) => {
 export const forgotPassword = async (email) => {
   try {
     const response = await axios.post(
-      `${API_URL}api/v1.0/auth/otp/request/`,
+      `${API_URL}auth/otp/request/`,
       { email },
       {
         headers: {
@@ -53,7 +54,8 @@ export const forgotPassword = async (email) => {
   } catch (error) {
     // Extract a readable error message
     const errorMessage =
-      error.response?.data?.error || "An unexpected error occurred. Please try again.";
+      error.response?.data?.error ||
+      "An unexpected error occurred. Please try again.";
     console.error("Forgot Password error:", errorMessage);
     throw new Error(errorMessage);
   }
@@ -61,9 +63,28 @@ export const forgotPassword = async (email) => {
 
 export const resetPassword = async (data) => {
   try {
+    const response = await axios.post(`${API_URL}auth/otp/confirm/`, data, {
+      headers: {
+        "x-api-key": API_KEY,
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    // Extract a readable error message
+    const errorMessage =
+      error.response?.data?.error ||
+      "An unexpected error occurred. Please try again.";
+    console.error("Reset Password error:", error);
+    throw new Error(errorMessage);
+  }
+};
+
+export const serverLogOut = async (dispatch, toast) => {
+  try {
     const response = await axios.post(
-      `${API_URL}api/v1.0/auth/otp/confirm/`,
-      data,
+      `${API_URL}auth/logout/`,
+      {},
       {
         headers: {
           "x-api-key": API_KEY,
@@ -71,21 +92,20 @@ export const resetPassword = async (data) => {
         },
       }
     );
-    return response.data;
+    if (response.status === 200) {
+      toast.error(response.data.Message);
+      dispatch(logoutUser());
+    }
   } catch (error) {
-    // Extract a readable error message
-    const errorMessage =
-      error.response?.data?.error || "An unexpected error occurred. Please try again.";
-    console.error("Reset Password error:", error);
-    throw new Error(errorMessage);
+    console.error("Server Log Out error:", error);
+    throw error;
   }
-}
-
+};
 
 export const getProducts = async () => {
   try {
     const response = await axios.get(
-      `${API_URL}api/v1.0/products/`,
+      `${API_URL}products/`,
       // `${API_URL}products`,
       {
         headers: {
