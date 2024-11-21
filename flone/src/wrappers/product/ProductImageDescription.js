@@ -28,6 +28,9 @@ const ProductImageDescription = ({
     discountedPrice * currency.currencyRate
   ).toFixed(2);
   const [quantityCount, setQuantityCount] = useState(1);
+  const convertedPrice = currency.selectedCurrency
+  ? (product.price * currency.selectedCurrency.rates).toFixed(2)
+  : product.price; // Fallback to the default price if no currency is selected
 
   return (
     <div className={`shop-area pt-100 pb-100`}>
@@ -53,7 +56,7 @@ const ProductImageDescription = ({
                     </span>
                   </Fragment>
                 ) : (
-                  <span>{currency.currencySymbol + finalProductPrice} </span>
+                  <span>{currency.selectedCurrency.symbol + " " + convertedPrice} </span>
                 )}
               </div>
 

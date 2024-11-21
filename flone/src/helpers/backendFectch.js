@@ -91,19 +91,15 @@ export const serverLogOut = async (dispatch, toast) => {
 
 export const getProducts = async () => {
   try {
-    const response = await axios.get(
-      `${API_URL}products/`,
-      // `${API_URL}products`,
-      {
-        headers: {
-          "x-api-key": API_KEY,
-        },
-      }
-    );
-    console.log(response.data);
+    const response = await axios.get(`${API_URL}products/`, {
+      headers: {
+        "x-api-key": "f6c52669-b6a9-4901-8558-5bc72b7e983a",
+      },
+    });
+    // console.log(response.data);
     return response.data;
   } catch (error) {
-    console.error("Get Products error:", error);
+    console.error("Get Products error:", error.response?.data);
     throw error;
   }
 };

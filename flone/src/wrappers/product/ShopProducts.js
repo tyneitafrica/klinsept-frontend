@@ -37,9 +37,9 @@ const ShopProducts = ({
         {finalProducts.map((product, index) => {
           // Calculate converted price
           const convertedPrice = currency.selectedCurrency
-          ? (product.price * currency.selectedCurrency.rates).toFixed(2)
-          : product.price; // Fallback to the default price if no currency is selected
-      
+            ? (product.price * currency.selectedCurrency.rates).toFixed(2)
+            : product.price; // Fallback to the default price if no currency is selected
+
           const isProductInCompare = compareItems.some(
             (item) => item.id === product.id
           );
@@ -48,7 +48,7 @@ const ShopProducts = ({
             <Card key={index} className="product-car mb-3">
               <div className="image-container">
                 <img
-                  src={product.image[0]}
+                  src={product.images[0].image}
                   alt={product.name}
                   className="product-image"
                 />
@@ -110,7 +110,6 @@ const ShopProducts = ({
     </Fragment>
   );
 };
-
 
 ShopProducts.propTypes = {
   addToCart: PropTypes.func,

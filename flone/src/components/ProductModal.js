@@ -7,6 +7,7 @@ import {
   FaAngleLeft,
   FaExchangeAlt,
 } from "react-icons/fa";
+
 export const ProductModal = ({ show, handleClose, productData }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -42,7 +43,7 @@ export const ProductModal = ({ show, handleClose, productData }) => {
 
           <img
             className="custom-carousel-image"
-            src={productData.image[currentIndex]}
+            src={productData.images[currentIndex].image}
             alt={`Product ${currentIndex + 1}`}
           />
 
