@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { useState } from "react";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
@@ -6,12 +5,18 @@ import ProductGridTwo from "./ProductGridTwo";
 import SectionTitle from "../../components/SectionTitle";
 
 const TabProductSixteen = () => {
-  // State to track the currently selected category
-  const [selectedCategory, setSelectedCategory] = useState("antiseptics");
+  const [selectedCategory, setSelectedCategory] = useState("Antiseptics");
+
+  const tabConfig = [
+    { key: "Antiseptics", label: "Antiseptics" },
+    { key: "Disinfectants", label: "Disinfectants" },
+    { key: "Detergents", label: "Detergents" },
+    { key: "Handwash", label: "Handwash" },
+  ];
 
   return (
-    <div className={`product-area py-5`}>
-      <div className="container">
+    <div className={`product-are a py-5`}>
+      <div className=" ">
         <SectionTitle
           titleText="Our Products"
           subtitleText="Explore our wide range of high-quality products tailored to meet your needs."
@@ -26,74 +31,30 @@ const TabProductSixteen = () => {
         >
           <Nav
             variant="pills"
-            className={`product-tab-list-5 mb-60 justify-content-center `}
+            className={`product-tab-list-5 mb-60 justify-content-center`}
           >
-            <Nav.Item>
-              <Nav.Link eventKey="antiseptics">
-                <h4>Antiseptics</h4>
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="disinfectants">
-                <h4>Disinfectants</h4>
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="detergents">
-                <h4>Detergents</h4>
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="handwash">
-                <h4>Handwash</h4>
-              </Nav.Link>
-            </Nav.Item>
+            {tabConfig.map((tab) => (
+              <Nav.Item key={tab.key}>
+                <Nav.Link eventKey={tab.key}>
+                  <h4>{tab.label}</h4>
+                </Nav.Link>
+              </Nav.Item>
+            ))}
           </Nav>
           <Tab.Content>
-            <Tab.Pane eventKey="antiseptics">
-              <div className="row">
-                <ProductGridTwo
-                  category={selectedCategory}
-                  type="antiseptics"
-                  limit={8}
-                  spaceBottomClass="mb-25"
-                  colorClass="pro-puce-color"
-                />
-              </div>
-            </Tab.Pane>
-            <Tab.Pane eventKey="disinfectants">
-              <div className="row">
-                <ProductGridTwo
-                  category={selectedCategory}
-                  type="disinfectants"
-                  limit={8}
-                  spaceBottomClass="mb-25"
-                  colorClass="pro-puce-color"
-                />
-              </div>
-            </Tab.Pane>
-            <Tab.Pane eventKey="detergents">
-              <div className="row">
-                <ProductGridTwo
-                  category={selectedCategory}
-                  type="detergents"
-                  limit={8}
-                  spaceBottomClass="mb-25"
-                  colorClass="pro-puce-color"
-                />
-              </div>
-            </Tab.Pane>
-            <Tab.Pane eventKey="handwash">
-              <div className="row">
-                <ProductGridTwo
-                  category={selectedCategory}
-                  type="handwash"
-                  limit={8}
-                  spaceBottomClass="mb-25"
-                  colorClass="pro-puce-color"
-                />
-              </div>
-            </Tab.Pane>
+            {tabConfig.map((tab) => (
+              <Tab.Pane eventKey={tab.key} key={tab.key}>
+                <div className="ro w">
+                  <ProductGridTwo
+                    category={selectedCategory}
+                    type={tab.key}
+                    limit={8}
+                    spaceBottomClass="mb-25"
+                    colorClass="pro-puce-color"
+                  />
+                </div>
+              </Tab.Pane>
+            ))}
           </Tab.Content>
         </Tab.Container>
       </div>
@@ -101,9 +62,5 @@ const TabProductSixteen = () => {
   );
 };
 
-TabProductSixteen.propTypes = {
-  productTabClass: PropTypes.string,
-  spaceTopClass: PropTypes.string,
-};
 
 export default TabProductSixteen;

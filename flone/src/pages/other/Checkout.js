@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import MetaTags from "react-meta-tags";
 import { connect } from "react-redux";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
@@ -9,22 +9,17 @@ import LayoutOne from "../../components/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useLocation } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
-import LoginModal from "../auth/LoginModal";
+import toast,{ Toaster } from "react-hot-toast";
 
 const Checkout = ({ cartItems, currency }) => {
   const { pathname } = useLocation();
   let cartTotalPrice = 0;
-  const [userData, setUserData] = useState(false);
-  const [show, setShow] = useState(false);
   const [validated, setValidated] = useState(false);
-  const [orderDetails, setOrderDetails] = useState(null);
+  const navigate = useNavigate();
+  // const [orderDetails, setOrderDetails] = useState(null);
 
   // Form fields
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    phone: "",
-    email: "",
     country: "",
     state: "",
     city: "",
@@ -35,22 +30,56 @@ const Checkout = ({ cartItems, currency }) => {
   });
 
   // Handle form submission
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const form = event.currentTarget;
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    
     if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+      e.stopPropagation();
     } else {
-        if (!userData) {
-        setOrderDetails(formData); // Set the order details for logging
-        console.log("Order Details:", formData, orderDetails);
-      } else {
-        setShow(!show);
-      }
-      }
-      setValidated(true);
+        // Prepare data for API call
+        const payload = {
+          ...formData,
+          address: formData.street,
+          city: formData.city,
+          state: formData.state,
+          zip_code: formData.postcode,
+          country: formData.country,
+        }
+  
+        try {
+          const response = await fetch('https://klinsept-backend.onrender.com/api/v1.0/order/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'x-api-key':"f6c52669-b6a9-4901-8558-5bc72b7e983a"
+            },
+            credentials: 'include',
+            body: JSON.stringify(payload)   
+          });
+  
+          if (response.ok) {
+            const data = await response.json();
+            toast.success("Order created Successfully")
+            console.log("Order Created:", data);
+            // Redirect to payment page
+            navigate(`/payment/${data.order_id}`);
+            console.log(data.order_id)
+          } else {
+            const error = await response.json();
+            console.error("Error:", error);
+            alert(error.error || "Failed to create order");
+          }
+        } catch (error) {
+          console.error("Error creating order:", error);
+          alert("Something went wrong! Please try again.");
+        }
+      
+    }
+    setValidated(true);
   };
+  
 
   return (
     <div className="mt-90">
@@ -80,88 +109,11 @@ const Checkout = ({ cartItems, currency }) => {
                       onSubmit={handleSubmit}
                     >
                       <div className="row">
-                        {/* <div className="col-lg-6 col-md-6">
-                          <Form.Group controlId="firstName">
-                            <Form.Label>First Name</Form.Label>
-                            <Form.Control
-                              type="text"
-                              required
-                              value={formData.firstName}
-                              onChange={(e) =>
-                                setFormData({
-                                  ...formData,
-                                  firstName: e.target.value,
-                                })
-                              }
-                            />
-                            <Form.Control.Feedback type="invalid">
-                              Please provide your first name.
-                            </Form.Control.Feedback>
-                          </Form.Group>
-                        </div>
-                        <div className="col-lg-6 col-md-6">
-                          <Form.Group controlId="lastName">
-                            <Form.Label>Last Name</Form.Label>
-                            <Form.Control
-                              type="text"
-                              required
-                              value={formData.lastName}
-                              onChange={(e) =>
-                                setFormData({
-                                  ...formData,
-                                  lastName: e.target.value,
-                                })
-                              }
-                            />
-                            <Form.Control.Feedback type="invalid">
-                              Please provide your last name.
-                            </Form.Control.Feedback>
-                          </Form.Group>
-                        </div>
-                        <div className="col-lg-6 col-md-6">
-                          <Form.Group controlId="phone">
-                            <Form.Label>Phone</Form.Label>
-                            <Form.Control
-                              type="text"
-                              required
-                              value={formData.phone}
-                              onChange={(e) =>
-                                setFormData({
-                                  ...formData,
-                                  phone: e.target.value,
-                                })
-                              }
-                            />
-                            <Form.Control.Feedback type="invalid">
-                              Please provide a valid phone number.
-                            </Form.Control.Feedback>
-                          </Form.Group>
-                        </div>
-                        <div className="col-lg-6 col-md-6">
-                          <Form.Group controlId="email">
-                            <Form.Label>Email Address</Form.Label>
-                            <Form.Control
-                              type="email"
-                              required
-                              value={formData.email}
-                              onChange={(e) =>
-                                setFormData({
-                                  ...formData,
-                                  email: e.target.value,
-                                })
-                              }
-                            />
-                            <Form.Control.Feedback type="invalid">
-                              Please provide a valid email address.
-                            </Form.Control.Feedback>
-                          </Form.Group>
-                        </div> */}
                         <div className="col-lg-12">
                           <Form.Group controlId="country">
                             <Form.Label>Country</Form.Label>
                             <Form.Control
                               as="select"
-                              required
                               value={formData.country}
                               onChange={(e) =>
                                 setFormData({
@@ -185,7 +137,7 @@ const Checkout = ({ cartItems, currency }) => {
                         </div>
                         <div className="col-lg-6 col-md-6">
                           <Form.Group controlId="state">
-                            <Form.Label>State / County</Form.Label>
+                            <Form.Label>State</Form.Label>
                             <Form.Control
                               type="text"
                               required
@@ -253,7 +205,7 @@ const Checkout = ({ cartItems, currency }) => {
                         </div>
                       </div>
 
-                      <div className="additional-info-wrap">
+                      {/* <div className="additional-info-wrap">
                         <h4>Additional information</h4>
                         <div className="additional-info">
                           <Form.Group controlId="orderNotes">
@@ -271,14 +223,11 @@ const Checkout = ({ cartItems, currency }) => {
                             />
                           </Form.Group>
                         </div>
-                      </div>
+                      </div> */}
 
                       <div className="place-order mt-25">
                         <Button type="submit" variant="primary">
-
-                        <Link to='/payment' >
                           Proceed to payment
-                        </Link>
                         </Button>
                       </div>
                     </Form>
@@ -377,9 +326,8 @@ const Checkout = ({ cartItems, currency }) => {
             )}
           </div>
         </div>
-        {show && (
-          <LoginModal show={show} setShow={setShow} setUserData={setUserData} />
-        )}
+        <Toaster position="top-right" reverseOrder={false} />
+
       </LayoutOne>
     </div>
   );

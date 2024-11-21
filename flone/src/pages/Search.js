@@ -1,8 +1,8 @@
-import React, { Fragment } from "react";
+import React, {  } from "react";
 import { useParams } from "react-router-dom";
 import LayoutOne from "../components/LayoutOne";
 import SectionTitle from "../components/SectionTitle";
-import ProductCard from "../components/product/ProductCard";
+import ProductCard from "../components/ProductCard";
 import { Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
 import { addToCart } from "../redux/actions/cartActions";
@@ -48,10 +48,8 @@ const relatedProducts = Array(10).fill({
 });
 
 
-
-
   return (
-    <Fragment>
+    <div className="mt-100">
       <LayoutOne headerTop="visible">
         <SectionTitle titleText={`Search results for ${searchParams}`} positionClass="text-center" spaceClass="mb-10" />
         <Row className="p-5 justify-content-center">
@@ -87,7 +85,7 @@ const relatedProducts = Array(10).fill({
           ))}
         </Row>
       </LayoutOne>
-    </Fragment>
+    </div>
   );
 };
 

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, {useState } from "react";
+import React, { useState } from "react";
 import MetaTags from "react-meta-tags";
 import { Link } from "react-router-dom";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
@@ -7,6 +7,7 @@ import LayoutOne from "../../components/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useLocation, useParams } from "react-router-dom";
 import { Form, Button, Alert, Nav, Tab } from "react-bootstrap";
+import { resetPassword } from "../../helpers/backendFectch";
 
 const ResetPassword = () => {
   const { otp } = useParams();
@@ -18,21 +19,36 @@ const ResetPassword = () => {
   });
   const [validated, setValidated] = useState(false);
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
 
-  const handleResetPasswordSubmit = (e) => {
+  const handleResetPasswordSubmit = async (e) => {
     e.preventDefault();
     const form = e.currentTarget;
 
+    // Validate form
     if (form.checkValidity() === false) {
       e.stopPropagation();
-    } else if (resetData.password !== resetData.confirmPassword) {
+      return;
+    }
+
+    // Validate matching passwords
+    if (resetData.password !== resetData.confirmPassword) {
       setError("Passwords do not match.");
       return;
-    } else {
-      setError("");
-      console.log("Password reset with:", resetData);
-      // Implement reset password logic here
     }
+
+    try {
+      setError("");
+
+      await resetPassword({
+        otp: resetData.otp,
+        new_password: resetData.password,
+      });
+      setMessage("Password reset successfully! You can now log in.");
+    } catch (error) {
+      setError(error.message || "Failed to reset password.");
+    }
+
     setValidated(true);
   };
 
@@ -54,9 +70,7 @@ const ResetPassword = () => {
         />
       </MetaTags>
       <BreadcrumbsItem to={"/"}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={pathname}>
-        Reset Password
-      </BreadcrumbsItem>
+      <BreadcrumbsItem to={pathname}>Reset Password</BreadcrumbsItem>
       <LayoutOne headerTop="visible">
         <Breadcrumb />
         <div className="reset-password-area pt-100 pb-100">
@@ -79,6 +93,7 @@ const ResetPassword = () => {
                     onSubmit={handleResetPasswordSubmit}
                   >
                     {error && <Alert variant="danger">{error}</Alert>}
+                    {message && <Alert variant="success">{message}</Alert>}
 
                     <Form.Group controlId="formPassword">
                       <Form.Label>New Password</Form.Label>

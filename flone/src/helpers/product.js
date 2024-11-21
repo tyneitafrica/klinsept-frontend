@@ -65,27 +65,6 @@ export const getSortedProducts = (products, sortType, sortValue) => {
         product => product.category.filter(single => single === sortValue)[0]
       );
     }
-    if (sortType === "tag") {
-      return products.filter(
-        product => product.tag.filter(single => single === sortValue)[0]
-      );
-    }
-    // if (sortType === "color") {
-    //   return products.filter(
-    //     product =>
-    //       product.variation &&
-    //       product.variation.filter(single => single.color === sortValue)[0]
-    //   );
-    // }
-    // if (sortType === "size") {
-    //   return products.filter(
-    //     product =>
-    //       product.variation &&
-    //       product.variation.filter(
-    //         single => single.size.filter(single => single.name === sortValue)[0]
-    //       )[0]
-    //   );
-    // }
     if (sortType === "filterSort") {
       let sortProducts = [...products];
       if (sortValue === "default") {
@@ -162,39 +141,7 @@ export const getIndividualColors = products => {
   return individualProductColors;
 };
 
-// get individual sizes
-export const getProductsIndividualSizes = products => {
-  let productSizes = [];
-  products &&
-    products.map(product => {
-      return (
-        product.variation &&
-        product.variation.map(single => {
-          return single.size.map(single => {
-            return productSizes.push(single.name);
-          });
-        })
-      );
-    });
-  const individualProductSizes = getIndividualItemArray(productSizes);
-  return individualProductSizes;
-};
 
-// get product individual sizes
-export const getIndividualSizes = product => {
-  let productSizes = [];
-  product.variation &&
-    product.variation.map(singleVariation => {
-      return (
-        singleVariation.size &&
-        singleVariation.size.map(singleSize => {
-          return productSizes.push(singleSize.name);
-        })
-      );
-    });
-  const individualSizes = getIndividualItemArray(productSizes);
-  return individualSizes;
-};
 
 export const setActiveSort = e => {
   const filterButtons = document.querySelectorAll(

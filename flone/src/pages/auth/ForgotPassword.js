@@ -1,30 +1,46 @@
 import PropTypes from "prop-types";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import MetaTags from "react-meta-tags";
 import { Link } from "react-router-dom";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../../components/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useLocation } from "react-router-dom";
-import { Form, Button, Alert, Nav, Tab } from "react-bootstrap";
-
+import { Form, Button, Alert, Nav, Tab, Spinner } from "react-bootstrap";
+import { forgotPassword } from "../../helpers/backendFectch";
 const ForgotPassword = () => {
   const { pathname } = useLocation();
   const [email, setEmail] = useState("");
   const [validated, setValidated] = useState(false);
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleForgotPasswordSubmit = (e) => {
+  const handleForgotPasswordSubmit = async (e) => {
     e.preventDefault();
     const form = e.currentTarget;
+    
     if (form.checkValidity() === false) {
       e.stopPropagation();
     } else {
       setError("");
-      console.log("Forgot Password requested for:", email);
-      // Implement forgot password logic here
+      setValidated(true);
+      setLoading(true);
+
+      try {
+        await forgotPassword(email);
+        setLoading(false);
+        setMessage(
+          "OTP request successful. Check your email for further instructions."
+        );
+      } catch (error) {
+        // Display error message to the user
+        setLoading(false);
+        const errorMessage =
+          error.message || "Failed to request OTP. Please try again.";
+        setError(errorMessage);
+      }
     }
-    setValidated(true);
   };
 
   return (
@@ -51,7 +67,7 @@ const ForgotPassword = () => {
                     <Nav variant="pills" className="login-register-tab-list">
                       <Nav.Item>
                         <Nav.Link eventKey="register">
-                          <h4>Register</h4>
+                          <h4>Forgot</h4>
                         </Nav.Link>
                       </Nav.Item>
                     </Nav>
@@ -62,6 +78,7 @@ const ForgotPassword = () => {
                     onSubmit={handleForgotPasswordSubmit}
                   >
                     {error && <Alert variant="danger">{error}</Alert>}
+                    {message && <Alert variant="success">{message}</Alert>}
 
                     <Form.Group controlId="formEmail">
                       <Form.Label>Email Address</Form.Label>
@@ -83,9 +100,25 @@ const ForgotPassword = () => {
                         variant="primary"
                         className="w-100"
                         style={{ fontWeight: "bold" }}
+                        disabled={loading}
                       >
-                        Submit
+                        {loading ? (
+                          <>
+                            <Spinner
+                              as="span"
+                              animation="border"
+                              size="sm"
+                              role="status"
+                              arai-hidden="true"
+                            />
+                            {"  "}
+                            requesting...
+                          </>
+                        ) : (
+                          "Submit"
+                        )}
                       </Button>
+                      {!loading&& 
                       <div className="mt-3">
                         <Link
                           to={process.env.PUBLIC_URL + "/login"}
@@ -95,6 +128,7 @@ const ForgotPassword = () => {
                           Back to Login
                         </Link>
                       </div>
+                      }
                     </div>
                   </Form>
                 </div>

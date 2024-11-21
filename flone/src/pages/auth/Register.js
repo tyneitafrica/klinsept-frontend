@@ -1,11 +1,14 @@
 import PropTypes from "prop-types";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import MetaTags from "react-meta-tags";
 import { Link } from "react-router-dom";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../../components/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import toast,{Toaster} from "react-hot-toast"
+
 import {
   Spinner,
   Tab,
@@ -22,44 +25,66 @@ import { registerFetch } from "../../helpers/backendFectch";
 const Register = () => {
   const { pathname } = useLocation();
   const [registerData, setRegisterData] = useState({
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     email: "",
-    phone: "",
+    phone_number: "",
     password: "",
-    confirmPassword: "",
   });
   const [validated, setValidated] = useState(false);
   const [error, setError] = useState("");
-  const [loading, setloading] = useState(false);
-
+  const [loading, setLoading] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("")
+  const navigate = useNavigate()
+  
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     const form = e.currentTarget;
 
     if (form.checkValidity() === false) {
-      e.stopPropagation();
-    } else if (registerData.password !== registerData.confirmPassword) {
-      setError("Passwords do not match.");
-      return;
+        e.stopPropagation();
+    } else if (registerData.password !== confirmPassword) {
+        setError("Passwords do not match.");
+        toast.error("Passwords do not match.");
+        return;
     } else {
-      setError("");
-      console.log("Register submitted with:", registerData);
-      setloading(true);
-      try {
-        // Send the data to the backend
-        const response = await registerFetch(registerData);
-        console.log("Registration successful:", response);
-        // Handle success (e.g., redirect, show success message, etc.)
-      } catch (error) {
-        console.error("Registration failed:", error);
-        setError("Registration failed. Please try again.");
-      }
-      setloading(false);
+        setError("");
+        console.log("Register submitted with:", registerData);
+        setLoading(true);
+
+        try {
+            const response = await registerFetch(registerData);
+            // Validate the status
+            if (response.status === 201) {
+                toast.success("Registration successful!");
+                // // Clear the input fields
+                // setRegisterData({
+                //     first_name: "",
+                //     last_name: "",
+                //     email: "",
+                //     phone_number: "",
+                //     password: "",
+                // });
+                // setConfirmPassword("");
+
+                setTimeout(() => {
+                    navigate('/login');
+                }, 3000);
+            } else {
+                // Handle unexpected status codes
+                throw new Error("Unexpected response status");
+            }
+        } catch (error) {
+            const errorMessage = error.response?.data?.message;
+            setError(errorMessage);
+            toast.error(errorMessage);
+        }
+
+        setLoading(false);
     }
 
     setValidated(true);
-  };
+};
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -114,13 +139,10 @@ const Register = () => {
                                       required
                                       type="text"
                                       placeholder="First name"
-                                      name="firstName"
-                                      value={registerData.firstName}
+                                      name="first_name"
+                                      value={registerData.first_name}
                                       onChange={handleInputChange}
                                     />
-                                    <Form.Control.Feedback type="invalid">
-                                      Please enter your first name.
-                                    </Form.Control.Feedback>
                                   </Form.Group>
                                 </Col>
                                 <Col md={6}>
@@ -130,13 +152,10 @@ const Register = () => {
                                       required
                                       type="text"
                                       placeholder="Last name"
-                                      name="lastName"
-                                      value={registerData.lastName}
+                                      name="last_name"
+                                      value={registerData.last_name}
                                       onChange={handleInputChange}
                                     />
-                                    <Form.Control.Feedback type="invalid">
-                                      Please enter your last name.
-                                    </Form.Control.Feedback>
                                   </Form.Group>
                                 </Col>
                               </Row>
@@ -161,12 +180,12 @@ const Register = () => {
                                 <Form.Control
                                   required
                                   type="text"
-                                  placeholder="+<country_code> <number>"
-                                  name="phone"
+                                  placeholder="+257................."
+                                  name="phone_number"
                                   pattern="^\+\d{1,3}\d{10}$"
-                                  value={registerData.phone}
+                                  value={registerData.phone_number}
                                   onChange={handleInputChange}
-                                  maxLength={12}
+                                  maxLength={13}
                                 />
                                 <Form.Control.Feedback type="invalid">
                                   Please provide a valid phone number with
@@ -199,8 +218,7 @@ const Register = () => {
                                   type="password"
                                   placeholder="Confirm Password"
                                   name="confirmPassword"
-                                  value={registerData.confirmPassword}
-                                  onChange={handleInputChange}
+                                  onChange={(e) => setConfirmPassword(e.target.value)}
                                   minLength="6"
                                   maxLength="12"
                                 />
@@ -230,17 +248,18 @@ const Register = () => {
                                   style={{ fontWeight: "bold" }}
                                   disabled={loading}
                                 >
-                                  {loading?(
+                                  {loading ? (
                                     <>
-                                    <Spinner
-                                    animation="border"
-                                    size="sm"
-                                    variant="secondary"
-                                    />{" "}Registering you</>
-                                  ):(
+                                      <Spinner
+                                        animation="border"
+                                        size="sm"
+                                        variant="secondary"
+                                      />{" "}
+                                      Registering you
+                                    </>
+                                  ) : (
                                     "Register"
                                   )}
-                                  
                                 </Button>
                               </div>
                             </Form>
@@ -255,6 +274,7 @@ const Register = () => {
           </div>
         </div>
       </LayoutOne>
+      <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
 };

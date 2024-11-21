@@ -70,7 +70,7 @@ const ProductGridSingleTwo = ({
             <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
               <img
                 className="default-img"
-                src={process.env.PUBLIC_URL + product.image[0]}
+                src={product.image[0]}
                 alt=""
               />
               {product.image.length > 1 ? (
@@ -152,20 +152,7 @@ const ProductGridSingleTwo = ({
                   {product.name}
                 </Link>
               </h3>
-              <div className="price-2">
-                {discountedPrice !== null ? (
-                  <Fragment>
-                    <span>
-                      {currency.currencySymbol + finalDiscountedPrice}
-                    </span>
-                    <span className="old">
-                      {currency.currencySymbol + finalProductPrice}
-                    </span>
-                  </Fragment>
-                ) : (
-                  <span>{currency.currencySymbol + finalProductPrice}</span>
-                )}
-              </div>
+
             </div>
             <div className="pro-wishlist-2">
               <button

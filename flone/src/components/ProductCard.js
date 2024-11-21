@@ -29,6 +29,7 @@ const ProductCard = ({
 
   const handleAddToCart = () => {
     if (cartItems.find((item) => item.id === product.id)) {
+      // my back dev
       showAlert(`${product.name} is already in your cart!`, "warning");
     } else {
       addToCart(product);

@@ -1,0 +1,127 @@
+/* Container styles */
+.products-container{
+  gap: 15px;
+  display: flex;
+}
+.product-car {
+  width: 250px;
+  border: none;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  /* transition: transform 0.3s; */
+}
+/* .product-card:hover {
+  transform: scale(1.05);
+} */
+
+/* Image styles */
+.image-container {
+  position: relative;
+  overflow: hidden;
+}
+.product-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  /* transition: transform 0.3s; */
+}
+.product-car:hover .product-image {
+  transform: scale(1.1);
+}
+
+/* Overlay styles */
+.overlay-icons {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.product-car:hover .overlay-icons {
+  opacity: 1;
+}
+.icon {
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.icon:hover {
+  color: #ffc107;
+}
+
+/* Card body styles */
+.product-name {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.product-price {
+  font-size: 1rem;
+  color: #333;
+}
+.heart-icon {
+  color: #dc3545;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.heart-icon:hover {
+  color: #7a7a7a;
+}
+
+/* Container for the carousel */
+.custom-carousel-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-carousel-image {
+  width: auto;
+  height: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Position the buttons */
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 2rem;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.carousel-button.prev {
+  left: 10px;
+}
+
+.carousel-button.next {
+  right: 10px;
+}
+
+.modal-btns button {
+  margin-left: 10px;
+}
+
+/* Optional: Add a fade effect to the images */
+.custom-carousel-image {
+  transition: opacity 0.5s ease-in-out;
+}
