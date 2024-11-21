@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
@@ -13,6 +13,16 @@ function LoginModal({ show, setShow }) {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [validated, setValidated] = useState(false);
+
+  // Create a ref to track if the component is still mounted
+  const isMounted = useRef(true);
+
+  // Cleanup function to set the isMounted flag to false when component unmounts
+  useEffect(() => {
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -39,19 +49,26 @@ function LoginModal({ show, setShow }) {
 
     try {
       // Send the data to the backend
-       await LoginFetch(loginData);
-       setError("");
-       setMessage("Login successful");
-      // Handle success (e.g., close modal, redirect, show success message, etc.)
-      setShow(false); // Example of closing the modal on success
+      await LoginFetch(loginData);
+
+      // Only update the state if the component is still mounted
+      if (isMounted.current) {
+        setError("");
+        setMessage("Login successful");
+        setShow(false); // Example of closing the modal on success
+      }
     } catch (error) {
-      // console.error("Login failed:", error);
-      setError("Login failed. Please try again.");
-      setMessage("");
-      setError(error.message);
+      // Only update the state if the component is still mounted
+      if (isMounted.current) {
+        setError("Login failed. Please try again.");
+        setMessage("");
+        setError(error.message);
+      }
     }
 
-    setLoading(false);
+    if (isMounted.current) {
+      setLoading(false);
+    }
   };
 
   return (

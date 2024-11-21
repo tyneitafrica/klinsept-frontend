@@ -44,12 +44,12 @@ const ProductGridTwo = ({
             <Card key={index} className="product-car mb-3">
               <div className="image-container">
                 <img
-                  src={product.image[0]}
+                  src="http://localhost:3000/assets/img/banner/Liquid-detergent.jpg"
                   alt={product.name}
                   className="product-image"
                 />
                 <div className="overlay-icons">
-                  <AiOutlineShoppingCart className="icon" title="Add to Cart" />
+                  <AiOutlineShoppingCart onClick={()=>addToCart(product,addToast)} className="icon" title="Add to Cart" />
                   <AiOutlineEye
                     onClick={() => {
                       setSelectedProduct(product);

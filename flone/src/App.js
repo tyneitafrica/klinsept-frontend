@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
 import Search from "./pages/Search";
 import { getProducts } from "./helpers/backendFectch";
+import Payment from "./pages/other/Payment";
 
 const Home = lazy(() => import("./pages/Home"));
 const Products = lazy(() => import("./pages/Products"));
@@ -19,7 +20,6 @@ const Cart = lazy(() => import("./pages/other/Cart"));
 const Wishlist = lazy(() => import("./pages/other/Wishlist"));
 const Compare = lazy(() => import("./pages/other/Compare"));
 const Checkout = lazy(() => import("./pages/other/Checkout"));
-const Payment = lazy(() => import("./pages/other/Payment"));
 const NotFound = lazy(() => import("./pages/other/NotFound"));
 // auth
 const Login = lazy(() => import("./pages/auth/Login"));
@@ -27,7 +27,8 @@ const Register = lazy(() => import("./pages/auth/Register"));
 const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"));
 const ResetPassword = lazy(() => import("./pages/auth/ResetPassword"));
 
-const App = ({ userData }) => {
+const App = () => {
+  
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -44,9 +45,9 @@ const App = ({ userData }) => {
     fetchData(); // Fetch data on initial load
   }, []);
 
-  if (userData) {
-    console.log("User data:", userData);
-  }
+  // if (userData) {
+  //   console.log("User data:", userData);
+  // }
   if (isLoading) {
     // Show the preloader or loading UI while fetching products
     return (
@@ -95,7 +96,7 @@ const App = ({ userData }) => {
                 <Route path={"/wishlist"} element={<Wishlist />} />
                 <Route path={"/compare"} element={<Compare />} />
                 <Route path={"/checkout"} element={<Checkout />} />
-                <Route path="/payment" element={<Payment />} />
+                <Route path="/payment/:orderId" element={<Payment />} />
                 <Route path="/search/:searchParams" element={<Search />} />
                 <Route path={"*"} element={<NotFound />} />
               </Routes>

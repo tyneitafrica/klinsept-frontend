@@ -1,152 +1,77 @@
-import PropTypes from "prop-types";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+// import { Link } from "react-router-dom";
 import MetaTags from "react-meta-tags";
-import { connect } from "react-redux";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
-import { getDiscountPrice } from "../../helpers/product";
 import LayoutOne from "../../components/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import { Form, Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 const Payment = ({ cartItems, currency }) => {
-  const [validated, setValidated] = useState(false);
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    phone: "",
-    email: "",
-    country: "",
-    state: "",
-    city: "",
-    street: "",
-    postcode: "",
-    orderNotes: "",
-    products: cartItems,
-  });
+  const { orderId } = useParams(); // Access the dynamic orderId
 
-  const [paymentDetails, setPaymentDetails] = useState({
-    mpesaNumber: "",
-    cardNumber: "",
-    cardExpiry: "",
-    cardCVC: "",
-  });
+  const [orderItems, setOrderItems] = useState(null); // State for order items
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    if (form.checkValidity()) {
-      console.log("Order Details:", formData);
-    }
-    setValidated(true);
-  };
+  useEffect(() => {
+    const confirmOrder = async () => {
+      try {
+        const response = await axios.get("https://klinsept-backend.onrender.com/api/v1.0/user/order/", {
+          params: { order_id: orderId },
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": "f6c52669-b6a9-4901-8558-5bc72b7e983a",
+          },
+        });
+  
+        if (response.status === 200) {
+          // console.log("Order details:", response.data);
+          setOrderItems(response.data); // Store order items in state
+          console.log(orderItems)
+        } else {
+          console.error("Failed to fetch order details:", response.data.message);
+        }
+      } catch (error) {
+        console.error("Error fetching order details:", error);
+      }
+    };
+  
+    confirmOrder(); // Call the function
+  }, [orderId]); // Ensure it runs only when orderId changes
+  
 
-  const renderPaymentFields = () => {
-    switch (formData.country) {
-      case "Mpesa":
-        return (
-          <Form.Group controlId="mpesaNumber">
-            <Form.Label>M-Pesa Phone Number</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter M-Pesa number"
-              value={paymentDetails.mpesaNumber}
-              onChange={(e) =>
-                setPaymentDetails({
-                  ...paymentDetails,
-                  mpesaNumber: e.target.value,
-                })
-              }
-              required
-            />
-            <Form.Control.Feedback type="invalid">
-              Please enter a valid M-Pesa number.
-            </Form.Control.Feedback>
-          </Form.Group>
-        );
+  const [paymentMethod, setPaymentMethod] = useState("")
 
-      case "Card":
-        return (
-          <>
-            <Form.Group controlId="cardNumber">
-              <Form.Label>Card Number</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="1234 5678 9012 3456"
-                value={paymentDetails.cardNumber}
-                onChange={(e) =>
-                  setPaymentDetails({
-                    ...paymentDetails,
-                    cardNumber: e.target.value,
-                  })
-                }
-                required
-              />
-            </Form.Group>
-            <div className="d-flex">
-              <Form.Group controlId="cardExpiry" className="mr-3">
-                <Form.Label>Expiry Date</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="MM/YY"
-                  value={paymentDetails.cardExpiry}
-                  onChange={(e) =>
-                    setPaymentDetails({
-                      ...paymentDetails,
-                      cardExpiry: e.target.value,
-                    })
-                  }
-                  required
-                />
-              </Form.Group>
-              <Form.Group controlId="cardCVC">
-                <Form.Label>CVC</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="123"
-                  value={paymentDetails.cardCVC}
-                  onChange={(e) =>
-                    setPaymentDetails({
-                      ...paymentDetails,
-                      cardCVC: e.target.value,
-                    })
-                  }
-                  required
-                />
-              </Form.Group>
-            </div>
-          </>
-        );
 
-      default:
-        return null;
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // Prevent default form submission behavior
+  
+    try {
+      const response = await axios.post(
+        "https://klinsept-backend.onrender.com/api/v1.0/send/email/",
+        { order_id: orderId }, // Pass the order ID in the request body
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": "f6c52669-b6a9-4901-8558-5bc72b7e983a",
+          },
+        }
+      );
+  
+      if (response.status === 200) {
+        console.log("Email sent successfully:", response.data);
+        toast.success("Email sent successfully!,Please check your Email for confirmation"); // Optional user feedback
+      } else {
+        console.error("Failed to send email:", response.data.message);
+        toast.error(`Failed to send email: ${response.data.message}`);
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+      alert("An error occurred while sending the email. Please try again.");
     }
   };
-
-  const renderFinishBtn = () => {
-    switch (formData.country) {
-      case "Mpesa":
-        return (
-          <Button type="submit" variant="primary">
-            Initiate STK
-          </Button>
-        );
-      case "Card":
-        return (
-          <Button type="submit" variant="primary">
-            Charge Card
-          </Button>
-        );
-      case "PoD":
-        return (
-          <Button type="submit" variant="primary">
-            Place Order
-          </Button>
-        );
-      default:
-        return null;
-    }
-  };
+  
 
   return (
     <div className="mt-90">
@@ -165,130 +90,113 @@ const Payment = ({ cartItems, currency }) => {
         <Breadcrumb />
         <div className="checkout-area pt-50 p mb-50">
           <div className="container">
-            {cartItems.length > 0 ? (
-              <div className="row">
-                <div className="col-lg-5">
-                  <div className="your-order-area">
-                    <h3>Your order</h3>
-                    <div className="your-order-wrap gray-bg-4">
-                      <div className="your-order-product-info">
-                        <div className="your-order-top">
-                          <ul>
-                            <li>Product</li>
-                            <li>Total</li>
-                          </ul>
-                        </div>
-                        <div className="your-order-middle">
-                          <ul>
-                            {cartItems.map((cartItem, key) => {
-                              const discountedPrice = getDiscountPrice(
-                                cartItem.price,
-                                cartItem.discount
-                              );
-                              const finalPrice = discountedPrice
-                                ? discountedPrice
-                                : cartItem.price;
-                              return (
-                                <li key={key}>
-                                  <span className="order-middle-left">
-                                    {cartItem.name} X {cartItem.quantity}
-                                  </span>
-                                  <span className="order-price">
-                                    {currency.currencySymbol +
-                                      (finalPrice * cartItem.quantity).toFixed(
-                                        2
-                                      )}
-                                  </span>
-                                </li>
-                              );
-                            })}
-                          </ul>
-                        </div>
-                        <div className="your-order-bottom total">
-                          <ul>
-                            <li className="order-total">Total</li>
-                            <li>
-                              {currency.currencySymbol +
-                                cartItems
-                                  .reduce(
-                                    (total, item) =>
-                                      total +
-                                      (getDiscountPrice(
-                                        item.price,
-                                        item.discount
-                                      ) || item.price) *
-                                        item.quantity,
-                                    0
-                                  )
-                                  .toFixed(2)}
-                            </li>
-                          </ul>
+            {orderItems && orderItems.items.length > 0 ? (
+                <div className="row">
+                  <div className="col-lg-5">
+                    <div className="your-order-area">
+                      <h3>Your Order</h3>
+                      <div className="your-order-wrap gray-bg-4">
+                        <div className="your-order-product-info">
+                          <div className="your-order-top">
+                            <ul>
+                              <li>Product</li>
+                              <li>Total</li>
+                            </ul>
+                          </div>
+                          <div className="your-order-middle">
+                            <ul>
+                              {orderItems.items.map((item, key) => {
+                                const finalPrice = parseFloat(item.product.price); // Ensure price is a number
+                                const lineTotal = finalPrice * item.quantity; // Calculate line total
+                                return (
+                                  <li key={key}>
+                                    <span className="order-middle-left">
+                                      {item.product.name} X {item.quantity}
+                                    </span>
+                                    <span className="order-price">
+                                      {lineTotal.toFixed(2)}
+                                    </span>
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          </div>
+                          <div className="your-order-bottom total">
+                            <ul>
+                              <li className="order-total">Total</li>
+                              <li>
+                                {parseFloat(orderItems.total_price).toFixed(2)}
+                              </li>
+                            </ul>
+                          </div>
+{/* Shipping Details */}
+                          <div className="your-order-bottom total">
+                            <ul className="your-order-middle">
+                              <li>
+                                <strong>Country</strong> {orderItems.shipping_address.country}
+                              </li>
+                              <li>
+                                <strong>City</strong> {orderItems.shipping_address.city}
+                              </li>
+                              <li>
+                                <strong>Zip Code</strong> {orderItems.shipping_address.zip_code}
+                              </li>
+                              <li>
+                                <strong>State</strong> {orderItems.shipping_address.state}
+                              </li>
+                              <li>
+                                <strong>Street Address</strong> {orderItems.shipping_address.street_address}
+                              </li>
+                            </ul>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+              ) : (
+                <p>Loading order details...</p>
+              )}
 
-                <div className="col-lg-7">
+
+                 <div className="col-lg-7">
                   <div className="billing-info-wrap">
                     <h3>Payment Details</h3>
-                    <Form
-                      noValidate
-                      validated={validated}
-                      onSubmit={handleSubmit}
-                    >
-                      <Form.Group controlId="country">
+                    <Form onSubmit={handleSubmit}>
+                      <Form.Group controlId="paymentMethod">
                         <Form.Label>Payment Method</Form.Label>
                         <Form.Control
                           as="select"
                           required
-                          value={formData.country}
-                          onChange={(e) =>
-                            setFormData({
-                              ...formData,
-                              country: e.target.value,
-                            })
-                          }
+                          value={paymentMethod}
+                          onChange={(e) => setPaymentMethod(e.target.value)} 
                         >
                           <option value="">Select a Payment method</option>
-                          <option value="PoD">Pay on Delivery</option>
-                          <option value="PoD">Mpesa</option>
-                          <option value="PoD">Card</option>
+                          <option className="text-grey-900" value="PoD">
+                            Pay on Delivery
+                          </option>
+                          <option disabled value="MobileMoney">
+                            Mobile Money
+                          </option>
+                          <option disabled value="Card">
+                            Card
+                          </option>
                         </Form.Control>
                       </Form.Group>
-
-                      {renderPaymentFields()}
-                      {renderFinishBtn()}
+                      <button type="submit" className="btn btn-primary">
+                        Submit
+                      </button>
                     </Form>
                   </div>
                 </div>
               </div>
-            ) : (
-              <div className="row">
-                <div className="col-lg-12">
-                  <div className="item-empty-area text-center">
-                    <i className="pe-7s-cash mb-30"></i>
-                    <p>No items found in cart to checkout</p>
-                    <Link to="/shop-grid-standard">Shop Now</Link>
-                  </div>
-                </div>
+              <Toaster reverseOrder="false"
+                position="top-right"/>
               </div>
-            )}
-          </div>
-        </div>
+
       </LayoutOne>
-    </div>
+      </div>
   );
-};
+ };
 
-Payment.propTypes = {
-  cartItems: PropTypes.array.isRequired,
-  currency: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  cartItems: state.cartData,
-  currency: state.currencyData,
-});
-
-export default connect(mapStateToProps)(Payment);
+export default Payment;

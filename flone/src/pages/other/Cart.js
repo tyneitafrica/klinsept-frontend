@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
 import React, { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import { connect } from "react-redux";
 import { getDiscountPrice } from "../../helpers/product";
+import LoginModal from "../auth/LoginModal";
 import {
   addToCart,
   decreaseQuantity,
@@ -16,6 +17,7 @@ import {
 import LayoutOne from "../../components/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 const Cart = ({
   cartItems,
@@ -29,6 +31,42 @@ const Cart = ({
   const { addToast } = useToasts();
   const { pathname } = useLocation();
   let cartTotalPrice = 0;
+  const [showModal,setShowmodal] = useState(false)
+  const navigate = useNavigate()
+
+  const handleDelete = (id) => {
+    deleteFromCart(id, addToast);
+  };
+
+  // handle check of cookie and see if there is jwt 
+  const isAuthenticated = async () => {
+    try {
+      const response = await axios.get('https://klinsept-backend.onrender.com/api/v1.0/auth/cookie/',
+         {
+        headers: {
+        'x-api-key':"f6c52669-b6a9-4901-8558-5bc72b7e983a"
+      },
+      withCredentials: true
+    });
+      return response.data;
+    } catch (error) {
+      console.error("Authentication check failed", error);
+      return null; 
+    }
+  };
+
+
+  const handleProceedCheckout = async (e) => {
+    e.preventDefault();
+    const userData = await isAuthenticated();
+    if (userData) {
+      // If the user is authenticated, proceed to checkout
+      navigate("/checkout");
+    } else {
+      // If not authenticated, show the LoginModal
+      setShowmodal(true);
+    }
+  }
 
   return (
     <div className="mt-90">
@@ -97,10 +135,11 @@ const Cart = ({
                                   >
                                     <img
                                       className="img-fluid"
-                                      src={
-                                        process.env.PUBLIC_URL +
-                                        cartItem.image[0]
-                                      }
+                                      // src={
+                                      //   process.env.PUBLIC_URL +
+                                      //   cartItem.image
+                                      // }
+                                      src="http://localhost:3000/assets/img/banner/Liquid-detergent.jpg"
                                       alt=""
                                     />
                                   </Link>
@@ -192,10 +231,7 @@ const Cart = ({
 
                                 <td className="product-remove">
                                   <button
-                                    onClick={() =>
-                                      deleteFromCart(cartItem, addToast)
-                                    }
-                                  >
+                                    onClick={() => handleDelete(cartItem.id)}                                  >
                                     <i className="fa fa-times"></i>
                                   </button>
                                 </td>
@@ -310,9 +346,11 @@ const Cart = ({
                           {currency.currencySymbol + cartTotalPrice.toFixed(2)}
                         </span>
                       </h4>
-                      <Link to={process.env.PUBLIC_URL + "/checkout"}>
-                        Proceed to Checkout
-                      </Link>
+                      <button onClick={handleProceedCheckout} className="btn btn-primary">
+                          Proceed to Checkout
+                        </button>
+                        {/* Show LoginModal */}
+                        {showModal && <LoginModal show={showModal} setShow={setShowmodal} />}
                     </div>
                   </div>
                 </div>
