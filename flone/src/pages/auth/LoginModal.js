@@ -8,8 +8,6 @@ import { Link } from "react-router-dom";
 import { LoginFetch } from "../../helpers/backendFectch";
 import React, { useState } from "react";
 
-
-
 function LoginModal({ show, setShow }) {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);

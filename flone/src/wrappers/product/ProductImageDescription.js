@@ -33,17 +33,17 @@ const ProductImageDescription = ({
   // const isProductInCart = isProductInList(product.id, cartItems);
   const isProductInWishlist = isProductInList(product.id, wishlistItems);
   const isProductInCompare = isProductInList(product.id, compareItems);
-  useEffect(() => {
-    const existingCartItem = cartItems.find((item) => item.id === product.id);
-    if (existingCartItem) {
-      setQuantityCount(existingCartItem.quantity); 
-    }
-  }, [cartItems, product.id]);
+  // useEffect(() => {
+  //   const existingCartItem = cartItems.find((item) => item.id === product.id);
+  //   if (existingCartItem) {
+  //     setQuantityCount(existingCartItem.quantity);
+  //   }
+  // }, [cartItems, product.id]);
   const dispatch = useDispatch();
 
   const convertedPrice = currency.selectedCurrency
     ? (product.price * currency.selectedCurrency.rates).toFixed(2)
-    : product.price; 
+    : product.price;
   return (
     <div className={`shop-area pt-100 pb-100`}>
       <div className="container">
@@ -89,7 +89,9 @@ const ProductImageDescription = ({
                       readOnly
                     />
                     <button
-                      onClick={() => dispatch(addToCart(product))}
+                      onClick={() =>
+                        setQuantityCount((prevCount) => prevCount + 1)
+                      }
                       className="inc qtybutton"
                     >
                       +
