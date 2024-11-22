@@ -1,8 +1,7 @@
 import PropTypes from "prop-types";
-import React, {useState, Fragment} from "react";
+import React, {useState} from "react";
 import { connect } from "react-redux";
 // import { useToasts } from "react-toast-notifications";
-import { getDiscountPrice } from "../../helpers/product";
 import ProductImageGallery from "../../components/product/ProductImageGallery";
 // import ProductDescriptionInfo from "../../components/product/ProductDescriptionInfo";
 import { Link } from "react-router-dom";
@@ -22,11 +21,6 @@ const ProductImageDescription = ({
   )[0];
   // const { addToast } = useToasts();
 
-  const discountedPrice = getDiscountPrice(product.price, product.discount);
-  const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2);
-  const finalDiscountedPrice = +(
-    discountedPrice * currency.currencyRate
-  ).toFixed(2);
   const [quantityCount, setQuantityCount] = useState(1);
   const convertedPrice = currency.selectedCurrency
   ? (product.price * currency.selectedCurrency.rates).toFixed(2)
@@ -46,18 +40,9 @@ const ProductImageDescription = ({
             <div className="product-details-content ml-70">
               <h2>{product.name}</h2>
               <div className="product-details-price">
-                {discountedPrice !== null ? (
-                  <Fragment>
-                    <span>
-                      {currency.currencySymbol + finalDiscountedPrice}
-                    </span>{" "}
-                    <span className="old">
-                      {currency.currencySymbol + finalProductPrice}
-                    </span>
-                  </Fragment>
-                ) : (
-                  <span>{currency.selectedCurrency.symbol + " " + convertedPrice} </span>
-                )}
+
+                  <span>{(currency.selectedCurrency.symbol || "") + " " + convertedPrice} </span>
+                
               </div>
 
               <div className="pro-details-list">

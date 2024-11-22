@@ -1,6 +1,7 @@
 import React from "react";
 import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
 import { PropTypes } from "prop-types";
+import { FaLocationDot } from "react-icons/fa6";
 
 const FooterMap = props => {
   const mapStyles = {

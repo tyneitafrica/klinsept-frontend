@@ -122,3 +122,27 @@
   align-items: center;
   justify-content: center;
 }
+
+.product-large-image-wrapper img,
+.product-small-image-wrapper img {
+  object-fit: cover;
+  width: 100%; /* Ensure images take up the full container width */
+  height: 300px; /* Set a consistent height for large images */
+}
+
+.product-small-image-wrapper img {
+  height: 100px; /* Smaller consistent height for thumbnails */
+}
+
+.swiper-button-next, .swiper-button-prev {
+  color: #333;
+  font-size: 20px;
+}
+
+@media (max-width: 768px) {
+  .product-small-image-wrapper img {
+    height: 75px; /* Adjust thumbnail size for smaller screens */
+  }
+}
+
+
