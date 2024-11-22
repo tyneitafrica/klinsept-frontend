@@ -49,7 +49,6 @@ const Register = () => {
         return;
     } else {
         setError("");
-        console.log("Register submitted with:", registerData);
         setLoading(true);
 
         try {
@@ -57,16 +56,6 @@ const Register = () => {
             // Validate the status
             if (response.status === 201) {
                 toast.success("Registration successful!");
-                // // Clear the input fields
-                // setRegisterData({
-                //     first_name: "",
-                //     last_name: "",
-                //     email: "",
-                //     phone_number: "",
-                //     password: "",
-                // });
-                // setConfirmPassword("");
-
                 setTimeout(() => {
                     navigate('/login');
                 }, 3000);

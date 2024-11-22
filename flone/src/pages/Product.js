@@ -15,29 +15,38 @@ const Product = ({ products }) => {
   const { id } = useParams();
   const { pathname } = useLocation();
 
-  // Find the current product based on the id
   const product = products.find((product) => product.id === Number(id));
 
-  // Fetch related products using Fuse.js
   const getRelatedProducts = (currentProduct) => {
     if (!currentProduct) return [];
 
     const fuseOptions = {
-      keys: ["category","name"], // Match based on category
+      keys: ["category", "name", "description"],
       includeScore: false,
-      threshold: 0.4, 
+      threshold: 0.6,
     };
- 
+
     const fuse = new Fuse(products, fuseOptions);
 
-    // Search related products based on the first category
-    const results = fuse.search(currentProduct.category[0]);
+    const results = fuse.search(currentProduct.name);
+    const resultsByCategory = fuse.search(currentProduct.category[0]);
 
-    // Exclude the current product from related results
-    return results
+    let relatedProducts = [...results, ...resultsByCategory]
       .map((result) => result.item)
-      .filter((item) => item.id !== currentProduct.id)
-      .slice(0, 6); 
+      .filter((item) => item.id !== currentProduct.id);
+
+    if (relatedProducts.length < 5) {
+      const randomProducts = products
+        .filter((item) => item.id !== currentProduct.id)
+        .sort(() => Math.random() - 0.5);
+
+      relatedProducts = [
+        ...relatedProducts,
+        ...randomProducts.slice(0, 5 - relatedProducts.length),
+      ];
+    }
+
+    return relatedProducts.slice(0, 6);
   };
 
   const relatedProducts = product ? getRelatedProducts(product) : [];

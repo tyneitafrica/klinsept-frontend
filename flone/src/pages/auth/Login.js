@@ -9,7 +9,6 @@ import { useLocation } from "react-router-dom";
 import { Spinner, Nav, Form, Button } from "react-bootstrap";
 import { LoginFetch } from "../../helpers/backendFectch";
 import { useDispatch } from "react-redux";
-import toast from "react-hot-toast";
 
 const Login = ({ authData }) => {
   const { pathname } = useLocation();
@@ -28,10 +27,7 @@ const Login = ({ authData }) => {
     } else {
       setLoading(true);
       try {
-        await LoginFetch(loginData, dispatch, toast);
-        setTimeout(() => {
-          navigate("/my-account");
-        }, 4000);
+        await LoginFetch(loginData, dispatch, navigate);
       } finally {
         setLoading(false);
       }

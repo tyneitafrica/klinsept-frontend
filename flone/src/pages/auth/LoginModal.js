@@ -1,28 +1,21 @@
-import React, { useState, useEffect, useRef } from "react";
+// import React, { useState, useEffect, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import Alert from "react-bootstrap/Alert";
+// import Alert from "react-bootstrap/Alert";
 import Spinner from "react-bootstrap/Spinner";
 import { Link } from "react-router-dom";
 import { LoginFetch } from "../../helpers/backendFectch";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 function LoginModal({ show, setShow }) {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
   const [validated, setValidated] = useState(false);
-
-  // Create a ref to track if the component is still mounted
-  const isMounted = useRef(true);
-
-  // Cleanup function to set the isMounted flag to false when component unmounts
-  useEffect(() => {
-    return () => {
-      isMounted.current = false;
-    };
-  }, []);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -47,28 +40,18 @@ function LoginModal({ show, setShow }) {
     setValidated(true);
     setLoading(true);
 
-    try {
-      // Send the data to the backend
-      await LoginFetch(loginData);
-
-      // Only update the state if the component is still mounted
-      if (isMounted.current) {
-        setError("");
-        setMessage("Login successful");
-        setShow(false); // Example of closing the modal on success
-      }
-    } catch (error) {
-      // Only update the state if the component is still mounted
-      if (isMounted.current) {
-        setError("Login failed. Please try again.");
-        setMessage("");
-        setError(error.message);
-      }
-    }
-
-    if (isMounted.current) {
-      setLoading(false);
-    }
+    // Call LoginFetch, which handles the toast notifications internally
+    LoginFetch(loginData, dispatch,navigate)
+      .then(() => {
+        setShow(false); // Close the modal on successful login
+      })
+      .catch((error) => {
+        // Optionally, you can log the error if you want to perform any additional actions
+        console.error(error);
+      })
+      .finally(() => {
+        setLoading(false); // Ensure loading state is cleared
+      });
   };
 
   return (
@@ -78,9 +61,6 @@ function LoginModal({ show, setShow }) {
       </Modal.Header>
       <Modal.Body>
         <Form noValidate validated={validated} onSubmit={handleLoginSubmit}>
-          {error && <Alert variant="danger">{error}</Alert>}
-          {message && <Alert variant="success">{message}</Alert>}
-
           <Form.Group controlId="formEmail">
             <Form.Label>Email</Form.Label>
             <Form.Control

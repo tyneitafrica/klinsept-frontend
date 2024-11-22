@@ -25,22 +25,25 @@ const ProductImageDescription = ({
   wishlistItems,
   compareItems,
 }) => {
+  const [quantityCount, setQuantityCount] = useState(1);
   const isProductInList = (productId, list) =>
     list.some((item) => item.id === productId);
 
   // Check if the product is in the cart, wishlist, or compare
-  const isProductInCart = isProductInList(product.id, cartItems);
+  // const isProductInCart = isProductInList(product.id, cartItems);
   const isProductInWishlist = isProductInList(product.id, wishlistItems);
   const isProductInCompare = isProductInList(product.id, compareItems);
-
+  // useEffect(() => {
+  //   const existingCartItem = cartItems.find((item) => item.id === product.id);
+  //   if (existingCartItem) {
+  //     setQuantityCount(existingCartItem.quantity);
+  //   }
+  // }, [cartItems, product.id]);
   const dispatch = useDispatch();
-  // const { addToast } = useToasts();
 
-  const [quantityCount, setQuantityCount] = useState(1);
   const convertedPrice = currency.selectedCurrency
     ? (product.price * currency.selectedCurrency.rates).toFixed(2)
-    : product.price; // Fallback to the default price if no currency is selected
-
+    : product.price;
   return (
     <div className={`shop-area pt-100 pb-100`}>
       <div className="container">
@@ -86,7 +89,9 @@ const ProductImageDescription = ({
                       readOnly
                     />
                     <button
-                      onClick={() => setQuantityCount(quantityCount + 1)}
+                      onClick={() =>
+                        setQuantityCount((prevCount) => prevCount + 1)
+                      }
                       className="inc qtybutton"
                     >
                       +
@@ -95,7 +100,7 @@ const ProductImageDescription = ({
                   <div className="pro-details-cart btn-hover">
                     <button
                       onClick={() => {
-                        dispatch(addToCart(product, quantityCount))
+                        dispatch(addToCart(product, quantityCount));
                       }}
                     >
                       Add To Cart
@@ -124,7 +129,7 @@ const ProductImageDescription = ({
                   <div className="pro-details-compare ml-3 ">
                     {!isProductInCompare ? (
                       <IoGitCompareOutline
-                        size={30}
+                        size={25}
                         onClick={() => {
                           dispatch(addToCompare(product)); // No need to pass toast
                         }}

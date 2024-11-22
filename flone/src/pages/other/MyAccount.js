@@ -23,13 +23,13 @@ const MyAccount = () => {
 
 
 
-    useEffect(()=>{
-      if(!authData){
-        // toast.success("Welcome back, " + authData?.name);
-        navigate("/login");
-      }
-    }
-    ,[authData,navigate])
+    // useEffect(()=>{
+    //   if(!authData){
+    //     // toast.success("Welcome back, " + authData?.name);
+    //     navigate("/login");
+    //   }
+    // }
+    // ,[authData,navigate])
     
   return (
     <div className="my-account-wrapper mt-80">
