@@ -43,7 +43,6 @@ const ShopProducts = ({
           const isProductInCompare = compareItems.some(
             (item) => item.id === product.id
           );
-
           return (
             <Card key={index} className="product-car mb-3">
               <div className="image-container">
@@ -53,7 +52,9 @@ const ShopProducts = ({
                   className="product-image"
                 />
                 <div className="overlay-icons">
-                  <AiOutlineShoppingCart className="icon" title="Add to Cart" />
+                  <AiOutlineShoppingCart onClick={()=>
+                    addToCart(product)
+                  } className="icon" title="Add to Cart" />
                   <AiOutlineEye
                     onClick={() => {
                       setSelectedProduct(product);

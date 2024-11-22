@@ -3,10 +3,10 @@ export const DELETE_FROM_WISHLIST = "DELETE_FROM_WISHLIST";
 export const DELETE_ALL_FROM_WISHLIST = "DELETE_ALL_FROM_WISHLIST";
 
 // add to wishlist
-export const addToWishlist = (item, addToast) => {
+export const addToWishlist = (item, toast) => {
   return dispatch => {
-    if (addToast) {
-      addToast("Added To Wishlist", {
+    if (toast) {
+      toast.success("Added To Wishlist", {
         appearance: "success",
         autoDismiss: true
       });

@@ -11,9 +11,7 @@
   text-align: center;
   /* transition: transform 0.3s; */
 }
-/* .product-card:hover {
-  transform: scale(1.05);
-} */
+
 
 /* Image styles */
 .image-container {
@@ -76,4 +74,51 @@
 }
 .heart-icon:hover {
   color: #7a7a7a;
+}
+
+
+/* modal */
+
+/* Modal Carousel Container */
+.modal-carousel-container {
+  position: relative;
+  max-width: 100%;
+  flex-grow: 1;
+}
+.modal-content {
+  margin: 30px;
+
+}
+
+/* Carousel Image */
+.modal-carousel-image {
+  max-height: 300px; /* Limit the height for large images */
+  object-fit: contain; /* Ensures the image scales without distortion */
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Carousel Controls */
+.carousel-control-icon {
+  font-size: 24px;
+  cursor: pointer;
+  margin: 0 10px;
+  color: #333;
+}
+
+.carousel-control-icon:hover {
+  color: #007bff; /* Highlight color */
+}
+
+/* Product Details */
+.product-details-container {
+  flex: 1;
+}
+
+/* Modal Buttons */
+.modal-btns button {
+  flex-grow: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
