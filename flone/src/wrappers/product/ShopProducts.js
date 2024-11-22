@@ -5,16 +5,18 @@ import { getProducts } from "../../helpers/product";
 import { addToCart } from "../../redux/actions/cartActions";
 import { addToWishlist } from "../../redux/actions/wishlistActions";
 import { addToCompare } from "../../redux/actions/compareActions";
+import { deleteFromWishlist } from "../../redux/actions/wishlistActions";
+import { deleteFromCompare } from "../../redux/actions/compareActions";
 import {
-  AiOutlineHeart,
   AiOutlineShoppingCart,
   AiOutlineEye,
   AiOutlineSwap,
   AiOutlineCloseCircle,
 } from "react-icons/ai";
+import { FcLike, FcLikePlaceholder } from "react-icons/fc";
+import { useDispatch } from "react-redux";
 import { Card } from "react-bootstrap";
 import { ProductModal } from "../../components/ProductModal";
-import { useToasts } from "react-toast-notifications";
 import { toast } from "react-hot-toast";
 import "../../assets/css/ProductCard.css";
 
@@ -29,8 +31,9 @@ const ShopProducts = ({
 }) => {
   const [modalShow, setModalShow] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null); // Track selected product
-  const { addToast } = useToasts();
   const finalProducts = currentData || products;
+  const dispatch = useDispatch();
+
   return (
     <Fragment>
       <div className="products-container justify-content-center flex-wrap">
@@ -43,6 +46,9 @@ const ShopProducts = ({
           const isProductInCompare = compareItems.some(
             (item) => item.id === product.id
           );
+          const isProductInWishlist = wishlistItems.some(
+            (item) => item.id === product.id
+          );
           return (
             <Card key={index} className="product-car mb-3">
               <div className="image-container">
@@ -52,9 +58,7 @@ const ShopProducts = ({
                   className="product-image"
                 />
                 <div className="overlay-icons">
-                  <AiOutlineShoppingCart onClick={()=>
-                    addToCart(product)
-                  } className="icon" title="Add to Cart" />
+                  <AiOutlineShoppingCart className="icon" title="Add to Cart" />
                   <AiOutlineEye
                     onClick={() => {
                       setSelectedProduct(product);
@@ -66,15 +70,14 @@ const ShopProducts = ({
                   {isProductInCompare ? (
                     <AiOutlineCloseCircle
                       onClick={() => {
-                        toast.error("Item is already in compare");
-                      }}
+                        dispatch(deleteFromCompare(product));                      }}
                       className="icon compare-icon active"
                       title="Already in Compare"
                     />
                   ) : (
                     <AiOutlineSwap
                       onClick={() => {
-                        addToCompare(product, addToast);
+                        addToCompare(product);
                       }}
                       className="icon"
                       title="Add to Compare"
@@ -88,11 +91,24 @@ const ShopProducts = ({
                     <Card.Link href={`/product/${product.id}`}>
                       {product.name}
                     </Card.Link>
-                  </Card.Title>
-                  <AiOutlineHeart
-                    className="heart-icon"
-                    title="Add to Wishlist"
-                  />
+                  </Card.Title>{" "}
+                  {isProductInWishlist ? (
+                    <FcLike
+                      onClick={() => 
+                        dispatch(deleteFromWishlist(product, toast))
+                      }
+                      className="heart-icon"
+                      title="Add to Wishlist"
+                    />
+                  ) : (
+                    <FcLikePlaceholder
+                      onClick={() => {
+                        dispatch(addToWishlist(product, toast)); // Dispatch to Redux
+                      }}
+                      className="heart-icon"
+                      title="Already in Wishlist"
+                    />
+                  )}
                 </div>
 
                 <Card.Text className="text-left product-price">
@@ -147,6 +163,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     addToCompare: (item, addToast) => {
       dispatch(addToCompare(item, addToast));
+    },
+    deleteFromWishlist: (item, addToast) => {
+      dispatch(deleteFromWishlist(item, addToast));
     },
   };
 };
