@@ -1,43 +1,35 @@
-import PropTypes from "prop-types";
 import React, { Fragment, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
-import { connect } from "react-redux";
-import { getDiscountPrice } from "../../helpers/product";
 import LoginModal from "../auth/LoginModal";
-import {
-  addToCart,
-  decreaseQuantity,
-  deleteFromCart,
-  cartItemStock,
-  deleteAllFromCart,
-} from "../../redux/actions/cartActions";
 import LayoutOne from "../../components/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useLocation } from "react-router-dom";
 // import axios from "axios";
-import { isAuthenticated } from "../../helpers/backendFectch";
+import { getCartItems, isAuthenticated} from "../../helpers/backendFectch";
+import {deleteAllFromCart} from "../../redux/actions/cartActions";
+import { useDispatch } from "react-redux";
+
+
 const Cart = ({
-  cartItems,
-  currency,
-  decreaseQuantity,
-  addToCart,
+  // cartItems,
   deleteFromCart,
-  deleteAllFromCart,
 }) => {
-  const [quantityCount] = useState(1);
   const { addToast } = useToasts();
   const { pathname } = useLocation();
-  let cartTotalPrice = 0;
   const [showModal,setShowmodal] = useState(false)
   const navigate = useNavigate()
+  const [cartItems, setCartData] = useState([]); 
+  const dispatch = useDispatch();
 
+
+  
   const handleDelete = (id) => {
     deleteFromCart(id, addToast);
   };
-
+  
   const handleProceedCheckout = async (e) => {
     e.preventDefault();
     const userData = await isAuthenticated();
@@ -47,12 +39,26 @@ const Cart = ({
       setShowmodal(true);
     }
   }
-
   useEffect(() => {
+    const fetchCartData = async () => {
+      try {
+        const data = await getCartItems(); // Fetch cart items from backend
+        setCartData(data); // Store in local state
+        console.log(data);
+      } catch (error) {
+        alert("Failed to fetch cart items", { appearance: "error" });
+      }
+    };
+  
+    fetchCartData();
+  }, []);
 
-  },[])
+  const handleClearCart = () => {
+    // console.log("clicked")
+    dispatch(deleteAllFromCart());
+  };
 
-
+  
   return (
     <div className="mt-90">
       <MetaTags>
@@ -92,22 +98,6 @@ const Cart = ({
                         </thead>
                         <tbody>
                           {cartItems.map((cartItem, key) => {
-                            const discountedPrice = getDiscountPrice(
-                              cartItem.price,
-                              cartItem.discount
-                            );
-                            const finalProductPrice = (
-                              cartItem.price * currency.currencyRate
-                            ).toFixed(2);
-                            const finalDiscountedPrice = (
-                              discountedPrice * currency.currencyRate
-                            ).toFixed(2);
-
-                            discountedPrice != null
-                              ? (cartTotalPrice +=
-                                  finalDiscountedPrice * cartItem.quantity)
-                              : (cartTotalPrice +=
-                                  finalProductPrice * cartItem.quantity);
                             return (
                               <tr key={key}>
                                 <td className="product-thumbnail">
@@ -120,12 +110,8 @@ const Cart = ({
                                   >
                                     <img
                                       className="img-fluid"
-                                      // src={
-                                      //   process.env.PUBLIC_URL +
-                                      //   cartItem.image
-                                      // }
-                                      src="http://localhost:3000/assets/img/banner/Liquid-detergent.jpg"
-                                      alt=""
+                                      src={cartItem.image}
+                                      alt="cartData"
                                     />
                                   </Link>
                                 </td>
@@ -143,76 +129,23 @@ const Cart = ({
                                 </td>
 
                                 <td className="product-price-cart">
-                                  {discountedPrice !== null ? (
-                                    <Fragment>
-                                      <span className="amount old">
-                                        {currency.currencySymbol +
-                                          finalProductPrice}
-                                      </span>
-                                      <span className="amount">
-                                        {currency.currencySymbol +
-                                          finalDiscountedPrice}
-                                      </span>
-                                    </Fragment>
-                                  ) : (
-                                    <span className="amount">
-                                      {currency.currencySymbol +
-                                        finalProductPrice}
-                                    </span>
-                                  )}
+                                  {cartItem.price}
                                 </td>
 
                                 <td className="product-quantity">
                                   <div className="cart-plus-minus">
-                                    <button
-                                      className="dec qtybutton"
-                                      onClick={() =>
-                                        decreaseQuantity(cartItem, addToast)
-                                      }
-                                    >
-                                      -
-                                    </button>
                                     <input
                                       className="cart-plus-minus-box"
                                       type="text"
                                       value={cartItem.quantity}
                                       readOnly
                                     />
-                                    <button
-                                      className="inc qtybutton"
-                                      onClick={() =>
-                                        addToCart(
-                                          cartItem,
-                                          addToast,
-                                          quantityCount
-                                        )
-                                      }
-                                      disabled={
-                                        cartItem !== undefined &&
-                                        cartItem.quantity &&
-                                        cartItem.quantity >=
-                                          cartItemStock(
-                                            cartItem,
-                                            cartItem.selectedProductColor,
-                                            cartItem.selectedProductSize
-                                          )
-                                      }
-                                    >
-                                      +
-                                    </button>
                                   </div>
                                 </td>
                                 <td className="product-subtotal">
-                                  {discountedPrice !== null
-                                    ? currency.currencySymbol +
-                                      (
-                                        finalDiscountedPrice * cartItem.quantity
-                                      ).toFixed(2)
-                                    : currency.currencySymbol +
-                                      (
-                                        finalProductPrice * cartItem.quantity
-                                      ).toFixed(2)}
-                                </td>
+                                  {/* to 2 dp */} 
+                                  {(cartItem.line_total).toFixed(2)}
+                                  </td>
 
                                 <td className="product-remove">
                                   <button
@@ -239,7 +172,7 @@ const Cart = ({
                         </Link>
                       </div>
                       <div className="cart-clear">
-                        <button onClick={() => deleteAllFromCart(addToast)}>
+                        <button onClick={handleClearCart}>
                           Clear Shopping Cart
                         </button>
                       </div>
@@ -250,25 +183,7 @@ const Cart = ({
                 <div className="row">
 
                   <div className="col-lg-4 col-md-12">
-                    <div className="grand-totall">
-                      <div className="title-wrap">
-                        <h4 className="cart-bottom-title section-bg-gary-cart">
-                          Cart Total
-                        </h4>
-                      </div>
-                      <h5>
-                        Total products{" "}
-                        <span>
-                          {currency.currencySymbol + cartTotalPrice.toFixed(2)}
-                        </span>
-                      </h5>
-
-                      <h4 className="grand-totall-title">
-                        Grand Total{" "}
-                        <span>
-                          {currency.currencySymbol + cartTotalPrice.toFixed(2)}
-                        </span>
-                      </h4>
+                    <div>                  
                       <button onClick={handleProceedCheckout} className="btn btn-primary">
                           Proceed to Checkout
                         </button>
@@ -302,38 +217,5 @@ const Cart = ({
   );
 };
 
-Cart.propTypes = {
-  addToCart: PropTypes.func,
-  cartItems: PropTypes.array,
-  currency: PropTypes.object,
-  decreaseQuantity: PropTypes.func,
-  location: PropTypes.object,
-  deleteAllFromCart: PropTypes.func,
-  deleteFromCart: PropTypes.func,
-};
 
-const mapStateToProps = (state) => {
-  return {
-    cartItems: state.cartData,
-    currency: state.currencyData,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addToCart: (item, addToast, quantityCount) => {
-      dispatch(addToCart(item, addToast, quantityCount));
-    },
-    decreaseQuantity: (item, addToast) => {
-      dispatch(decreaseQuantity(item, addToast));
-    },
-    deleteFromCart: (item, addToast) => {
-      dispatch(deleteFromCart(item, addToast));
-    },
-    deleteAllFromCart: (addToast) => {
-      dispatch(deleteAllFromCart(addToast));
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default Cart;
