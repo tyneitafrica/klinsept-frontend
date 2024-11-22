@@ -63,6 +63,12 @@ const initState = {
       country: "Sudan",
     },
   },
+  selectedCurrency: {
+    name: "USD",
+    symbol: "$",
+    rates: 1.0,
+    country: "United States",
+  },
   timestamp: null,
 };
 

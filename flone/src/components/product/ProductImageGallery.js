@@ -2,12 +2,12 @@ import PropTypes from "prop-types";
 import React, { Fragment, useEffect, useState } from "react";
 import { LightgalleryProvider, LightgalleryItem } from "react-lightgallery";
 import Swiper from "react-id-swiper";
+// import "react-lightgallery/styles/css/lightgallery.css"; // Include Lightgallery styles
 
 const ProductImageGallery = ({ product }) => {
   const [gallerySwiper, getGallerySwiper] = useState(null);
   const [thumbnailSwiper, getThumbnailSwiper] = useState(null);
 
-  // effect for swiper slider synchronize
   useEffect(() => {
     if (
       gallerySwiper !== null &&
@@ -20,13 +20,12 @@ const ProductImageGallery = ({ product }) => {
     }
   }, [gallerySwiper, thumbnailSwiper]);
 
-  // swiper slider settings
   const gallerySwiperParams = {
     getSwiper: getGallerySwiper,
     spaceBetween: 10,
     loopedSlides: 4,
     loop: true,
-    effect: "slide"
+    effect: "slide",
   };
 
   const thumbnailSwiperParams = {
@@ -40,7 +39,7 @@ const ProductImageGallery = ({ product }) => {
     slideToClickedSlide: true,
     navigation: {
       nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev"
+      prevEl: ".swiper-button-prev",
     },
     renderPrevButton: () => (
       <button className="swiper-button-prev ht-swiper-button-nav">
@@ -51,43 +50,28 @@ const ProductImageGallery = ({ product }) => {
       <button className="swiper-button-next ht-swiper-button-nav">
         <i className="pe-7s-angle-right" />
       </button>
-    )
+    ),
   };
 
   return (
     <Fragment>
       <div className="product-large-image-wrapper">
-        {product.discount || product.new ? (
-          <div className="product-img-badges">
-            {product.discount ? (
-              <span className="pink">-{product.discount}%</span>
-            ) : (
-              ""
-            )}
-            {product.new ? <span className="purple">New</span> : ""}
-          </div>
-        ) : (
-          ""
-        )}
         <LightgalleryProvider>
           <Swiper {...gallerySwiperParams}>
-            {product.image &&
-              product.image.map((single, key) => {
+            {product.images &&
+              product.images.map((single, key) => {
                 return (
                   <div key={key}>
-                    <LightgalleryItem
-                      group="any"
-                      src={process.env.PUBLIC_URL + single}
-                    >
-                      <button>
+                    <LightgalleryItem group="any" src={single.image}>
+                      <button className="expand-icon">
                         <i className="pe-7s-expand1"></i>
                       </button>
                     </LightgalleryItem>
                     <div className="single-image">
                       <img
-                        src={process.env.PUBLIC_URL + single}
+                        src={single.image}
                         className="img-fluid"
-                        alt=""
+                        alt={product.name}
                       />
                     </div>
                   </div>
@@ -98,15 +82,15 @@ const ProductImageGallery = ({ product }) => {
       </div>
       <div className="product-small-image-wrapper mt-15">
         <Swiper {...thumbnailSwiperParams}>
-          {product.image &&
-            product.image.map((single, key) => {
+          {product.images &&
+            product.images.map((single, key) => {
               return (
                 <div key={key}>
                   <div className="single-image">
                     <img
-                      src={process.env.PUBLIC_URL + single}
+                      src={single.image}
                       className="img-fluid"
-                      alt=""
+                      alt={product.name}
                     />
                   </div>
                 </div>
@@ -117,9 +101,15 @@ const ProductImageGallery = ({ product }) => {
     </Fragment>
   );
 };
-
 ProductImageGallery.propTypes = {
-  product: PropTypes.object
+  product: PropTypes.shape({
+    name: PropTypes.string,
+    images: PropTypes.arrayOf(
+      PropTypes.shape({
+        image: PropTypes.string,
+      })
+    ),
+  }),
 };
 
 export default ProductImageGallery;

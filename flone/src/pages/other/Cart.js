@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import MetaTags from "react-meta-tags";
@@ -18,7 +18,7 @@ import LayoutOne from "../../components/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-
+import { isAuthenticated } from "../../helpers/backendFectch";
 const Cart = ({
   cartItems,
   currency,
@@ -38,35 +38,20 @@ const Cart = ({
     deleteFromCart(id, addToast);
   };
 
-  // handle check of cookie and see if there is jwt 
-  const isAuthenticated = async () => {
-    try {
-      const response = await axios.get('https://klinsept-backend.onrender.com/api/v1.0/auth/cookie/',
-         {
-        headers: {
-        'x-api-key':"f6c52669-b6a9-4901-8558-5bc72b7e983a"
-      },
-      withCredentials: true
-    });
-      return response.data;
-    } catch (error) {
-      console.error("Authentication check failed", error);
-      return null; 
-    }
-  };
-
-
   const handleProceedCheckout = async (e) => {
     e.preventDefault();
     const userData = await isAuthenticated();
     if (userData) {
-      // If the user is authenticated, proceed to checkout
       navigate("/checkout");
     } else {
-      // If not authenticated, show the LoginModal
       setShowmodal(true);
     }
   }
+
+  useEffect(() => {
+
+  },[])
+
 
   return (
     <div className="mt-90">
@@ -263,68 +248,6 @@ const Cart = ({
                 </div>
 
                 <div className="row">
-                  {/* <div className="col-lg-4 col-md-6">
-                    <div className="cart-tax">
-                      <div className="title-wrap">
-                        <h4 className="cart-bottom-title section-bg-gray">
-                          Estimate Shipping And Tax
-                        </h4>
-                      </div>
-                      <div className="tax-wrapper">
-                        <p>
-                          Enter your destination to get a shipping estimate.
-                        </p>
-                        <div className="tax-select-wrapper">
-                          <div className="tax-select">
-                            <label>* Country</label>
-                            <select className="email s-email s-wid">
-                              <option>Bangladesh</option>
-                              <option>Albania</option>
-                              <option>Åland Islands</option>
-                              <option>Afghanistan</option>
-                              <option>Belgium</option>
-                            </select>
-                          </div>
-                          <div className="tax-select">
-                            <label>* Region / State</label>
-                            <select className="email s-email s-wid">
-                              <option>Bangladesh</option>
-                              <option>Albania</option>
-                              <option>Åland Islands</option>
-                              <option>Afghanistan</option>
-                              <option>Belgium</option>
-                            </select>
-                          </div>
-                          <div className="tax-select">
-                            <label>* Zip/Postal Code</label>
-                            <input type="text" />
-                          </div>
-                          <button className="cart-btn-2" type="submit">
-                            Get A Quote
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div> */}
-
-                  {/* <div className="col-lg-4 col-md-6">
-                    <div className="discount-code-wrapper">
-                      <div className="title-wrap">
-                        <h4 className="cart-bottom-title section-bg-gray">
-                          Use Coupon Code
-                        </h4>
-                      </div>
-                      <div className="discount-code">
-                        <p>Enter your coupon code if you have one.</p>
-                        <form>
-                          <input type="text" required name="name" />
-                          <button className="cart-btn-2" type="submit">
-                            Apply Coupon
-                          </button>
-                        </form>
-                      </div>
-                    </div>
-                  </div> */}
 
                   <div className="col-lg-4 col-md-12">
                     <div className="grand-totall">

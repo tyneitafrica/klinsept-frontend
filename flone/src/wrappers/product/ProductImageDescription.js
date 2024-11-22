@@ -1,12 +1,23 @@
 import PropTypes from "prop-types";
-import React, {useState, Fragment} from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-// import { useToasts } from "react-toast-notifications";
-import { getDiscountPrice } from "../../helpers/product";
 import ProductImageGallery from "../../components/product/ProductImageGallery";
 // import ProductDescriptionInfo from "../../components/product/ProductDescriptionInfo";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { FcLike, FcLikePlaceholder, FcCancel } from "react-icons/fc";
+import { IoGitCompareOutline } from "react-icons/io5";
+import { useDispatch } from "react-redux";
+import {
+  deleteFromWishlist,
+  addToWishlist,
+} from "../../redux/actions/wishlistActions";
+import {
+  addToCompare,
+  deleteFromCompare,
+} from "../../redux/actions/compareActions";
+import { addToCart } from "../../redux/actions/cartActions";
+
 const ProductImageDescription = ({
   product,
   currency,
@@ -14,20 +25,21 @@ const ProductImageDescription = ({
   wishlistItems,
   compareItems,
 }) => {
-  const wishlistItem = wishlistItems.filter(
-    (wishlistItem) => wishlistItem.id === product.id
-  )[0];
-  const compareItem = compareItems.filter(
-    (compareItem) => compareItem.id === product.id
-  )[0];
+  const isProductInList = (productId, list) =>
+    list.some((item) => item.id === productId);
+
+  // Check if the product is in the cart, wishlist, or compare
+  const isProductInCart = isProductInList(product.id, cartItems);
+  const isProductInWishlist = isProductInList(product.id, wishlistItems);
+  const isProductInCompare = isProductInList(product.id, compareItems);
+
+  const dispatch = useDispatch();
   // const { addToast } = useToasts();
 
-  const discountedPrice = getDiscountPrice(product.price, product.discount);
-  const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2);
-  const finalDiscountedPrice = +(
-    discountedPrice * currency.currencyRate
-  ).toFixed(2);
   const [quantityCount, setQuantityCount] = useState(1);
+  const convertedPrice = currency.selectedCurrency
+    ? (product.price * currency.selectedCurrency.rates).toFixed(2)
+    : product.price; // Fallback to the default price if no currency is selected
 
   return (
     <div className={`shop-area pt-100 pb-100`}>
@@ -43,18 +55,11 @@ const ProductImageDescription = ({
             <div className="product-details-content ml-70">
               <h2>{product.name}</h2>
               <div className="product-details-price">
-                {discountedPrice !== null ? (
-                  <Fragment>
-                    <span>
-                      {currency.currencySymbol + finalDiscountedPrice}
-                    </span>{" "}
-                    <span className="old">
-                      {currency.currencySymbol + finalProductPrice}
-                    </span>
-                  </Fragment>
-                ) : (
-                  <span>{currency.currencySymbol + finalProductPrice} </span>
-                )}
+                <span>
+                  {(currency.selectedCurrency.symbol || "") +
+                    " " +
+                    convertedPrice}{" "}
+                </span>
               </div>
 
               <div className="pro-details-list">
@@ -89,47 +94,51 @@ const ProductImageDescription = ({
                   </div>
                   <div className="pro-details-cart btn-hover">
                     <button
-                      onClick={() =>
-                        toast.success("added to cart")
-                        // addToCart(product, addToast, quantityCount)
-                      }
+                      onClick={() => {
+                        dispatch(addToCart(product, quantityCount))
+                      }}
                     >
                       Add To Cart
                     </button>
                   </div>
+
                   <div className="pro-details-wishlist">
-                    <button
-                      className={wishlistItem !== undefined ? "active" : ""}
-                      // disabled={wishlistItem !== undefined}
-                      title={
-                        wishlistItem !== undefined
-                          ? "Added to wishlist"
-                          : "Add to wishlist"
-                      }
-                      onClick={() => 
-                        toast.error("added to wishlist")
-                        // addToWishlist(product, addToast)
-                      }
-                    >
-                      <i className="pe-7s-like" />
-                    </button>
+                    {isProductInWishlist ? (
+                      <FcLike
+                        onClick={() =>
+                          dispatch(deleteFromWishlist(product, toast))
+                        }
+                        className="heart-icon"
+                        title="Add to Wishlist"
+                      />
+                    ) : (
+                      <FcLikePlaceholder
+                        onClick={() => {
+                          dispatch(addToWishlist(product, toast)); // Dispatch to Redux
+                        }}
+                        className="heart-icon"
+                        title="Already in Wishlist"
+                      />
+                    )}
                   </div>
-                  <div className="pro-details-compare">
-                    <button
-                      className={compareItem !== undefined ? "active" : ""}
-                      // disabled={compareItem !== undefined}
-                      title={
-                        compareItem !== undefined
-                          ? "Added to compare"
-                          : "Add to compare"
-                      }
-                      onClick={() => 
-                        toast.error("added to compare")
-                        // addToCompare(product, addToast)
-                      }
-                    >
-                      <i className="pe-7s-shuffle" />
-                    </button>
+                  <div className="pro-details-compare ml-3 ">
+                    {!isProductInCompare ? (
+                      <IoGitCompareOutline
+                        size={30}
+                        onClick={() => {
+                          dispatch(addToCompare(product)); // No need to pass toast
+                        }}
+                        title="Add to Compare"
+                      />
+                    ) : (
+                      <FcCancel
+                        size={25}
+                        title="Remove from Compare"
+                        onClick={
+                          () => dispatch(deleteFromCompare(product)) // No need to pass toast
+                        }
+                      />
+                    )}
                   </div>
                 </div>
               }
@@ -152,17 +161,6 @@ const ProductImageDescription = ({
                 ""
               )}
             </div>
-            {/* <ProductDescriptionInfo
-              product={product}
-              discountedPrice={discountedPrice}
-              currency={currency}
-              finalDiscountedPrice={finalDiscountedPrice}
-              finalProductPrice={finalProductPrice}
-              cartItems={cartItems}
-              wishlistItem={wishlistItem}
-              compareItem={compareItem}
-              addToast={addToast}
-            /> */}
           </div>
         </div>
       </div>

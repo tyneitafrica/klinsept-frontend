@@ -28,7 +28,7 @@ const Payment = ({ cartItems, currency }) => {
         if (response.status === 200) {
           // console.log("Order details:", response.data);
           setOrderItems(response.data); // Store order items in state
-          console.log(orderItems)
+          // console.log(orderItems)
         } else {
           console.error("Failed to fetch order details:", response.data.message);
         }

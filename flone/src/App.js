@@ -1,12 +1,11 @@
 import PropTypes from "prop-types";
-import React, { Suspense, lazy, useEffect, useState } from "react";
+import React, { Suspense, lazy } from "react";
 import ScrollToTop from "./helpers/scroll-top";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastProvider } from "react-toast-notifications";
 import { connect, useSelector } from "react-redux";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
 import Search from "./pages/Search";
-import { getProducts } from "./helpers/backendFectch";
 import Payment from "./pages/other/Payment";
 
 const Home = lazy(() => import("./pages/Home"));
@@ -28,37 +27,9 @@ const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"));
 const ResetPassword = lazy(() => import("./pages/auth/ResetPassword"));
 
 const App = () => {
-  
-  const [isLoading, setIsLoading] = useState(true);
   const authData = useSelector((state) => state.app.authData);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await getProducts(); // fetch the products
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      } finally {
-        setIsLoading(false); // Set loading state to false after fetching
-      }
-    };
-    fetchData(); // Fetch data on initial load
-  }, []);
 
-  // if (userData) {
-  //   console.log("User data:", userData);
-  // }
-  if (isLoading) {
-    // Show the preloader or loading UI while fetching products
-    return (
-      <div className="flone-preloader-wrapper">
-        <div className="flone-preloader">
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <ToastProvider placement="bottom-left ">
@@ -85,7 +56,10 @@ const App = () => {
                 <Route path={"/blogs"} element={<Blogs />} />
                 {/* auth */}
                 <Route path={"/register"} element={<Register />} />
-                <Route path={"/login"} element={<Login authData={authData} />} />
+                <Route
+                  path={"/login"}
+                  element={<Login authData={authData} />}
+                />
                 <Route path={"/reset/:otp"} element={<ResetPassword />} />
                 <Route path={"/forgot"} element={<ForgotPassword />} />
                 {/* Other pages */}
