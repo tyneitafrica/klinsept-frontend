@@ -43,12 +43,12 @@ const Contact = () => {
         <Breadcrumb />
         <div className="contact-area pt-100 pb-100">
           <div className="container">
-            <div className="contact-map mb-10">
+            {/* <div className="contact-map mb-10">
               <LocationMap
                 latitude="-3.3508766806768415"
                 longitude="29.363613291290164"
               />
-            </div>
+            </div> */}
             <div className="row">
               {/* Contact Info Cards */}
               <div className="col-lg-4 col-md-5">

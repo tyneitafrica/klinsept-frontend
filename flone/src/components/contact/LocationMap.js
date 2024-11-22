@@ -11,7 +11,7 @@ const LocationMap = ({ latitude, longitude }) => {
     <MapContainer
       center={position}
       zoom={13}
-      style={{ width: "100%", height: "500px" }}
+      style={{ width: "100%", height: "400px" }}
     >
       {/* OpenStreetMap TileLayer */}
       <TileLayer
