@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import ProductImageGallery from "../../components/product/ProductImageGallery";
 // import ProductDescriptionInfo from "../../components/product/ProductDescriptionInfo";

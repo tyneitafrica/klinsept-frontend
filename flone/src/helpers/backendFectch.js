@@ -113,13 +113,13 @@ export const serverLogOut = async (dispatch, toast) => {
       {
         headers: {
           "x-api-key": API_KEY,
-          "Content-Type": "application/json",
         },
+        withCredentials: true,
       }
     );
     if (response.status === 200) {
-      toast.error(response.data.Message);
-      dispatch(logoutUser());
+      toast.success(response.data.Message);
+      // dispatch(logoutUser());
     }
   } catch (error) {
     console.error("Server Log Out error:", error);
@@ -225,23 +225,23 @@ export const addItemToCart = async (item, quantityCount = 1) => {
 };
 
 export const getCartItems = async () => {
-    try {
-      const response = await axios.get(`${API_URL}cart/`, {
-        headers: {
-          "x-api-key": API_KEY,
-        },
-        withCredentials: true, // To include cookies
-      });
+  try {
+    const response = await axios.get(`${API_URL}cart/`, {
+      headers: {
+        "x-api-key": API_KEY,
+      },
+      withCredentials: true, // To include cookies
+    });
 
-      if (response.status === 200) {
-        // setCartItems(response.data); // Save cart items to state
-        console.log(response.data); 
-        return response.data;
-        
-        // Log response to console
-      }
-    } catch (error) {
-      console.error(error);
-      throw error;
+    if (response.status === 200) {
+      // setCartItems(response.data); // Save cart items to state
+      console.log(response.data);
+      return response.data;
+
+      // Log response to console
     }
-  };
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};

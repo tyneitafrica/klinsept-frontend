@@ -8,10 +8,9 @@ import LayoutOne from "../../components/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useLocation } from "react-router-dom";
 // import axios from "axios";
-import { getCartItems, isAuthenticated} from "../../helpers/backendFectch";
-import {deleteAllFromCart} from "../../redux/actions/cartActions";
+import { getCartItems, isAuthenticated } from "../../helpers/backendFectch";
+import { deleteAllFromCart } from "../../redux/actions/cartActions";
 import { useDispatch } from "react-redux";
-
 
 const Cart = ({
   // cartItems,
@@ -19,17 +18,15 @@ const Cart = ({
 }) => {
   const { addToast } = useToasts();
   const { pathname } = useLocation();
-  const [showModal,setShowmodal] = useState(false)
-  const navigate = useNavigate()
-  const [cartItems, setCartData] = useState([]); 
+  const [showModal, setShowmodal] = useState(false);
+  const navigate = useNavigate();
+  const [cartItems, setCartData] = useState([]);
   const dispatch = useDispatch();
 
-
-  
   const handleDelete = (id) => {
     deleteFromCart(id, addToast);
   };
-  
+
   const handleProceedCheckout = async (e) => {
     e.preventDefault();
     const userData = await isAuthenticated();
@@ -38,7 +35,7 @@ const Cart = ({
     } else {
       setShowmodal(true);
     }
-  }
+  };
   useEffect(() => {
     const fetchCartData = async () => {
       try {
@@ -49,7 +46,7 @@ const Cart = ({
         alert("Failed to fetch cart items", { appearance: "error" });
       }
     };
-  
+
     fetchCartData();
   }, []);
 
@@ -58,7 +55,6 @@ const Cart = ({
     dispatch(deleteAllFromCart());
   };
 
-  
   return (
     <div className="mt-90">
       <MetaTags>
@@ -101,13 +97,7 @@ const Cart = ({
                             return (
                               <tr key={key}>
                                 <td className="product-thumbnail">
-                                  <Link
-                                    to={
-                                      process.env.PUBLIC_URL +
-                                      "/product/" +
-                                      cartItem.id
-                                    }
-                                  >
+                                  <Link to={`/product/${cartItem.product_id}`}>
                                     <img
                                       className="img-fluid"
                                       src={cartItem.image}
@@ -117,13 +107,7 @@ const Cart = ({
                                 </td>
 
                                 <td className="product-name">
-                                  <Link
-                                    to={
-                                      process.env.PUBLIC_URL +
-                                      "/product/" +
-                                      cartItem.id
-                                    }
-                                  >
+                                  <Link to={`/product/${cartItem.product_id}`}>
                                     {cartItem.name}
                                   </Link>
                                 </td>
@@ -143,13 +127,14 @@ const Cart = ({
                                   </div>
                                 </td>
                                 <td className="product-subtotal">
-                                  {/* to 2 dp */} 
-                                  {(cartItem.line_total).toFixed(2)}
-                                  </td>
+                                  {/* to 2 dp */}
+                                  {cartItem.line_total.toFixed(2)}
+                                </td>
 
                                 <td className="product-remove">
                                   <button
-                                    onClick={() => handleDelete(cartItem.id)}                                  >
+                                    onClick={() => handleDelete(cartItem.id)}
+                                  >
                                     <i className="fa fa-times"></i>
                                   </button>
                                 </td>
@@ -181,14 +166,18 @@ const Cart = ({
                 </div>
 
                 <div className="row">
-
                   <div className="col-lg-4 col-md-12">
-                    <div>                  
-                      <button onClick={handleProceedCheckout} className="btn btn-primary">
-                          Proceed to Checkout
-                        </button>
-                        {/* Show LoginModal */}
-                        {showModal && <LoginModal show={showModal} setShow={setShowmodal} />}
+                    <div>
+                      <button
+                        onClick={handleProceedCheckout}
+                        className="btn btn-primary"
+                      >
+                        Proceed to Checkout
+                      </button>
+                      {/* Show LoginModal */}
+                      {showModal && (
+                        <LoginModal show={showModal} setShow={setShowmodal} />
+                      )}
                     </div>
                   </div>
                 </div>
@@ -216,6 +205,5 @@ const Cart = ({
     </div>
   );
 };
-
 
 export default Cart;

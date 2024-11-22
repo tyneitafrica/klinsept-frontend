@@ -7,11 +7,15 @@ import Spinner from "react-bootstrap/Spinner";
 import { Link } from "react-router-dom";
 import { LoginFetch } from "../../helpers/backendFectch";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 function LoginModal({ show, setShow }) {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [validated, setValidated] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -37,7 +41,7 @@ function LoginModal({ show, setShow }) {
     setLoading(true);
 
     // Call LoginFetch, which handles the toast notifications internally
-    LoginFetch(loginData)
+    LoginFetch(loginData, dispatch,navigate)
       .then(() => {
         setShow(false); // Close the modal on successful login
       })
