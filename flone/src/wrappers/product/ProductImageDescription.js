@@ -6,7 +6,7 @@ import ProductImageGallery from "../../components/product/ProductImageGallery";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { FcLike, FcLikePlaceholder, FcCancel } from "react-icons/fc";
-import { MdOutlineCompareArrows } from "react-icons/md";
+import { IoGitCompareOutline } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import {
   deleteFromWishlist,
@@ -16,7 +16,7 @@ import {
   addToCompare,
   deleteFromCompare,
 } from "../../redux/actions/compareActions";
-import { addToCart, decreaseQuantity } from "../../redux/actions/cartActions";
+import { addToCart } from "../../redux/actions/cartActions";
 
 const ProductImageDescription = ({
   product,
@@ -25,9 +25,6 @@ const ProductImageDescription = ({
   wishlistItems,
   compareItems,
 }) => {
-  const wishlistItem = wishlistItems.filter(
-    (wishlistItem) => wishlistItem.id === product.id
-  )[0];
   const isProductInList = (productId, list) =>
     list.some((item) => item.id === productId);
 
@@ -71,7 +68,7 @@ const ProductImageDescription = ({
 
               {
                 <div className="pro-details-quality">
-                  {/* <div className="cart-plus-minus">
+                  <div className="cart-plus-minus">
                     <button
                       onClick={() =>
                         setQuantityCount(
@@ -94,12 +91,11 @@ const ProductImageDescription = ({
                     >
                       +
                     </button>
-                  </div> */}
+                  </div>
                   <div className="pro-details-cart btn-hover">
                     <button
                       onClick={() => {
-                        toast.success("added to cart");
-                        addToCart(product, addToast, quantityCount);
+                        dispatch(addToCart(product, quantityCount))
                       }}
                     >
                       Add To Cart
@@ -127,7 +123,7 @@ const ProductImageDescription = ({
                   </div>
                   <div className="pro-details-compare ml-3 ">
                     {!isProductInCompare ? (
-                      <MdOutlineCompareArrows
+                      <IoGitCompareOutline
                         size={30}
                         onClick={() => {
                           dispatch(addToCompare(product)); // No need to pass toast

@@ -1,39 +1,17 @@
 import axios from "axios";
+import { addItemToCart } from "../../helpers/backendFectch";
+
 export const ADD_TO_CART = "ADD_TO_CART";
 export const DECREASE_QUANTITY = "DECREASE_QUANTITY";
 export const DELETE_FROM_CART = "DELETE_FROM_CART";
 export const DELETE_ALL_FROM_CART = "DELETE_ALL_FROM_CART";
 
-export const addToCart = (item, addToast, quantityCount = 1) => {
+
+export const addToCart = (item, quantityCount = 1) => {
   return async (dispatch) => {
     try {
-      // Make API call to the backend
-      const response = await axios.post(
-        "https://klinsept-backend.onrender.com/api/v1.0/cart/add/",
-        {
-          product_id: item.id,
-          quantity: quantityCount,
-        },
-        {
-          headers: {
-            "x-api-key": "f6c52669-b6a9-4901-8558-5bc72b7e983a", // Replace with your actual API key
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
+      const responseData = await addItemToCart(item, quantityCount);
 
-      console.log(response.data);
-
-      // Show success toast if provided
-      if (addToast) {
-        addToast(response.data.message, {
-          appearance: "success",
-          autoDismiss: true,
-        });
-      }
-
-      // Dispatch the action to update the Redux store
       dispatch({
         type: ADD_TO_CART,
         payload: {
@@ -41,18 +19,13 @@ export const addToCart = (item, addToast, quantityCount = 1) => {
           quantity: quantityCount,
         },
       });
+      return responseData;
     } catch (error) {
-      console.error("Add to cart error:", error);
-      if (addToast) {
-        addToast("Failed to add to cart", {
-          appearance: "error",
-          autoDismiss: true,
-        });
-      }
+      console.error("Redux action error:", error);
     }
   };
 };
-//decrease from cart
+
 export const decreaseQuantity = (item, addToast) => {
   return (dispatch) => {
     if (addToast) {
