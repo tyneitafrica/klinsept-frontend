@@ -32,16 +32,14 @@ export const fetchCurrencyRates = () => async (dispatch, getState) => {
   const nextUpdate = getState().currencyData.timestamp;
 
   if (nextUpdate && Date.now() < nextUpdate * 1000) {
-    console.log("Rates are still valid. No need to fetch.");
+    console.log("Rates are still valid");
     return;
   }
-  
-  try {
-    const response = await axios.get(EXCHANGE_RATE_URL );
-    
-    const { conversion_rates, time_next_update_unix } = response.data;
 
-    // Dispatch the rates and the next update timestamp
+  try {
+    const response = await axios.get(EXCHANGE_RATE_URL);
+
+    const { conversion_rates, time_next_update_unix } = response.data;
     dispatch(setCurrencies(conversion_rates));
     dispatch(setTimestamp(time_next_update_unix));
   } catch (error) {

@@ -1,30 +1,66 @@
 import axios from "axios";
 import { logoutUser } from "../redux/actions/appAction";
-import {fetchProductsSuccess} from "../redux/actions/productActions";
+import { fetchProductsSuccess } from "../redux/actions/productActions";
 import toast from "react-hot-toast";
 const API_URL = process.env.REACT_APP_API_URL;
 const API_KEY = process.env.REACT_APP_API_KEY;
 // const API_URL = "https://klinsept-backend.onrender.com/api/v1.0/";
 
 export const registerFetch = async (registerData) => {
-  const response = await axios.post(`${API_URL}auth/signin/`, registerData, {
-    headers: {
-      "x-api-key": API_KEY,
-    },
-  });
-  return response;
+  return toast.promise(
+    axios.post(`${API_URL}auth/signin/`, registerData, {
+      headers: {
+        "x-api-key": API_KEY,
+      },
+    }),
+    {
+      loading: "Creating your account...",
+      success: (response) => {
+        console.log(response.data);
+        return "Account created successfully!";
+      },
+      error: (error) => {
+        const errorMessage =
+          error.response?.data?.detail || "An error occurred";
+        return `Error: ${errorMessage}`;
+      },
+    }
+  );
 };
 
-export const LoginFetch = async (loginData) => {
-  const response = await axios.post(`${API_URL}/auth/login/`, loginData, {
-    withCredentials: true,
-    headers: {
-      "x-api-key": API_KEY,
-      "Content-Type": "application/json",
-    },
-  });
-  console.log(response.data.jwt);
-  return response;
+export const LoginFetch = async (loginData, dispatch, navigate) => {
+  // Display a loading toast while making the request
+  return toast
+    .promise(
+      axios.post(`${API_URL}auth/login/`, loginData, {
+        withCredentials: true,
+        headers: {
+          "x-api-key": API_KEY,
+          "Content-Type": "application/json",
+        },
+      }),
+      {
+        loading: "Logging in...",
+        success: (response) => {
+          console.log(response.data.jwt);
+          setTimeout(() => {
+            navigate("/my-account");
+          }, 4000);
+          return "Login successful!";
+        },
+        error: (error) => {
+          const errorMessage =
+            error.response?.data?.detail ||
+            error.message ||
+            "An error occurred";
+          return `Error: ${errorMessage}`;
+        },
+      }
+    )
+    .catch((err) => {
+      // You can catch any unhandled promise rejections here if needed
+      // console.error("Unhandled Error:", err);
+    });
 };
 
 export const forgotPassword = async (email) => {
