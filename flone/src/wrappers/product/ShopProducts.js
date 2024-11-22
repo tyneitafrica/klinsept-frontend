@@ -41,7 +41,7 @@ const ShopProducts = ({
           // Calculate converted price
           const convertedPrice = currency.selectedCurrency
             ? (product.price * currency.selectedCurrency.rates).toFixed(2)
-            : product.price; // Fallback to the default price if no currency is selected
+            : product.price;
 
           const isProductInCompare = compareItems.some(
             (item) => item.id === product.id
@@ -58,7 +58,13 @@ const ShopProducts = ({
                   className="product-image"
                 />
                 <div className="overlay-icons">
-                  <AiOutlineShoppingCart className="icon" title="Add to Cart" />
+                  <AiOutlineShoppingCart
+                    onClick={() => {
+                      addToCart(product);
+                    }}
+                    className="icon"
+                    title="Add to Cart"
+                  />
                   <AiOutlineEye
                     onClick={() => {
                       setSelectedProduct(product);
@@ -70,7 +76,8 @@ const ShopProducts = ({
                   {isProductInCompare ? (
                     <AiOutlineCloseCircle
                       onClick={() => {
-                        dispatch(deleteFromCompare(product));                      }}
+                        dispatch(deleteFromCompare(product));
+                      }}
                       className="icon compare-icon active"
                       title="Already in Compare"
                     />
@@ -94,7 +101,7 @@ const ShopProducts = ({
                   </Card.Title>{" "}
                   {isProductInWishlist ? (
                     <FcLike
-                      onClick={() => 
+                      onClick={() =>
                         dispatch(deleteFromWishlist(product, toast))
                       }
                       className="heart-icon"
@@ -127,7 +134,6 @@ const ShopProducts = ({
     </Fragment>
   );
 };
-
 
 ShopProducts.propTypes = {
   addToCart: PropTypes.func,

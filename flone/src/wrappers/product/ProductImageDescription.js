@@ -29,7 +29,7 @@ const ProductImageDescription = ({
     list.some((item) => item.id === productId);
 
   // Check if the product is in the cart, wishlist, or compare
-  const isProductInCart = isProductInList(product.id, cartItems);
+  // const isProductInCart = isProductInList(product.id, cartItems);
   const isProductInWishlist = isProductInList(product.id, wishlistItems);
   const isProductInCompare = isProductInList(product.id, compareItems);
 

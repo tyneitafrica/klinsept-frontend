@@ -17,7 +17,7 @@ import {
 import LayoutOne from "../../components/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import { isAuthenticated } from "../../helpers/backendFectch";
 const Cart = ({
   cartItems,

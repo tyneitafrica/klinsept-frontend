@@ -1,5 +1,6 @@
 import axios from "axios";
 import { logoutUser } from "../redux/actions/appAction";
+import {fetchProductsSuccess} from "../redux/actions/productActions";
 import toast from "react-hot-toast";
 const API_URL = process.env.REACT_APP_API_URL;
 const API_KEY = process.env.REACT_APP_API_KEY;
@@ -94,7 +95,7 @@ export const getProducts = async () => {
   try {
     const response = await axios.get(`${API_URL}products/`, {
       headers: {
-        "x-api-key": "f6c52669-b6a9-4901-8558-5bc72b7e983a",
+        "x-api-key": `${API_KEY}`,
       },
     });
     // console.log(response.data);
@@ -103,6 +104,26 @@ export const getProducts = async () => {
     console.error("Get Products error:", error.response?.data);
     throw error;
   }
+};
+
+export const fetchProducts = () => {
+  return async (dispatch) => {
+    // Use async dispatch
+    try {
+      const response = await axios.get(`${API_URL}products/`, {
+        headers: {
+          "x-api-key": `${API_KEY}`,
+        },
+      });
+
+      dispatch(fetchProductsSuccess(response.data.results));
+      // console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Get Products error:", error.response?.data);
+      throw error;
+    }
+  };
 };
 
 export const isAuthenticated = async () => {
@@ -145,7 +166,7 @@ export const addItemToCart = async (item, quantityCount = 1) => {
       {
         loading: `Adding ${item.name} to cart...`,
         success: `${item.name} added to cart successfully!`,
-        error: (err) => `Failed to add ${item.name} to cart: ${err.message}`,
+        error: (err) => `${err.response.data.error} for ${item.name}`,
       },
       {
         success: {
@@ -156,15 +177,14 @@ export const addItemToCart = async (item, quantityCount = 1) => {
         },
       }
     );
-
+    // console.log(response);
     if (response.status !== 200) {
       throw new Error("Failed to add item to cart");
     }
 
     return response.data;
   } catch (error) {
-    console.error("Error adding item to cart:", error);
-    throw error;
+    throw error.response;
   }
 };
 
