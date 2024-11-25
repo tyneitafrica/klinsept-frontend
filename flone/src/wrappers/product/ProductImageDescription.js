@@ -17,6 +17,7 @@ import {
   deleteFromCompare,
 } from "../../redux/actions/compareActions";
 import { addToCart } from "../../redux/actions/cartActions";
+import { Card, Nav, ButtonGroup, Button } from "react-bootstrap";
 
 const ProductImageDescription = ({
   product,
@@ -26,6 +27,11 @@ const ProductImageDescription = ({
   compareItems,
 }) => {
   const [quantityCount, setQuantityCount] = useState(1);
+  const [selectedSize, setSelectedSize] = useState(product.default_price);
+  const [selectedVariation, setSelectedVariation] = useState("Medium");
+  // State to track whether the checkbox is checked or not
+  const [isChecked, setIsChecked] = useState(false);
+
   const isProductInList = (productId, list) =>
     list.some((item) => item.id === productId);
 
@@ -40,10 +46,20 @@ const ProductImageDescription = ({
   //   }
   // }, [cartItems, product.id]);
   const dispatch = useDispatch();
-
-  const convertedPrice = currency.selectedCurrency
-    ? (product.price * currency.selectedCurrency.rates).toFixed(2)
-    : product.price;
+  const handleVariationClick = (variation) => {
+    // console.log(variation);
+    setSelectedVariation(variation.size);
+    setSelectedSize(variation.price);
+    toast.dismiss();
+    toast.success(
+      `Clicked on ${variation.size} of price ${convertedPrice(variation.price)}`
+    );
+  };
+  const convertedPrice = (price) => {
+    return currency.selectedCurrency
+      ? (price * currency.selectedCurrency.rates).toFixed(2)
+      : price;
+  };
   return (
     <div className={`shop-area pt-100 pb-100`}>
       <div className="container">
@@ -61,13 +77,76 @@ const ProductImageDescription = ({
                 <span>
                   {(currency.selectedCurrency.symbol || "") +
                     " " +
-                    convertedPrice}{" "}
+                    convertedPrice(selectedSize)}{" "}
                 </span>
               </div>
 
               <div className="pro-details-list">
                 <p>{product.description}</p>
               </div>
+
+              <Card className="mb-3">
+                <Card.Header>
+                  <Nav variant="tabs" defaultActiveKey="variations">
+                    <Nav.Item>
+                      <Nav.Link
+                        eventKey="variations"
+                        active={!isChecked}
+                        onClick={() => setIsChecked(false)}
+                      >
+                        Variations
+                      </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                      <Nav.Link
+                        eventKey="bulk-options"
+                        active={isChecked}
+                        onClick={() => setIsChecked(true)}
+                      >
+                        Bulk Options
+                      </Nav.Link>
+                    </Nav.Item>
+                  </Nav>
+                </Card.Header>
+                <Card.Body>
+                  {!isChecked ? (
+                    <ButtonGroup aria-label="Variations">
+                      {product.variations.map((single, key) => (
+                        <Button
+                          key={key}
+                          variant={
+                            selectedVariation === single.size
+                              ? "primary"
+                              : "outline-secondary"
+                          }
+                          onClick={() => handleVariationClick(single)}
+                        >
+                          {single.size}
+                        </Button>
+                      ))}
+                    </ButtonGroup>
+                  ) : (
+                    <ButtonGroup aria-label="bulk-options">
+                      {product.bulk_wholesale.map((single, key) => (
+                        <Button
+                          key={key}
+                          className="btn-danger b "
+                          onClick={() => {
+                            console.log(single);
+                            toast.success(
+                              `Clicked on ${
+                                single.size
+                              } of price ${convertedPrice(single.price)}`
+                            );
+                          }}
+                        >
+                          {single.size}
+                        </Button>
+                      ))}
+                    </ButtonGroup>
+                  )}
+                </Card.Body>
+              </Card>
 
               {
                 <div className="pro-details-quality">

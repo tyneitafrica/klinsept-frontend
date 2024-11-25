@@ -40,8 +40,8 @@ const ShopProducts = ({
         {finalProducts.map((product, index) => {
           // Calculate converted price
           const convertedPrice = currency.selectedCurrency
-            ? (product.price * currency.selectedCurrency.rates).toFixed(2)
-            : product.price;
+            ? (product.default_price * currency.selectedCurrency.rates).toFixed(2)
+            : product.default_price;
 
           const isProductInCompare = compareItems.some(
             (item) => item.id === product.id

@@ -1,10 +1,11 @@
 import axios from "axios";
-import { logoutUser } from "../redux/actions/appAction";
+// import { logoutUser } from "../redux/actions/appAction";
 import { fetchProductsSuccess } from "../redux/actions/productActions";
 import toast from "react-hot-toast";
-const API_URL = process.env.REACT_APP_API_URL;
+// const API_URL = process.env.REACT_APP_API_URL;
 const API_KEY = process.env.REACT_APP_API_KEY;
 // const API_URL = "https://klinsept-backend.onrender.com/api/v1.0/";
+const API_URL = "http://192.168.1.88:8000/api/v1.0/";
 
 export const registerFetch = async (registerData) => {
   return toast.promise(
@@ -123,21 +124,6 @@ export const serverLogOut = async (dispatch, toast) => {
     }
   } catch (error) {
     console.error("Server Log Out error:", error);
-    throw error;
-  }
-};
-
-export const getProducts = async () => {
-  try {
-    const response = await axios.get(`${API_URL}products/`, {
-      headers: {
-        "x-api-key": `${API_KEY}`,
-      },
-    });
-    // console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.error("Get Products error:", error.response?.data);
     throw error;
   }
 };
