@@ -212,7 +212,7 @@ export const addItemToCart = async (item, quantityCount = 1,size,order_type) => 
   }
 };
 
-export const getCartItems = async () => {
+export const getCartItems = async (setCartData, toast) => {
   try {
     const response = await axios.get(`${API_URL}cart/`, {
       headers: {
@@ -222,8 +222,9 @@ export const getCartItems = async () => {
     });
 
     if (response.status === 200) {
-      // setCartItems(response.data); // Save cart items to state
-      console.log(response.data);
+      setCartData(response.data); // Save cart items to state
+      toast.error(response.data?.message);
+      // console.log(response.data);
       return response.data;
 
       // Log response to console
