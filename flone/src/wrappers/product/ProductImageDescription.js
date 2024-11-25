@@ -27,33 +27,27 @@ const ProductImageDescription = ({
   compareItems,
 }) => {
   const [quantityCount, setQuantityCount] = useState(1);
-  const [selectedSize, setSelectedSize] = useState(product.default_price);
-  const [selectedVariation, setSelectedVariation] = useState("Medium");
-  // State to track whether the checkbox is checked or not
+  const [selectedVariation, setSelectedVariation] = useState(
+    product.variations[0]
+  );
+  const [selectedBulk, setSelectedBulk] = useState(product.bulk_wholesale[0]);
   const [isChecked, setIsChecked] = useState(false);
 
   const isProductInList = (productId, list) =>
     list.some((item) => item.id === productId);
 
-  // Check if the product is in the cart, wishlist, or compare
   // const isProductInCart = isProductInList(product.id, cartItems);
   const isProductInWishlist = isProductInList(product.id, wishlistItems);
   const isProductInCompare = isProductInList(product.id, compareItems);
-  // useEffect(() => {
-  //   const existingCartItem = cartItems.find((item) => item.id === product.id);
-  //   if (existingCartItem) {
-  //     setQuantityCount(existingCartItem.quantity);
-  //   }
-  // }, [cartItems, product.id]);
+
   const dispatch = useDispatch();
+
   const handleVariationClick = (variation) => {
-    // console.log(variation);
-    setSelectedVariation(variation.size);
-    setSelectedSize(variation.price);
-    toast.dismiss();
-    toast.success(
-      `Clicked on ${variation.size} of price ${convertedPrice(variation.price)}`
-    );
+    setSelectedVariation(variation);
+  };
+  // console.log(product);
+  const handleBulkClick = (item) => {
+    setSelectedBulk(item);
   };
   const convertedPrice = (price) => {
     return currency.selectedCurrency
@@ -73,12 +67,23 @@ const ProductImageDescription = ({
             {/* product description info */}
             <div className="product-details-content ml-70">
               <h2>{product.name}</h2>
-              <div className="product-details-price">
-                <span>
-                  {(currency.selectedCurrency.symbol || "") +
-                    " " +
-                    convertedPrice(selectedSize)}{" "}
-                </span>
+              <div className="product-details-price d-flex align-items-center">
+                {!isChecked ? (
+                  <span className="me-2 fw-bold text-primary">
+                    {`${
+                      currency.selectedCurrency.symbol || ""
+                    } ${convertedPrice(selectedVariation.price)}`}
+                  </span>
+                ) : (
+                  <>
+                    <span className="me-2 text-danger">Wholesaling:</span>
+                    <span className="fw-bold text-success">
+                      {`${
+                        currency.selectedCurrency.symbol || ""
+                      } ${convertedPrice(selectedBulk.bulk_price)}`}
+                    </span>
+                  </>
+                )}
               </div>
 
               <div className="pro-details-list">
@@ -94,16 +99,16 @@ const ProductImageDescription = ({
                         active={!isChecked}
                         onClick={() => setIsChecked(false)}
                       >
-                        Variations
+                        Retail
                       </Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
                       <Nav.Link
-                        eventKey="bulk-options"
+                        eventKey="Wholesale"
                         active={isChecked}
                         onClick={() => setIsChecked(true)}
                       >
-                        Bulk Options
+                        Wholesale
                       </Nav.Link>
                     </Nav.Item>
                   </Nav>
@@ -115,9 +120,9 @@ const ProductImageDescription = ({
                         <Button
                           key={key}
                           variant={
-                            selectedVariation === single.size
+                            selectedVariation.size === single.size
                               ? "primary"
-                              : "outline-secondary"
+                              : "outline-primary"
                           }
                           onClick={() => handleVariationClick(single)}
                         >
@@ -130,15 +135,12 @@ const ProductImageDescription = ({
                       {product.bulk_wholesale.map((single, key) => (
                         <Button
                           key={key}
-                          className="btn-danger b "
-                          onClick={() => {
-                            console.log(single);
-                            toast.success(
-                              `Clicked on ${
-                                single.size
-                              } of price ${convertedPrice(single.price)}`
-                            );
-                          }}
+                          variant={
+                            selectedBulk.size === single.size
+                              ? "info"
+                              : "outline-info"
+                          }
+                          onClick={() => handleBulkClick(single)}
                         >
                           {single.size}
                         </Button>
@@ -179,7 +181,18 @@ const ProductImageDescription = ({
                   <div className="pro-details-cart btn-hover">
                     <button
                       onClick={() => {
-                        dispatch(addToCart(product, quantityCount));
+                        const selectedItem = isChecked
+                          ? selectedBulk
+                          : selectedVariation;
+                          const order_type = isChecked ? "Wholesale" :"Retail"
+
+                        // console.log(
+                        //   product.id,
+                        //   quantityCount,
+                        //   selectedItem.size,
+                        //   order_type
+                        // );
+                        dispatch(addToCart(product, quantityCount,selectedItem.size,order_type));
                       }}
                     >
                       Add To Cart

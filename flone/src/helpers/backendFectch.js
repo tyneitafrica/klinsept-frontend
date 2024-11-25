@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 // const API_URL = process.env.REACT_APP_API_URL;
 const API_KEY = process.env.REACT_APP_API_KEY;
 // const API_URL = "https://klinsept-backend.onrender.com/api/v1.0/";
-const API_URL = "http://192.168.1.88:8000/api/v1.0/";
+const API_URL = "http://192.168.1.15:8000/api/v1.0/";
 
 export const registerFetch = async (registerData) => {
   return toast.promise(
@@ -164,7 +164,7 @@ export const isAuthenticated = async () => {
   }
 };
 
-export const addItemToCart = async (item, quantityCount = 1) => {
+export const addItemToCart = async (item, quantityCount = 1,size,order_type) => {
   try {
     toast.dismiss();
 
@@ -173,6 +173,8 @@ export const addItemToCart = async (item, quantityCount = 1) => {
       {
         product_id: item.id,
         quantity: quantityCount,
+        size: size,
+        order_type: order_type,
       },
       {
         headers: {
@@ -199,7 +201,7 @@ export const addItemToCart = async (item, quantityCount = 1) => {
         },
       }
     );
-    console.log(response);
+    // console.log(response);
     if (response.status !== 200) {
       throw new Error("Failed to add item to cart");
     }
