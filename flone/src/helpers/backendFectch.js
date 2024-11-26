@@ -2,12 +2,13 @@ import axios from "axios";
 // import { logoutUser } from "../redux/actions/appAction";
 import { fetchProductsSuccess } from "../redux/actions/productActions";
 import toast from "react-hot-toast";
-// const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = process.env.REACT_APP_API_URL;
 const API_KEY = process.env.REACT_APP_API_KEY;
 // const API_URL = "https://klinsept-backend.onrender.com/api/v1.0/";
-const API_URL = "http://192.168.1.15:8000/api/v1.0/";
+// const API_URL = "http://192.168.1.101:8000/api/v1.0/";
 
-export const registerFetch = async (registerData) => {
+export const registerFetch = async (registerData,navigate,setError) => {
+  toast.dismiss()
   return toast.promise(
     axios.post(`${API_URL}auth/signin/`, registerData, {
       headers: {
@@ -17,12 +18,16 @@ export const registerFetch = async (registerData) => {
     {
       loading: "Creating your account...",
       success: (response) => {
-        console.log(response.data);
-        return "Account created successfully!";
+        // console.log(response.data);
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
+        return response.data.message;
       },
       error: (error) => {
         const errorMessage =
-          error.response?.data?.detail || "An error occurred";
+        error.response?.data?.message || "An error occurred";
+        setError(errorMessage);
         return `Error: ${errorMessage}`;
       },
     }
@@ -43,11 +48,11 @@ export const LoginFetch = async (loginData, dispatch, navigate) => {
       {
         loading: "Logging in...",
         success: (response) => {
-          console.log(response.data.jwt);
+          console.log(response.data);
           setTimeout(() => {
             navigate("/my-account");
           }, 4000);
-          return "Login successful!";
+          return response.data.message;
         },
         error: (error) => {
           const errorMessage =
@@ -164,7 +169,12 @@ export const isAuthenticated = async () => {
   }
 };
 
-export const addItemToCart = async (item, quantityCount = 1,size,order_type) => {
+export const addItemToCart = async (
+  item,
+  quantityCount = 1,
+  size,
+  order_type
+) => {
   try {
     toast.dismiss();
 
