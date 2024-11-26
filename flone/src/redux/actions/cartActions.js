@@ -7,10 +7,11 @@ export const DELETE_FROM_CART = "DELETE_FROM_CART";
 export const DELETE_ALL_FROM_CART = "DELETE_ALL_FROM_CART";
 
 
-export const addToCart = (item, quantityCount = 1) => {
+export const addToCart = (item, quantityCount = 1,size,order_type) => {
   return async (dispatch) => {
     try {
-      const responseData = await addItemToCart(item, quantityCount);
+      // console.log(item.id, quantityCount, size, order_type)
+      const responseData = await addItemToCart(item, quantityCount,size,order_type);
 
       dispatch({
         type: ADD_TO_CART,

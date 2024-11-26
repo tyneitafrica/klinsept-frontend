@@ -74,7 +74,7 @@ const ProductCard = ({
         />
         <Card.Body>
           <Card.Title className="product-title">{product.name}</Card.Title>
-          <span className="price">${product.price}</span>
+          <span className="price">${product.variations[1].price}</span>
           <div className="buttons d-flex justify-content-between align-items-center">
             <Button
               variant="outline-primary"

@@ -1,12 +1,14 @@
 import axios from "axios";
-import { logoutUser } from "../redux/actions/appAction";
+// import { logoutUser } from "../redux/actions/appAction";
 import { fetchProductsSuccess } from "../redux/actions/productActions";
 import toast from "react-hot-toast";
 const API_URL = process.env.REACT_APP_API_URL;
 const API_KEY = process.env.REACT_APP_API_KEY;
 // const API_URL = "https://klinsept-backend.onrender.com/api/v1.0/";
+// const API_URL = "http://192.168.1.101:8000/api/v1.0/";
 
-export const registerFetch = async (registerData) => {
+export const registerFetch = async (registerData,navigate,setError) => {
+  toast.dismiss()
   return toast.promise(
     axios.post(`${API_URL}auth/signin/`, registerData, {
       headers: {
@@ -16,12 +18,16 @@ export const registerFetch = async (registerData) => {
     {
       loading: "Creating your account...",
       success: (response) => {
-        console.log(response.data);
-        return "Account created successfully!";
+        // console.log(response.data);
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
+        return response.data.message;
       },
       error: (error) => {
         const errorMessage =
-          error.response?.data?.detail || "An error occurred";
+        error.response?.data?.message || "An error occurred";
+        setError(errorMessage);
         return `Error: ${errorMessage}`;
       },
     }
@@ -42,11 +48,11 @@ export const LoginFetch = async (loginData, dispatch, navigate) => {
       {
         loading: "Logging in...",
         success: (response) => {
-          console.log(response.data.jwt);
+          console.log(response.data);
           setTimeout(() => {
             navigate("/my-account");
           }, 4000);
-          return "Login successful!";
+          return response.data.message;
         },
         error: (error) => {
           const errorMessage =
@@ -127,21 +133,6 @@ export const serverLogOut = async (dispatch, toast) => {
   }
 };
 
-export const getProducts = async () => {
-  try {
-    const response = await axios.get(`${API_URL}products/`, {
-      headers: {
-        "x-api-key": `${API_KEY}`,
-      },
-    });
-    // console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.error("Get Products error:", error.response?.data);
-    throw error;
-  }
-};
-
 export const fetchProducts = () => {
   return async (dispatch) => {
     // Use async dispatch
@@ -178,7 +169,12 @@ export const isAuthenticated = async () => {
   }
 };
 
-export const addItemToCart = async (item, quantityCount = 1) => {
+export const addItemToCart = async (
+  item,
+  quantityCount = 1,
+  size,
+  order_type
+) => {
   try {
     toast.dismiss();
 
@@ -187,6 +183,8 @@ export const addItemToCart = async (item, quantityCount = 1) => {
       {
         product_id: item.id,
         quantity: quantityCount,
+        size: size,
+        order_type: order_type,
       },
       {
         headers: {
@@ -213,7 +211,7 @@ export const addItemToCart = async (item, quantityCount = 1) => {
         },
       }
     );
-    console.log(response);
+    // console.log(response);
     if (response.status !== 200) {
       throw new Error("Failed to add item to cart");
     }
@@ -224,7 +222,7 @@ export const addItemToCart = async (item, quantityCount = 1) => {
   }
 };
 
-export const getCartItems = async () => {
+export const getCartItems = async (setCartData, toast) => {
   try {
     const response = await axios.get(`${API_URL}cart/`, {
       headers: {
@@ -234,8 +232,9 @@ export const getCartItems = async () => {
     });
 
     if (response.status === 200) {
-      // setCartItems(response.data); // Save cart items to state
-      console.log(response.data);
+      setCartData(response.data); // Save cart items to state
+      toast.error(response.data?.message);
+      // console.log(response.data);
       return response.data;
 
       // Log response to console

@@ -118,7 +118,7 @@ const Login = ({ authData }) => {
                             <Form.Check
                               type="checkbox"
                               label="Remember me"
-                              className="mb-0"
+                              className="mb-3 "
                             />
                             <Link
                               to={process.env.PUBLIC_URL + "/forgot"}

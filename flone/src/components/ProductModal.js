@@ -1,14 +1,10 @@
-import React, { useState } from "react";
-import { Modal, Button } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
 import { addToCart } from "../redux/actions/cartActions";
 import {
   addToWishlist,
   deleteFromWishlist,
 } from "../redux/actions/wishlistActions";
-import {
-  addToCompare,
-  deleteFromCompare,
-} from "../redux/actions/compareActions";
+import * as compareActions from "../redux/actions/compareActions";
 import { useSelector, useDispatch } from "react-redux";
 import {
   FaShoppingCart,
@@ -18,13 +14,24 @@ import {
 } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import { FcLike, FcLikePlaceholder, FcCancel } from "react-icons/fc";
+import { Card, Nav, ButtonGroup, Modal, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export const ProductModal = ({ show, handleClose, productData }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   // const wishlistItems = useSelector((state) =>state.wishlistData)
+  const [selectedVariation, setSelectedVariation] = useState(
+    productData?.variations[0]
+  );
+
+  const [isChecked, setIsChecked] = useState(false);
   const reduxData = useSelector((state) => state);
   const dispatch = useDispatch();
-  // console.log(reduxData.currencyData, .productData , .compareData, .cartData, .wishlistData)
+  useEffect(() => {
+    if (productData?.variations ) {
+      setSelectedVariation(productData.variations[0]); 
+    }
+  }, [productData]);
 
   const nextSlide = () => {
     if (currentIndex < productData.images.length - 1) {
@@ -45,20 +52,26 @@ export const ProductModal = ({ show, handleClose, productData }) => {
   if (!productData) {
     return null;
   }
+  const handleVariationClick = (variation) => {
+    setSelectedVariation(variation);
+  };
 
-  const isInWishlist = reduxData.wishlistData.some(
-    (item) => item.id === productData.id
-  );
-  const isInCart = reduxData.cartData.some(
-    (item) => item.id === productData.id
-  );
-  const isInCompare = reduxData.compareData.some(
-    (item) => item.id === productData.id
-  );
-  const { symbol, rates } = reduxData.currencyData.selectedCurrency;
-const convertedPrice = (productData.price * rates).toFixed(2); // Format to 2 decimal places
+  const isIn = (data, id) => data.some(item => item.id === id);
 
+  const isInWishlist = isIn(reduxData.wishlistData, productData.id);
+  const isInCart = isIn(reduxData.cartData, productData.id);
+  const isInCompare = isIn(reduxData.compareData, productData.id);
+  
 
+  const convertPrice = (price) => {
+    const { rates, symbol } = reduxData.currencyData.selectedCurrency;
+
+    const convertedValue = (price * rates).toFixed(2);
+    return {
+      value: parseFloat(convertedValue),
+      symbol,
+    };
+  };
   return (
     <Modal show={show} onHide={handleClose} size="xl" centered>
       <Modal.Header closeButton>
@@ -80,11 +93,90 @@ const convertedPrice = (productData.price * rates).toFixed(2); // Format to 2 de
         {/* Spacing between the carousel and product details */}
         <div className="product-details-container mt-4 mt-md-0 ml-md-4">
           <p>{productData.description}</p>
+          <div className="product-details-price d-flex align-items-center">
+            {!isChecked ? (
+              <span className="me-2 fw-bold text-primary">
+                {`${convertPrice(selectedVariation?.price)?.symbol || ""} ${
+                  convertPrice(selectedVariation?.price)?.value
+                }`}
+              </span>
+            ) : (
+              <>
+                <Link
+                  to={`/product/${productData.id}`}
+                  onClick={() =>
+                    setTimeout(() => {
+                      handleClose();
+                    }, 700)
+                  }
+                >
+                  Buy in bulk
+                </Link>
+              </>
+            )}
+          </div>
           <p>
-          <strong>
-    {symbol} {convertedPrice}
-  </strong>
+            <strong>{/* {convertedPrice} */}</strong>
           </p>
+
+          <Card className="mb-3">
+            <Card.Header>
+              <Nav variant="tabs" defaultActiveKey="variations">
+                <Nav.Item>
+                  <Nav.Link
+                    eventKey="variations"
+                    active={!isChecked}
+                    onClick={() => setIsChecked(false)}
+                  >
+                    Retail
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link
+                    eventKey="Wholesale"
+                    active={isChecked}
+                    onClick={() => setIsChecked(true)}
+                  >
+                    Wholesale
+                  </Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </Card.Header>
+            <Card.Body>
+              {!isChecked ? (
+                <ButtonGroup aria-label="Variations">
+                  {productData?.variations.map((single, key) => (
+                    <Button
+                      key={key}
+                      variant={
+                        selectedVariation?.size === single.size
+                          ? "primary"
+                          : "outline-primary"
+                      }
+                      onClick={() => handleVariationClick(single)}
+                    >
+                      {/* {console.log(single)} */}
+                      {single.size}
+                    </Button>
+                  ))}
+                </ButtonGroup>
+              ) : (
+                <>
+                  <Link
+                    to={`/product/${productData.id}`}
+                    onClick={() =>
+                      setTimeout(() => {
+                        handleClose();
+                      }, 700)
+                    }
+                  >
+                    Buy in bulk
+                  </Link>
+                </>
+              )}
+            </Card.Body>
+          </Card>
+
           <div className="modal-btns d-flex gap-2">
             <Button
               variant="light"
@@ -108,8 +200,10 @@ const convertedPrice = (productData.price * rates).toFixed(2); // Format to 2 de
               // disabled={isInCart}
               onClick={() => {
                 if (!isInCart) {
+                  toast.dismiss();
                   toast.success("Added to cart!");
-                  dispatch(addToCart(productData));
+                  dispatch(addToCart(productData,1,selectedVariation.size,'Retail'));
+
                 } else {
                   toast.dismiss();
                   toast.error("Already in cart");
@@ -122,9 +216,9 @@ const convertedPrice = (productData.price * rates).toFixed(2); // Format to 2 de
               variant="light"
               onClick={() => {
                 if (!isInCompare) {
-                  dispatch(addToCompare(productData));
+                  dispatch(compareActions.addToCompare(productData));
                 } else {
-                  dispatch(deleteFromCompare(productData));
+                  dispatch(compareActions.deleteFromCompare(productData));
                 }
               }}
             >

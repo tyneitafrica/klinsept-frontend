@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../../components/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import toast,{Toaster} from "react-hot-toast"
+import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
 import {
   Spinner,
@@ -30,50 +30,46 @@ const Register = () => {
     email: "",
     phone_number: "",
     password: "",
+    country: "",
   });
   const [validated, setValidated] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [confirmPassword, setConfirmPassword] = useState("")
-  const navigate = useNavigate()
-  
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const countries = useSelector((state) => state.currencyData.currencies);
+
+  // Extract only country names
+  const countryNames = Object.values(countries).map(
+    (currency) => currency.country
+  );
+  // console.log(countryNames); // This will give you an array of country names
+
+  const navigate = useNavigate();
+
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     const form = e.currentTarget;
 
     if (form.checkValidity() === false) {
-        e.stopPropagation();
+      e.stopPropagation();
     } else if (registerData.password !== confirmPassword) {
-        setError("Passwords do not match.");
-        toast.error("Passwords do not match.");
-        return;
+      setError("Passwords do not match.");
+      toast.error(`Passwords do not match`);
+      return;
     } else {
-        setError("");
-        setLoading(true);
-
-        try {
-            const response = await registerFetch(registerData);
-            // Validate the status
-            if (response.status === 201) {
-                toast.success("Registration successful!");
-                setTimeout(() => {
-                    navigate('/login');
-                }, 3000);
-            } else {
-                // Handle unexpected status codes
-                throw new Error("Unexpected response status");
-            }
-        } catch (error) {
-            const errorMessage = error.response?.data?.message;
-            setError(errorMessage);
-            toast.error(errorMessage);
-        }
-
+      setError("");
+      setLoading(true);
+      try {
+        await registerFetch(registerData, navigate, setError);
         setLoading(false);
+      } catch (e) {
+        // console.log(e)
+        setLoading(false);
+      }
     }
 
     setValidated(true);
-};
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -181,6 +177,27 @@ const Register = () => {
                                   country code, e.g., +254 712345678.
                                 </Form.Control.Feedback>
                               </Form.Group>
+                              {/* Country Selection Dropdown */}
+                              <Form.Group controlId="formCountry">
+                                <Form.Label>Country</Form.Label>
+                                <Form.Control
+                                  as="select"
+                                  required
+                                  name="country"
+                                  value={registerData.country}
+                                  onChange={handleInputChange}
+                                >
+                                  <option value="">Select a Country</option>
+                                  {countryNames.map((country, index) => (
+                                    <option key={index} value={country}>
+                                      {country}
+                                    </option>
+                                  ))}
+                                </Form.Control>
+                                <Form.Control.Feedback type="invalid">
+                                  Please select a country.
+                                </Form.Control.Feedback>
+                              </Form.Group>
 
                               <Form.Group controlId="formPassword">
                                 <Form.Label>Password</Form.Label>
@@ -207,7 +224,9 @@ const Register = () => {
                                   type="password"
                                   placeholder="Confirm Password"
                                   name="confirmPassword"
-                                  onChange={(e) => setConfirmPassword(e.target.value)}
+                                  onChange={(e) =>
+                                    setConfirmPassword(e.target.value)
+                                  }
                                   minLength="6"
                                   maxLength="12"
                                 />
@@ -263,7 +282,6 @@ const Register = () => {
           </div>
         </div>
       </LayoutOne>
-      <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
 };

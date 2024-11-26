@@ -3,7 +3,7 @@ import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../../components/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import LocationMap from "../../components/contact/LocationMap";
+// import LocationMap from "../../components/contact/LocationMap";
 import { useLocation } from "react-router-dom";
 import { Card, Button, Form } from "react-bootstrap";
 import { FaFacebook, FaLinkedinIn, FaTwitter } from "react-icons/fa";

@@ -30,19 +30,38 @@ const ShopProducts = ({
   compareItems,
 }) => {
   const [modalShow, setModalShow] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState(null); // Track selected product
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const finalProducts = currentData || products;
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
   return (
     <Fragment>
       <div className="products-container justify-content-center flex-wrap">
         {finalProducts.map((product, index) => {
-          // Calculate converted price
-          const convertedPrice = currency.selectedCurrency
-            ? (product.price * currency.selectedCurrency.rates).toFixed(2)
-            : product.price;
+          //  console.log(finalProducts)
+          const priceConverter = (price) => {
+            let convertedPrice = price;
+            let currencySymbol = "$";
 
+            if (currency?.selectedCurrency) {
+              const { rates, symbol } = currency.selectedCurrency;
+              convertedPrice = (price * rates).toFixed(2);
+              currencySymbol = symbol || "$";
+            }
+
+            return { convertedPrice, currencySymbol };
+          };
+
+          let variation =
+            product.variations[
+              Math.floor(Math.random() * product.variations.length)
+            ];
+
+          const { convertedPrice, currencySymbol } = priceConverter(
+            variation?.price || 0
+          );
+
+          // console.log(priceConverter(product.variations[0].price));
           const isProductInCompare = compareItems.some(
             (item) => item.id === product.id
           );
@@ -60,7 +79,7 @@ const ShopProducts = ({
                 <div className="overlay-icons">
                   <AiOutlineShoppingCart
                     onClick={() => {
-                      addToCart(product);
+                      addToCart(product, 1, variation.size, "Retail");
                     }}
                     className="icon"
                     title="Add to Cart"
@@ -118,9 +137,23 @@ const ShopProducts = ({
                   )}
                 </div>
 
+                <div className="row my-3">
+                  <div className="col-auto">
+                    <Card.Text className="product-description text-primary fw-bold">
+                      {variation?.size}
+                    </Card.Text>
+                  </div>
+                </div>
                 <Card.Text className="text-left product-price">
-                  {currency.selectedCurrency?.symbol || "$"} {convertedPrice}
+                  {currencySymbol} {convertedPrice}
                 </Card.Text>
+                {/* <VariationSelector
+                  product={product}
+                  priceConverter={priceConverter}
+                  onVariationSelect={(variation) =>
+                    setSelectedVariation(variation)
+                  }
+                /> */}
               </Card.Body>
             </Card>
           );
@@ -177,3 +210,48 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ShopProducts);
+// const VariationSelector = ({ product, priceConverter, onVariationSelect }) => {
+//   const [selectedVariation, setSelectedVariation] = useState(
+//     () =>
+//       product.variations[Math.floor(Math.random() * product.variations.length)]
+//   );
+//   useEffect(() => {
+//     // Notify parent with the initial selected variation
+//     onVariationSelect(selectedVariation);
+//   }, [selectedVariation]); // Only run if selectedVariation changes
+
+// // console.log(product.variations[Math.floor(Math.random() * product.variations.length)])
+//   const handleVariationClick = (variation) => {
+//     console.log("child",variation)
+//     setSelectedVariation(variation);
+//     // onVariationSelect(selectedVariation);
+//   };
+
+//   // Convert price based on the selected variation
+//   const { convertedPrice, currencySymbol } = priceConverter(
+//     selectedVariation?.price || 0
+//   );
+
+//   return (
+//     <>
+//       <div className="row my-3">
+//         {/* {product.variations.map((variation, index) => (
+//           <div key={index} className="col-auto">
+//             <Card.Text
+//               onClick={() => handleVariationClick(variation)}
+//               className={`product-description ${
+//                 selectedVariation === variation ? "text-primary fw-bold" : ""
+//               }`}
+//               style={{ cursor: "pointer" }}
+//             >
+//               {variation.size}
+//             </Card.Text>
+//           </div>
+//         ))} */}
+//       </div>
+//       <Card.Text className="text-left product-price">
+//         {currencySymbol} {convertedPrice}
+//       </Card.Text>
+//     </>
+//   );
+// };

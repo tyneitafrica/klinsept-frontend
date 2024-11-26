@@ -89,7 +89,7 @@
 
 /* Carousel Image */
 .modal-carousel-image {
-  max-height: 300px; /* Limit the height for large images */
+  max-height: 260px; /* Limit the height for large images */
   object-fit: contain; /* Ensures the image scales without distortion */
   margin: 0 auto;
   width: 100%;
