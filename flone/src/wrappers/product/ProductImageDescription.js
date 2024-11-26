@@ -17,7 +17,7 @@ import {
   deleteFromCompare,
 } from "../../redux/actions/compareActions";
 import { addToCart } from "../../redux/actions/cartActions";
-import { Card, Nav, ButtonGroup, Button } from "react-bootstrap";
+import { Card, Nav, ButtonGroup, Button, Badge } from "react-bootstrap";
 
 const ProductImageDescription = ({
   product,
@@ -72,15 +72,15 @@ const ProductImageDescription = ({
                   <span className="me-2 fw-bold text-primary">
                     {`${
                       currency.selectedCurrency.symbol || ""
-                    } ${convertedPrice(selectedVariation.price)}`}
+                    } ${convertedPrice(selectedVariation?.price)}`}
                   </span>
                 ) : (
                   <>
-                    <span className="me-2 text-danger">Wholesaling:</span>
+                    {/* <span className="me-2 text-danger">Wholesaling:</span> */}
                     <span className="fw-bold text-success">
                       {`${
                         currency.selectedCurrency.symbol || ""
-                      } ${convertedPrice(selectedBulk.bulk_price)}`}
+                      } ${convertedPrice(selectedBulk?.bulk_price)}`}
                     </span>
                   </>
                 )}
@@ -108,7 +108,8 @@ const ProductImageDescription = ({
                         active={isChecked}
                         onClick={() => setIsChecked(true)}
                       >
-                        Wholesale
+ 
+                        Wholesale{" "}
                       </Nav.Link>
                     </Nav.Item>
                   </Nav>
@@ -131,6 +132,12 @@ const ProductImageDescription = ({
                       ))}
                     </ButtonGroup>
                   ) : (
+                    <>
+                                             {product.bulk_wholesale.length > 0 && (
+            <Badge variant="info" className="ms-2">
+              Min: {product.bulk_wholesale[0].min_quantity}
+            </Badge>
+          )}
                     <ButtonGroup aria-label="bulk-options">
                       {product.bulk_wholesale.map((single, key) => (
                         <Button
@@ -146,6 +153,7 @@ const ProductImageDescription = ({
                         </Button>
                       ))}
                     </ButtonGroup>
+                    </>
                   )}
                 </Card.Body>
               </Card>

@@ -13,13 +13,13 @@ export const addToCart = (item, quantityCount = 1,size,order_type) => {
       // console.log(item.id, quantityCount, size, order_type)
       const responseData = await addItemToCart(item, quantityCount,size,order_type);
 
-      // dispatch({
-      //   type: ADD_TO_CART,
-      //   payload: {
-      //     ...item,
-      //     quantity: quantityCount,
-      //   },
-      // });
+      dispatch({
+        type: ADD_TO_CART,
+        payload: {
+          ...item,
+          quantity: quantityCount,
+        },
+      });
       return responseData;
     } catch (error) {
       console.error("Redux action error:", error);
