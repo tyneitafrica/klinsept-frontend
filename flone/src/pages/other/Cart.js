@@ -11,6 +11,7 @@ import { useLocation } from "react-router-dom";
 import { getCartItems, isAuthenticated } from "../../helpers/backendFectch";
 import { deleteAllFromCart } from "../../redux/actions/cartActions";
 import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
 
 const Cart = ({
   // cartItems,
@@ -37,17 +38,7 @@ const Cart = ({
     }
   };
   useEffect(() => {
-    const fetchCartData = async () => {
-      try {
-        const data = await getCartItems(); // Fetch cart items from backend
-        setCartData(data); // Store in local state
-        console.log(data);
-      } catch (error) {
-        alert("Failed to fetch cart items", { appearance: "error" });
-      }
-    };
-
-    fetchCartData();
+    getCartItems(setCartData,toast); 
   }, []);
 
   const handleClearCart = () => {
