@@ -35,10 +35,6 @@ const Cart = () => {
     dispatch(fetchAndReplaceCart(setLoading));
   }, [dispatch]);
 
-  const handleClearCart = () => {
-    dispatch(deleteAllFromCart());
-  };
-
   if(loading){
     return(
       <div className="flone-preloader-wrapper">
