@@ -60,8 +60,10 @@ const ShopProducts = ({
           const { convertedPrice, currencySymbol } = priceConverter(
             variation?.price || 0
           );
+          const convertedDiscount = priceConverter(
+            variation?.discount || 0
+          ).convertedPrice;
 
-          // console.log(priceConverter(product.variations[0].price));
           const isProductInCompare = compareItems.some(
             (item) => item.id === product.id
           );
@@ -137,23 +139,28 @@ const ShopProducts = ({
                   )}
                 </div>
 
-                <div className="row my-3">
-                  <div className="col-auto">
-                    <Card.Text className="product-description text-primary fw-bold">
-                      {variation?.size}
-                    </Card.Text>
-                  </div>
+                <div className="row my-3 col-auto">
+                  <Card.Text className="product-description text-primary fw-bold">
+                    {variation?.size}
+                  </Card.Text>
                 </div>
-                <Card.Text className="text-left product-price">
-                  {currencySymbol} {convertedPrice}
-                </Card.Text>
-                {/* <VariationSelector
-                  product={product}
-                  priceConverter={priceConverter}
-                  onVariationSelect={(variation) =>
-                    setSelectedVariation(variation)
-                  }
-                /> */}
+                <div className="d-flex justify-content-between">
+                  {variation?.discount > 0 && (
+                    <Card.Text
+                      className="text-muted"
+                      style={{ textDecoration: "line-through" }}
+                    >
+                      {currencySymbol} {convertedPrice}
+                    </Card.Text>
+                  )}
+
+                  <Card.Text className="text-success">
+                    {currencySymbol}{" "}
+                    {variation?.discount > 0
+                      ? convertedDiscount
+                      : convertedPrice}
+                  </Card.Text>
+                </div>
               </Card.Body>
             </Card>
           );
