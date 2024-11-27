@@ -2,13 +2,13 @@ import axios from "axios";
 // import { logoutUser } from "../redux/actions/appAction";
 import { fetchProductsSuccess } from "../redux/actions/productActions";
 import toast from "react-hot-toast";
-const API_URL = process.env.REACT_APP_API_URL;
+// const API_URL = process.env.REACT_APP_API_URL;
 const API_KEY = process.env.REACT_APP_API_KEY;
-// const API_URL = "https://klinsept-backend.onrender.com/api/v1.0/";
-// const API_URL = "http://192.168.1.101:8000/api/v1.0/";
+const API_URL = "https://klinsept-backend.onrender.com/api/v1.0/";
+// const API_URL = "http://192.168.1.88:8000/api/v1.0/";
 
-export const registerFetch = async (registerData,navigate,setError) => {
-  toast.dismiss()
+export const registerFetch = async (registerData, navigate, setError) => {
+  toast.dismiss();
   return toast.promise(
     axios.post(`${API_URL}auth/signin/`, registerData, {
       headers: {
@@ -26,7 +26,7 @@ export const registerFetch = async (registerData,navigate,setError) => {
       },
       error: (error) => {
         const errorMessage =
-        error.response?.data?.message || "An error occurred";
+          error.response?.data?.message || "An error occurred";
         setError(errorMessage);
         return `Error: ${errorMessage}`;
       },
@@ -48,10 +48,6 @@ export const LoginFetch = async (loginData, dispatch, navigate) => {
       {
         loading: "Logging in...",
         success: (response) => {
-          console.log(response.data);
-          setTimeout(() => {
-            navigate("/my-account");
-          }, 4000);
           return response.data.message;
         },
         error: (error) => {
@@ -222,25 +218,43 @@ export const addItemToCart = async (
   }
 };
 
-export const getCartItems = async (setCartData, toast) => {
+export const getCartItems = async (toast) => {
   try {
     const response = await axios.get(`${API_URL}cart/`, {
       headers: {
         "x-api-key": API_KEY,
       },
-      withCredentials: true, // To include cookies
+      withCredentials: true,
     });
 
-    if (response.status === 200) {
-      setCartData(response.data); // Save cart items to state
-      toast.error(response.data?.message);
-      // console.log(response.data);
-      return response.data;
-
-      // Log response to console
-    }
+    return response.data;
   } catch (error) {
-    console.error(error);
     throw error;
   }
+};
+
+export const deleteAllFromCart = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(
+        "https://klinsept-backend.onrender.com/api/v1.0/cart/clear/",
+        {},
+        {
+          headers: {
+            "x-api-key": "f6c52669-b6a9-4901-8558-5bc72b7e983a",
+          },
+          withCredentials: true,
+        }
+      );
+      if (response.status === 200) {
+        console.log("response", response);
+        toast.success("Removed All Items From Cart");
+      }
+    } catch (error) {
+      if (error) {
+        console.error("Error removing item from cart:", error);
+        toast.error("Failed to Remove Item from Cart", {});
+      }
+    }
+  };
 };

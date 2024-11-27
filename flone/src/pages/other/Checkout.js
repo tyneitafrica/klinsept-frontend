@@ -1,15 +1,14 @@
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MetaTags from "react-meta-tags";
 import { connect } from "react-redux";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
-import { getDiscountPrice } from "../../helpers/product";
 import LayoutOne from "../../components/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useLocation } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
-import toast,{ Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const Checkout = ({ cartItems, currency }) => {
   const { pathname } = useLocation();
@@ -30,56 +29,57 @@ const Checkout = ({ cartItems, currency }) => {
   });
 
   // Handle form submission
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.currentTarget;
-    
+
     if (form.checkValidity() === false) {
       e.stopPropagation();
     } else {
-        // Prepare data for API call
-        const payload = {
-          ...formData,
-          address: formData.street,
-          city: formData.city,
-          state: formData.state,
-          zip_code: formData.postcode,
-          country: formData.country,
-        }
-  
-        try {
-          const response = await fetch('https://klinsept-backend.onrender.com/api/v1.0/order/', {
-            method: 'POST',
+      // Prepare data for API call
+      const payload = {
+        ...formData,
+        address: formData.street,
+        city: formData.city,
+        state: formData.state,
+        zip_code: formData.postcode,
+        country: formData.country,
+      };
+
+      try {
+        const response = await fetch(
+          "https://klinsept-backend.onrender.com/api/v1.0/order/",
+          {
+            method: "POST",
             headers: {
-              'Content-Type': 'application/json',
-              'x-api-key':"f6c52669-b6a9-4901-8558-5bc72b7e983a"
+              "Content-Type": "application/json",
+              "x-api-key": "f6c52669-b6a9-4901-8558-5bc72b7e983a",
             },
-            credentials: 'include',
-            body: JSON.stringify(payload)   
-          });
-  
-          if (response.ok) {
-            const data = await response.json();
-            toast.success("Order created Successfully")
-            console.log("Order Created:", data);
-            // Redirect to payment page
-            navigate(`/payment/${data.order_id}`);
-            console.log(data.order_id)
-          } else {
-            const error = await response.json();
-            console.error("Error:", error);
-            alert(error.error || "Failed to create order");
+            credentials: "include",
+            body: JSON.stringify(payload),
           }
-        } catch (error) {
-          console.error("Error creating order:", error);
-          alert("Something went wrong! Please try again.");
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          toast.success("Order created Successfully");
+          console.log("Order Created:", data);
+          // Redirect to payment page
+          navigate(`/payment/${data.order_id}`);
+          console.log(data.order_id);
+        } else {
+          const error = await response.json();
+          console.error("Error:", error);
+          alert(error.error || "Failed to create order");
         }
-      
+      } catch (error) {
+        console.error("Error creating order:", error);
+        alert("Something went wrong! Please try again.");
+      }
     }
     setValidated(true);
   };
-  
 
   return (
     <div className="mt-90">
@@ -248,61 +248,20 @@ const Checkout = ({ cartItems, currency }) => {
                         <div className="your-order-middle">
                           <ul>
                             {cartItems.map((cartItem, key) => {
-                              const discountedPrice = getDiscountPrice(
-                                cartItem.price,
-                                cartItem.discount
-                              );
-                              const finalProductPrice = (
-                                cartItem.price * currency.currencyRate
-                              ).toFixed(2);
-                              const finalDiscountedPrice = (
-                                discountedPrice * currency.currencyRate
-                              ).toFixed(2);
-
-                              discountedPrice != null
-                                ? (cartTotalPrice +=
-                                    finalDiscountedPrice * cartItem.quantity)
-                                : (cartTotalPrice +=
-                                    finalProductPrice * cartItem.quantity);
                               return (
                                 <li key={key}>
                                   <span className="order-middle-left">
                                     {cartItem.name} X {cartItem.quantity}
                                   </span>{" "}
                                   <span className="order-price">
-                                    {discountedPrice !== null
-                                      ? currency.currencySymbol +
-                                        (
-                                          finalDiscountedPrice *
-                                          cartItem.quantity
-                                        ).toFixed(2)
-                                      : currency.currencySymbol +
-                                        (
-                                          finalProductPrice * cartItem.quantity
-                                        ).toFixed(2)}
+                                    {cartItem.line_total}
                                   </span>
                                 </li>
                               );
                             })}
                           </ul>
                         </div>
-                        {/* <div className="your-order-bottom">
-                          <ul>
-                            <li className="your-order-shipping">Shipping</li>
-                            <li>Free shipping</li>
-                          </ul>
-                        </div> */}
-                        <div className="your-order-bottom total">
-                          <ul>
-                            <li className="order-total">Total</li>
-                            <li>
-                              {currency.currencySymbol +
-                                cartTotalPrice.toFixed(2)}
-                            </li>
-                          </ul>
-                        </div>
                       </div>
-                      <div className="payment-method"></div>
                     </div>
                   </div>
                 </div>
@@ -326,8 +285,6 @@ const Checkout = ({ cartItems, currency }) => {
             )}
           </div>
         </div>
-        <Toaster position="top-right" reverseOrder={false} />
-
       </LayoutOne>
     </div>
   );

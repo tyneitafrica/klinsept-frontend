@@ -1,23 +1,50 @@
 import axios from "axios";
-import { addItemToCart } from "../../helpers/backendFectch";
+import { addItemToCart, getCartItems } from "../../helpers/backendFectch";
 
 export const ADD_TO_CART = "ADD_TO_CART";
 export const DECREASE_QUANTITY = "DECREASE_QUANTITY";
 export const DELETE_FROM_CART = "DELETE_FROM_CART";
 export const DELETE_ALL_FROM_CART = "DELETE_ALL_FROM_CART";
+export const SET_CART_ITEMS = "SET_CART_ITEMS";
 
-
-export const addToCart = (item, quantityCount = 1,size,order_type) => {
+export const fetchAndReplaceCart = (toast) => {
   return async (dispatch) => {
     try {
-      // console.log(item.id, quantityCount, size, order_type)
-      const responseData = await addItemToCart(item, quantityCount,size,order_type);
+      const cartItems = await getCartItems(toast);
+
+      if (cartItems?.message === "Cart is empty") {
+        dispatch({
+          type: DELETE_ALL_FROM_CART,
+        });
+      } else {
+        toast.success("gotten cart data");
+        dispatch({
+          type: SET_CART_ITEMS,
+          payload: cartItems,
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching cart items:", error);
+    }
+  };
+};
+
+export const addToCart = (item, quantityCount = 1, size, order_type) => {
+  return async (dispatch) => {
+    try {
+      const responseData = await addItemToCart(
+        item,
+        quantityCount,
+        size,
+        order_type
+      );
+      console.log(responseData);
 
       dispatch({
         type: ADD_TO_CART,
         payload: {
-          ...item,
-          quantity: quantityCount,
+          ...responseData.product,
+          quantity: responseData.quantity,
         },
       });
       return responseData;
@@ -79,14 +106,15 @@ export const deleteFromCart = (itemId, addToast) => {
 export const deleteAllFromCart = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.post("https://klinsept-backend.onrender.com/api/v1.0/cart/clear/",
+      const response = await axios.post(
+        "https://klinsept-backend.onrender.com/api/v1.0/cart/clear/",
         {},
         {
-        headers: {
-          "x-api-key":"f6c52669-b6a9-4901-8558-5bc72b7e983a", 
-        },
-        withCredentials: true,
-      }
+          headers: {
+            "x-api-key": "f6c52669-b6a9-4901-8558-5bc72b7e983a",
+          },
+          withCredentials: true,
+        }
       );
       if (response.status === 200) {
         console.log("response", response);
@@ -96,8 +124,7 @@ export const deleteAllFromCart = () => {
       }
     } catch (error) {
       if (error) {
-        alert("Failed to Remove Item from Cart", {
-        });
+        alert("Failed to Remove Item from Cart", {});
       }
     }
   };

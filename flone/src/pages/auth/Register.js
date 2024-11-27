@@ -30,7 +30,7 @@ const Register = () => {
     email: "",
     phone_number: "",
     password: "",
-    country: "",
+    location: "",
   });
   const [validated, setValidated] = useState(false);
   const [error, setError] = useState("");
@@ -60,6 +60,7 @@ const Register = () => {
       setError("");
       setLoading(true);
       try {
+        console.log(registerData)
         await registerFetch(registerData, navigate, setError);
         setLoading(false);
       } catch (e) {
@@ -184,7 +185,7 @@ const Register = () => {
                                   as="select"
                                   required
                                   name="country"
-                                  value={registerData.country}
+                                  value={registerData.location}
                                   onChange={handleInputChange}
                                 >
                                   <option value="">Select a Country</option>

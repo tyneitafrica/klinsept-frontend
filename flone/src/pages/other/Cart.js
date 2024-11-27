@@ -8,10 +8,14 @@ import LayoutOne from "../../components/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useLocation } from "react-router-dom";
 // import axios from "axios";
-import { getCartItems, isAuthenticated } from "../../helpers/backendFectch";
-import { deleteAllFromCart } from "../../redux/actions/cartActions";
-import { useDispatch } from "react-redux";
+import { isAuthenticated } from "../../helpers/backendFectch";
+import {
+  fetchAndReplaceCart,
+  deleteAllFromCart,
+} from "../../redux/actions/cartActions";
+import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import { Button } from "react-bootstrap";
 
 const Cart = ({
   // cartItems,
@@ -21,7 +25,7 @@ const Cart = ({
   const { pathname } = useLocation();
   const [showModal, setShowmodal] = useState(false);
   const navigate = useNavigate();
-  const [cartItems, setCartData] = useState([]);
+  const cartItems = useSelector((state) => state.cartData);
   const dispatch = useDispatch();
 
   const handleDelete = (id) => {
@@ -38,13 +42,13 @@ const Cart = ({
     }
   };
   useEffect(() => {
-    getCartItems(setCartData,toast); 
-  }, []);
-
+    dispatch(fetchAndReplaceCart(toast));
+    console.log(cartItems);
+  }, [dispatch]);
   const handleClearCart = () => {
-    // console.log("clicked")
     dispatch(deleteAllFromCart());
   };
+  console.log(cartItems);
 
   return (
     <div className="mt-90">
@@ -100,7 +104,8 @@ const Cart = ({
                                 <td className="product-name">
                                   <Link to={`/product/${cartItem.product_id}`}>
                                     {cartItem.name}
-                                  </Link>
+                                  </Link>{" "}
+                                  {cartItem.size}
                                 </td>
 
                                 <td className="product-price-cart">
@@ -137,40 +142,27 @@ const Cart = ({
                     </div>
                   </div>
                 </div>
-                <div className="row">
-                  <div className="col-lg-12">
-                    <div className="cart-shiping-update-wrapper">
-                      <div className="cart-shiping-update">
-                        <Link
-                          to={process.env.PUBLIC_URL + "/shop-grid-standard"}
-                        >
-                          Continue Shopping
-                        </Link>
-                      </div>
-                      <div className="cart-clear">
-                        <button onClick={handleClearCart}>
-                          Clear Shopping Cart
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                <div className="d-flex m-3 justify-content-between">
+                  <Button variant="outline-warning" onClick={handleClearCart}>
+                    <Link to={process.env.PUBLIC_URL + "/products"}>
+                      Continue Shopping
+                    </Link>
+                  </Button>
+                  <Button variant="outline-danger" onClick={handleClearCart}>
+                    Clear Shopping Cart
+                  </Button>
                 </div>
 
-                <div className="row">
-                  <div className="col-lg-4 col-md-12">
-                    <div>
-                      <button
-                        onClick={handleProceedCheckout}
-                        className="btn btn-primary"
-                      >
-                        Proceed to Checkout
-                      </button>
-                      {/* Show LoginModal */}
-                      {showModal && (
-                        <LoginModal show={showModal} setShow={setShowmodal} />
-                      )}
-                    </div>
-                  </div>
+                <div className="row m-3">
+                  <button
+                    onClick={handleProceedCheckout}
+                    className="btn btn-primary"
+                  >
+                    Proceed to Checkout
+                  </button>
+                  {showModal && (
+                    <LoginModal show={showModal} setShow={setShowmodal} />
+                  )}
                 </div>
               </Fragment>
             ) : (

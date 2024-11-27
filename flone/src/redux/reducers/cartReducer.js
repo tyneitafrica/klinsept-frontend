@@ -4,71 +4,75 @@ import {
   DECREASE_QUANTITY,
   DELETE_FROM_CART,
   DELETE_ALL_FROM_CART,
+  SET_CART_ITEMS, // Import the new action
 } from "../actions/cartActions";
 
 const initState = [];
 
 const cartReducer = (state = initState, action) => {
-  const cartItems = state,
-    product = action.payload;
+  const cartItems = state;
+  const product = action.payload;
 
-  if (action.type === ADD_TO_CART) {
-    // for non variant products
-    const cartItem = cartItems.filter((item) => item.id === product.id)[0];
-    if (cartItem === undefined) {
-      return [
-        ...cartItems,
-        {
-          ...product,
-          quantity: product.quantity ? product.quantity : 1,
-          cartItemId: uuid(),
-        },
-      ];
-    } else {
-      return cartItems.map((item) =>
-        item.cartItemId === cartItem.cartItemId
-          ? {
-              ...item,
-              quantity: product.quantity
-                ? item.quantity + product.quantity
-                : item.quantity + 1,
-            }
-          : item
-      );
+  switch (action.type) {
+    case ADD_TO_CART: {
+      const cartItem = cartItems.find((item) => item.id === product.id);
+      if (!cartItem) {
+        return [
+          ...cartItems,
+          {
+            ...product,
+            quantity: product.quantity || 1,
+            cartItemId: uuid(),
+          },
+        ];
+      } else {
+        return cartItems.map((item) =>
+          item.cartItemId === cartItem.cartItemId
+            ? {
+                ...item,
+                quantity: product.quantity
+                  ? item.quantity + product.quantity
+                  : item.quantity + 1,
+              }
+            : item
+        );
+      }
     }
-  }
 
-  if (action.type === DECREASE_QUANTITY) {
-    if (product.quantity === 1) {
-      const remainingItems = (cartItems, product) =>
-        cartItems.filter(
+    case DECREASE_QUANTITY: {
+      if (product.quantity === 1) {
+        return cartItems.filter(
           (cartItem) => cartItem.cartItemId !== product.cartItemId
         );
-      return remainingItems(cartItems, product);
-    } else {
-      return cartItems.map((item) =>
-        item.cartItemId === product.cartItemId
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      );
+      } else {
+        return cartItems.map((item) =>
+          item.cartItemId === product.cartItemId
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        );
+      }
     }
-  }
 
-  if (action.type === DELETE_FROM_CART) {
-    const remainingItems = (cartItems, product) =>
-      cartItems.filter(
+    case DELETE_FROM_CART: {
+      return cartItems.filter(
         (cartItem) => cartItem.cartItemId !== product.cartItemId
       );
-    return remainingItems(cartItems, product);
-  }
+    }
 
-  if (action.type === DELETE_ALL_FROM_CART) {
-    return cartItems.filter((item) => {
-      return false;
-    });
-  }
+    case DELETE_ALL_FROM_CART: {
+      return [];
+    }
 
-  return state;
+    case SET_CART_ITEMS: {
+      return action.payload.map((item) => ({
+        ...item,
+        cartItemId: uuid(), // Add unique IDs for items if necessary
+      }));
+    }
+
+    default:
+      return state;
+  }
 };
 
 export default cartReducer;
