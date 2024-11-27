@@ -80,8 +80,7 @@
 /* Modal Carousel Container */
 .modal-carousel-container {
   position: relative;
-  max-width: 100%;
-  flex-grow: 1;
+
 }
 .modal-content {
   margin: 30px;
@@ -89,10 +88,10 @@
 
 /* Carousel Image */
 .modal-carousel-image {
-  max-height: 260px; /* Limit the height for large images */
-  object-fit: contain; /* Ensures the image scales without distortion */
+  max-height: 200px; 
+  object-fit: contain;
   margin: 0 auto;
-  width: 100%;
+  width: 90%;
 }
 
 /* Carousel Controls */
@@ -103,13 +102,6 @@
   color: #333;
 }
 
-.carousel-control-icon:hover {
-  color: #007bff; 
-}
-
-.product-details-container {
-  flex: 1;
-}
 
 /* Modal  */
 

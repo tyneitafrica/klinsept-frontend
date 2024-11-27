@@ -12,10 +12,8 @@ import toast from "react-hot-toast";
 
 const Checkout = ({ cartItems, currency }) => {
   const { pathname } = useLocation();
-  let cartTotalPrice = 0;
   const [validated, setValidated] = useState(false);
   const navigate = useNavigate();
-  // const [orderDetails, setOrderDetails] = useState(null);
 
   // Form fields
   const [formData, setFormData] = useState({
@@ -28,7 +26,6 @@ const Checkout = ({ cartItems, currency }) => {
     products: cartItems,
   });
 
-  // Handle form submission
 
   const handleSubmit = async (e) => {
     e.preventDefault();

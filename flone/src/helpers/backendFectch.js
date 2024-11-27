@@ -2,9 +2,9 @@ import axios from "axios";
 // import { logoutUser } from "../redux/actions/appAction";
 import { fetchProductsSuccess } from "../redux/actions/productActions";
 import toast from "react-hot-toast";
-// const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = process.env.REACT_APP_API_URL;
 const API_KEY = process.env.REACT_APP_API_KEY;
-const API_URL = "https://klinsept-backend.onrender.com/api/v1.0/";
+// const API_URL = "https://klinsept-backend.onrender.com/api/v1.0/";
 // const API_URL = "http://192.168.1.88:8000/api/v1.0/";
 
 export const registerFetch = async (registerData, navigate, setError) => {

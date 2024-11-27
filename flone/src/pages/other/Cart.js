@@ -1,36 +1,26 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useToasts } from "react-toast-notifications";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LoginModal from "../auth/LoginModal";
 import LayoutOne from "../../components/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useLocation } from "react-router-dom";
-// import axios from "axios";
 import { isAuthenticated } from "../../helpers/backendFectch";
 import {
   fetchAndReplaceCart,
-  deleteAllFromCart,
+  deleteAllFromCart,deleteFromCart
 } from "../../redux/actions/cartActions";
 import { useDispatch, useSelector } from "react-redux";
-import toast from "react-hot-toast";
 import { Button } from "react-bootstrap";
 
-const Cart = ({
-  // cartItems,
-  deleteFromCart,
-}) => {
-  const { addToast } = useToasts();
+const Cart = () => {
   const { pathname } = useLocation();
   const [showModal, setShowmodal] = useState(false);
   const navigate = useNavigate();
   const cartItems = useSelector((state) => state.cartData);
   const dispatch = useDispatch();
-
-  const handleDelete = (id) => {
-    deleteFromCart(id, addToast);
-  };
+  const [loading, setLoading] = useState(false);
 
   const handleProceedCheckout = async (e) => {
     e.preventDefault();
@@ -42,13 +32,12 @@ const Cart = ({
     }
   };
   useEffect(() => {
-    dispatch(fetchAndReplaceCart(toast));
-    console.log(cartItems);
+    dispatch(fetchAndReplaceCart(setLoading));
   }, [dispatch]);
+
   const handleClearCart = () => {
     dispatch(deleteAllFromCart());
   };
-  console.log(cartItems);
 
   return (
     <div className="mt-90">
@@ -68,6 +57,12 @@ const Cart = ({
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
         <Breadcrumb />
+        {!loading?(
+        <div className="d">
+          kkk
+        </div>
+        ):(
+
         <div className="cart-main-area pt-90 pb-100">
           <div className="container">
             {cartItems && cartItems.length >= 1 ? (
@@ -129,7 +124,7 @@ const Cart = ({
 
                                 <td className="product-remove">
                                   <button
-                                    onClick={() => handleDelete(cartItem.id)}
+                                    onClick={() => dispatch(deleteFromCart(cartItem))}
                                   >
                                     <i className="fa fa-times"></i>
                                   </button>
@@ -184,6 +179,7 @@ const Cart = ({
             )}
           </div>
         </div>
+        )}
       </LayoutOne>
     </div>
   );

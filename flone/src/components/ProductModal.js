@@ -77,7 +77,7 @@ export const ProductModal = ({ show, handleClose, productData }) => {
       <Modal.Header closeButton>
         <Modal.Title>{productData.name}</Modal.Title>
       </Modal.Header>
-      <Modal.Body className="d-flex flex-column flex-md-row">
+      <Modal.Body className="d-flex flex-column flex-md-column">
         <div className="modal-carousel-container d-flex align-items-center justify-content-center flex-shrink-0">
           <FaAngleLeft className="carousel-control-icon" onClick={prevSlide} />
 
@@ -91,7 +91,7 @@ export const ProductModal = ({ show, handleClose, productData }) => {
         </div>
 
         {/* Spacing between the carousel and product details */}
-        <div className="product-details-container mt-4 mt-md-0 ml-md-4">
+        <div className="product-details-container mb-5 mt-4 md-0 ml-md-4">
           <p>{productData.description}</p>
           <div className="product-details-price d-flex align-items-center">
             {!isChecked ? (
@@ -115,9 +115,7 @@ export const ProductModal = ({ show, handleClose, productData }) => {
               </>
             )}
           </div>
-          <p>
-            <strong>{/* {convertedPrice} */}</strong>
-          </p>
+
 
           <Card className="mb-3">
             <Card.Header>

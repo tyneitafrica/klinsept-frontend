@@ -1,4 +1,5 @@
 import axios from "axios";
+import toast from "react-hot-toast";
 import { addItemToCart, getCartItems } from "../../helpers/backendFectch";
 
 export const ADD_TO_CART = "ADD_TO_CART";
@@ -7,12 +8,14 @@ export const DELETE_FROM_CART = "DELETE_FROM_CART";
 export const DELETE_ALL_FROM_CART = "DELETE_ALL_FROM_CART";
 export const SET_CART_ITEMS = "SET_CART_ITEMS";
 
-export const fetchAndReplaceCart = (toast) => {
+export const fetchAndReplaceCart = (setLoading) => {
   return async (dispatch) => {
+    setLoading(true);
     try {
       const cartItems = await getCartItems(toast);
 
-      if (cartItems?.message === "Cart is empty") {
+      if (cartItems?.message) {
+        toast.error(cartItems.message);
         dispatch({
           type: DELETE_ALL_FROM_CART,
         });
@@ -23,8 +26,12 @@ export const fetchAndReplaceCart = (toast) => {
           payload: cartItems,
         });
       }
+      setLoading(false);
     } catch (error) {
+      setLoading(false)
       console.error("Error fetching cart items:", error);
+    }finally{
+      setLoading(false);
     }
   };
 };
@@ -66,11 +73,11 @@ export const decreaseQuantity = (item, addToast) => {
   };
 };
 //delete from cart
-export const deleteFromCart = (itemId, addToast) => {
+export const deleteFromCart = (item, addToast) => {
   return async (dispatch) => {
     try {
       const response = await axios.delete(
-        `https://klinsept-backend.onrender.com/api/v1.0/cart/remove${itemId}`,
+        `https://klinsept-backend.onrender.com/api/v1.0/cart/remove${item.product_id}`,
         {
           headers: {
             "x-api-key": "f6c52669-b6a9-4901-8558-5bc72b7e983a", // Replace with your actual API key
@@ -80,24 +87,14 @@ export const deleteFromCart = (itemId, addToast) => {
       );
       if (response.status === 200) {
         if (addToast) {
-          addToast("Removed From Cart", {
-            appearance: "error",
-            autoDismiss: true,
-          });
+          toast.success("Removed From Cart");
         }
-        dispatch({ type: DELETE_FROM_CART, payload: itemId });
+        dispatch({ type: DELETE_FROM_CART, payload: item.cartItemId });
       }
     } catch (error) {
-      if (addToast) {
-        addToast("Failed to Remove Item from Cart", {
-          appearance: "error",
-          autoDismiss: true,
-        });
-      }
-      console.error(
-        "Error removing item from cart:",
-        error.response?.data || error.message
-      );
+      toast.error("Failed to Remove Item from Cart");
+
+      console.error("Error removing item from cart:", error);
     }
   };
 };
@@ -117,15 +114,13 @@ export const deleteAllFromCart = () => {
         }
       );
       if (response.status === 200) {
-        console.log("response", response);
-        alert("Removed All Items From Cart");
+        toast.success(response.data.message);
 
-        dispatch({ type: DELETE_FROM_CART });
+        dispatch({ type: DELETE_ALL_FROM_CART });
       }
     } catch (error) {
-      if (error) {
-        alert("Failed to Remove Item from Cart", {});
-      }
+      console.log("error", error);
+      toast.error("Failed to Remove Item from Cart");
     }
   };
 };
