@@ -39,6 +39,17 @@ const Cart = () => {
     dispatch(deleteAllFromCart());
   };
 
+  if(loading){
+    return(
+      <div className="flone-preloader-wrapper">
+      <div className="flone-preloader">
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    )
+  }
+
   return (
     <div className="mt-90">
       <MetaTags>
@@ -57,11 +68,7 @@ const Cart = () => {
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
         <Breadcrumb />
-        {!loading?(
-        <div className="d">
-          kkk
-        </div>
-        ):(
+
 
         <div className="cart-main-area pt-90 pb-100">
           <div className="container">
@@ -138,12 +145,12 @@ const Cart = () => {
                   </div>
                 </div>
                 <div className="d-flex m-3 justify-content-between">
-                  <Button variant="outline-warning" onClick={handleClearCart}>
+                  <Button variant="outline-warning" >
                     <Link to={process.env.PUBLIC_URL + "/products"}>
                       Continue Shopping
                     </Link>
                   </Button>
-                  <Button variant="outline-danger" onClick={handleClearCart}>
+                  <Button variant="outline-danger" onClick={()=>dispatch(deleteAllFromCart())}>
                     Clear Shopping Cart
                   </Button>
                 </div>
@@ -179,7 +186,6 @@ const Cart = () => {
             )}
           </div>
         </div>
-        )}
       </LayoutOne>
     </div>
   );
