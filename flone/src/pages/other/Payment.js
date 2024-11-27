@@ -18,12 +18,12 @@ const Payment = ({ currency }) => {
     const confirmOrder = async () => {
       try {
         const response = await axios.get(
-          "https://klinsept-backend.onrender.com/api/v1.0/user/order/",
+          `${process.env.REACT_APP_API_URL}user/order/`,
           {
             params: { order_id: orderId },
             headers: {
               "Content-Type": "application/json",
-              "x-api-key": "f6c52669-b6a9-4901-8558-5bc72b7e983a",
+              "x-api-key": process.env.REACT_APP_API_KEY,
             },
           }
         );
@@ -51,12 +51,12 @@ const Payment = ({ currency }) => {
 
     try {
       const response = await axios.post(
-        "https://klinsept-backend.onrender.com/api/v1.0/send/email/",
+        `${process.env.REACT_APP_API_URL}send/email/`,
         { order_id: orderId }, // Pass the order ID in the request body
         {
           headers: {
             "Content-Type": "application/json",
-            "x-api-key": "f6c52669-b6a9-4901-8558-5bc72b7e983a",
+            "x-api-key": process.env.REACT_APP_API_KEY,
           },
         }
       );

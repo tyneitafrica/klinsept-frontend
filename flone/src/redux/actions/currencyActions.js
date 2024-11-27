@@ -32,7 +32,7 @@ export const fetchCurrencyRates = () => async (dispatch, getState) => {
   const nextUpdate = getState().currencyData.timestamp;
 
   if (nextUpdate && Date.now() < nextUpdate * 1000) {
-    console.log("Rates are still valid");
+    // console.log("Rates are still valid");
     return;
   }
 

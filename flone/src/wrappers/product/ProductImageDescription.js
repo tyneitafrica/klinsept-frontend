@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import { connect } from "react-redux";
 import ProductImageGallery from "../../components/product/ProductImageGallery";
 // import ProductDescriptionInfo from "../../components/product/ProductDescriptionInfo";
@@ -26,15 +26,16 @@ const ProductImageDescription = ({
   wishlistItems,
   compareItems,
 }) => {
-  const [quantityCount, setQuantityCount] = useState(1);
   const [selectedVariation, setSelectedVariation] = useState(
     product.variations[0]
   );
   const [selectedBulk, setSelectedBulk] = useState(product.bulk_wholesale[0]);
   const [isChecked, setIsChecked] = useState(false);
-
+  const [quantityCount, setQuantityCount] = useState(1);
   const isProductInList = (productId, list) =>
     list.some((item) => item.id === productId);
+
+
 
   // const isProductInCart = isProductInList(product.id, cartItems);
   const isProductInWishlist = isProductInList(product.id, wishlistItems);
@@ -64,26 +65,35 @@ const ProductImageDescription = ({
             <ProductImageGallery product={product} />
           </div>
           <div className="col-lg-6 col-md-6">
-            {/* product description info */}
             <div className="product-details-content ml-70">
               <h2>{product.name}</h2>
               <div className="product-details-price d-flex align-items-center">
-                {!isChecked ? (
-                  <span className="me-2 fw-bold text-primary">
-                    {`${
-                      currency.selectedCurrency.symbol || ""
-                    } ${convertedPrice(selectedVariation?.price)}`}
-                  </span>
-                ) : (
-                  <>
-                    {/* <span className="me-2 text-danger">Wholesaling:</span> */}
-                    <span className="fw-bold text-success">
-                      {`${
-                        currency.selectedCurrency.symbol || ""
-                      } ${convertedPrice(selectedBulk?.bulk_price)}`}
-                    </span>
-                  </>
-                )}
+              {
+  !isChecked ? (
+    <span className="me-2">
+      {/* Show original price with strike-through if discount exists */}
+      {selectedVariation?.discount ? (
+        <>
+          <span style={{ textDecoration: 'line-through'}} className="fw-bold text-primary mr-4">
+            {`${currency.selectedCurrency.symbol || ""} ${convertedPrice(selectedVariation?.price)}`}
+          </span>
+          <span className="text-success ms-2">
+            {`${currency.selectedCurrency.symbol || ""} ${convertedPrice(selectedVariation?.discount)}`}
+          </span>
+        </>
+      ) : (
+        <span className="fw-bold text-primary">
+          {`${currency.selectedCurrency.symbol || ""} ${convertedPrice(selectedVariation?.price)}`}
+        </span>
+      )}
+    </span>
+  ) : (
+    <span className="fw-bold text-success">
+      {`${currency.selectedCurrency.symbol || ""} ${convertedPrice(selectedBulk?.bulk_price)}`}
+    </span>
+  )
+}
+
               </div>
 
               <div className="pro-details-list">
@@ -108,7 +118,6 @@ const ProductImageDescription = ({
                         active={isChecked}
                         onClick={() => setIsChecked(true)}
                       >
- 
                         Wholesale{" "}
                       </Nav.Link>
                     </Nav.Item>
@@ -133,26 +142,26 @@ const ProductImageDescription = ({
                     </ButtonGroup>
                   ) : (
                     <>
-                                             {product.bulk_wholesale.length > 0 && (
-            <Badge variant="info" className="ms-2">
-              Min: {product.bulk_wholesale[0].min_quantity}
-            </Badge>
-          )}
-                    <ButtonGroup aria-label="bulk-options">
-                      {product.bulk_wholesale.map((single, key) => (
-                        <Button
-                          key={key}
-                          variant={
-                            selectedBulk.size === single.size
-                              ? "info"
-                              : "outline-info"
-                          }
-                          onClick={() => handleBulkClick(single)}
-                        >
-                          {single.size}
-                        </Button>
-                      ))}
-                    </ButtonGroup>
+                      {product.bulk_wholesale.length > 0 && (
+                        <Badge variant="info" className="ms-2">
+                          Min: {selectedBulk.min_quantity}
+                        </Badge>
+                      )}
+                      <ButtonGroup aria-label="bulk-options">
+                        {product.bulk_wholesale.map((single, key) => (
+                          <Button
+                            key={key}
+                            variant={
+                              selectedBulk.size === single.size
+                                ? "info"
+                                : "outline-info"
+                            }
+                            onClick={() => handleBulkClick(single)}
+                          >
+                            {single.size}
+                          </Button>
+                        ))}
+                      </ButtonGroup>
                     </>
                   )}
                 </Card.Body>
@@ -192,7 +201,7 @@ const ProductImageDescription = ({
                         const selectedItem = isChecked
                           ? selectedBulk
                           : selectedVariation;
-                          const order_type = isChecked ? "Wholesale" :"Retail"
+                        const order_type = isChecked ? "Wholesale" : "Retail";
 
                         // console.log(
                         //   product.id,
@@ -200,7 +209,14 @@ const ProductImageDescription = ({
                         //   selectedItem.size,
                         //   order_type
                         // );
-                        dispatch(addToCart(product, quantityCount,selectedItem.size,order_type));
+                        dispatch(
+                          addToCart(
+                            product,
+                            quantityCount,
+                            selectedItem.size,
+                            order_type
+                          )
+                        );
                       }}
                     >
                       Add To Cart

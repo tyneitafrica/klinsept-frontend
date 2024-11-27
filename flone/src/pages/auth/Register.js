@@ -74,6 +74,7 @@ const Register = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    console.log(name, value);
     setRegisterData({
       ...registerData,
       [name]: value,
@@ -184,7 +185,7 @@ const Register = () => {
                                 <Form.Control
                                   as="select"
                                   required
-                                  name="country"
+                                  name="location"
                                   value={registerData.location}
                                   onChange={handleInputChange}
                                 >

@@ -28,8 +28,8 @@ export const ProductModal = ({ show, handleClose, productData }) => {
   const reduxData = useSelector((state) => state);
   const dispatch = useDispatch();
   useEffect(() => {
-    if (productData?.variations ) {
-      setSelectedVariation(productData.variations[0]); 
+    if (productData?.variations) {
+      setSelectedVariation(productData.variations[0]);
     }
   }, [productData]);
 
@@ -56,21 +56,18 @@ export const ProductModal = ({ show, handleClose, productData }) => {
     setSelectedVariation(variation);
   };
 
-  const isIn = (data, id) => data.some(item => item.id === id);
+  const isIn = (data, id) => data.some((item) => item.id === id);
 
   const isInWishlist = isIn(reduxData.wishlistData, productData.id);
   const isInCart = isIn(reduxData.cartData, productData.id);
   const isInCompare = isIn(reduxData.compareData, productData.id);
-  
 
-  const convertPrice = (price) => {
-    const { rates, symbol } = reduxData.currencyData.selectedCurrency;
+  const currency = reduxData.currencyData
 
-    const convertedValue = (price * rates).toFixed(2);
-    return {
-      value: parseFloat(convertedValue),
-      symbol,
-    };
+  const getFormattedPrice = (price) => {
+    const { symbol, rates } = currency.selectedCurrency || {};
+    const convertedPrice = symbol && rates ? (price * rates).toFixed(2) : price;
+    return `${symbol || ''} ${convertedPrice}`;
   };
   return (
     <Modal show={show} onHide={handleClose} size="xl" centered>
@@ -95,11 +92,25 @@ export const ProductModal = ({ show, handleClose, productData }) => {
           <p>{productData.description}</p>
           <div className="product-details-price d-flex align-items-center">
             {!isChecked ? (
-              <span className="me-2 fw-bold text-primary">
-                {`${convertPrice(selectedVariation?.price)?.symbol || ""} ${
-                  convertPrice(selectedVariation?.price)?.value
-                }`}
+            <span className="me-2 fw-bold text-primary">
+            {selectedVariation?.discount ? (
+              <>
+                <span
+                  style={{ textDecoration: "line-through" }}
+                  className="fw-bold text-primary mr-4"
+                >
+                  {getFormattedPrice(selectedVariation?.price)}
+                </span>
+                <span className="text-success ms-2">
+                  {getFormattedPrice(selectedVariation?.discount)}
+                </span>
+              </>
+            ) : (
+              <span className="fw-bold text-primary">
+                {getFormattedPrice(selectedVariation?.price)}
               </span>
+            )}
+          </span>
             ) : (
               <>
                 <Link
@@ -115,7 +126,6 @@ export const ProductModal = ({ show, handleClose, productData }) => {
               </>
             )}
           </div>
-
 
           <Card className="mb-3">
             <Card.Header>
@@ -200,8 +210,9 @@ export const ProductModal = ({ show, handleClose, productData }) => {
                 if (!isInCart) {
                   toast.dismiss();
                   toast.success("Added to cart!");
-                  dispatch(addToCart(productData,1,selectedVariation.size,'Retail'));
-
+                  dispatch(
+                    addToCart(productData, 1, selectedVariation.size, "Retail")
+                  );
                 } else {
                   toast.dismiss();
                   toast.error("Already in cart");
