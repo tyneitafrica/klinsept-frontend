@@ -77,7 +77,7 @@ const ShopProducts = ({
             <Card key={index} className="product-car mb-3">
               <div className="image-container">
                 <img
-                  src={product.images[0].image}
+                  src={product.images[0]?.image || '/assets/img/banner/KlinSav.jpg'}
                   alt={product.name}
                   className="product-image"
                   loading="lazy" 
