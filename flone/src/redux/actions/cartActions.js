@@ -44,7 +44,7 @@ export const addToCart = (item, quantityCount = 1, size, order_type) => {
         size,
         order_type
       );
-      console.log(responseData);
+      // console.log(responseData);
 
       dispatch({
         type: ADD_TO_CART,
@@ -73,9 +73,9 @@ export const decreaseQuantity = (item, addToast) => {
 };
 //delete from cart
 export const deleteFromCart = (item) => {
-  console.log(item);
+  // console.log(item);
   return async (dispatch) => {
-    console.log(item);
+    // console.log(item);
     try {
       const response = await axios.delete(
         `${process.env.REACT_APP_API_URL}cart/remove/${item.product_id}/`,

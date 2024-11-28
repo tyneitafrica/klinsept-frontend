@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import ProductImageGallery from "../../components/product/ProductImageGallery";
 // import ProductDescriptionInfo from "../../components/product/ProductDescriptionInfo";
@@ -18,6 +18,7 @@ import {
 } from "../../redux/actions/compareActions";
 import { addToCart } from "../../redux/actions/cartActions";
 import { Card, Nav, ButtonGroup, Button, Badge } from "react-bootstrap";
+import SectionTitle from "../../components/SectionTitle";
 
 const ProductImageDescription = ({
   product,
@@ -34,8 +35,6 @@ const ProductImageDescription = ({
   const [quantityCount, setQuantityCount] = useState(1);
   const isProductInList = (productId, list) =>
     list.some((item) => item.id === productId);
-
-
 
   // const isProductInCart = isProductInList(product.id, cartItems);
   const isProductInWishlist = isProductInList(product.id, wishlistItems);
@@ -68,32 +67,40 @@ const ProductImageDescription = ({
             <div className="product-details-content ml-70">
               <h2>{product.name}</h2>
               <div className="product-details-price d-flex align-items-center">
-              {
-  !isChecked ? (
-    <span className="me-2">
-      {/* Show original price with strike-through if discount exists */}
-      {selectedVariation?.discount ? (
-        <>
-          <span style={{ textDecoration: 'line-through'}} className="fw-bold text-primary mr-4">
-            {`${currency.selectedCurrency.symbol || ""} ${convertedPrice(selectedVariation?.price)}`}
-          </span>
-          <span className="text-success ms-2">
-            {`${currency.selectedCurrency.symbol || ""} ${convertedPrice(selectedVariation?.discount)}`}
-          </span>
-        </>
-      ) : (
-        <span className="fw-bold text-primary">
-          {`${currency.selectedCurrency.symbol || ""} ${convertedPrice(selectedVariation?.price)}`}
-        </span>
-      )}
-    </span>
-  ) : (
-    <span className="fw-bold text-success">
-      {`${currency.selectedCurrency.symbol || ""} ${convertedPrice(selectedBulk?.bulk_price)}`}
-    </span>
-  )
-}
-
+                {!isChecked ? (
+                  <span className="me-2">
+                    {/* Show original price with strike-through if discount exists */}
+                    {selectedVariation?.discount ? (
+                      <>
+                        <span
+                          style={{ textDecoration: "line-through" }}
+                          className="fw-bold text-primary mr-4"
+                        >
+                          {`${
+                            currency.selectedCurrency.symbol || ""
+                          } ${convertedPrice(selectedVariation?.price)}`}
+                        </span>
+                        <span className="text-success ms-2">
+                          {`${
+                            currency.selectedCurrency.symbol || ""
+                          } ${convertedPrice(selectedVariation?.discount)}`}
+                        </span>
+                      </>
+                    ) : (
+                      <span className="fw-bold text-primary">
+                        {`${
+                          currency.selectedCurrency.symbol || ""
+                        } ${convertedPrice(selectedVariation?.price)}`}
+                      </span>
+                    )}
+                  </span>
+                ) : (
+                  <span className="fw-bold text-success">
+                    {`${
+                      currency.selectedCurrency.symbol || ""
+                    } ${convertedPrice(selectedBulk?.bulk_price)}`}
+                  </span>
+                )}
               </div>
 
               <div className="pro-details-list">
@@ -203,12 +210,6 @@ const ProductImageDescription = ({
                           : selectedVariation;
                         const order_type = isChecked ? "Wholesale" : "Retail";
 
-                        // console.log(
-                        //   product.id,
-                        //   quantityCount,
-                        //   selectedItem.size,
-                        //   order_type
-                        // );
                         dispatch(
                           addToCart(
                             product,
@@ -281,6 +282,47 @@ const ProductImageDescription = ({
               ) : (
                 ""
               )}
+            </div>
+          </div>
+          <div className="more-desc container">
+            <SectionTitle
+              titleText="More Descriptions"
+              positionClass="text-center"
+              spaceClass="mb-20"
+            />
+            <div className="row">
+              <div className="col-md-6 mb-4">
+                <h3>Active Ingredients</h3>
+                <p className="text-primary">{product.active_ingredients}</p>
+              </div>
+              <div className="col-md-6 mb-4">
+                <h3>Storage Instructions</h3>
+                <p className="text-info">{product.storage_instructions}</p>
+              </div>
+            </div>
+            <div className="mb-4">
+              <h3>Dilution Instructions</h3>
+              <p className="text-muted">{product.dilution_instructions}</p>
+            </div>
+            <div className="mb-4">
+              <h3>Mechanism of Action</h3>
+              <p className="text-secondary">{product.mechanism_of_action}</p>
+            </div>
+            <div className="mb-4">
+              <h3>Product Usage</h3>
+              <p className="text-success">{product.usage}</p>
+            </div>
+            <div className="mb-4">
+              <h3>Presentation</h3>
+              <p className="text-warning">{product.presentation}</p>
+            </div>
+            <div className="mb-4">
+              <h3>Warnings</h3>
+              <p className="text-danger fw-bold">{product.warnings}</p>
+            </div>
+            <div>
+              <h3>Indications</h3>
+              <p className="text-dark">{product.indications}</p>
             </div>
           </div>
         </div>
