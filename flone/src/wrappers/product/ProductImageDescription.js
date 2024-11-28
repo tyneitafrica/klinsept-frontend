@@ -18,6 +18,7 @@ import {
 } from "../../redux/actions/compareActions";
 import { addToCart } from "../../redux/actions/cartActions";
 import { Card, Nav, ButtonGroup, Button, Badge } from "react-bootstrap";
+import SectionTitle from "../../components/SectionTitle";
 
 const ProductImageDescription = ({
   product,
@@ -26,13 +27,12 @@ const ProductImageDescription = ({
   wishlistItems,
   compareItems,
 }) => {
-  const [quantityCount, setQuantityCount] = useState(1);
   const [selectedVariation, setSelectedVariation] = useState(
     product.variations[0]
   );
   const [selectedBulk, setSelectedBulk] = useState(product.bulk_wholesale[0]);
   const [isChecked, setIsChecked] = useState(false);
-
+  const [quantityCount, setQuantityCount] = useState(1);
   const isProductInList = (productId, list) =>
     list.some((item) => item.id === productId);
 
@@ -64,25 +64,42 @@ const ProductImageDescription = ({
             <ProductImageGallery product={product} />
           </div>
           <div className="col-lg-6 col-md-6">
-            {/* product description info */}
             <div className="product-details-content ml-70">
               <h2>{product.name}</h2>
               <div className="product-details-price d-flex align-items-center">
                 {!isChecked ? (
-                  <span className="me-2 fw-bold text-primary">
-                    {`${
-                      currency.selectedCurrency.symbol || ""
-                    } ${convertedPrice(selectedVariation?.price)}`}
+                  <span className="me-2">
+                    {/* Show original price with strike-through if discount exists */}
+                    {selectedVariation?.discount ? (
+                      <>
+                        <span
+                          style={{ textDecoration: "line-through" }}
+                          className="fw-bold text-primary mr-4"
+                        >
+                          {`${
+                            currency.selectedCurrency.symbol || ""
+                          } ${convertedPrice(selectedVariation?.price)}`}
+                        </span>
+                        <span className="text-success ms-2">
+                          {`${
+                            currency.selectedCurrency.symbol || ""
+                          } ${convertedPrice(selectedVariation?.discount)}`}
+                        </span>
+                      </>
+                    ) : (
+                      <span className="fw-bold text-primary">
+                        {`${
+                          currency.selectedCurrency.symbol || ""
+                        } ${convertedPrice(selectedVariation?.price)}`}
+                      </span>
+                    )}
                   </span>
                 ) : (
-                  <>
-                    {/* <span className="me-2 text-danger">Wholesaling:</span> */}
-                    <span className="fw-bold text-success">
-                      {`${
-                        currency.selectedCurrency.symbol || ""
-                      } ${convertedPrice(selectedBulk?.bulk_price)}`}
-                    </span>
-                  </>
+                  <span className="fw-bold text-success">
+                    {`${
+                      currency.selectedCurrency.symbol || ""
+                    } ${convertedPrice(selectedBulk?.bulk_price)}`}
+                  </span>
                 )}
               </div>
 
@@ -108,7 +125,6 @@ const ProductImageDescription = ({
                         active={isChecked}
                         onClick={() => setIsChecked(true)}
                       >
- 
                         Wholesale{" "}
                       </Nav.Link>
                     </Nav.Item>
@@ -133,26 +149,26 @@ const ProductImageDescription = ({
                     </ButtonGroup>
                   ) : (
                     <>
-                                             {product.bulk_wholesale.length > 0 && (
-            <Badge variant="info" className="ms-2">
-              Min: {product.bulk_wholesale[0].min_quantity}
-            </Badge>
-          )}
-                    <ButtonGroup aria-label="bulk-options">
-                      {product.bulk_wholesale.map((single, key) => (
-                        <Button
-                          key={key}
-                          variant={
-                            selectedBulk.size === single.size
-                              ? "info"
-                              : "outline-info"
-                          }
-                          onClick={() => handleBulkClick(single)}
-                        >
-                          {single.size}
-                        </Button>
-                      ))}
-                    </ButtonGroup>
+                      {product.bulk_wholesale.length > 0 && (
+                        <Badge variant="info" className="ms-2">
+                          Min: {selectedBulk.min_quantity}
+                        </Badge>
+                      )}
+                      <ButtonGroup aria-label="bulk-options">
+                        {product.bulk_wholesale.map((single, key) => (
+                          <Button
+                            key={key}
+                            variant={
+                              selectedBulk.size === single.size
+                                ? "info"
+                                : "outline-info"
+                            }
+                            onClick={() => handleBulkClick(single)}
+                          >
+                            {single.size}
+                          </Button>
+                        ))}
+                      </ButtonGroup>
                     </>
                   )}
                 </Card.Body>
@@ -192,15 +208,16 @@ const ProductImageDescription = ({
                         const selectedItem = isChecked
                           ? selectedBulk
                           : selectedVariation;
-                          const order_type = isChecked ? "Wholesale" :"Retail"
+                        const order_type = isChecked ? "Wholesale" : "Retail";
 
-                        // console.log(
-                        //   product.id,
-                        //   quantityCount,
-                        //   selectedItem.size,
-                        //   order_type
-                        // );
-                        dispatch(addToCart(product, quantityCount,selectedItem.size,order_type));
+                        dispatch(
+                          addToCart(
+                            product,
+                            quantityCount,
+                            selectedItem.size,
+                            order_type
+                          )
+                        );
                       }}
                     >
                       Add To Cart
@@ -265,6 +282,47 @@ const ProductImageDescription = ({
               ) : (
                 ""
               )}
+            </div>
+          </div>
+          <div className="more-desc container">
+            <SectionTitle
+              titleText="More Descriptions"
+              positionClass="text-center"
+              spaceClass="mb-20"
+            />
+            <div className="row">
+              <div className="col-md-6 mb-4">
+                <h3>Active Ingredients</h3>
+                <p className="text-primary">{product.active_ingredients}</p>
+              </div>
+              <div className="col-md-6 mb-4">
+                <h3>Storage Instructions</h3>
+                <p className="text-info">{product.storage_instructions}</p>
+              </div>
+            </div>
+            <div className="mb-4">
+              <h3>Dilution Instructions</h3>
+              <p className="text-muted">{product.dilution_instructions}</p>
+            </div>
+            <div className="mb-4">
+              <h3>Mechanism of Action</h3>
+              <p className="text-secondary">{product.mechanism_of_action}</p>
+            </div>
+            <div className="mb-4">
+              <h3>Product Usage</h3>
+              <p className="text-success">{product.usage}</p>
+            </div>
+            <div className="mb-4">
+              <h3>Presentation</h3>
+              <p className="text-warning">{product.presentation}</p>
+            </div>
+            <div className="mb-4">
+              <h3>Warnings</h3>
+              <p className="text-danger fw-bold">{product.warnings}</p>
+            </div>
+            <div>
+              <h3>Indications</h3>
+              <p className="text-dark">{product.indications}</p>
             </div>
           </div>
         </div>

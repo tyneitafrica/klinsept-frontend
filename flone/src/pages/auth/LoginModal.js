@@ -41,13 +41,12 @@ function LoginModal({ show, setShow }) {
     setLoading(true);
 
     // Call LoginFetch, which handles the toast notifications internally
-    LoginFetch(loginData, dispatch,navigate)
+    LoginFetch(loginData, dispatch, navigate)
       .then(() => {
-        setShow(false); // Close the modal on successful login
+        setTimeout(() => setShow(false), 300);
       })
       .catch((error) => {
-        // Optionally, you can log the error if you want to perform any additional actions
-        console.error(error);
+        console.error("error", error);
       })
       .finally(() => {
         setLoading(false); // Ensure loading state is cleared

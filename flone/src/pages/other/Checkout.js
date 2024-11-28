@@ -15,6 +15,7 @@ const Checkout = ({ cartItems, currency }) => {
   const [validated, setValidated] = useState(false);
   const navigate = useNavigate();
 
+
   // Form fields
   const [formData, setFormData] = useState({
     country: "",
@@ -46,12 +47,12 @@ const Checkout = ({ cartItems, currency }) => {
 
       try {
         const response = await fetch(
-          "https://klinsept-backend.onrender.com/api/v1.0/order/",
+          `${process.env.REACT_APP_API_URL}order/`,
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              "x-api-key": "f6c52669-b6a9-4901-8558-5bc72b7e983a",
+              "x-api-key": process.env.REACT_APP_API_KEY,
             },
             credentials: "include",
             body: JSON.stringify(payload),
@@ -62,8 +63,10 @@ const Checkout = ({ cartItems, currency }) => {
           const data = await response.json();
           toast.success("Order created Successfully");
           console.log("Order Created:", data);
-          // Redirect to payment page
-          navigate(`/payment/${data.order_id}`);
+          setTimeout(()=>{
+
+            navigate(`/payment/${data.order_id}`);
+          },2000)
           console.log(data.order_id);
         } else {
           const error = await response.json();

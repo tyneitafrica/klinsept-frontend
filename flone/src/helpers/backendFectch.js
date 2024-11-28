@@ -2,10 +2,10 @@ import axios from "axios";
 // import { logoutUser } from "../redux/actions/appAction";
 import { fetchProductsSuccess } from "../redux/actions/productActions";
 import toast from "react-hot-toast";
-const API_URL = process.env.REACT_APP_API_URL;
 const API_KEY = process.env.REACT_APP_API_KEY;
+// const API_URL = process.env.REACT_APP_API_URL;
 // const API_URL = "https://klinsept-backend.onrender.com/api/v1.0/";
-// const API_URL = "http://192.168.1.88:8000/api/v1.0/";
+const API_URL = "http://localhost:8000/api/v1.0/";
 
 export const registerFetch = async (registerData, navigate, setError) => {
   toast.dismiss();
@@ -233,22 +233,21 @@ export const getCartItems = async (toast) => {
   }
 };
 
-export const deleteAllFromCart = () => {
-  return async (dispatch) => {
+export const clearCartItems= () => {
+  return async () => {
     try {
       const response = await axios.post(
-        "https://klinsept-backend.onrender.com/api/v1.0/cart/clear/",
+        `${API_URL}cart/clear/`,
         {},
         {
           headers: {
-            "x-api-key": "f6c52669-b6a9-4901-8558-5bc72b7e983a",
+            "x-api-key": API_KEY,
           },
           withCredentials: true,
         }
       );
       if (response.status === 200) {
-        console.log("response", response);
-        toast.success("Removed All Items From Cart");
+        return response;
       }
     } catch (error) {
       if (error) {
@@ -257,4 +256,29 @@ export const deleteAllFromCart = () => {
       }
     }
   };
+};
+
+export const createOrder = async (payload) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}order/`,
+      payload,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": API_KEY,
+        },
+        withCredentials: true, // Ensure cookies are sent with the request
+      }
+    );
+
+    if (response.status === 200) {
+      return response.data; // Return the response data
+    } else {
+      throw new Error('Failed to create order');
+    }
+  } catch (error) {
+    console.error("Error creating order:", error);
+    throw error;
+  }
 };

@@ -1,7 +1,6 @@
 import axios from "axios";
 import toast from "react-hot-toast";
-import { addItemToCart, getCartItems } from "../../helpers/backendFectch";
-
+import { addItemToCart, getCartItems,clearCartItems } from "../../helpers/backendFectch";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const DECREASE_QUANTITY = "DECREASE_QUANTITY";
 export const DELETE_FROM_CART = "DELETE_FROM_CART";
@@ -15,12 +14,12 @@ export const fetchAndReplaceCart = (setLoading) => {
       const cartItems = await getCartItems(toast);
 
       if (cartItems?.message) {
-        toast.error(cartItems.message);
+        // toast.error(cartItems.message);
         dispatch({
           type: DELETE_ALL_FROM_CART,
         });
       } else {
-        toast.success("gotten cart data");
+        // toast.success("gotten cart data");
         dispatch({
           type: SET_CART_ITEMS,
           payload: cartItems,
@@ -45,7 +44,7 @@ export const addToCart = (item, quantityCount = 1, size, order_type) => {
         size,
         order_type
       );
-      console.log(responseData);
+      // console.log(responseData);
 
       dispatch({
         type: ADD_TO_CART,
@@ -73,27 +72,30 @@ export const decreaseQuantity = (item, addToast) => {
   };
 };
 //delete from cart
-export const deleteFromCart = (item, addToast) => {
-  return async (dispatch) => {
+export const deleteFromCart = (item,dispatch) => {
+  return async () => {
     try {
       const response = await axios.delete(
-        `https://klinsept-backend.onrender.com/api/v1.0/cart/remove${item.product_id}`,
+        `${process.env.REACT_APP_API_URL}cart/remove/${item.product_id}/`,
         {
           headers: {
-            "x-api-key": "f6c52669-b6a9-4901-8558-5bc72b7e983a", // Replace with your actual API key
+            "x-api-key": process.env.REACT_APP_API_KEY, 
             "Content-Type": "application/json",
           },
+          params:{
+            size:item.size,
+          },
+          withCredentials: true,
         }
       );
       if (response.status === 200) {
-        if (addToast) {
-          toast.success("Removed From Cart");
-        }
-        dispatch({ type: DELETE_FROM_CART, payload: item.cartItemId });
+     
+          // toast.success("Removed From Cart");
+        
+        dispatch({ type: DELETE_FROM_CART, payload: item });
       }
     } catch (error) {
       toast.error("Failed to Remove Item from Cart");
-
       console.error("Error removing item from cart:", error);
     }
   };
@@ -103,16 +105,8 @@ export const deleteFromCart = (item, addToast) => {
 export const deleteAllFromCart = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.post(
-        "https://klinsept-backend.onrender.com/api/v1.0/cart/clear/",
-        {},
-        {
-          headers: {
-            "x-api-key": "f6c52669-b6a9-4901-8558-5bc72b7e983a",
-          },
-          withCredentials: true,
-        }
-      );
+      const response = await dispatch(clearCartItems()); 
+
       if (response.status === 200) {
         toast.success(response.data.message);
 
