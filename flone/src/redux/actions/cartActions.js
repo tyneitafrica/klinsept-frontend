@@ -1,7 +1,6 @@
 import axios from "axios";
 import toast from "react-hot-toast";
 import { addItemToCart, getCartItems,clearCartItems } from "../../helpers/backendFectch";
-
 export const ADD_TO_CART = "ADD_TO_CART";
 export const DECREASE_QUANTITY = "DECREASE_QUANTITY";
 export const DELETE_FROM_CART = "DELETE_FROM_CART";
@@ -79,11 +78,14 @@ export const deleteFromCart = (item) => {
     console.log(item);
     try {
       const response = await axios.delete(
-        `${process.env.REACT_APP_API_URL}cart/remove/${item.product_id}`,
+        `${process.env.REACT_APP_API_URL}cart/remove/${item.product_id}/`,
         {
           headers: {
             "x-api-key": process.env.REACT_APP_API_KEY, // Replace with your actual API key
             "Content-Type": "application/json",
+          },
+          params:{
+            size:item.size,
           },
           withCredentials: true,
         }
@@ -96,7 +98,6 @@ export const deleteFromCart = (item) => {
       }
     } catch (error) {
       toast.error("Failed to Remove Item from Cart");
-
       console.error("Error removing item from cart:", error);
     }
   };
