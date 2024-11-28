@@ -14,12 +14,12 @@ export const fetchAndReplaceCart = (setLoading) => {
       const cartItems = await getCartItems(toast);
 
       if (cartItems?.message) {
-        toast.error(cartItems.message);
+        // toast.error(cartItems.message);
         dispatch({
           type: DELETE_ALL_FROM_CART,
         });
       } else {
-        toast.success("gotten cart data");
+        // toast.success("gotten cart data");
         dispatch({
           type: SET_CART_ITEMS,
           payload: cartItems,
@@ -90,7 +90,7 @@ export const deleteFromCart = (item,dispatch) => {
       );
       if (response.status === 200) {
      
-          toast.success("Removed From Cart");
+          // toast.success("Removed From Cart");
         
         dispatch({ type: DELETE_FROM_CART, payload: item });
       }
