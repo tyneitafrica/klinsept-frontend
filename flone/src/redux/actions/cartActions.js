@@ -72,16 +72,14 @@ export const decreaseQuantity = (item, addToast) => {
   };
 };
 //delete from cart
-export const deleteFromCart = (item) => {
-  // console.log(item);
-  return async (dispatch) => {
-    // console.log(item);
+export const deleteFromCart = (item,dispatch) => {
+  return async () => {
     try {
       const response = await axios.delete(
         `${process.env.REACT_APP_API_URL}cart/remove/${item.product_id}/`,
         {
           headers: {
-            "x-api-key": process.env.REACT_APP_API_KEY, // Replace with your actual API key
+            "x-api-key": process.env.REACT_APP_API_KEY, 
             "Content-Type": "application/json",
           },
           params:{
@@ -94,7 +92,7 @@ export const deleteFromCart = (item) => {
      
           toast.success("Removed From Cart");
         
-        dispatch({ type: DELETE_FROM_CART, payload: item.cartItemId });
+        dispatch({ type: DELETE_FROM_CART, payload: item });
       }
     } catch (error) {
       toast.error("Failed to Remove Item from Cart");

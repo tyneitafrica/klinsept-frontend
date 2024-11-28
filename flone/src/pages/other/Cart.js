@@ -127,7 +127,7 @@ const Cart = () => {
 
                                 <td className="product-remove">
                                   <button
-                                    onClick={() => {dispatch(deleteFromCart(cartItem))}}
+                                    onClick={() => {dispatch(deleteFromCart(cartItem,dispatch))}}
                                   >
                                     <i className="fa fa-times"></i>
                                   </button>
