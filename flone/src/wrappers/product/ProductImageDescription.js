@@ -284,47 +284,78 @@ const ProductImageDescription = ({
               )}
             </div>
           </div>
-          <div className="more-desc container">
-            <SectionTitle
-              titleText="More Descriptions"
-              positionClass="text-center"
-              spaceClass="mb-20"
-            />
-            <div className="row">
-              <div className="col-md-6 mb-4">
-                <h3>Active Ingredients</h3>
-                <p className="text-primary">{product.active_ingredients}</p>
-              </div>
-              <div className="col-md-6 mb-4">
-                <h3>Storage Instructions</h3>
-                <p className="text-info">{product.storage_instructions}</p>
-              </div>
-            </div>
-            <div className="mb-4">
-              <h3>Dilution Instructions</h3>
-              <p className="text-muted">{product.dilution_instructions}</p>
-            </div>
-            <div className="mb-4">
-              <h3>Mechanism of Action</h3>
-              <p className="text-secondary">{product.mechanism_of_action}</p>
-            </div>
-            <div className="mb-4">
-              <h3>Product Usage</h3>
-              <p className="text-success">{product.usage}</p>
-            </div>
-            <div className="mb-4">
-              <h3>Presentation</h3>
-              <p className="text-warning">{product.presentation}</p>
-            </div>
-            <div className="mb-4">
-              <h3>Warnings</h3>
-              <p className="text-danger fw-bold">{product.warnings}</p>
-            </div>
-            <div>
-              <h3>Indications</h3>
-              <p className="text-dark">{product.indications}</p>
-            </div>
-          </div>
+<div className="more-desc container">
+  <SectionTitle
+    titleText="More Descriptions"
+    positionClass="text-center"
+    spaceClass="mb-20"
+  />
+  <div className="row">
+    {/* Active Ingredients */}
+    {product.active_ingredients && (
+      <div className="col-md-6 mb-4">
+        <h3>Active Ingredients</h3>
+        <p className="text-primary">{product.active_ingredients}</p>
+      </div>
+    )}
+    {/* Storage Instructions */}
+    {product.storage_instructions && (
+      <div className="col-md-6 mb-4">
+        <h3>Storage Instructions</h3>
+        <p className="text-info">{product.storage_instructions}</p>
+      </div>
+    )}
+  </div>
+
+  {/* Dilution Instructions */}
+  {product.dilution_instructions && (
+    <div className="mb-4">
+      <h3>Dilution Instructions</h3>
+      <p className="text-muted">{product.dilution_instructions}</p>
+    </div>
+  )}
+
+  {/* Mechanism of Action */}
+  {product.mechanism_of_action && (
+    <div className="mb-4">
+      <h3>Mechanism of Action</h3>
+      <p className="text-secondary">{product.mechanism_of_action}</p>
+    </div>
+  )}
+
+  {/* Product Usage */}
+  {product.usage && (
+    <div className="mb-4">
+      <h3>Product Usage</h3>
+      <p className="text-success">{product.usage}</p>
+    </div>
+  )}
+
+  {/* Presentation */}
+  {product.presentation && (
+    <div className="mb-4">
+      <h3>Presentation</h3>
+      <p className="text-warning">{product.presentation}</p>
+    </div>
+  )}
+
+  {/* Warnings */}
+  {product.warnings && (
+    <div className="mb-4">
+      <h3>Warnings</h3>
+      <p className="text-danger fw-bold">{product.warnings}</p>
+    </div>
+  )}
+
+  {/* Indications */}
+  {product.indications && (
+    <div>
+      <h3>Indications</h3>
+      <p className="text-dark">{product.indications}</p>
+    </div>
+  )}
+</div>
+
         </div>
       </div>
     </div>

@@ -14,32 +14,20 @@ import { Form, Button, Alert } from "react-bootstrap";
 import Logo from "../assets/logo.png";
 import "../assets/css/Navbar.css";
 import { useTranslation } from "react-i18next";
+import { isAuthenticated } from "../helpers/backendFectch";
 
 function Navbar() {
   const [toggleMenu, setToggleMenu] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [userData, setUserData] = useState(null);
   const [showSearch, setShowSearch] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [error, setError] = useState("");
   const navigationRef = useRef();
   const navigate = useNavigate();
-  const { t } = useTranslation(); 
-
-
+  const { t } = useTranslation();
 
   const cartData = useSelector((state) => state.cartData);
-  const authData = useSelector((state) => state.app.authData);
   const compareData = useSelector((state) => state.compareData);
-  const loggedIn = authData?.loggedIn
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -55,6 +43,34 @@ function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    // Flag to track if the component is still mounted
+    let isMounted = true;
+
+    const fetchAuthData = async () => {
+      try {
+        const res = await isAuthenticated();
+        if (res?.status === 200 && isMounted) {
+          setUserData(res.data);
+          // toast.success(`Logged in as ${res?.data?.first_name}`);
+        }
+      } catch (error) {
+        // Handle any errors if necessary
+        console.error('Error fetching auth data:', error);
+      }
+    };
+
+    if (userData === null) {
+      fetchAuthData();
+    }
+
+    // Cleanup function to set isMounted to false when the component unmounts
+    return () => {
+      isMounted = false;
+    };
+  }, [userData]); // Run this effect when userData changes
+
+  // console.log(localStorage.getItem("userData"));
   const handleSearch = (e) => {
     e.preventDefault();
     const trimmedSearch = searchValue.trim();
@@ -83,109 +99,104 @@ function Navbar() {
           {error}
         </Alert>
       )}
-      {/* Add the LanguageCurrencyChanger Component here */}
 
-      <div
-        className={`fixed-top ${isScrolled && "scrolled"} ${
-          toggleMenu && "toggled"
-        }`}
-      >
+      <div className={`fixed-top ${toggleMenu && "toggled"}`}>
         <nav>
-            <div className="nav-inner-container">
-              <div className="logo-container">
-                  <Link to="/" className="logo-link text-center">
-                    <img src={Logo} alt="klinset logo" />
-                  </Link>
-              </div>
-                <div className="primary-nav">
-                  <NavLink to="/">{t('Home')}</NavLink>
-                  <NavLink to="/about">{t('About Us')}</NavLink>
-                  <NavLink to="/products">{t('Products')}</NavLink>
-                  <NavLink to="/blogs">{t('Blogs')}</NavLink>
-                  <NavLink to="/contact">{t('Contact Us')}</NavLink>
-                  {/* <NavLink to={loggedIn ? "/my-account" : "/login"}>
+          <div className="nav-inner-container">
+            <div className="logo-container">
+              <Link to="/" className="logo-link text-center">
+                <img src={Logo} alt="klinset logo" />
+              </Link>
+            </div>
+            <div className="primary-nav">
+              <NavLink to="/">{t("Home")}</NavLink>
+              <NavLink to="/about">{t("About Us")}</NavLink>
+              <NavLink to="/products">{t("Products")}</NavLink>
+              <NavLink to="/blogs">{t("Blogs")}</NavLink>
+              <NavLink to="/contact">{t("Contact Us")}</NavLink>
+              {/* <NavLink to={loggedIn ? "/my-account" : "/login"}>
                     <FaRegUser size={24} />
                   </NavLink> */}
-                </div>
+            </div>
 
-              <div className="secondary-nav">
-                <NavLink to={loggedIn ? "/my-account" : "/login"}>
-                  {/* <FaRegUser size={25} />  */}
-                  {t('Profile')}
-                  {/* Client Portal */}
-                </NavLink>
-                <div className="search-container">
-                  {!showSearch && (
-                    <FaMagnifyingGlass
-                      size={22}
-                      onClick={() => setShowSearch(!showSearch)}
-                      className="search-icon"
+            <div className="secondary-nav">
+              <NavLink to={userData !== null ? "/my-account" : "/login"}>
+                {/* <FaRegUser size={25} />  */}
+                {t("Profile")}
+                {/* Client Portal */}
+              </NavLink>
+              <div className="search-container">
+                {!showSearch && (
+                  <FaMagnifyingGlass
+                    size={22}
+                    onClick={() => setShowSearch(!showSearch)}
+                    className="search-icon"
+                  />
+                )}
+                {showSearch && (
+                  <Form onSubmit={handleSearch} className="search-form">
+                    <Form.Control
+                      type="text"
+                      placeholder="Search"
+                      value={searchValue}
+                      onChange={(e) => setSearchValue(e.target.value)}
+                      isInvalid={!!error}
                     />
-                  )}
-                  {showSearch && (
-                    <Form onSubmit={handleSearch} className="search-form">
-                      <Form.Control
-                        type="text"
-                        placeholder="Search"
-                        value={searchValue}
-                        onChange={(e) => setSearchValue(e.target.value)}
-                        isInvalid={!!error}
-                      />
-                      <Button
-                        variant="outline-secondary"
-                        type="submit"
-                        onClick={handleSearch}
-                      >
-                        <FaMagnifyingGlass />
-                      </Button>
-                      <IoClose
-                        className="close-icon"
-                        onClick={() => setShowSearch(!showSearch)}
-                      />
-                    </Form>
-                  )}
-                </div>
-                <NavLink className="icon-with-badge" to="/cart">
-                  <FaCartShopping size={25} />
-                  <span className="badge badge-info">
-                    {cartData?.length || 0}
-                  </span>
-                </NavLink>
-                {/* <NavLink to="/wishlist">
+                    <Button
+                      variant="outline-secondary"
+                      type="submit"
+                      onClick={handleSearch}
+                    >
+                      <FaMagnifyingGlass />
+                    </Button>
+                    <IoClose
+                      className="close-icon"
+                      onClick={() => setShowSearch(!showSearch)}
+                    />
+                  </Form>
+                )}
+              </div>
+              <NavLink className="icon-with-badge" to="/cart">
+                <FaCartShopping size={25} />
+                <span className="badge badge-info">
+                  {cartData?.length || 0}
+                </span>
+              </NavLink>
+              {/* <NavLink to="/wishlist">
                   <FaRegHeart size={25} />
                   <span className="badge badge-info">
                   {wishlistData?.length || 0}
                   </span>
                   </NavLink> */}
-                <NavLink to="/compare">
-                  <FaCodeCompare size={25} />
-                  <span className="badge badge-danger">
-                    {compareData?.length || 0}
-                  </span>
-                </NavLink>
+              <NavLink to="/compare">
+                <FaCodeCompare size={25} />
+                <span className="badge badge-danger">
+                  {compareData?.length || 0}
+                </span>
+              </NavLink>
 
-                <div
-                  className="menu-toggle"
-                  onClick={() => setToggleMenu(!toggleMenu)}
-                >
-                  {!toggleMenu ? (
-                    <FaBarsStaggered size={25} />
-                  ) : (
-                    <IoClose size={25} />
-                  )}
-                </div>
+              <div
+                className="menu-toggle"
+                onClick={() => setToggleMenu(!toggleMenu)}
+              >
+                {!toggleMenu ? (
+                  <FaBarsStaggered size={25} />
+                ) : (
+                  <IoClose size={25} />
+                )}
               </div>
+            </div>
           </div>
 
           <div
             className={`mobile-nav ${toggleMenu ? "expanded" : "collapsed"}`}
           >
             <div className="mobile-menu-links">
-            <NavLink to="/">{t('Home')}</NavLink>
-                  <NavLink to="/about">{t('About Us')}</NavLink>
-                  <NavLink to="/products">{t('Products')}</NavLink>
-                  <NavLink to="/blogs">{t('Blogs')}</NavLink>
-                  <NavLink to="/contact">{t('Contact Us')}</NavLink>
+              <NavLink to="/">{t("Home")}</NavLink>
+              <NavLink to="/about">{t("About Us")}</NavLink>
+              <NavLink to="/products">{t("Products")}</NavLink>
+              <NavLink to="/blogs">{t("Blogs")}</NavLink>
+              <NavLink to="/contact">{t("Contact Us")}</NavLink>
             </div>
           </div>
         </nav>

@@ -27,8 +27,9 @@ const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"));
 const ResetPassword = lazy(() => import("./pages/auth/ResetPassword"));
 
 const App = () => {
-  const authData = useSelector((state) => state.app.authData);
-
+  const currencyData = useSelector(
+    (state) => state.currencyData.selectedCurrency
+  );
 
 
   return (
@@ -56,10 +57,7 @@ const App = () => {
                 <Route path={"/blogs"} element={<Blogs />} />
                 {/* auth */}
                 <Route path={"/register"} element={<Register />} />
-                <Route
-                  path={"/login"}
-                  element={<Login authData={authData} />}
-                />
+                <Route path={"/login"} element={<Login />} />
                 <Route path={"/reset/:otp"} element={<ResetPassword />} />
                 <Route path={"/forgot"} element={<ForgotPassword />} />
                 {/* Other pages */}
@@ -70,7 +68,10 @@ const App = () => {
                 <Route path={"/wishlist"} element={<Wishlist />} />
                 <Route path={"/compare"} element={<Compare />} />
                 <Route path={"/checkout"} element={<Checkout />} />
-                <Route path="/payment/:orderId" element={<Payment />} />
+                <Route
+                  path="/payment/:orderId"
+                  element={<Payment currency={currencyData} />}
+                />
                 <Route path="/search/:searchParams" element={<Search />} />
                 <Route path={"*"} element={<NotFound />} />
               </Routes>

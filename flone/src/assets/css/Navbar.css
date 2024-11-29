@@ -40,14 +40,14 @@ a.active {
   top: 0;
   width: 100%;
   transition: background-color 0.1s ease-in-out;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(9px);
   background-color: #fff;
 }
 
 .fixed-top.scrolled,
 .fixed-top.toggled {
-  background-color: rgba(255, 255, 255, 0.774);
-  background-color: rgba(48, 185, 240, 0.774);
+  background-color: rgb(255, 255, 255);
+  background-color: rgb(48, 186, 240);
 }
 
 
@@ -175,8 +175,8 @@ a.active {
   margin-bottom: 10px;
   position: fixed;
   width: 100%;
-  background-color: rgba(48, 185, 240, 0.774);
-  backdrop-filter: blur(15px);
+  background-color: rgb(48, 186, 240);
+  backdrop-filter: blur(9px);
   overflow: hidden;
   display: flex;
   flex-direction: column;

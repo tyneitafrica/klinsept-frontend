@@ -49,6 +49,9 @@ const ShopProducts = ({
               currencySymbol = symbol || "$";
             }
 
+            // Format the price with commas
+            convertedPrice = parseFloat(convertedPrice).toLocaleString();
+
             return { convertedPrice, currencySymbol };
           };
 
@@ -77,6 +80,7 @@ const ShopProducts = ({
                   src={product.images[0].image}
                   alt={product.name}
                   className="product-image"
+                  loading="lazy" 
                 />
                 <div className="overlay-icons">
                   <AiOutlineShoppingCart

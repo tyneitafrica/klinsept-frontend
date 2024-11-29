@@ -7,80 +7,69 @@ import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../../components/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useLocation } from "react-router-dom";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Spinner } from "react-bootstrap";
 import toast from "react-hot-toast";
 
 const Checkout = ({ cartItems, currency }) => {
   const { pathname } = useLocation();
   const [validated, setValidated] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
 
   // Form fields
   const [formData, setFormData] = useState({
     country: "",
     state: "",
     city: "",
-    street: "",
-    postcode: "",
-    orderNotes: "",
-    products: cartItems,
+    address: "",
+    zip_code: "",
   });
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.currentTarget;
-
     if (form.checkValidity() === false) {
       e.stopPropagation();
     } else {
       // Prepare data for API call
-      const payload = {
-        ...formData,
-        address: formData.street,
-        city: formData.city,
-        state: formData.state,
-        zip_code: formData.postcode,
-        country: formData.country,
-      };
 
       try {
-        const response = await fetch(
-          `${process.env.REACT_APP_API_URL}order/`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "x-api-key": process.env.REACT_APP_API_KEY,
-            },
-            credentials: "include",
-            body: JSON.stringify(payload),
-          }
-        );
+        setLoading(true);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}order/`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": process.env.REACT_APP_API_KEY,
+          },
+          credentials: "include",
+          body: JSON.stringify(formData),
+        });
 
         if (response.ok) {
+          // setLoading(false);          
           const data = await response.json();
           toast.success("Order created Successfully");
-          console.log("Order Created:", data);
-          setTimeout(()=>{
-
+          setTimeout(() => {
             navigate(`/payment/${data.order_id}`);
-          },2000)
-          console.log(data.order_id);
+          }, 500);
         } else {
+          // setLoading(false)
           const error = await response.json();
           console.error("Error:", error);
           alert(error.error || "Failed to create order");
         }
       } catch (error) {
+        // setLoading(false)
         console.error("Error creating order:", error);
         alert("Something went wrong! Please try again.");
+      }finally{
+        setLoading(false)
       }
     }
     setValidated(true);
   };
 
+  
   return (
     <div className="mt-90">
       <MetaTags>
@@ -122,7 +111,9 @@ const Checkout = ({ cartItems, currency }) => {
                                 })
                               }
                             >
-                              <option value="">Select a country</option>
+                              <option className="text-muted">
+                                ------ Select a country ------
+                              </option>
                               <option value="Kenya">Kenya</option>
                               <option value="Burundi">Burundi</option>
                               <option value="Congo">Congo</option>
@@ -171,33 +162,33 @@ const Checkout = ({ cartItems, currency }) => {
                           </Form.Group>
                         </div>
                         <div className="col-lg-6 col-md-6">
-                          <Form.Group controlId="street">
+                          <Form.Group controlId="address">
                             <Form.Label>Street Address</Form.Label>
                             <Form.Control
                               type="text"
                               placeholder="House number and street name"
                               required
-                              value={formData.street}
+                              value={formData.address}
                               onChange={(e) =>
                                 setFormData({
                                   ...formData,
-                                  street: e.target.value,
+                                  address: e.target.value,
                                 })
                               }
                             />
                           </Form.Group>
                         </div>
                         <div className="col-lg-6 col-md-6">
-                          <Form.Group controlId="postcode">
+                          <Form.Group controlId="zip_code">
                             <Form.Label>Postcode / ZIP</Form.Label>
                             <Form.Control
                               type="text"
                               required
-                              value={formData.postcode}
+                              value={formData.zip_code}
                               onChange={(e) =>
                                 setFormData({
                                   ...formData,
-                                  postcode: e.target.value,
+                                  zip_code: e.target.value,
                                 })
                               }
                             />
@@ -226,8 +217,28 @@ const Checkout = ({ cartItems, currency }) => {
                       </div> */}
 
                       <div className="place-order mt-25">
-                        <Button type="submit" variant="primary">
-                          Proceed to payment
+                        <Button
+                          type="submit"
+                          variant="outline-primary"
+                          className="w-100"
+                          style={{ fontWeight: "bold" }}
+                          disabled={loading}
+                        >
+                          {loading ? (
+                            <>
+                              <Spinner
+                                as="span"
+                                animation="border"
+                                size="sm"
+                                role="status"
+                                arai-hidden="true"
+                              />
+                              {"  "}
+                              Logging in...
+                            </>
+                          ) : (
+                            "Proceed to payment"
+                          )}
                         </Button>
                       </div>
                     </Form>

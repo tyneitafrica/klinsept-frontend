@@ -9,23 +9,27 @@ import { useLocation } from "react-router-dom";
 import { isAuthenticated } from "../../helpers/backendFectch";
 import {
   fetchAndReplaceCart,
-  deleteAllFromCart,deleteFromCart
+  deleteAllFromCart,
+  deleteFromCart,
 } from "../../redux/actions/cartActions";
 import { useDispatch, useSelector } from "react-redux";
-import { Button } from "react-bootstrap";
-
+import { Button, Spinner } from "react-bootstrap";
+import { priceConverter } from "../../redux/actions/currencyActions";
 const Cart = () => {
   const { pathname } = useLocation();
   const [showModal, setShowmodal] = useState(false);
   const navigate = useNavigate();
   const cartItems = useSelector((state) => state.cartData);
+  const currency = useSelector((state) => state.currencyData);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [loadingCheckout, setLoadingCheckout] = useState(false);
 
   const handleProceedCheckout = async (e) => {
     e.preventDefault();
-    const userData = await isAuthenticated();
-    if (userData) {
+    const response = await isAuthenticated(setLoadingCheckout);
+
+    if (response?.data ) {
       navigate("/checkout");
     } else {
       setShowmodal(true);
@@ -35,15 +39,15 @@ const Cart = () => {
     dispatch(fetchAndReplaceCart(setLoading));
   }, [dispatch]);
 
-  if(loading){
-    return(
+  if (loading) {
+    return (
       <div className="flone-preloader-wrapper">
-      <div className="flone-preloader">
-        <span></span>
-        <span></span>
+        <div className="flone-preloader">
+          <span></span>
+          <span></span>
+        </div>
       </div>
-    </div>
-    )
+    );
   }
 
   return (
@@ -64,7 +68,6 @@ const Cart = () => {
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
         <Breadcrumb />
-
 
         <div className="cart-main-area pt-90 pb-100">
           <div className="container">
@@ -87,6 +90,19 @@ const Cart = () => {
                         </thead>
                         <tbody>
                           {cartItems.map((cartItem, key) => {
+                            const {
+                              convertedPrice: originalPrice,
+                              currencySymbol,
+                            } = priceConverter(
+                              cartItem.price,
+                              currency.selectedCurrency
+                            );
+                            const { convertedPrice: lineTotal } =
+                              priceConverter(
+                                cartItem.line_total,
+                                currency.selectedCurrency
+                              );
+
                             return (
                               <tr key={key}>
                                 <td className="product-thumbnail">
@@ -107,7 +123,7 @@ const Cart = () => {
                                 </td>
 
                                 <td className="product-price-cart">
-                                  {cartItem.price}
+                                  {currencySymbol} {originalPrice}
                                 </td>
 
                                 <td className="product-quantity">
@@ -121,13 +137,16 @@ const Cart = () => {
                                   </div>
                                 </td>
                                 <td className="product-subtotal">
-                                  {/* to 2 dp */}
-                                  {cartItem.line_total.toFixed(2)}
+                                  {currencySymbol} {lineTotal}
                                 </td>
 
                                 <td className="product-remove">
                                   <button
-                                    onClick={() => {dispatch(deleteFromCart(cartItem,dispatch))}}
+                                    onClick={() => {
+                                      dispatch(
+                                        deleteFromCart(cartItem, dispatch)
+                                      );
+                                    }}
                                   >
                                     <i className="fa fa-times"></i>
                                   </button>
@@ -141,23 +160,41 @@ const Cart = () => {
                   </div>
                 </div>
                 <div className="d-flex m-3 justify-content-between">
-                  <Button variant="outline-warning" >
-                    <Link to={process.env.PUBLIC_URL + "/products"}>
-                      Continue Shopping
-                    </Link>
-                  </Button>
-                  <Button variant="outline-danger" onClick={()=>dispatch(deleteAllFromCart(dispatch))}>
-                    Clear Shopping Cart
+                  <Link className="btn btn-outline-info" to={"/products"}>
+                    Shop
+                  </Link>
+                  <Button
+                    variant="outline-danger"
+                    onClick={() => dispatch(deleteAllFromCart(dispatch))}
+                  >
+                    Clear
                   </Button>
                 </div>
 
                 <div className="row m-3">
-                  <button
-                    onClick={handleProceedCheckout}
-                    className="btn btn-primary"
-                  >
-                    Proceed to Checkout
-                  </button>
+                  <div className="place-order mt-25">
+                    <Button
+                      onClick={handleProceedCheckout}
+                      variant="btn btn-outline-success"
+                      style={{ fontWeight: "bold" }}
+                      disabled={loadingCheckout}
+                    >
+                      {loadingCheckout ? (
+                        <>
+                          <Spinner
+                            animation="border"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                          />
+                          {"  "}
+                          Checking out...
+                        </>
+                      ) : (
+                        "Checkout"
+                      )}
+                    </Button>
+                  </div>
                   {showModal && (
                     <LoginModal show={showModal} setShow={setShowmodal} />
                   )}

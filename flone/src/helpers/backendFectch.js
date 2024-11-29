@@ -6,6 +6,7 @@ const API_KEY = process.env.REACT_APP_API_KEY;
 const API_URL = process.env.REACT_APP_API_URL;
 // const API_URL = "https://klinsept-backend.onrender.com/api/v1.0/";
 // const API_URL = "http://localhost:8000/api/v1.0/";
+// const API_URL = "http://192.168.1.88:8000/api/v1.0/";
 
 export const registerFetch = async (registerData, navigate, setError) => {
   toast.dismiss();
@@ -34,7 +35,7 @@ export const registerFetch = async (registerData, navigate, setError) => {
   );
 };
 
-export const LoginFetch = async (loginData, dispatch, navigate) => {
+export const LoginFetch = async (loginData, setLoading) => {
   // Display a loading toast while making the request
   return toast
     .promise(
@@ -55,11 +56,12 @@ export const LoginFetch = async (loginData, dispatch, navigate) => {
             error.response?.data?.detail ||
             error.message ||
             "An error occurred";
-          return `Error: ${errorMessage}`;
+          return ` ${errorMessage}`;
         },
       }
     )
     .catch((err) => {
+      return err;
       // You can catch any unhandled promise rejections here if needed
       // console.error("Unhandled Error:", err);
     });
@@ -121,6 +123,9 @@ export const serverLogOut = async (dispatch, toast) => {
     );
     if (response.status === 200) {
       toast.success(response.data.Message);
+
+      localStorage.removeItem("userData");
+      localStorage.removeItem("userDataTimestamp");
       // dispatch(logoutUser());
     }
   } catch (error) {
@@ -130,8 +135,18 @@ export const serverLogOut = async (dispatch, toast) => {
 };
 
 export const fetchProducts = () => {
-  return async (dispatch) => {
-    // Use async dispatch
+  return async (dispatch, getState) => {
+    const state = getState().productData;
+    const cachedProducts = state.products;
+    const timestamp = state.timestamp;
+    const currentTime = new Date().getTime();
+    const timeDifference = (currentTime - timestamp) / (1000 * 60 * 60);
+
+    if (cachedProducts.length > 0 && timeDifference < 0.5) {
+      dispatch(fetchProductsSuccess(cachedProducts, timestamp));
+      return cachedProducts;
+    }
+
     try {
       const response = await axios.get(`${API_URL}products/`, {
         headers: {
@@ -139,8 +154,9 @@ export const fetchProducts = () => {
         },
       });
 
-      dispatch(fetchProductsSuccess(response.data.results));
-      // console.log(response.data);
+      const newTimestamp = new Date().getTime();
+      dispatch(fetchProductsSuccess(response.data.results, newTimestamp));
+
       return response.data;
     } catch (error) {
       console.error("Get Products error:", error.response?.data);
@@ -149,8 +165,25 @@ export const fetchProducts = () => {
   };
 };
 
-export const isAuthenticated = async () => {
+export const isAuthenticated = async (setLoading) => {
   try {
+    const storedUserData = JSON.parse(localStorage.getItem("userData")) || null;
+    const storedTimestamp = localStorage.getItem("userDataTimestamp");
+
+    const currentTime = new Date().getTime();
+
+    if (
+      storedUserData &&
+      storedTimestamp &&
+      currentTime - storedTimestamp < 60 * 60 * 1000
+    ) {
+      return { status: 200, data: storedUserData };
+    }
+
+    if (setLoading) {
+      setLoading(true);
+    }
+
     const response = await axios.get(`${API_URL}auth/cookie/`, {
       headers: {
         "x-api-key": API_KEY,
@@ -158,10 +191,25 @@ export const isAuthenticated = async () => {
       },
       withCredentials: true,
     });
-    return response.data;
+
+    localStorage.setItem("userData", JSON.stringify(response.data));
+    localStorage.setItem("userDataTimestamp", currentTime);
+
+    return response;
   } catch (error) {
-    console.error("Authentication check failed", error);
-    return null;
+    // console.error(
+    // "Authentication failed:",
+    //   error?.response?.data?.error || error.message
+    // );
+
+    localStorage.removeItem("userData");
+    localStorage.removeItem("userDataTimestamp");
+    // toast.error(error?.response?.data?.error || error.message);
+    return error ? error : { error: "Authentication failed." };
+  } finally {
+    if (setLoading) {
+      setLoading(false);
+    }
   }
 };
 
@@ -233,7 +281,7 @@ export const getCartItems = async (toast) => {
   }
 };
 
-export const clearCartItems= () => {
+export const clearCartItems = () => {
   return async () => {
     try {
       const response = await axios.post(
@@ -260,22 +308,18 @@ export const clearCartItems= () => {
 
 export const createOrder = async (payload) => {
   try {
-    const response = await axios.post(
-      `${API_URL}order/`,
-      payload,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": API_KEY,
-        },
-        withCredentials: true, // Ensure cookies are sent with the request
-      }
-    );
+    const response = await axios.post(`${API_URL}order/`, payload, {
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": API_KEY,
+      },
+      withCredentials: true, // Ensure cookies are sent with the request
+    });
 
     if (response.status === 200) {
       return response.data; // Return the response data
     } else {
-      throw new Error('Failed to create order');
+      throw new Error("Failed to create order");
     }
   } catch (error) {
     console.error("Error creating order:", error);

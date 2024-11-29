@@ -1,21 +1,18 @@
 // import React, { useState, useEffect, useRef } from "react";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Modal from "react-bootstrap/Modal";
-// import Alert from "react-bootstrap/Alert";
+import React, { useState } from "react";
+import { Button, Form, Modal } from "react-bootstrap";
 import Spinner from "react-bootstrap/Spinner";
 import { Link } from "react-router-dom";
 import { LoginFetch } from "../../helpers/backendFectch";
-import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 
 function LoginModal({ show, setShow }) {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [validated, setValidated] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -38,19 +35,14 @@ function LoginModal({ show, setShow }) {
     }
 
     setValidated(true);
-    setLoading(true);
 
-    // Call LoginFetch, which handles the toast notifications internally
-    LoginFetch(loginData, dispatch, navigate)
-      .then(() => {
-        setTimeout(() => setShow(false), 300);
-      })
-      .catch((error) => {
-        console.error("error", error);
-      })
-      .finally(() => {
-        setLoading(false); // Ensure loading state is cleared
-      });
+    const response = await LoginFetch(loginData, setLoading);
+    if (response?.status === 200) {
+      setTimeout(() => {
+        navigate("/checkout");
+      }, 3000);
+      setShow(false);
+    }
   };
 
   return (
@@ -59,6 +51,7 @@ function LoginModal({ show, setShow }) {
         <Modal.Title>You must be logged in to place an order</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        {/* <Alert onClose={(e)=>console.log(e)} dismissible={true} variant="danger">hello</Alert> */}
         <Form noValidate validated={validated} onSubmit={handleLoginSubmit}>
           <Form.Group controlId="formEmail">
             <Form.Label>Email</Form.Label>

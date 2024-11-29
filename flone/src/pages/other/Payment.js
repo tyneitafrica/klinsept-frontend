@@ -4,15 +4,17 @@ import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../../components/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import { Form } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { Form, Spinner, Button } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 
 const Payment = ({ currency }) => {
-  const { orderId } = useParams(); // Access the dynamic orderId
+  const { orderId } = useParams();
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const [orderItems, setOrderItems] = useState(null); // State for order items
+  const [orderItems, setOrderItems] = useState(null);
 
   useEffect(() => {
     const confirmOrder = async () => {
@@ -41,18 +43,18 @@ const Payment = ({ currency }) => {
       }
     };
 
-    confirmOrder(); // Call the function
-  }, [orderId,orderItems]); 
+    confirmOrder();
+  }, [orderId]);
 
   const [paymentMethod, setPaymentMethod] = useState("");
 
   const handleSubmit = async (event) => {
-    event.preventDefault(); // Prevent default form submission behavior
-
+    event.preventDefault();
     try {
+      setLoading(true);
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}send/email/`,
-        { order_id: orderId }, // Pass the order ID in the request body
+        { order_id: orderId },
         {
           headers: {
             "Content-Type": "application/json",
@@ -62,17 +64,24 @@ const Payment = ({ currency }) => {
       );
 
       if (response.status === 200) {
-        console.log("Email sent successfully:", response.data);
         toast.success(
-          "Email sent successfully!,Please check your Email for confirmation"
-        ); // Optional user feedback
+          response?.data.message ||
+            "Email sent successfully!,Please check your Email for confirmation"
+        );
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
       } else {
-        console.error("Failed to send email:", response.data.message);
+        // console.error("Failed to send email:", response.data.message);
         toast.error(`Failed to send email: ${response.data.message}`);
       }
     } catch (error) {
       console.error("Error sending email:", error);
-      alert("An error occurred while sending the email. Please try again.");
+      toast.error(
+        "An error occurred while sending the email. Please try again."
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -95,7 +104,8 @@ const Payment = ({ currency }) => {
           <div className="container">
             {orderItems && orderItems.items.length > 0 ? (
               <div className="row">
-                <div className="col-lg-5">
+                {/* Order Details */}
+                <div className="col-12 col-lg-7">
                   <div className="your-order-area">
                     <h3>Your Order</h3>
                     <div className="your-order-wrap gray-bg-4">
@@ -109,15 +119,17 @@ const Payment = ({ currency }) => {
                         <div className="your-order-middle">
                           <ul>
                             {orderItems.items.map((item, key) => {
-                              const finalPrice = parseFloat(item.line_total); // Ensure price is a number
-                              const lineTotal = finalPrice * item.quantity; // Calculate line total
+                              const lineTotal = (
+                                currency.rates *
+                                (item.line_total * item.quantity)
+                              ).toFixed(2);
                               return (
                                 <li key={key}>
                                   <span className="order-middle-left">
                                     {item.product_name} X {item.quantity}
                                   </span>
                                   <span className="order-price">
-                                    {lineTotal.toFixed(2)}
+                                    {currency.symbol} {lineTotal}
                                   </span>
                                 </li>
                               );
@@ -126,34 +138,48 @@ const Payment = ({ currency }) => {
                         </div>
                         <div className="your-order-bottom total">
                           <ul>
-                            <li className="order-total">Total</li>
                             <li>
-                              {parseFloat(orderItems.total_price).toFixed(2)}
+                              <strong>Total</strong>
+                            </li>
+                            <li>
+                              {currency.symbol}{" "}
+                              {(
+                                currency.rates * orderItems.total_price
+                              ).toFixed(2)}
                             </li>
                           </ul>
                         </div>
-                        {/* Shipping Details */}
-                        <div className="your-order-bottom total">
-                          <ul className="your-order-middle">
-                            <li>
-                              <strong>Country</strong>{" "}
-                              {orderItems.shipping_address.country}
+                        <div className=" just your-order-bottom total">
+                          <ul className=" your-order-middle">
+                            <li className="mb-3 list-unstyled">
+                              <strong>Country</strong>
+                              <div className="ms-2">
+                                {orderItems.shipping_address.country}
+                              </div>
                             </li>
-                            <li>
-                              <strong>City</strong>{" "}
-                              {orderItems.shipping_address.city}
+                            <li className="mb-3">
+                              <strong>City</strong>
+                              <div className="ms-2">
+                                {orderItems.shipping_address.city}
+                              </div>
                             </li>
-                            <li>
-                              <strong>Zip Code</strong>{" "}
-                              {orderItems.shipping_address.zip_code}
+                            <li className="mb-3">
+                              <strong>Zip Code</strong>
+                              <div className="ms-2">
+                                {orderItems.shipping_address.zip_code}
+                              </div>
                             </li>
-                            <li>
-                              <strong>State</strong>{" "}
-                              {orderItems.shipping_address.state}
+                            <li className="mb-3">
+                              <strong>State</strong>
+                              <div className="ms-2">
+                                {orderItems.shipping_address.state}
+                              </div>
                             </li>
-                            <li>
-                              <strong>Street Address</strong>{" "}
-                              {orderItems.shipping_address.street_address}
+                            <li className="mb-3">
+                              <strong>Street Address</strong>
+                              <div className="ms-2">
+                                {orderItems.shipping_address.street_address}
+                              </div>
                             </li>
                           </ul>
                         </div>
@@ -161,41 +187,64 @@ const Payment = ({ currency }) => {
                     </div>
                   </div>
                 </div>
+
+                {/* Payment Details */}
+                <div className="col-12 col-lg-5">
+                  <div className="billing-info-wrap">
+                    <h3>Payment Details</h3>
+                    <Form onSubmit={handleSubmit}>
+                      <Form.Group controlId="paymentMethod">
+                        <Form.Label>Payment Method</Form.Label>
+                        <Form.Control
+                          as="select"
+                          required
+                          value={paymentMethod}
+                          onChange={(e) => setPaymentMethod(e.target.value)}
+                        >
+                          <option value="">Select a Payment method</option>
+                          <option className="text-grey-900" value="PoD">
+                            Pay on Delivery
+                          </option>
+                          <option disabled value="MobileMoney">
+                            Mobile Money
+                          </option>
+                          <option disabled value="Card">
+                            Card
+                          </option>
+                        </Form.Control>
+                      </Form.Group>
+                      <div className="place-order mt-25">
+                        <Button
+                          type="submit"
+                          variant="btn btn-outline-primary"
+                          className="w-100"
+                          style={{ fontWeight: "bold" }}
+                          disabled={loading}
+                        >
+                          {loading ? (
+                            <>
+                              <Spinner
+                                as="span"
+                                animation="border"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                              />
+                              {"  "}
+                              submitting order...
+                            </>
+                          ) : (
+                            "Submit Order"
+                          )}
+                        </Button>
+                      </div>
+                    </Form>
+                  </div>
+                </div>
               </div>
             ) : (
               <p>Loading order details...</p>
             )}
-
-            <div className="col-lg-7">
-              <div className="billing-info-wrap">
-                <h3>Payment Details</h3>
-                <Form onSubmit={handleSubmit}>
-                  <Form.Group controlId="paymentMethod">
-                    <Form.Label>Payment Method</Form.Label>
-                    <Form.Control
-                      as="select"
-                      required
-                      value={paymentMethod}
-                      onChange={(e) => setPaymentMethod(e.target.value)}
-                    >
-                      <option value="">Select a Payment method</option>
-                      <option className="text-grey-900" value="PoD">
-                        Pay on Delivery
-                      </option>
-                      <option disabled value="MobileMoney">
-                        Mobile Money
-                      </option>
-                      <option disabled value="Card">
-                        Card
-                      </option>
-                    </Form.Control>
-                  </Form.Group>
-                  <button type="submit" className="btn btn-primary">
-                    Submit
-                  </button>
-                </Form>
-              </div>
-            </div>
           </div>
         </div>
       </LayoutOne>

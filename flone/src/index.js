@@ -28,7 +28,7 @@ store.dispatch(fetchProducts(products));
 
 ReactDOM.render(
   <Provider store={store}>
-    <Toaster  position='bottom-right'/>
+    <Toaster position='top-right'/>
     <App />
   </Provider>,
   document.getElementById("root")
