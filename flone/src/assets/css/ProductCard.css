@@ -78,15 +78,12 @@
 /* modal */
 
 /* Modal Carousel Container */
-.modal-carousel-container {
+/* .modal-carousel-container {
   position: relative;
 
-}
-.modal-content {
-  margin: 30px;
-}
+} */
 
-/* Carousel Image */
+
 .modal-carousel-image {
   max-height: 200px; 
   object-fit: contain;
@@ -94,7 +91,6 @@
   width: 90%;
 }
 
-/* Carousel Controls */
 .carousel-control-icon {
   font-size: 24px;
   cursor: pointer;
@@ -133,6 +129,7 @@
 }
 
 @media (max-width: 768px) {
+
   .product-small-image-wrapper img {
     height: 75px; 
   }

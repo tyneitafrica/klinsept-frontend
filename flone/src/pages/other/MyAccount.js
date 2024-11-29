@@ -4,7 +4,7 @@ import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import LayoutOne from "../../components/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import {  useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 // import { FcPhone, FcBusinessman, FcVoicemail } from "react-icons/fc";
 import { FaUserCircle, FaEnvelope, FaPhone, FaEdit } from "react-icons/fa";
 import "../../assets/css/MyAccount.css"; // We'll create a custom CSS file for additional styling
@@ -22,26 +22,30 @@ const MyAccount = () => {
     authData?.profile_image || "https://via.placeholder.com/300";
 
   useEffect(() => {
+    // eslint-disable-next-line
+    let isMounted = true;
+
     const checkAuthentication = async () => {
       try {
-        setLoading(true); 
+        setLoading(true);
         const userData = await isAuthenticated();
-        if (userData) {
-          setAuthData(userData);
+
+        if (userData.status === 200) {
+          setAuthData(userData.data);
         } else {
           navigate("/login");
         }
-        setLoading(false); 
-      } catch (error) {
-        console.error("Error during authentication check:", error);
-        navigate("/login");
+        setLoading(false);
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
-    checkAuthentication(); 
-  }, [navigate, dispatch]);
+    checkAuthentication();
+    return () => {
+      isMounted = false;
+    };
+  }, [navigate]);
 
   if (loading) {
     return (
@@ -139,6 +143,9 @@ const MyAccount = () => {
                       onClick={() => {
                         // toast.error("loggin you out");
                         serverLogOut(dispatch, toast);
+                        setTimeout(() => {
+                          navigate("/login", { replace: true });
+                        });
                       }}
                       variant="danger"
                       className="w-20"

@@ -60,7 +60,6 @@ const Register = () => {
       setError("");
       setLoading(true);
       try {
-        console.log(registerData)
         await registerFetch(registerData, navigate, setError);
         setLoading(false);
       } catch (e) {
@@ -74,7 +73,6 @@ const Register = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
     setRegisterData({
       ...registerData,
       [name]: value,

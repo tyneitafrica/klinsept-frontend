@@ -12,14 +12,12 @@ export const fetchAndReplaceCart = (setLoading) => {
     setLoading(true);
     try {
       const cartItems = await getCartItems(toast);
-
       if (cartItems?.message) {
-        // toast.error(cartItems.message);
+        toast.error(cartItems.message);
         dispatch({
           type: DELETE_ALL_FROM_CART,
         });
       } else {
-        // toast.success("gotten cart data");
         dispatch({
           type: SET_CART_ITEMS,
           payload: cartItems,

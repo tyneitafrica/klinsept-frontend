@@ -46,3 +46,19 @@ export const fetchCurrencyRates = () => async (dispatch, getState) => {
     console.error("Error fetching currency rates:", error);
   }
 };
+
+
+export const priceConverter = (price, selectedCurrency) => {
+  let convertedPrice = price;
+  let currencySymbol = "$";
+
+  if (selectedCurrency) {
+    const { rates, symbol } = selectedCurrency;
+    convertedPrice = (price * rates).toFixed(2);
+    currencySymbol = symbol || "$";
+  }
+  convertedPrice = parseFloat(convertedPrice).toLocaleString();
+
+  return { convertedPrice, currencySymbol };
+};
+

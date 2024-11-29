@@ -64,10 +64,10 @@ const initState = {
     },
   },
   selectedCurrency: {
-    name: "USD",
-    symbol: "$",
+    name: "BIF",
+    symbol: "FBu",
     rates: 1.0,
-    country: "United States",
+    country: "Burundi",
   },
   timestamp: null,
 };
