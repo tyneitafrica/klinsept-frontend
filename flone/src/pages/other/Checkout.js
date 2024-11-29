@@ -234,7 +234,7 @@ const Checkout = ({ cartItems, currency }) => {
                                 arai-hidden="true"
                               />
                               {"  "}
-                              Logging in...
+                              Processing...
                             </>
                           ) : (
                             "Proceed to payment"
