@@ -30,7 +30,7 @@ const MyAccount = () => {
         setLoading(true);
         const userData = await isAuthenticated();
 
-        if (userData.status === 200) {
+        if (userData.status === 200 && isMounted) {
           setAuthData(userData.data);
         } else {
           navigate("/login");

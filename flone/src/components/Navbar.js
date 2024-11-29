@@ -14,11 +14,11 @@ import { Form, Button, Alert } from "react-bootstrap";
 import Logo from "../assets/logo.png";
 import "../assets/css/Navbar.css";
 import { useTranslation } from "react-i18next";
-import { isAuthenticated } from "../helpers/backendFectch";
+// import { isAuthenticated } from "../helpers/backendFectch";
 
 function Navbar() {
   const [toggleMenu, setToggleMenu] = useState(false);
-  const [userData, setUserData] = useState(null);
+  const userData = JSON.parse(localStorage.getItem("userData"))
   const [showSearch, setShowSearch] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [error, setError] = useState("");
@@ -43,32 +43,6 @@ function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  useEffect(() => {
-    // Flag to track if the component is still mounted
-    let isMounted = true;
-
-    const fetchAuthData = async () => {
-      try {
-        const res = await isAuthenticated();
-        if (res?.status === 200 && isMounted) {
-          setUserData(res.data);
-          // toast.success(`Logged in as ${res?.data?.first_name}`);
-        }
-      } catch (error) {
-        // Handle any errors if necessary
-        console.error('Error fetching auth data:', error);
-      }
-    };
-
-    if (userData === null) {
-      fetchAuthData();
-    }
-
-    // Cleanup function to set isMounted to false when the component unmounts
-    return () => {
-      isMounted = false;
-    };
-  }, [userData]); // Run this effect when userData changes
 
   // console.log(localStorage.getItem("userData"));
   const handleSearch = (e) => {
