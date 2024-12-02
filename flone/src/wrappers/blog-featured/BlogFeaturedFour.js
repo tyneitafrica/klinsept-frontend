@@ -15,18 +15,18 @@ const BlogFeaturedFour = () => {
           spaceClass="mb-55"
           borderClass="no-border"
         />
-        <div className="row">
+        <div className="row g-4">
           {blogFeaturedData.map((singlePost) => {
             return (
               <div key={singlePost.id} className="col-lg-4 col-sm-6">
                 <div className="blog-wrap mb-30 scroll-zoom">
                   <div className="blog-img">
-                    <Link to={process.env.PUBLIC_URL + singlePost.url}>
+                    {/* <Link to={process.env.PUBLIC_URL + singlePost.url}> */}
                       <img
                         src={process.env.PUBLIC_URL + singlePost.image}
-                        alt=""
+                        alt="Cleaning"
                       />
-                    </Link>
+                    {/* </Link> */}
                     <div className="blog-category-names">
                       {singlePost.category.map((singleCategory, key) => {
                         return (
@@ -40,14 +40,14 @@ const BlogFeaturedFour = () => {
                   <div className="blog-content-wrap">
                     <div className="blog-content text-center">
                       <h3>
-                        <Link to={process.env.PUBLIC_URL + singlePost.url}>
+                        <Link>
                           {singlePost.title}
                         </Link>
                       </h3>
                       <span>
                         By{" "}
                         <Link
-                          to={process.env.PUBLIC_URL + singlePost.authorUrl}
+                          // to={process.env.PUBLIC_URL + singlePost.authorUrl}
                         >
                           {singlePost.author}
                         </Link>

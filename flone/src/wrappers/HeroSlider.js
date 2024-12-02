@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/HeroSlider.css";
-import { Link } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const HeroSlider = () => {
@@ -59,6 +59,13 @@ const HeroSlider = () => {
 
     return () => clearInterval(interval);
   });
+  
+  const navigate = useNavigate()
+
+  const products = ()=>{
+    navigate("/products")
+
+  }
 
   return (
     <div className="slider-container">
@@ -74,9 +81,12 @@ const HeroSlider = () => {
             <div className="slide-content">
               <h2 className="slide-title text-white">{slide.title}</h2>
               <p className="slide-subtitle text-light">{slide.subtitle}</p>
-              <Link to={slide.url}>
-                <button className="slide-button">{t("Shop now")}</button>
-              </Link>
+              <button 
+                onClick={products} 
+                className="btn btn-light  text-black border rounded-pill px-4 py-2 shadow-sm"
+              >
+                {t("Shop Now")}
+              </button>
             </div>
           </div>
         </div>

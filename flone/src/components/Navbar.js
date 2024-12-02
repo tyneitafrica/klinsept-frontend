@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import {
-  FaBarsStaggered,
   FaCartShopping,
   // FaRegHeart,
   FaCodeCompare,
@@ -15,6 +14,8 @@ import Logo from "../assets/logo.png";
 import "../assets/css/Navbar.css";
 import { useTranslation } from "react-i18next";
 import { isAuthenticated } from "../helpers/backendFectch";
+import { FaBars } from "react-icons/fa6";
+
 
 function Navbar() {
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -92,6 +93,8 @@ function Navbar() {
     setShowSearch(false);
   };
 
+  
+
   return (
     <>
       {error && (
@@ -120,15 +123,10 @@ function Navbar() {
             </div>
 
             <div className="secondary-nav">
-              <NavLink to={userData !== null ? "/my-account" : "/login"}>
-                {/* <FaRegUser size={25} />  */}
-                {t("Profile")}
-                {/* Client Portal */}
-              </NavLink>
               <div className="search-container">
                 {!showSearch && (
                   <FaMagnifyingGlass
-                    size={22}
+                    size={20}
                     onClick={() => setShowSearch(!showSearch)}
                     className="search-icon"
                   />
@@ -157,7 +155,7 @@ function Navbar() {
                 )}
               </div>
               <NavLink className="icon-with-badge" to="/cart">
-                <FaCartShopping size={25} />
+                <FaCartShopping size={20} />
                 <span className="badge badge-info">
                   {cartData?.length || 0}
                 </span>
@@ -169,10 +167,16 @@ function Navbar() {
                   </span>
                   </NavLink> */}
               <NavLink to="/compare">
-                <FaCodeCompare size={25} />
+                <FaCodeCompare size={20} />
                 <span className="badge badge-danger">
                   {compareData?.length || 0}
                 </span>
+              </NavLink>
+              
+              <NavLink to={userData !== null ? "/my-account" : "/login"} className="login-btn"
+              >
+                {/* <FaRegUser size={25} />  */}
+                {t("Login")}
               </NavLink>
 
               <div
@@ -180,9 +184,9 @@ function Navbar() {
                 onClick={() => setToggleMenu(!toggleMenu)}
               >
                 {!toggleMenu ? (
-                  <FaBarsStaggered size={25} />
+                  <FaBars size={20} />
                 ) : (
-                  <IoClose size={25} />
+                  <IoClose size={20} />
                 )}
               </div>
             </div>

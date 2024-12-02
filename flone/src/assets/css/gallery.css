@@ -91,6 +91,7 @@
   background-color: white;
   color: #007bff;
   text-decoration: none;
+  border-color:transparent;
   border-radius: 25px;
   font-weight: 500;
   transition: all 0.3s ease;

@@ -3,7 +3,6 @@ import {
   FaTiktok,
   FaXTwitter,
   FaInstagram,
-  FaGithub,
   FaFacebookF,
 } from "react-icons/fa6";
 import { Link, NavLink } from "react-router-dom";
@@ -61,7 +60,7 @@ export default function Footer({ darkMode = !true }) {
               © 2024 <Link to="/">Klinsept sprl</Link>. {t("All Rights Reserved")}
             </span>
             <div className="social-icons">
-              <Link to="/" target="_blank">
+              <Link to="https://www.facebook.com/klinsept" target="_blank">
                 <FaFacebookF />
               </Link>
               <Link to="/" target="_blank">
@@ -69,9 +68,6 @@ export default function Footer({ darkMode = !true }) {
               </Link>
               <Link target="_blank">
                 <FaXTwitter />
-              </Link>
-              <Link to="/" target="_blank">
-                <FaGithub />
               </Link>
               <Link to="/" target="_blank">
                 <FaTiktok />

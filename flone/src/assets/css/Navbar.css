@@ -18,6 +18,19 @@ select.form-select {
   background-color: white;
 }
 
+.login-btn {
+  font-size: 1rem; /* Adjust text size */
+/* Optional for bold text */
+  margin-left: auto; /* Push to the right */
+  color: #007bff; /* Optional for text color */
+  text-decoration: none; /* Remove underline */
+}
+
+.login-btn:hover {
+  color: #0056b3; /* Optional hover effect */
+  text-decoration: underline; /* Optional hover underline */
+}
+
 
 
 a {
@@ -76,15 +89,15 @@ a.active {
 .primary-nav {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 40px;
 }
 
 /* Secondary Navigation */
 .secondary-nav {
   display: flex;
-  justify-content: center;
+  justify-content:flex-end;
   align-items: center;
-  gap: 1rem;
+  gap: 25px;
 }
 
 .secondary-nav a {
