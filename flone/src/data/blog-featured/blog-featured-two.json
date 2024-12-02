@@ -1,24 +1,7 @@
 [
-  {
-    "id": 1,
-    "image": "/assets/img/blog/floor-cleaner.jpeg",
-    "category": ["cleaning", "detergents", "tips"],
-    "title": "How to Choose the Right Floor Cleaning Detergent",
-    "url": "/blog-details-standard",
-    "author": "Klinsolutions",
-    "authorUrl": "/about"
-  },
+
   {
     "id": 2,
-    "image": "/assets/img/blog/hand-sanitize.jpeg",
-    "category": ["cleaning", "antiseptics", "health"],
-    "title": "The Importance of Hand Sanitizers in Preventing Germs",
-    "url": "/blog-details-standard",
-    "author": "Klinsolutions",
-    "authorUrl": "/about"
-  },
-  {
-    "id": 3,
     "image": "/assets/img/blog/ecoa.jpeg",
     "category": ["cleaning", "sustainability", "environment"],
     "title": "Eco-Friendly Cleaning Solutions: Sustainable Detergents for Your Home",
@@ -27,10 +10,28 @@
     "authorUrl": "/about"
   },
   {
-    "id": 4,
+    "id": 3,
     "image": "/assets/img/blog/klin.kichen.png",
     "category": ["cleaning", "household", "maintenance"],
     "title": "How to Maintain a Clean and Hygienic Kitchen with the Right Products",
+    "url": "/blog-details-standard",
+    "author": "Klinsolutions",
+    "authorUrl": "/about"
+  },
+  {
+    "id": 1,
+    "image": "/assets/img/blog/hand-sanitize.jpeg",
+    "category": ["cleaning", "antiseptics", "health"],
+    "title": "The Importance of Hand Sanitizers in Preventing Germs",
+    "url": "/blog-details-standard",
+    "author": "Klinsolutions",
+    "authorUrl": "/about"
+  },
+  {
+    "id": 4,
+    "image": "/assets/img/blog/floor-cleaner.jpeg",
+    "category": ["cleaning", "detergents", "tips"],
+    "title": "How to Choose the Right Floor Cleaning Detergent",
     "url": "/blog-details-standard",
     "author": "Klinsolutions",
     "authorUrl": "/about"
