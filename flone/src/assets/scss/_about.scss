@@ -1,7 +1,7 @@
 /*------- 11. About style ------ */
 
 .welcome-content {
-  h5 {
+  h3 {
     font-weight: 500;
     font-size: 16px;
     color: #666;
@@ -30,10 +30,10 @@
       margin: 0 auto;
     }
   }
-  p {
+  span {
     font-size: 16px;
     color: #4b4b4b;
-    line-height: 30px;
+    line-height: 45px;
     width: 66%;
     margin: 0 auto;
     @media #{$lg-layout} {
@@ -170,18 +170,20 @@
 
 .single-mission {
   h3 {
-    font-size: 25px;
+    font-size: 32px;
     font-weight: 500;
     margin: 0 0 20px;
     text-transform: capitalize;
     line-height: 22px;
-    color: #333;
+    color: #070508;
     @media #{$xs-layout} {
       margin: 0 0 10px;
     }
   }
-  p {
-    margin: 0;
+  span {
+    line-height: 37px;
+
+
   }
 }
 
