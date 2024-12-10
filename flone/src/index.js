@@ -16,6 +16,8 @@ import * as serviceWorker from "./serviceWorker";
 import { Toaster } from "react-hot-toast";
 
 import { composeWithDevTools } from "redux-devtools-extension";
+
+// clear localstorage
 window.addEventListener('load',()=>localStorage.clear())
 
 const store = createStore(
