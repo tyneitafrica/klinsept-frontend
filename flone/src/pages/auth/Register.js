@@ -174,7 +174,7 @@ const Register = () => {
                                 />
                                 <Form.Control.Feedback type="invalid">
                                   Please provide a valid phone number with
-                                  country code, e.g., +254 712345678.
+                                  country code, e.g., +254712345678.
                                 </Form.Control.Feedback>
                               </Form.Group>
                               {/* Country Selection Dropdown */}
