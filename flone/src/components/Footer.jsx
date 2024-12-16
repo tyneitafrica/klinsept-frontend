@@ -30,11 +30,11 @@ export default function Footer({ darkMode = !true }) {
             <h2 className="section-title">{t("Working Hours")}</h2>
             <div>
               <p>{t("Monday to Friday")}: </p>
-              <span className="text-success">9:00 AM - 5:00 PM</span>
+              <span className="text-success">8:00 AM - 5:00 PM</span>
             </div>
             <div>
               <p>{t("Saturday")}: </p>
-              <span className="text-warning">10:00 AM - 4:00 PM</span>
+              <span className="text-warning">8:45 AM - 1:00 PM</span>
             </div>
             <div>
               <p>{t("Sunday")}: </p>
