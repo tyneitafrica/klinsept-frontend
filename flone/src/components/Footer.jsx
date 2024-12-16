@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  FaTiktok,
+  // FaTiktok,
   FaXTwitter,
   FaInstagram,
   FaFacebookF,
@@ -63,15 +63,15 @@ export default function Footer({ darkMode = !true }) {
               <Link to="https://www.facebook.com/klinsept" target="_blank">
                 <FaFacebookF />
               </Link>
-              <Link to="/" target="_blank">
+              <Link to="https://www.instagram.com/klinsept_burundi/" target="_blank">
                 <FaInstagram />
               </Link>
-              <Link target="_blank">
+              <Link to="https://x.com/klinsept">
                 <FaXTwitter />
               </Link>
-              <Link to="/" target="_blank">
+              {/* <Link to="/" target="_blank">
                 <FaTiktok />
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>
