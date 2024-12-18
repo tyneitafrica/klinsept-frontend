@@ -5,7 +5,7 @@ import brandLogoData from "../../data/brand-logos/brand-logo-one.json";
 import SectionTitle from "../../components/SectionTitle";
 
 
-const BrandLogoSliderOne = () => {
+const BrandLogoSliderOne = ({t}) => {
   const settings = {
     loop: true,
     autoplay: {
@@ -34,7 +34,7 @@ const BrandLogoSliderOne = () => {
       className={`brand-logo-area pb-70  pt-70`}
     >
               <SectionTitle
-          titleText="Clients we work with"
+          titleText={t("Clients we work with")}
           positionClass="text-center"
           spaceClass="mb-60"
         />

@@ -22,9 +22,14 @@ const About = () => {
     <div className="mt-90">
       <MetaTags>
         <title>{t("Klinsept | About us")}</title>
-        <meta name="description" content={t("About page of react minimalist eCommerce template.")} />
+        <meta
+          name="description"
+          content={t("About page of react minimalist eCommerce template.")}
+        />
       </MetaTags>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>{t("Home")}</BreadcrumbsItem>
+      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>
+        {t("Home")}
+      </BreadcrumbsItem>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
         {t("About us")}
       </BreadcrumbsItem>
@@ -38,16 +43,21 @@ const About = () => {
             <div className="text-left">
               <h1>{t("Who We Are")}</h1>
               <div className="welcome-content">
-              <span>{t("KLINSEPT is a janitorial and disinfectant products manufacturing company located in Bujumbura-Burundi. KLINSEPT began operation in May 2022 having fulfilled the entire registration requirements. We got a clean bill of health from BBN.")}
-              {t("We officially introduced our products into the market in August 2022 and within four months; we were able to achieve the minimum sales that enabled us to be enlisted among organizations that have to submit TVA to OBR meaning our products were appreciated in the local market.")}</span>
+                <span>
+                  {t(
+                    "KLINSEPT is a janitorial and disinfectant products manufacturing company located in Bujumbura-Burundi. KLINSEPT began operation in May 2022 having fulfilled the entire registration requirements. We got a clean bill of health from BBN."
+                  )}
+                  {t(
+                    "We officially introduced our products into the market in August 2022 and within four months; we were able to achieve the minimum sales that enabled us to be enlisted among organizations that have to submit TVA to OBR meaning our products were appreciated in the local market."
+                  )}
+                </span>
+              </div>
             </div>
-            </div>
-
           </div>
         </div>
 
         {/* text grid */}
-        <TextGridOne t={t}/>
+        <TextGridOne t={t} />
 
         {/* fun fact */}
         <FunFactOne />
@@ -62,58 +72,29 @@ const About = () => {
                 spaceClass="mb-40 mt-40"
               />
               <div className="text-left">
-              <span>{t("We can deliver a wide range of fragrances, and packaging volumes as per the client’s requirement.")}
-              {t("We have a well-equipped laboratory ensuring the quality of our products meets the required standards.")}
-              {t("It is our endeavor to get associated with organizations that have the urge to improve not only in their price of procuring but also to develop new and genuinely good products. We believe in a long-term relationship, which is more like a partnership; we manufacture & you cater the products.")}</span>
+                <span>
+                  {t(
+                    "We can deliver a wide range of fragrances, and packaging volumes as per the client’s requirement."
+                  )}
+                  {t(
+                    "We have a well-equipped laboratory ensuring the quality of our products meets the required standards."
+                  )}
+                  {t(
+                    "It is our endeavor to get associated with organizations that have the urge to improve not only in their price of procuring but also to develop new and genuinely good products. We believe in a long-term relationship, which is more like a partnership; we manufacture & you cater the products."
+                  )}
+                </span>
               </div>
             </div>
 
-            {/* <Tab.Container className="" activeKey={activeKey} onSelect={(key) => setActiveKey(key)}>
-              <Nav variant="pills" className="product-tab-list-7 mb-40 justify-content-center">
-                <Nav.Item>
-                  <Nav.Link eventKey="antiseptics">
-                    <h4>{t("Antiseptics")}</h4>
-                  </Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link eventKey="disinfectants">
-                    <h4>{t("Disinfectants")}</h4>
-                  </Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link eventKey="detergents">
-                    <h4>{t("Detergents")}</h4>
-                  </Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link eventKey="handwash">
-                    <h4>{t("Handwash")}</h4>
-                  </Nav.Link>
-                </Nav.Item>
-              </Nav>
-              <Tab.Content>
-                <Tab.Pane eventKey="antiseptics">
-                  {t("Antiseptics kill microorganisms on your skin.")}
-                </Tab.Pane>
-                <Tab.Pane eventKey="disinfectants">
-                  {t("Disinfectants are used to kill germs on nonliving surfaces.")}
-                </Tab.Pane>
-                <Tab.Pane eventKey="detergents">
-                  {t("Intended for washing and cleaning processes.")}
-                </Tab.Pane>
-                <Tab.Pane eventKey="handwash">
-                  {t("Promotes hand hygiene by removing viruses/bacteria/microorganisms, dirt, grease, or other harmful and unwanted substances stuck to the hands.")}
-                </Tab.Pane>
-              </Tab.Content>
-            </Tab.Container> */}
+           
           </div>
         </div>
 
         {/* team member */}
-        <TeamMember />
+        <TeamMember t={t} />
 
         {/* brand logo slider */}
-        <BrandLogoSliderOne />
+        <BrandLogoSliderOne t={t} />
       </LayoutOne>
     </div>
   );

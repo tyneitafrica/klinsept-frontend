@@ -4,33 +4,30 @@ import "../assets/css/Testimonial.css";
 import SectionTitle from "../components/SectionTitle";
 import { useTranslation } from "react-i18next";
 
-// Array of testimonials
 const testimonialsData = [
   {
     id: 1,
-    name: "John Kamotho",
+    name: "Amie Santiana",
     position: "Owner, CleanHomes Ltd",
     image: icon,
-    content:
-      "I've been using this company's detergents for years, and the quality has always been outstanding. Our clients love the fresh scents and powerful cleaning effect. Highly recommend!",
+    content: "testimonial1", 
   },
   {
     id: 2,
-    name: "Mark Mwangi",
+    name: "Ninziza Bernice",
     position: "Manager, Fresh & Clean Services",
     image: icon,
-    content:
-      "The detergents from this company have been essential to our cleaning business. They are effective and economical, which helps us maintain a great profit margin without compromising on quality.",
+    content: "testimonial2", 
   },
   {
     id: 3,
-    name: "Simon Konecki",
+    name: "Jean Chrisostome",
     position: "CEO, Sparkling Solutions",
     image: icon,
-    content:
-      "We’ve tried many brands, but this company’s detergents stand out. Our team and clients noticed the difference immediately—cleaning is easier and faster with their products.",
+    content: "testimonial3",
   },
 ];
+
 
 function Testimonial() {
   const { t } = useTranslation(); // For translation
@@ -60,7 +57,7 @@ function Testimonial() {
               </div>
 
               <div className="testimonial-content">
-                <p>{testimonial.content}</p>
+                <p>{t(testimonial.content)}</p>
               </div>
             </div>
           ))}

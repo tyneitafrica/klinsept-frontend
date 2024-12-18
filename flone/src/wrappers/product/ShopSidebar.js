@@ -24,7 +24,7 @@ const ShopSidebar = ({ products, getSortParams }) => {
     });
     setUniqueVariations(variations);
     return variations;
-  }, [products]); // Recalculate when products change
+  }, [products]); 
 
   return (
     <div className={`sidebar-style mr-30`}>
@@ -70,18 +70,18 @@ const ShopSidebar = ({ products, getSortParams }) => {
       {/* Filter by variations */}
       <div className="sidebar-widget">
         <div className="sidebar-widget-list mt-30">
-          {uniqueVariations.length > 0 ? (
+          {!uniqueVariations.length > 0 ? (
             <>
               <h4 className="my-5 pro-sidebar-title">Product Variations</h4>
               <ul>
-                {!uniqueVariations.map((variation, index) => (
+                {uniqueVariations.map((variation, index) => (
                   <li key={index}>
                     <div className="sidebar-widget-list-left">
                       <button
                         onClick={(e) => {
-                          console.log(variation);
-                          // getSortParams("variation", variation.size);
-                          // setActiveSort(e);
+                          console.log(uniqueVariations);
+                          getSortParams("variation", variation.size);
+                          setActiveSort(e);
                         }}
                       >
                         <span className="checkmark" /> {variation.size}

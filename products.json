@@ -1,0 +1,164 @@
+[
+  {
+    "id": 12,
+    "name": "SURGICAL SPIRIT",
+    "description": "IT IS ALSO USED FOR SKIN PREPARATION BEFORE INJECTION.\r\n\r\nSurgical spirit is applied to the surface of the skin for use as a cleansing agent and it also has antiseptic properties.",
+    "usage": "Apply to the affected area using cotton wool as required.\r\nWet a swab of cotton wool with surgical spirit and apply to the skin.",
+    "presentation": "Not specified.",
+    "mechanism_of_action": "",
+    "indications": "",
+    "dilution_instructions": "",
+    "storage_instructions": "Store in a cool, dry place, away from flames or heat.",
+    "active_ingredients": "Isopropyl alcohol.",
+    "warnings": "Highly flammable. Keep out of reach of children. Avoid contact with eyes.",
+
+    "category": [
+      "Antiseptics"
+    ]
+  },
+  {
+    "id": 10,
+    "name": "KLINSAFI",
+    "description": "Gives your flooring a sparkling new look. Safe for tiles and marble flooring. Environmentally safe. Pleasing fragrance. Ideal viscosity for optimum use & NO misuse. Does not harm the fillers of the tiles. Absorbs dirt and grime in no time",
+    "usage": "Cleans flooring, removes dirt and grime, safe for tiles and marble.",
+    "presentation": "Not specified.",
+    "mechanism_of_action": "Absorbs dirt and grime, tough on grease but gentle on hands.",
+    "indications": "Safe for use on tiles and marble. Provides a sparkling new look.",
+    "dilution_instructions": "",
+    "storage_instructions": "Store in a cool, dry place, away from direct sunlight.",
+    "active_ingredients": "Not specified.",
+    "warnings": "Keep out of reach of children. Avoid ingestion and contact with eyes."
+   
+  },
+  {
+    "id": 3,
+    "name": "LIQUID DETERGENT",
+    "description": "Discover the excellent cleaning performance of KLINSEPTS MULTI USAGE LIQUID DETERGENT with Spotless Cleaning, Fabric Protection and Fresh Lemon Fragrance. With the special effect in its formula, it provides spotless cleaning on your clothes, while at the same time, it leaves a fresh scent on your clothes.",
+    "usage": "Removes dirt, grease, grime, and soil. Can be used for cleaning furniture, mopping floors, dishwashing, and laundry.",
+    "presentation": "5 Litres filled in high-density plastic jerricans.",
+    "mechanism_of_action": "Effectively dissolves in water to penetrate stains faster and more efficiently.",
+    "indications": "Gentle on hands, tough on dirt, versatile for multiple cleaning purposes.",
+    "dilution_instructions": "",
+    "storage_instructions": "Store in a cool, dry place, away from direct sunlight.",
+    "active_ingredients": "Not specified.",
+    "warnings": "Keep out of reach of children. Avoid contact with eyes. If contact occurs, rinse immediately with water."
+   
+  },
+  {
+    "id": 2,
+    "name": "KLINDISH",
+    "description": "Contains a strong cleaning agent, to remove oil & dirt from all surfaces. Does not contain any harmful/corrosive chemical. Environment & eco-friendly. Pleasing fragrance. Ideal viscosity for optimum use & NO misuse. Can be used on ALL utensils, glass, steel, aluminium, plastic etc. Advantage of not using soap bar which generally gets soggy. No adverse effect on human hands.",
+    "usage": "Removes oil and dirt from utensils, glass, steel, aluminum, and plastic surfaces.",
+    "presentation": "500ml and 5 Litres.",
+    "mechanism_of_action": "Contains strong cleaning agents but is safe for human hands.",
+    "indications": "Eco-friendly, non-corrosive, no adverse effects on human hands.",
+    "dilution_instructions": "",
+    "storage_instructions": "Store in a cool, dry place, away from direct sunlight.",
+    "active_ingredients": "Not specified.",
+    "warnings": "Keep out of reach of children. Avoid ingestion and contact with eyes."
+  },
+  {
+    "id": 1,
+    "name": "KLINSAN",
+    "description": "Use Klinsan to help reduce bacteria that potentially can cause disease.\r\n\r\nFor use when soap and water are not available",
+    "usage": "Wet hands throughly with the solution.Rub over the hands till they are dry.Instant results,No water,No towels.Do not wash off after use",
+    "presentation": "",
+    "mechanism_of_action": "",
+    "indications": "",
+    "dilution_instructions": "",
+    "storage_instructions": "Store in a cool, dry place, away from direct sunlight.",
+    "active_ingredients": "Alcohol 70%",
+    "warnings": "If swallowed, seek medical help."
+  },
+  {
+    "id": 5,
+    "name": "KLINWASH",
+    "description": "Contains a strong cleaning agent, but is gentle on hands. Enhanced with moisturiser. Does not contain any harmful/ corrosive chemical. Environment & eco-friendly. Pleasing fragrances. Ideal viscosity, so as to spread on the palm evenly.",
+    "usage": "Handwash for daily use. Enhanced with moisturizers.",
+    "presentation": "Citron,\r\nApricot,\r\nStrawberry,\r\nOcean Breeze,\r\nFraise,\r\nRaspberry,\r\nMorning Flesh,\r\nSweet Almond,\r\nPeach,\r\nLavendor,\r\nAleovera,\r\nMixed Fruit",
+    "mechanism_of_action": "Cleans effectively without harming the skin.",
+    "indications": "Eco-friendly, ideal for all users.",
+    "dilution_instructions": "",
+    "storage_instructions": "Store in a cool, dry place, away from direct sunlight.",
+    "active_ingredients": null,
+    "warnings": "Keep out of reach of children. Avoid ingestion and contact with eyes."
+  },
+  {
+    "id": 11,
+    "name": "KLINTOL",
+    "description": "KLINTOL SOLUTION Contains Chloroxylenol 4.8% which is an antimicrobial.\r\n\r\nIt's used in treating cuts, bites, stings, and abrasions, and used as an antiseptic hand cleane",
+    "usage": "Chloroxylenol is an antimicrobial used to treat cuts, bites, stings and abrasions.\r\n\r\nChloroxylenol, or para-chloro-meta-xylenol (PCMX), is an antiseptic and disinfectant agent used for skin disinfection and surgical instruments.\r\n\r\nALWAYS DILUTE THE PRODUCT BEFORE USE.",
+    "presentation": "",
+    "mechanism_of_action": "As a phenol antiseptic, it is believed that the hydroxyl-OH groups of the chloroxylenol molecule bind to certain proteins on the cell membrane of bacteria, and disrupt the membrane so as to allow the contents of the bacterial cell to leak out.\r\n\r\nThis allows chloroxylenol to enter the bacterial cell to bind further with more proteins and enzymes to disable the cell’s functioning.\r\n\r\nAt particularly high concentrations of chloroxylenol, the protein and nucleic acid content of targeted bacterial cells become coagulated and cease to function, leading to rapid cell death.",
+    "indications": "The predominant medical applications for which chloroxylenol is formally indicated for therapeutic use is as an application to the skin for use in cuts, bites, stings and abrasions.",
+    "dilution_instructions": "For cuts, bites, abrasions and insect stings:\r\nWash the area with one tablespoon of KLINTOL solution diluted in half a pint of water and cover it with dry gauze or lint.\r\n\r\nPersonal hygiene:\r\nFor douching (when medically advised) two teaspoonfuls of KLINTOL solution in two pints of warm water.\r\n\r\nDandruff:\r\nOne tablespoonful of KLINTOL solution in one pint of warm water.\r\nSaturate hair and scalp for 10 minutes then shampoo.",
+    "storage_instructions": "Store in a cool, dry place, away from direct sunlight.",
+    "active_ingredients": "Chloroxylenol 4.8%.",
+    "warnings": "Keep out of reach of children. Dilute before use"
+  },
+  {
+    "id": 9,
+    "name": "WINDOW CLEANER",
+    "description": "Our window cleaner solution is a specialized liquid formula designed to effectively clean glass surfaces, leaving them streak-free, clear, and sparkling. It is commonly used for cleaning windows, mirrors, glass tables, and other similar surfaces.",
+    "usage": "",
+    "presentation": "",
+    "mechanism_of_action": "",
+    "indications": "",
+    "dilution_instructions": "",
+    "storage_instructions": null,
+    "active_ingredients": null,
+    "warnings": ""
+  },
+  {
+    "id": 7,
+    "name": "KLINDAN",
+    "description": "KLINDAN solution contains Glutaraldehyde which is a well-known sterilizing and disinfecting agent. This solution is buffered to maintain the solution at a specific pH range during use.",
+    "usage": "Disinfection of medical devices, surgical and medical equipment, endoscopes, and sensitive equipment.",
+    "presentation": "5 Litres",
+    "mechanism_of_action": "A number of mechanisms have been invoked to explain the biocidal properties of glutaraldehyde.\r\nLike many other aldehydes, it reacts with amines and thiol groups, which are common functional groups in proteins.\r\nBeing bi-function, it is also a potential crosslinker.",
+    "indications": "It is used as a cold sterilizer to disinfect a variety of heat-sensitive instruments, such as endoscopes, dialysis equipment, and more.\r\n\r\nIt is used as a high-level disinfectant for those surgical instruments that cannot be heat sterilized.\r\n\r\nContact times of at least 20 minutes (at or above 20°C) are effective for high-level disinfection.\r\n\r\nDo not dilute the product.\r\n\r\nClean and then soak in klindan solution in a container.",
+    "dilution_instructions": "A powdered buffer, included with the liquid disinfectant, is added to the liquid, the pH becomes alkaline and the 2 percent glutaraldehyde is activated.\r\nUpon the addition of the powder, the container must be shaken so it will dissolve completely.\r\nThe active solution has to be discarded after 14 days\r\nbecause of polymerization",
+    "storage_instructions": "Store in a cool, dry place, away from direct sunlight.",
+    "active_ingredients": "Glutaraldehyde 2% solution",
+    "warnings": "Glutaraldehyde is an irritant to the skin, eyes, and respiratory system.\r\n\r\nGlutaraldehyde is an irritant to the skin, eyes, and respiratory system.\r\n\r\nSkin contact may cause minor irritation with itching and slight local redness.\r\n\r\nProlonged contact causes mild to moderate local redness and swelling.\r\n\r\nGlutaraldehyde may cause a sensation by inhalation.\r\nIn case of contact with eyes, rinse immediately with plenty of water and seek medical advice.\r\n\r\nUse in well-ventilated area"
+  },
+  {
+    "id": 4,
+    "name": "KLINJAV",
+    "description": "KLINJAV (Sodium hypochlorite) commonly known as bleach, is most frequently used as a disinfecting agent. It is a broad-spectrum disinfectant that is effective for the disinfection of viruses, bacteria, fungi, and mycobacterium",
+    "usage": "As a bleaching agent:\r\nSodium hypochlorite causes a chemical reaction called oxidation when they come into contact with certain stains, certain germs or other organisms, and sometimes clothing dyes.\r\nBleach is a very useful chemical both around the house\r\nand for large-scale use.\r\nYou can use bleach to remove stains on clothing or to whiten your laundry.\r\n\r\nTo disinfect surfaces:\r\nSodium Hypochlorite is used to disinfect surfaces, too, especially in the kitchen and bathroom.\r\nHospital personnel use Sodium Hypochlorite as a disinfectant, hotels use it to clean and disinfect bed linens and surfaces, and restaurants disinfect food preparation surfaces with Sodium Hypochlorite.",
+    "presentation": "5 Litres and 1 Litre packed in opaque high-density plastic jerricans.",
+    "mechanism_of_action": "Sodium hypochlorite attacks proteins in cells, leading to microbial death.",
+    "indications": "Effective against bacteria, viruses, fungi, and mycobacterium.",
+    "dilution_instructions": "For its effective use, below is the dilution table for concentrated KLINJAV Solution.\r\n\r\nHands, floor, bathroom, toilets etc.:\r\n100ml diluted to 5L with water.\r\n\r\nOperation theatres, stretchers, emergency wards, laboratories:\r\n250ml diluted to 5L with water.\r\n\r\nTB sputum disinfection and surfaces contaminated with spilt blood and body fluids:\r\n500ml diluted to 5L with water.\r\n\r\nHighly contaminated surfaces, HIC, Hepatitis B Virus inactivation:\r\n1L diluted to 5L with water.\r\n\r\nPatients’ clothes, linen etc (whitening):\r\n50ml diluted to 5L with water.",
+    "storage_instructions": "Do not store near reactive chemicals. Vent containers if heated.",
+    "active_ingredients": "Sodium hypochlorite.",
+    "warnings": "Keep out of reach of children. Avoid mixing with ammonia or acids."
+  },
+  {
+    "id": 6,
+    "name": "KLINSAV",
+    "description": "Powerful disinfecting agent and antiseptic for hospital and household use.",
+    "usage": "Always dilute the product as per the recommendations below to avoid skin irritation.\r\n\r\nCleansing and disinfection of equipment and metal instruments.\r\nClean instruments disinfection.\r\nStorage of thermometres.\r\n30 minutes immersion.\r\nTake 10 ml of KLINSAV SOLUTION and dilute to 60 ml with water.\r\n\r\nCleansing/ disinfection of equipment, catheters, rubber appliances and thermometers:\r\nTake 10ml of KLINSAV SOLUTION and dilute with 60 ml with water.\r\n\r\nEmergency disinfection of clean instruments, disinfection of thermometer:\r\n20 minutes immersion.\r\nTake 10 ml of KLINSAV SOLUTION and dilute to 60 ml with alcohol 96%.\r\n\r\nCleansing and disinfection of wounds and burns:\r\nTake 10 ml of KLINSAV SOLUTION and dilute to 60 ml with water.\r\n\r\nCleansing and disinfection of wounds and burns where antimicrobial effects are required:\r\nTake 10 ml of KLINSAV SOLUTION and dilute to 60 ml with water.\r\n\r\nPre-Operative skin disinfection:\r\nTake 10 ml of KLINSAV SOLUTION and dilute to 60 ml with alcohol 7",
+    "presentation": "",
+    "mechanism_of_action": "Take 10ml of this solution and dilute 200ml/60ml with water",
+    "indications": "KLINSAV SOLUTION contains Chlorhexidine Digluconate 0.3% & Cetrimide 3.0%\r\n\r\nThese are the active ingredients, which are responsible for the antiseptic effect of this liquid.\r\n\r\nIt is a strong antiseptic liquid that is widely used for first aid treatment.\r\n\r\nIt protects against infection by washing out dirt and debris.\r\n\r\nIt kills bacteria in cuts, grazes, and minor wounds without the need to touch sore or broken skin",
+    "dilution_instructions": "Always dilute the product as per the recommendations below to avoid skin irritation.\r\n\r\nCleansing and disinfection of equipment and metal instruments.\r\nClean instruments disinfection.\r\nStorage of thermometres.\r\n30 minutes immersion.\r\nTake 10 ml of KLINSAV SOLUTION and dilute to 60 ml with water.\r\n\r\nCleansing/ disinfection of equipment, catheters, rubber appliances and thermometers:\r\nTake 10ml of KLINSAV SOLUTION and dilute with 60 ml with water.\r\n\r\nEmergency disinfection of clean instruments, disinfection of thermometer:\r\n20 minutes immersion.\r\nTake 10 ml of KLINSAV SOLUTION and dilute to 60 ml with alcohol 96%.\r\n\r\nCleansing and disinfection of wounds and burns:\r\nTake 10 ml of KLINSAV SOLUTION and dilute to 60 ml with water.\r\n\r\nCleansing and disinfection of wounds and burns where antimicrobial effects are required:\r\nTake 10 ml of KLINSAV SOLUTION and dilute to 60 ml with water.\r\n\r\nPre-Operative skin disinfection:\r\nTake 10 ml of KLINSAV SOLUTION and dilute to 60 ml with alcohol 70%",
+    "storage_instructions": "Store in a cool, dry place, away from direct sunlight.",
+    "active_ingredients": "Chlorhexidine 0.3% W/V",
+    "warnings": "When used as an antiseptic liquid as recommended, it does not cause any side effects. However, if used for cuts and wounds or as an after-shave lotion without diluting, it may cause mild irritation and sting on the skin but no major side effects."
+  },
+  {
+    "id": 8,
+    "name": "KLINGEN",
+    "description": "Klingen solution (Hydrogen peroxide) is a mild antiseptic.\r\n\r\nIt's used on the skin to prevent infection of minor cuts, scrapes, and burns.",
+    "usage": "Mouthwash:\r\nIn low concentrations, hydrogen peroxide can be used as a mouth rinse to remove mucus or minor mouth irritations.\r\nWound disinfection:\r\nHydrogen peroxide (H2O2) is a topical antiseptic used in wound cleaning which kills pathogens through oxidation bursts and local oxygen production.\r\nA proper level of Hydrogen Peroxide is considered an important requirement for normal wound healing.\r\nThis product should not be used to treat deep wounds, animal bites, or serious burns.",
+    "presentation": "",
+    "mechanism_of_action": "Hydrogen peroxide exhibits antimicrobial properties against most forms of microorganisms, including dormant forms with known high resistance profiles, such as bacterial spores and protozoal cysts.\r\n\r\nIt acts as an oxidative biocide to generate free radical species to induce DNA, protein and membrane lipid damage via oxidation.\r\n\r\nThe production of free hydroxyl radicals in the Fenton reaction is thought to be the basis of the biocidal actions of hydrogen peroxide.\r\n\r\nFree radicals eventually lead to oxidative damage to proteins and membrane lipids in vivo.\r\n\r\nThe oxidizing radical as the ferryl radical induces DNA oxidation",
+    "indications": "Inhalation:\r\nSeek fresh air. If the victim’s breathing is difficult, administer oxygen. If breathing is absent, give artificial respiration and seek medical attention immediately.\r\n\r\nEye Contact:\r\nRemove contact lenses if present. Immediately flush your eyes with plenty of water for at least 15 minutes, and seek medical attention.\r\n\r\nSkin Contact:\r\nFlush skin with plenty of water and cover irritated skin with an emollient. Remove contaminated clothing. In case of serious skin exposure, use disinfectant soap and an anti-bacterial cream and seek medical attention.\r\nIngestion:\r\nDo NOT induce vomiting. Loosen tight clothing. Never give anything by mouth to an unconscious person. Seek medical attention.",
+    "dilution_instructions": "FIRST AID:\r\nTo arrest bleeding and disinfect wounds. Dilute an equal amount of water, apply the diluted solution to lint or cotton wool and cleanse the wound.\r\n\r\nRemoval of wound dressings:\r\nDilute with an equal amount of water, soak in diluted solution, leave for a few minutes, and remove the dressing.\r\n\r\nMouthwash and deodorant:\r\nDilute two spoonfuls to one glass of water and gargle.",
+    "storage_instructions": "Store in a well-closed container. In a dry place below 30°C.",
+    "active_ingredients": null,
+    "warnings": "Do not use it in the eyes or apply it over large areas of the skin."
+  }
+]

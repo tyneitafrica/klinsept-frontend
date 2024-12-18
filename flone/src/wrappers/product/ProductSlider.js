@@ -3,9 +3,9 @@ import React from "react";
 import Swiper from "react-id-swiper";
 import SectionTitle from "../../components/SectionTitle";
 import ShopProducts from "./ShopProducts";
-// import { useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 const ProductSlider = ({  category }) => {
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
   const settings = {
     loop: false,
     slidesPerView: 4,
@@ -32,8 +32,8 @@ const ProductSlider = ({  category }) => {
     >
       <div className="container">
         <SectionTitle
-          titleText="Top Products"
-          subtitleText="Discover our most popular items"
+          titleText={t("Top Products")}
+          subtitleText={t("Discover our most popular items")}
           subtitleColorClass="text-dark" 
           positionClass="text-center"
           spaceClass="mb-55"

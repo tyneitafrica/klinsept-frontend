@@ -1,16 +1,61 @@
 import PropTypes from "prop-types";
 import React from "react";
-import blogFeaturedData from "../../data/blog-featured/blog-featured-two.json";
+// import blogFeaturedData from "../../data/blog-featured/blog-featured-two.json";
 import SectionTitle from "../../components/SectionTitle";
 import { Link } from "react-router-dom";
 
+import { useTranslation } from "react-i18next";
+
+
+
 const BlogFeaturedFour = () => {
+  const { t } = useTranslation();
+  const blogFeaturedData = [
+    {
+      id: 2,
+      image: "/assets/img/blog/ecoa.jpeg",
+      category: ["cleaning", "sustainability", "environment"],
+      title:
+        t("Eco-Friendly Cleaning Solutions: Sustainable Detergents for Your Home"),
+      url: "/blog-details-standard",
+      author: "Klinsolutions",
+      authorUrl: "/about",
+    },
+    {
+      id: 3,
+      image: "/assets/img/blog/klin.kichen.png",
+      category: ["cleaning", "household", "maintenance"],
+      title:
+        "How to Maintain a Clean and Hygienic Kitchen with the Right Products",
+      url: "/blog-details-standard",
+      author: "Klinsolutions",
+      authorUrl: "/about",
+    },
+    {
+      id: 1,
+      image: "/assets/img/blog/hand-sanitize.jpeg",
+      category: ["cleaning", "antiseptics", "health"],
+      title: "The Importance of Hand Sanitizers in Preventing Germs",
+      url: "/blog-details-standard",
+      author: "Klinsolutions",
+      authorUrl: "/about",
+    },
+    {
+      id: 4,
+      image: "/assets/img/blog/floor-cleaner.jpeg",
+      category: ["cleaning", "detergents", "tips"],
+      title: "How to Choose the Right Floor Cleaning Detergent",
+      url: "/blog-details-standard",
+      author: "Klinsolutions",
+      authorUrl: "/about",
+    },
+  ];
   return (
     <div className={`blog-area pt-95 pb-55`}>
       <div className="container">
         <SectionTitle
-          titleText="Latest News"
-          subtitleText="Stay updated with the most recent developments and insights."
+          titleText={t("Latest News")}
+          subtitleText={t("Stay updated with the most recent developments and insights.")}
           positionClass="text-center"
           spaceClass="mb-55"
           borderClass="no-border"
@@ -31,7 +76,7 @@ const BlogFeaturedFour = () => {
                       {singlePost.category.map((singleCategory, key) => {
                         return (
                           <span className="purple" key={key}>
-                            {singleCategory}
+                            {t(singleCategory)}
                           </span>
                         );
                       })}
@@ -41,11 +86,11 @@ const BlogFeaturedFour = () => {
                     <div className="blog-content text-center">
                       <h3>
                         <Link>
-                          {singlePost.title}
+                          {t(singlePost.title)}
                         </Link>
                       </h3>
                       <span>
-                        By{" "}
+                        {t('By')}{" "}
                         <Link
                           // to={process.env.PUBLIC_URL + singlePost.authorUrl}
                         >
