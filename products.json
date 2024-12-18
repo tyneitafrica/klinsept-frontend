@@ -11,9 +11,33 @@
     "storage_instructions": "Store in a cool, dry place, away from flames or heat.",
     "active_ingredients": "Isopropyl alcohol.",
     "warnings": "Highly flammable. Keep out of reach of children. Avoid contact with eyes.",
-
+    "images": [
+      {
+        "image": "https://res.cloudinary.com/djefnpuhr/image/upload/v1732874026/spirit_sewvjo.png"
+      },
+      {
+        "image": "https://res.cloudinary.com/djefnpuhr/image/upload/v1732794365/KLINSEPT_PRODUCTS-74_ycclvq.jpg"
+      }
+    ],
     "category": [
       "Antiseptics"
+    ],
+    "variations": [
+      {
+        "size": "100ML",
+        "price": "3000.00",
+        "stock": 93,
+        "discount": null
+      }
+    ],
+    "bulk_wholesale": [
+      {
+        "id": 20,
+        "min_quantity": 100,
+        "max_quantity": null,
+        "bulk_price": "3000.00",
+        "size": "100ML"
+      }
     ]
   },
   {
@@ -27,8 +51,32 @@
     "dilution_instructions": "",
     "storage_instructions": "Store in a cool, dry place, away from direct sunlight.",
     "active_ingredients": "Not specified.",
-    "warnings": "Keep out of reach of children. Avoid ingestion and contact with eyes."
-   
+    "warnings": "Keep out of reach of children. Avoid ingestion and contact with eyes.",
+    "images": [
+      {
+        "image": "https://res.cloudinary.com/djefnpuhr/image/upload/v1732874867/klinsafi_fhiu03.png"
+      }
+    ],
+    "category": [
+      "Detergents"
+    ],
+    "variations": [
+      {
+        "size": "5L",
+        "price": "20000.00",
+        "stock": 99,
+        "discount": null
+      }
+    ],
+    "bulk_wholesale": [
+      {
+        "id": 16,
+        "min_quantity": 4,
+        "max_quantity": null,
+        "bulk_price": "20000.00",
+        "size": "5L"
+      }
+    ]
   },
   {
     "id": 3,
@@ -41,8 +89,48 @@
     "dilution_instructions": "",
     "storage_instructions": "Store in a cool, dry place, away from direct sunlight.",
     "active_ingredients": "Not specified.",
-    "warnings": "Keep out of reach of children. Avoid contact with eyes. If contact occurs, rinse immediately with water."
-   
+    "warnings": "Keep out of reach of children. Avoid contact with eyes. If contact occurs, rinse immediately with water.",
+    "images": [
+      {
+        "image": "https://res.cloudinary.com/djefnpuhr/image/upload/v1732874956/LiquidDetergent1_fh5taz.png"
+      },
+      {
+        "image": "https://res.cloudinary.com/djefnpuhr/image/upload/v1732874952/Multipurpose_kyju2z.jpg"
+      }
+    ],
+    "category": [
+      "Detergents"
+    ],
+    "variations": [
+      {
+        "size": "5L",
+        "price": "20000.00",
+        "stock": 100,
+        "discount": null
+      },
+      {
+        "size": "1L",
+        "price": "6000.00",
+        "stock": 98,
+        "discount": null
+      }
+    ],
+    "bulk_wholesale": [
+      {
+        "id": 6,
+        "min_quantity": 4,
+        "max_quantity": null,
+        "bulk_price": "20000.00",
+        "size": "5L"
+      },
+      {
+        "id": 7,
+        "min_quantity": 12,
+        "max_quantity": null,
+        "bulk_price": "6000.00",
+        "size": "1L"
+      }
+    ]
   },
   {
     "id": 2,
@@ -55,7 +143,38 @@
     "dilution_instructions": "",
     "storage_instructions": "Store in a cool, dry place, away from direct sunlight.",
     "active_ingredients": "Not specified.",
-    "warnings": "Keep out of reach of children. Avoid ingestion and contact with eyes."
+    "warnings": "Keep out of reach of children. Avoid ingestion and contact with eyes.",
+    "images": [
+      {
+        "image": "https://res.cloudinary.com/djefnpuhr/image/upload/v1732874761/klindish_jch7yz.png"
+      }
+    ],
+    "category": [
+      "Detergents"
+    ],
+    "variations": [
+      {
+        "size": "5L",
+        "price": "21000.00",
+        "stock": 100,
+        "discount": null
+      },
+      {
+        "size": "500ML",
+        "price": "4500.00",
+        "stock": 94,
+        "discount": null
+      }
+    ],
+    "bulk_wholesale": [
+      {
+        "id": 4,
+        "min_quantity": 4,
+        "max_quantity": null,
+        "bulk_price": "21000.00",
+        "size": "5L"
+      }
+    ]
   },
   {
     "id": 1,
@@ -68,7 +187,48 @@
     "dilution_instructions": "",
     "storage_instructions": "Store in a cool, dry place, away from direct sunlight.",
     "active_ingredients": "Alcohol 70%",
-    "warnings": "If swallowed, seek medical help."
+    "warnings": "If swallowed, seek medical help.",
+    "images": [
+      {
+        "image": "https://res.cloudinary.com/djefnpuhr/image/upload/v1732794349/KLINSEPT_PRODUCTS-71_1_fmqv8k.jpg"
+      },
+      {
+        "image": "https://res.cloudinary.com/djefnpuhr/image/upload/v1732874119/klinsan1_evinye.png"
+      }
+    ],
+    "category": [
+      "Antiseptics"
+    ],
+    "variations": [
+      {
+        "size": "1L",
+        "price": "21000.00",
+        "stock": 97,
+        "discount": null
+      },
+      {
+        "size": "500ML",
+        "price": "10500.00",
+        "stock": 90,
+        "discount": null
+      }
+    ],
+    "bulk_wholesale": [
+      {
+        "id": 2,
+        "min_quantity": 16,
+        "max_quantity": null,
+        "bulk_price": "10500.00",
+        "size": "500ML"
+      },
+      {
+        "id": 3,
+        "min_quantity": 12,
+        "max_quantity": null,
+        "bulk_price": "21000.00",
+        "size": "1L"
+      }
+    ]
   },
   {
     "id": 5,
@@ -81,7 +241,54 @@
     "dilution_instructions": "",
     "storage_instructions": "Store in a cool, dry place, away from direct sunlight.",
     "active_ingredients": null,
-    "warnings": "Keep out of reach of children. Avoid ingestion and contact with eyes."
+    "warnings": "Keep out of reach of children. Avoid ingestion and contact with eyes.",
+    "images": [
+      {
+        "image": "https://res.cloudinary.com/djefnpuhr/image/upload/v1732794483/KLINSEPT_PRODUCTS-34_czgojy.jpg"
+      },
+      {
+        "image": "https://res.cloudinary.com/djefnpuhr/image/upload/v1732794459/KLINSEPT_PRODUCTS-30_ihlfrw.jpg"
+      },
+      {
+        "image": "https://res.cloudinary.com/djefnpuhr/image/upload/v1732794421/KLINSEPT_PRODUCTS-37_rp5zvj.jpg"
+      },
+      {
+        "image": "https://res.cloudinary.com/djefnpuhr/image/upload/v1732794401/KLINSEPT_PRODUCTS-32_hhzol5.jpg"
+      }
+    ],
+    "category": [
+      "Handwash"
+    ],
+    "variations": [
+      {
+        "size": "400ML",
+        "price": "6500.00",
+        "stock": 100,
+        "discount": null
+      },
+      {
+        "size": "500ML",
+        "price": "7000.00",
+        "stock": 98,
+        "discount": null
+      }
+    ],
+    "bulk_wholesale": [
+      {
+        "id": 10,
+        "min_quantity": 24,
+        "max_quantity": null,
+        "bulk_price": "6500.00",
+        "size": "400ML"
+      },
+      {
+        "id": 11,
+        "min_quantity": 16,
+        "max_quantity": null,
+        "bulk_price": "7000.00",
+        "size": "500ML"
+      }
+    ]
   },
   {
     "id": 11,
@@ -94,7 +301,61 @@
     "dilution_instructions": "For cuts, bites, abrasions and insect stings:\r\nWash the area with one tablespoon of KLINTOL solution diluted in half a pint of water and cover it with dry gauze or lint.\r\n\r\nPersonal hygiene:\r\nFor douching (when medically advised) two teaspoonfuls of KLINTOL solution in two pints of warm water.\r\n\r\nDandruff:\r\nOne tablespoonful of KLINTOL solution in one pint of warm water.\r\nSaturate hair and scalp for 10 minutes then shampoo.",
     "storage_instructions": "Store in a cool, dry place, away from direct sunlight.",
     "active_ingredients": "Chloroxylenol 4.8%.",
-    "warnings": "Keep out of reach of children. Dilute before use"
+    "warnings": "Keep out of reach of children. Dilute before use",
+    "images": [
+      {
+        "image": "https://res.cloudinary.com/djefnpuhr/image/upload/v1732873697/klintol_wfgoj3.png"
+      },
+      {
+        "image": "https://res.cloudinary.com/djefnpuhr/image/upload/v1732794386/KLINSEPT_PRODUCTS-75_1_spo8x5.jpg"
+      }
+    ],
+    "category": [
+      "Antiseptics"
+    ],
+    "variations": [
+      {
+        "size": "100ML",
+        "price": "10500.00",
+        "stock": 95,
+        "discount": null
+      },
+      {
+        "size": "1L",
+        "price": "21000.00",
+        "stock": 97,
+        "discount": null
+      },
+      {
+        "size": "5L",
+        "price": "20000.00",
+        "stock": 98,
+        "discount": null
+      }
+    ],
+    "bulk_wholesale": [
+      {
+        "id": 18,
+        "min_quantity": 100,
+        "max_quantity": null,
+        "bulk_price": "3000.00",
+        "size": "100ML"
+      },
+      {
+        "id": 19,
+        "min_quantity": 12,
+        "max_quantity": null,
+        "bulk_price": "21000.00",
+        "size": "1L"
+      },
+      {
+        "id": 17,
+        "min_quantity": 4,
+        "max_quantity": null,
+        "bulk_price": "100000.00",
+        "size": "5L"
+      }
+    ]
   },
   {
     "id": 9,
@@ -107,7 +368,41 @@
     "dilution_instructions": "",
     "storage_instructions": null,
     "active_ingredients": null,
-    "warnings": ""
+    "warnings": "",
+    "images": [
+      {
+        "image": "https://res.cloudinary.com/djefnpuhr/image/upload/v1732794326/WhatsApp_Image_2024-11-27_at_11.00.25_1_vhxfft.jpg"
+      },
+      {
+        "image": "https://res.cloudinary.com/djefnpuhr/image/upload/v1732794325/WhatsApp_Image_2024-11-27_at_11.00.26_1_x83g8h.jpg"
+      },
+      {
+        "image": "https://res.cloudinary.com/djefnpuhr/image/upload/v1732794324/WhatsApp_Image_2024-11-27_at_11.00.25_d5uykz.jpg"
+      },
+      {
+        "image": "https://res.cloudinary.com/djefnpuhr/image/upload/v1732794325/WhatsApp_Image_2024-11-27_at_11.00.26_2_usfdtg.jpg"
+      }
+    ],
+    "category": [
+      "Detergents"
+    ],
+    "variations": [
+      {
+        "size": "500ML",
+        "price": "9500.00",
+        "stock": 88,
+        "discount": null
+      }
+    ],
+    "bulk_wholesale": [
+      {
+        "id": 15,
+        "min_quantity": 24,
+        "max_quantity": null,
+        "bulk_price": "9500.00",
+        "size": "500ML"
+      }
+    ]
   },
   {
     "id": 7,
@@ -120,7 +415,24 @@
     "dilution_instructions": "A powdered buffer, included with the liquid disinfectant, is added to the liquid, the pH becomes alkaline and the 2 percent glutaraldehyde is activated.\r\nUpon the addition of the powder, the container must be shaken so it will dissolve completely.\r\nThe active solution has to be discarded after 14 days\r\nbecause of polymerization",
     "storage_instructions": "Store in a cool, dry place, away from direct sunlight.",
     "active_ingredients": "Glutaraldehyde 2% solution",
-    "warnings": "Glutaraldehyde is an irritant to the skin, eyes, and respiratory system.\r\n\r\nGlutaraldehyde is an irritant to the skin, eyes, and respiratory system.\r\n\r\nSkin contact may cause minor irritation with itching and slight local redness.\r\n\r\nProlonged contact causes mild to moderate local redness and swelling.\r\n\r\nGlutaraldehyde may cause a sensation by inhalation.\r\nIn case of contact with eyes, rinse immediately with plenty of water and seek medical advice.\r\n\r\nUse in well-ventilated area"
+    "warnings": "Glutaraldehyde is an irritant to the skin, eyes, and respiratory system.\r\n\r\nGlutaraldehyde is an irritant to the skin, eyes, and respiratory system.\r\n\r\nSkin contact may cause minor irritation with itching and slight local redness.\r\n\r\nProlonged contact causes mild to moderate local redness and swelling.\r\n\r\nGlutaraldehyde may cause a sensation by inhalation.\r\nIn case of contact with eyes, rinse immediately with plenty of water and seek medical advice.\r\n\r\nUse in well-ventilated area",
+    "images": [
+      {
+        "image": "https://res.cloudinary.com/djefnpuhr/image/upload/v1732874266/klinsept-product-klindan_wxl5xf.png"
+      }
+    ],
+    "category": [
+      "Disinfectants"
+    ],
+    "variations": [
+      {
+        "size": "5L",
+        "price": "20000.00",
+        "stock": 99,
+        "discount": null
+      }
+    ],
+    "bulk_wholesale": []
   },
   {
     "id": 4,
@@ -133,7 +445,51 @@
     "dilution_instructions": "For its effective use, below is the dilution table for concentrated KLINJAV Solution.\r\n\r\nHands, floor, bathroom, toilets etc.:\r\n100ml diluted to 5L with water.\r\n\r\nOperation theatres, stretchers, emergency wards, laboratories:\r\n250ml diluted to 5L with water.\r\n\r\nTB sputum disinfection and surfaces contaminated with spilt blood and body fluids:\r\n500ml diluted to 5L with water.\r\n\r\nHighly contaminated surfaces, HIC, Hepatitis B Virus inactivation:\r\n1L diluted to 5L with water.\r\n\r\nPatients’ clothes, linen etc (whitening):\r\n50ml diluted to 5L with water.",
     "storage_instructions": "Do not store near reactive chemicals. Vent containers if heated.",
     "active_ingredients": "Sodium hypochlorite.",
-    "warnings": "Keep out of reach of children. Avoid mixing with ammonia or acids."
+    "warnings": "Keep out of reach of children. Avoid mixing with ammonia or acids.",
+    "images": [
+      {
+        "image": "https://res.cloudinary.com/djefnpuhr/image/upload/v1732874557/klinjav_ns0lux.png"
+      },
+      {
+        "image": "https://res.cloudinary.com/djefnpuhr/image/upload/v1732874568/klinjav_cpf32z.jpg"
+      },
+      {
+        "image": "https://res.cloudinary.com/djefnpuhr/image/upload/v1732874568/klinjav_cpf32z.jpg"
+      }
+    ],
+    "category": [
+      "Disinfectants"
+    ],
+    "variations": [
+      {
+        "size": "1L",
+        "price": "5500.00",
+        "stock": 98,
+        "discount": null
+      },
+      {
+        "size": "5L",
+        "price": "20000.00",
+        "stock": 100,
+        "discount": null
+      }
+    ],
+    "bulk_wholesale": [
+      {
+        "id": 8,
+        "min_quantity": 4,
+        "max_quantity": null,
+        "bulk_price": "20000.00",
+        "size": "5L"
+      },
+      {
+        "id": 9,
+        "min_quantity": 12,
+        "max_quantity": null,
+        "bulk_price": "5500.00",
+        "size": "1L"
+      }
+    ]
   },
   {
     "id": 6,
@@ -146,7 +502,35 @@
     "dilution_instructions": "Always dilute the product as per the recommendations below to avoid skin irritation.\r\n\r\nCleansing and disinfection of equipment and metal instruments.\r\nClean instruments disinfection.\r\nStorage of thermometres.\r\n30 minutes immersion.\r\nTake 10 ml of KLINSAV SOLUTION and dilute to 60 ml with water.\r\n\r\nCleansing/ disinfection of equipment, catheters, rubber appliances and thermometers:\r\nTake 10ml of KLINSAV SOLUTION and dilute with 60 ml with water.\r\n\r\nEmergency disinfection of clean instruments, disinfection of thermometer:\r\n20 minutes immersion.\r\nTake 10 ml of KLINSAV SOLUTION and dilute to 60 ml with alcohol 96%.\r\n\r\nCleansing and disinfection of wounds and burns:\r\nTake 10 ml of KLINSAV SOLUTION and dilute to 60 ml with water.\r\n\r\nCleansing and disinfection of wounds and burns where antimicrobial effects are required:\r\nTake 10 ml of KLINSAV SOLUTION and dilute to 60 ml with water.\r\n\r\nPre-Operative skin disinfection:\r\nTake 10 ml of KLINSAV SOLUTION and dilute to 60 ml with alcohol 70%",
     "storage_instructions": "Store in a cool, dry place, away from direct sunlight.",
     "active_ingredients": "Chlorhexidine 0.3% W/V",
-    "warnings": "When used as an antiseptic liquid as recommended, it does not cause any side effects. However, if used for cuts and wounds or as an after-shave lotion without diluting, it may cause mild irritation and sting on the skin but no major side effects."
+    "warnings": "When used as an antiseptic liquid as recommended, it does not cause any side effects. However, if used for cuts and wounds or as an after-shave lotion without diluting, it may cause mild irritation and sting on the skin but no major side effects.",
+    "images": [
+      {
+        "image": "https://res.cloudinary.com/djefnpuhr/image/upload/v1732873930/klinsav_pnwu4s.png"
+      },
+      {
+        "image": "https://res.cloudinary.com/djefnpuhr/image/upload/v1732794330/KLINSEPT_PRODUCTS-70_aexohj.jpg"
+      }
+    ],
+    "category": [
+      "Antiseptics"
+    ],
+    "variations": [
+      {
+        "size": "1L",
+        "price": "10500.00",
+        "stock": 91,
+        "discount": null
+      }
+    ],
+    "bulk_wholesale": [
+      {
+        "id": 12,
+        "min_quantity": 12,
+        "max_quantity": null,
+        "bulk_price": "10500.00",
+        "size": "1L"
+      }
+    ]
   },
   {
     "id": 8,
@@ -159,6 +543,31 @@
     "dilution_instructions": "FIRST AID:\r\nTo arrest bleeding and disinfect wounds. Dilute an equal amount of water, apply the diluted solution to lint or cotton wool and cleanse the wound.\r\n\r\nRemoval of wound dressings:\r\nDilute with an equal amount of water, soak in diluted solution, leave for a few minutes, and remove the dressing.\r\n\r\nMouthwash and deodorant:\r\nDilute two spoonfuls to one glass of water and gargle.",
     "storage_instructions": "Store in a well-closed container. In a dry place below 30°C.",
     "active_ingredients": null,
-    "warnings": "Do not use it in the eyes or apply it over large areas of the skin."
+    "warnings": "Do not use it in the eyes or apply it over large areas of the skin.",
+    "images": [
+      {
+        "image": "https://res.cloudinary.com/djefnpuhr/image/upload/v1732873085/klingen3_k5hs1f.png"
+      }
+    ],
+    "category": [
+      "Disinfectants"
+    ],
+    "variations": [
+      {
+        "size": "1L",
+        "price": "4500.00",
+        "stock": 95,
+        "discount": null
+      }
+    ],
+    "bulk_wholesale": [
+      {
+        "id": 14,
+        "min_quantity": 12,
+        "max_quantity": null,
+        "bulk_price": "4500.00",
+        "size": "1L"
+      }
+    ]
   }
 ]
