@@ -10,10 +10,12 @@ import { useLocation, useParams } from "react-router-dom";
 import SectionTitle from "../components/SectionTitle";
 import Fuse from "fuse.js";
 import ShopProducts from "../wrappers/product/ShopProducts";
+import { useTranslation } from "react-i18next";
 
 const Product = ({ products }) => {
   const { id } = useParams();
   const { pathname } = useLocation();
+  const { t } = useTranslation();
 
   const product = products.find((product) => product.id === Number(id));
 
@@ -72,13 +74,13 @@ const Product = ({ products }) => {
         {/* Product description with image */}
         {product ? (
           <>
-            <ProductImageDescription product={product} />
+            <ProductImageDescription t={t} product={product} />
 
             {/* Related Products Section */}
             <div className="related-product-area pb-95">
               <div className="container">
                 <SectionTitle
-                  titleText="Related Products"
+                  titleText={t("Related Products")}
                   positionClass="text-center"
                   spaceClass="mb-50"
                 />
@@ -88,14 +90,14 @@ const Product = ({ products }) => {
                       <ShopProducts currentData={relatedProducts} />
                     </>
                   ) : (
-                    <p>No related products found.</p>
+                    <p>{t('No related products found.')}</p>
                   )}
                 </div>
               </div>
             </div>
           </>
         ) : (
-          <p>Product not found</p>
+          <p>{t('Product not found')}</p>
         )}
       </LayoutOne>
     </div>

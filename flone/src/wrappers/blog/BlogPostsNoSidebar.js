@@ -1,6 +1,8 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 
+import { useTranslation } from "react-i18next";
+
 // Define blog post data in an array of objects
 const blogPosts = [
   {
@@ -71,61 +73,54 @@ const blogPosts = [
 
 
 const BlogPostsNoSidebar = () => {
+  const { t } = useTranslation();
   return (
     <Fragment>
       {blogPosts.map((post) => (
-     <div className="col-lg-4 col-md-6 col-sm-12">
-     <div className="blog-wrap-2 mb-30">
-       <div className="blog-img-2">
-         <Link to={process.env.PUBLIC_URL + post.linkUrl}>
-           <img src={process.env.PUBLIC_URL + post.imgUrl} alt="" />
-         </Link>
-       </div>
-       <div className="blog-content-2">
-         <div className="blog-meta-2">
-           <ul>
-             <li>{post.date}</li>
-             <li>
-               <Link to={process.env.PUBLIC_URL + post.linkUrl}>
-                 {post.comments} <i className="fa fa-comments-o" />
-               </Link>
-             </li>
-           </ul>
-         </div>
-         <h4>
-           <Link to={process.env.PUBLIC_URL + post.linkUrl}>{post.title}</Link>
-         </h4>
-         <p>{post.description}</p>
-         <div className="blog-share-comment">
-           <div className="blog-btn-2">
-             <Link to={process.env.PUBLIC_URL + post.linkUrl}>read more</Link>
-           </div>
-           <div className="blog-share">
-             <span>share :</span>
-             <div className="share-social">
-               <ul>
-                 <li>
-                   <a className="facebook" href="//facebook.com">
-                     <i className="fa fa-facebook" />
-                   </a>
-                 </li>
-                 <li>
-                   <a className="twitter" href="//twitter.com">
-                     <i className="fa fa-twitter" />
-                   </a>
-                 </li>
-                 <li>
-                   <a className="instagram" href="//instagram.com">
-                     <i className="fa fa-instagram" />
-                   </a>
-                 </li>
-               </ul>
-             </div>
-           </div>
-         </div>
-       </div>
-     </div>
-   </div>
+        <div key={post.id} className="col-lg-4 col-md-6 col-sm-12">
+          <div className="blog-wrap-2 mb-30">
+            <div className="blog-content-2">
+              <div className="blog-meta-2">
+                <ul>
+                  <li>{post.date}</li>
+                  <li>
+                    <Link>
+                      {post.comments} <i className="fa fa-comments-o" />
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+              <h4>
+                <Link>{t(post.title)}</Link>
+              </h4>
+              <p>{t(post.description)}</p>
+              <div className="blog-share-comment">
+                <div className="blog-share">
+                  <span>share :</span>
+                  <div className="share-social">
+                    <ul>
+                      <li>
+                        <a className="facebook" href="//facebook.com">
+                          <i className="fa fa-facebook" />
+                        </a>
+                      </li>
+                      <li>
+                        <a className="twitter" href="//twitter.com">
+                          <i className="fa fa-twitter" />
+                        </a>
+                      </li>
+                      <li>
+                        <a className="instagram" href="//instagram.com">
+                          <i className="fa fa-instagram" />
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       ))}
     </Fragment>
   );

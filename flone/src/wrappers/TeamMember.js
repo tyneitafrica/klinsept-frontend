@@ -41,7 +41,7 @@ const teamMemberData = [
     "position": "Chairman"
   }
 ]
-const TeamMember = () => {
+const TeamMember = ({t}) => {
   return (
     <div
       className={`team-area pt-35 pb-70"`}

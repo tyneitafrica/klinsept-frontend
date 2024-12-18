@@ -26,6 +26,7 @@ const ProductImageDescription = ({
   cartItems,
   wishlistItems,
   compareItems,
+  t
 }) => {
   const [selectedVariation, setSelectedVariation] = useState(
     product.variations[0]
@@ -106,6 +107,7 @@ const ProductImageDescription = ({
               <div className="pro-details-list">
                 <p>{product.description}</p>
               </div>
+              {/* {console.log(product.description)} */}
 
               <Card className="mb-3">
                 <Card.Header>

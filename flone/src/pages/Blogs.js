@@ -4,7 +4,6 @@ import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../components/LayoutOne";
 import Breadcrumb from "../wrappers/breadcrumb/Breadcrumb";
-import BlogPagination from "../wrappers/blog/BlogPagination";
 import BlogPostsNoSidebar from "../wrappers/blog/BlogPostsNoSidebar";
 import { useLocation } from "react-router-dom";
 
@@ -38,7 +37,7 @@ const BlogNoSidebar = () => {
                   </div>
 
                   {/* blog pagination */}
-                  <BlogPagination />
+                  {/* <BlogPagination /> */}
                 </div>
               </div>
             </div>
