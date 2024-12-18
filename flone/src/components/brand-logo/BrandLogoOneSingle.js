@@ -9,6 +9,7 @@ const BrandLogoOneSingle = ({ data, sliderClassName, spaceBottomClass }) => {
       }`}
     >
       <img src={process.env.PUBLIC_URL + data.image} alt="" />
+      <h4 className="ml-2">{data.title}</h4>
     </div>
   );
 };
