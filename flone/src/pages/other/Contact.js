@@ -6,7 +6,8 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 // import LocationMap from "../../components/contact/LocationMap";
 import { useLocation } from "react-router-dom";
 import { Card, Button, Form } from "react-bootstrap";
-import { FaFacebook, FaLinkedinIn, FaTwitter } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
+import toast, { Toaster } from "react-hot-toast";
 
 const Contact = () => {
   const { pathname } = useLocation();
@@ -25,7 +26,14 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData); // Log form data on submit
+    toast.success("Email sent successfully")
+    setFormData({
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
+    });
+  
   };
 
   return (
@@ -62,10 +70,10 @@ const Contact = () => {
                   <Card.Body>
                     <Card.Title>Email</Card.Title>
                     <Card.Text>
-                      <a href="mailto:info@klinsept.com">info@klinsept.com</a>
+                      <a href="mailto:invoices@klinsept.com">info@klinsept.com</a>
                     </Card.Text>
                     <Card.Text>
-                      <a href="//klinsept.com">klinsept.com</a>
+                      <a href="mailto:invoices@klinsept.com">klinsept.com</a>
                     </Card.Text>
                   </Card.Body>
                 </Card>
@@ -73,8 +81,8 @@ const Contact = () => {
                   <Card.Body>
                     <Card.Title>Address</Card.Title>
                     <Card.Text>
-                      22 Av. Nyabisindu, Ngagara Q10, BP 7037, BUJUMBURA,
-                      BURUNDI.
+                      22 Av. Nyabisindu <br/> <br/>
+                      Ngagara Quater 10, BUJUMBURA BURUNDI.
                     </Card.Text>
                   </Card.Body>
                 </Card>
@@ -84,17 +92,17 @@ const Contact = () => {
                       <div className="contact-social text-center">
                         <ul>
                           <li>
-                            <a href="//facebook.com">
+                            <a href="https://www.facebook.com/klinsept">
                               <FaFacebook size={30} />
                             </a>
                           </li>
                           <li>
-                            <a href="//pinterest.com">
-                              <FaLinkedinIn size={30} />
+                            <a href="https://www.instagram.com/klinsept_burundi/">
+                            <FaInstagram size={30}/>
                             </a>
                           </li>
                           <li>
-                            <a href="//twitter.com">
+                            <a href="https://x.com/klinsept">
                               <FaTwitter size={30} />
                             </a>
                           </li>
@@ -166,6 +174,7 @@ const Contact = () => {
           </div>
         </div>
       </LayoutOne>
+      <Toaster position="top-right" reverseOrder={false}/>
     </div>
   );
 };

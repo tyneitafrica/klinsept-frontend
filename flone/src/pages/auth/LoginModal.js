@@ -48,7 +48,7 @@ function LoginModal({ show, setShow }) {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>You must be logged in to place an order</Modal.Title>
+      <Modal.Title>Login Required to Proceed with Your Order</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {/* <Alert onClose={(e)=>console.log(e)} dismissible={true} variant="danger">hello</Alert> */}
