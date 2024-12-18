@@ -5,7 +5,7 @@ import LayoutOne from "../../components/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import TextGridOne from "../../wrappers/text-grid/TextGridOne";
 import FunFactOne from "../../wrappers/FunFactOne";
-import TeamMember from "../../wrappers/TeamMember";
+// import TeamMember from "../../wrappers/TeamMember";
 import BrandLogoSliderOne from "../../wrappers/brand-logo/BrandLogoSliderOne";
 import { useLocation } from "react-router-dom";
 // import { Nav, Tab } from "react-bootstrap";
@@ -91,7 +91,7 @@ const About = () => {
         </div>
 
         {/* team member */}
-        <TeamMember t={t} />
+        {/* <TeamMember t={t} /> */}
 
         {/* brand logo slider */}
         <BrandLogoSliderOne t={t} />

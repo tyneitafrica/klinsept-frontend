@@ -15,7 +15,7 @@ const BrandLogoSliderOne = ({t}) => {
     grabCursor: true,
     breakpoints: {
       1024: {
-        slidesPerView: 5
+        slidesPerView: 4
       },
       768: {
         slidesPerView: 4
@@ -39,7 +39,7 @@ const BrandLogoSliderOne = ({t}) => {
           spaceClass="mb-60"
         />
       <div className="container">
-        <div className="brand-logo-active">
+        <div>
           <Swiper {...settings}>
             {brandLogoData &&
               brandLogoData.map((single, key) => {
@@ -55,10 +55,33 @@ const BrandLogoSliderOne = ({t}) => {
           </Swiper>
         </div>
       </div>
+      
+      {/* Embedded CSS */}
+      <style jsx>{`
+        .brand-logo-area {
+          padding: 50px 0;
+          background-color: #f9f9f9;
+        }
+
+        .brand-logo-area .swiper-slide {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .brand-logo-area .swiper-slide img {
+          max-width: 100%;
+          max-height: 80px; /* Adjust for uniform height */
+          object-fit: contain; /* Prevent distortion */
+          margin: auto;
+        }
+
+        .brand-logo-area .swiper-slide {
+          padding: 10px; /* Space between logos */
+        }
+      `}</style>
     </div>
   );
 };
-
-
 
 export default BrandLogoSliderOne;
