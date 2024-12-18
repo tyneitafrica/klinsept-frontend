@@ -16,13 +16,16 @@ import * as serviceWorker from "./serviceWorker";
 import { Toaster } from "react-hot-toast";
 
 import { composeWithDevTools } from "redux-devtools-extension";
+window.addEventListener('load',()=>localStorage.clear())
+
+// clear localstorage
+window.addEventListener('load',()=>localStorage.clear())
 
 const store = createStore(
   rootReducer,
   load(),
   composeWithDevTools(applyMiddleware(thunk, save()))
 );
-
 // fetch products from json file
 store.dispatch(fetchProducts(products));
 

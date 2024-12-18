@@ -84,6 +84,7 @@ const Payment = ({ currency }) => {
       setLoading(false);
     }
   };
+  
 
   return (
     <div className="mt-90">

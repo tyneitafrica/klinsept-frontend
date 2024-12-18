@@ -122,7 +122,7 @@ export const serverLogOut = async (dispatch, toast) => {
       }
     );
     if (response.status === 200) {
-      toast.success(response.data.Message);
+      toast.success(response.data.message);
 
       localStorage.removeItem("userData");
       localStorage.removeItem("userDataTimestamp");
@@ -191,16 +191,13 @@ export const isAuthenticated = async (setLoading) => {
       },
       withCredentials: true,
     });
-
+    
     localStorage.setItem("userData", JSON.stringify(response.data));
     localStorage.setItem("userDataTimestamp", currentTime);
-
+    
     return response;
   } catch (error) {
-    // console.error(
-    // "Authentication failed:",
-    //   error?.response?.data?.error || error.message
-    // );
+    // console.log(error)
 
     localStorage.removeItem("userData");
     localStorage.removeItem("userDataTimestamp");

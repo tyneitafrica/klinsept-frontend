@@ -7,6 +7,8 @@ import LayoutOne from "../../components/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useLocation } from "react-router-dom";
 import { isAuthenticated } from "../../helpers/backendFectch";
+import { MdDelete } from "react-icons/md";
+
 import {
   fetchAndReplaceCart,
   deleteAllFromCart,
@@ -159,23 +161,12 @@ const Cart = () => {
                     </div>
                   </div>
                 </div>
-                <div className="d-flex m-3 justify-content-between">
-                  <Link className="btn btn-outline-info" to={"/products"}>
-                    Shop
-                  </Link>
-                  <Button
-                    variant="outline-danger"
-                    onClick={() => dispatch(deleteAllFromCart(dispatch))}
-                  >
-                    Clear
-                  </Button>
-                </div>
-
+                
                 <div className="row m-3">
                   <div className="place-order mt-25">
                     <Button
                       onClick={handleProceedCheckout}
-                      variant="btn btn-outline-success"
+                      // variant="btn btn-outline-success"
                       style={{ fontWeight: "bold" }}
                       disabled={loadingCheckout}
                     >
@@ -191,7 +182,7 @@ const Cart = () => {
                           Checking out...
                         </>
                       ) : (
-                        "Checkout"
+                        "Proceed to Buy"
                       )}
                     </Button>
                   </div>
@@ -199,6 +190,20 @@ const Cart = () => {
                     <LoginModal show={showModal} setShow={setShowmodal} />
                   )}
                 </div>
+                
+                <div className="d-flex m-3 justify-content-between">
+                  <Link className="btn btn-outline-info" to={"/products"}>
+                    Continue Shopping
+                  </Link>
+                  <Button
+                    variant="outline-danger"
+                    onClick={() => dispatch(deleteAllFromCart(dispatch))}
+                  >
+                    <MdDelete size={20} />  Clear Cart
+                  </Button>
+                </div>
+
+
               </Fragment>
             ) : (
               <div className="row">

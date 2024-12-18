@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy,useEffect,useState } from "react";
 import ScrollToTop from "./helpers/scroll-top";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastProvider } from "react-toast-notifications";
@@ -7,6 +7,7 @@ import { connect, useSelector } from "react-redux";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
 import Search from "./pages/Search";
 import Payment from "./pages/other/Payment";
+import { isAuthenticated } from "./helpers/backendFectch";
 
 const Home = lazy(() => import("./pages/Home"));
 const Products = lazy(() => import("./pages/Products"));
@@ -27,9 +28,38 @@ const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"));
 const ResetPassword = lazy(() => import("./pages/auth/ResetPassword"));
 
 const App = () => {
+  const [userData, setUserData] = useState(null);
+
   const currencyData = useSelector(
     (state) => state.currencyData.selectedCurrency
   );
+
+  useEffect(() => {
+    // Flag to track if the component is still mounted
+    let isMounted = true;
+
+    const fetchAuthData = async () => {
+      try {
+        const res = await isAuthenticated();
+        // console.log(res)
+        if (res?.status === 200 && isMounted ) {
+          setUserData(res.data);
+          // toast.success(`Logged in as ${res?.data?.first_name}`);
+        }
+      } catch (error) {
+        // Handle any errors if necessary
+        console.error('Error fetching auth data:', error);
+      }
+    };
+
+    if (userData === null) {
+      fetchAuthData();
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, [userData]); // Run this effect when userData changes
 
 
   return (
