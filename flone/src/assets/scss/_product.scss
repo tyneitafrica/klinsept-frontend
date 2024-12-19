@@ -866,6 +866,7 @@
 
       display: inline-block;
       overflow: hidden;
+      gap: 5px;
 
       width: 80px;
       height: 60px;
@@ -931,21 +932,19 @@
       }
       a,
       button {
-        font-weight: bold;
-        line-height: 1;
-
-        z-index: 99;
-
-        display: inline-block;
-
-        padding: 23px 38px 23px;
-
-        text-transform: uppercase;
-
-        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 20px;
+        background-color: #007bff; /* Primary blue */
+        color: #ffffff;
         border: none;
-        background: none;
-        background-color: #343538;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        gap: 10px;
         @media #{$xs-layout} {
           padding: 23px 12px 23px;
         }
@@ -953,10 +952,12 @@
           padding: 22px 22px 22px;
         }
         &:hover {
-          border: none;
-        }
+          background-color: #0056b3; /* Darker blue on hover */
+          transform: translateY(-2px); /* Subtle hover lift effect */        }
 
         &:disabled {
+          background-color: #d6d6d6; /* Disabled button background */
+          color: #8c8c8c; /* Disabled button text */
           cursor: not-allowed;
           &:before,
           &:after {
@@ -1001,12 +1002,14 @@
   }
   .pro-details-meta {
     display: flex;
+    margin-bottom: 20;
 
-    margin: 0 0 10px;
+    margin: 10px 0 10px;
     span {
       font-size: 15px;
 
       margin-right: 5px;
+
 
       color: #676767;
     }
@@ -1029,6 +1032,66 @@
       }
     }
   }
+
+
+// new changes
+.wishlist-compare-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 40px; /* Space between items */
+  margin: 10px 0;
+}
+
+.wishlist-item,
+.compare-item {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between the icon and the text */
+  cursor: pointer;
+}
+
+.heart-icon {
+  font-size: 25px; /* Adjust icon size */
+}
+
+span {
+  font-size: 16px; /* Text size */
+  color: #333; /* Text color */
+  font-weight: bold; /* Optional: Make the text bold */
+}
+
+// .wishlist-item:hover span,
+// .compare-item:hover span {
+//   color: #007bff; /* Change text color on hover */
+// }
+
+.wishlist-item:hover .heart-icon,
+.compare-item:hover svg {
+  transform: scale(1.1); /* Slight zoom effect on hover */
+  transition: transform 0.2s ease;
+}
+
+.product-rating {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px; /* Space below the rating */
+  font-size: 16px; /* Adjust font size */
+
+  .star-icon {
+    color: #ffcc00; /* Gold color for stars */
+    margin-right: 3px;
+  }
+
+  .rating-number {
+    margin-left: 10px;
+    font-size: 14px;
+    color: #676767; /* Neutral color for text */
+  }
+}
+
+
+
   .pro-details-social {
     margin: 24px 0 0;
     ul {
@@ -1087,7 +1150,10 @@
       }
     }
     .pro-details-quality {
-      justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 20px; /* Adds a gap between the quantity selector and the Add To Cart button */
     }
     .pro-details-meta {
       justify-content: center;
