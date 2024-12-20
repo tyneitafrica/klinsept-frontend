@@ -89,7 +89,7 @@ const ProductImageDescription = ({
                     {index < product.rating ? "★" : "★"} {/* Solid or hollow star */}
                   </span>
                 ))}
-                <span className="rating-number">{product.rating} 4.7 Star Rating</span>
+                <span className="rating-number">{product.rating} 5 Star Rating</span>
               </div>
               <h2>{product.name}</h2>
               {product.category ? (
@@ -146,20 +146,22 @@ const ProductImageDescription = ({
                   </span>
                 )}
               </div>
+
               <div>
-                {product.variations.map((single, key) => (
-                  <p key={key} style={{
-                    color: single.stock > 0 ? 'green' : 'red',
-                    fontWeight: 'bold',
-                    marginBottom:"10px",
-                    // backgroundColor: single.stock > 0 ? '#e6f7e6' : '#fdd',
-                    // padding: '5px 10px',
-                    // borderRadius: '5px'
-                  }}>
-                    Availability: {single.stock > 0 ? 'In Stock' : 'Out of Stock'}
-                  </p>
-                ))}
+              {selectedVariation && (
+                <p
+                  style={{
+                    color: selectedVariation.stock > 0 ? "green" : "red",
+                    fontWeight: "bold",
+                    marginTop: "10px",
+                  }}
+                >
+                  Availability:{" "}
+                  {selectedVariation.stock > 0 ? "In Stock" : "Out of Stock"}
+                </p>
+              )}
               </div>
+
 
 
               <Card className="mb-3">
@@ -199,6 +201,7 @@ const ProductImageDescription = ({
                           onClick={() => handleVariationClick(single)}
                         >
                           {single.size}
+                          
                         </Button>
                       ))}
                     </ButtonGroup>
