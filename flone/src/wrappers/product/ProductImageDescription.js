@@ -110,6 +110,23 @@ const ProductImageDescription = ({
               ) : (
                 ""
               )}
+
+              <div>
+              {selectedVariation && (
+                <p
+                  style={{
+                    color: selectedVariation.stock > 0 ? "green" : "red",
+                    fontWeight: "bold",
+                    marginTop: "5px",
+                    marginBottom: "30px",
+                  }}
+                >
+                  Availability:{" "}
+                  {selectedVariation.stock > 0 ? "In Stock" : "Out of Stock"}
+                </p>
+              )}
+              </div>
+
               <div className="product-details-price d-flex align-items-center">
                 {!isChecked ? (
                   <span className="me-2">
@@ -146,22 +163,6 @@ const ProductImageDescription = ({
                   </span>
                 )}
               </div>
-
-              <div>
-              {selectedVariation && (
-                <p
-                  style={{
-                    color: selectedVariation.stock > 0 ? "green" : "red",
-                    fontWeight: "bold",
-                    marginTop: "10px",
-                  }}
-                >
-                  Availability:{" "}
-                  {selectedVariation.stock > 0 ? "In Stock" : "Out of Stock"}
-                </p>
-              )}
-              </div>
-
 
 
               <Card className="mb-3">
