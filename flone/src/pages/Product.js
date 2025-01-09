@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import { connect } from "react-redux";
@@ -17,7 +17,18 @@ const Product = ({ products }) => {
   const { pathname } = useLocation();
   const { t } = useTranslation();
 
-  const product = products.find((product) => product.id === Number(id));
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading delay (optional if data is fetched asynchronously)
+    const timer = setTimeout(() => {
+      const foundProduct = products.find((product) => product.id === Number(id));
+      setProduct(foundProduct);
+      setLoading(false);
+    }, 500); // Adjust delay as needed
+    return () => clearTimeout(timer);
+  }, [id, products]);
 
   const getRelatedProducts = (currentProduct) => {
     if (!currentProduct) return [];
@@ -71,8 +82,10 @@ const Product = ({ products }) => {
       <LayoutOne headerTop="visible">
         <Breadcrumb />
 
-        {/* Product description with image */}
-        {product ? (
+        {/* Loading State */}
+        {loading ? (
+          <p>{t("Loading product details...")}</p> // Replace with a spinner or skeleton UI for better UX
+        ) : product ? (
           <>
             <ProductImageDescription t={t} product={product} />
 
@@ -86,18 +99,16 @@ const Product = ({ products }) => {
                 />
                 <div className="row">
                   {relatedProducts.length > 0 ? (
-                    <>
-                      <ShopProducts currentData={relatedProducts} />
-                    </>
+                    <ShopProducts currentData={relatedProducts} />
                   ) : (
-                    <p>{t('No related products found.')}</p>
+                    <p>{t("No related products found.")}</p>
                   )}
                 </div>
               </div>
             </div>
           </>
         ) : (
-          <p>{t('Product not found')}</p>
+          <p>{t("Loading product details...")}</p> // Replace with a spinner or skeleton UI for better UX
         )}
       </LayoutOne>
     </div>
