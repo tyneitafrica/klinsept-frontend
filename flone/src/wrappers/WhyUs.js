@@ -3,7 +3,7 @@ import SectionTitle from "../components/SectionTitle";
 import { Row, Col, Container } from 'react-bootstrap';
 import '../assets/css/whyus.css';
 import { AiOutlineGlobal } from "react-icons/ai";
-import { FcAssistant, FcInTransit, FcApproval, FcMoneyTransfer } from "react-icons/fc";
+import { FcAssistant, FcInTransit, FcApproval } from "react-icons/fc";
 import { useTranslation } from "react-i18next";
 
 const serviceData = [
@@ -11,33 +11,32 @@ const serviceData = [
     id: 1,
     image: <FcInTransit className="animate" size={40} />,
     title: "Fast Shipping",
-    description: "Enjoy free delivery for orders over $30, ensuring you get your products delivered quickly."
+    description:
+      "Get your products delivered quickly with our efficient shipping services.",
   },
   {
     id: 2,
     image: <FcAssistant size={40} />,
     title: "24/7 Support",
-    description: "Our customer service is available online around the clock. We're here to help anytime."
+    description:
+      "Our customer service is available online around the clock. We're here to help anytime.",
   },
   {
     id: 3,
-    image: <FcMoneyTransfer size={40} />,
-    title: "Money Back",
-    description: "We offer a 100% refund guarantee. If you're not satisfied, we'll refund your money."
+    image: <AiOutlineGlobal size={40} />,
+    title: "Regional Delivery",
+    description:
+      "Prompt delivery within specific regions, ensuring fast service to your location.",
   },
   {
     id: 4,
-    image: <AiOutlineGlobal size={40} />,
-    title: "Regional Delivery",
-    description: "Prompt delivery within specific regions, ensuring fast service to your location."
-  },
-  {
-    id: 5,
     image: <FcApproval size={40} />,
     title: "Top Quality",
-    description: "Premium products with quality assurance. Expect only the best from us."
-  }
+    description:
+      "Premium products with quality assurance. Expect only the best from us.",
+  },
 ];
+
 
 const WhyUs = () => {
   const { t } = useTranslation();
