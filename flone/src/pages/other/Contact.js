@@ -8,9 +8,11 @@ import { useLocation } from "react-router-dom";
 import { Card, Button, Form } from "react-bootstrap";
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 import toast, { Toaster } from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 const Contact = () => {
   const { pathname } = useLocation();
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -45,8 +47,8 @@ const Contact = () => {
           content="Contact us page of Klinsept. Get the location and send us a message with your queries."
         />
       </MetaTags>
-      <BreadcrumbsItem to="/">Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={pathname}>Contact</BreadcrumbsItem>
+      <BreadcrumbsItem to="/">{t("Home")}</BreadcrumbsItem>
+      <BreadcrumbsItem to={pathname}>{t("Contact Us")}</BreadcrumbsItem>
       <LayoutOne headerTop="visible">
         <Breadcrumb />
         <div className="contact-area pt-100 pb-100">
@@ -62,15 +64,17 @@ const Contact = () => {
               <div className="col-lg-4 col-md-5">
                 <Card className="mb-3">
                   <Card.Body>
-                    <Card.Title>Phone</Card.Title>
+                    <Card.Title>{t("Phone")}</Card.Title>
                     <Card.Text>+257 79 076 198</Card.Text>
                   </Card.Body>
                 </Card>
                 <Card className="mb-3">
                   <Card.Body>
-                    <Card.Title>Email</Card.Title>
+                    <Card.Title>{t("Email")}</Card.Title>
                     <Card.Text>
-                      <a href="mailto:invoices@klinsept.com">info@klinsept.com</a>
+                      <a href="mailto:invoices@klinsept.com">
+                        info@klinsept.com
+                      </a>
                     </Card.Text>
                     <Card.Text>
                       <a href="mailto:invoices@klinsept.com">klinsept.com</a>
@@ -79,35 +83,35 @@ const Contact = () => {
                 </Card>
                 <Card className="mb-3">
                   <Card.Body>
-                    <Card.Title>Address</Card.Title>
+                    <Card.Title>{t("Address")}</Card.Title>
                     <Card.Text>
-                      22 Av. Nyabisindu <br/> <br/>
+                      22 Av. Nyabisindu <br /> <br />
                       Ngagara Quater 10, BUJUMBURA BURUNDI.
                     </Card.Text>
                   </Card.Body>
                 </Card>
                 <Card className="mb-3">
                   <Card.Body>
-                    <Card.Title>Follow Us</Card.Title>
-                      <div className="contact-social text-center">
-                        <ul>
-                          <li>
-                            <a href="https://www.facebook.com/klinsept">
-                              <FaFacebook size={30} />
-                            </a>
-                          </li>
-                          <li>
-                            <a href="https://www.instagram.com/klinsept_burundi/">
-                            <FaInstagram size={30}/>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="https://x.com/klinsept">
-                              <FaTwitter size={30} />
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
+                    <Card.Title>{t("Follow Us")}</Card.Title>
+                    <div className="contact-social text-center">
+                      <ul>
+                        <li>
+                          <a href="https://www.facebook.com/klinsept">
+                            <FaFacebook size={30} />
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.instagram.com/klinsept_burundi/">
+                            <FaInstagram size={30} />
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://x.com/klinsept">
+                            <FaTwitter size={30} />
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
                   </Card.Body>
                 </Card>
               </div>
@@ -116,10 +120,10 @@ const Contact = () => {
               <div className="col-lg-8 col-md-7">
                 <Card>
                   <Card.Body>
-                    <Card.Title>Get In Touch</Card.Title>
+                    <Card.Title>{t("Get In Touch")}</Card.Title>
                     <Form onSubmit={handleSubmit}>
                       <Form.Group className="mb-3">
-                        <Form.Label>Name</Form.Label>
+                        <Form.Label>{t("Name")}</Form.Label>
                         <Form.Control
                           type="text"
                           name="name"
@@ -130,7 +134,7 @@ const Contact = () => {
                         />
                       </Form.Group>
                       <Form.Group className="mb-3">
-                        <Form.Label>Email</Form.Label>
+                        <Form.Label>{t("Email")}</Form.Label>
                         <Form.Control
                           type="email"
                           name="email"
@@ -141,7 +145,7 @@ const Contact = () => {
                         />
                       </Form.Group>
                       <Form.Group className="mb-3">
-                        <Form.Label>Subject</Form.Label>
+                        <Form.Label>{t("Subject")}</Form.Label>
                         <Form.Control
                           type="text"
                           name="subject"
@@ -152,7 +156,7 @@ const Contact = () => {
                         />
                       </Form.Group>
                       <Form.Group className="mb-3">
-                        <Form.Label>Message</Form.Label>
+                        <Form.Label>{t("Message")}</Form.Label>
                         <Form.Control
                           as="textarea"
                           rows={4}
@@ -164,7 +168,7 @@ const Contact = () => {
                         />
                       </Form.Group>
                       <Button variant="primary" type="submit">
-                        SEND
+                        {t("SEND")}
                       </Button>
                     </Form>
                   </Card.Body>
@@ -174,7 +178,7 @@ const Contact = () => {
           </div>
         </div>
       </LayoutOne>
-      <Toaster position="top-right" reverseOrder={false}/>
+      <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
 };

@@ -61,9 +61,9 @@ export const LoginFetch = async (loginData, setLoading) => {
       }
     )
     .catch((err) => {
+      console.error("Unhandled Error:", err);
       return err;
       // You can catch any unhandled promise rejections here if needed
-      // console.error("Unhandled Error:", err);
     });
 };
 
@@ -191,6 +191,7 @@ export const isAuthenticated = async (setLoading) => {
       },
       withCredentials: true,
     });
+    console.log(response)
     
     localStorage.setItem("userData", JSON.stringify(response.data));
     localStorage.setItem("userDataTimestamp", currentTime);

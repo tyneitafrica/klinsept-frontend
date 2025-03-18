@@ -7,32 +7,51 @@ import {
 import i18n from "../helpers/i18n";
 
 function LanguageCurrencyChanger() {
+  const dispatch = useDispatch();
   const availableCurrencies = useSelector((state) => state.currencyData);
 
   const [selectedLanguage, setSelectedLanguage] = useState("en");
-  const [selectedCurrency, setSelectedCurrency] = useState(
-    availableCurrencies?.selectedCurrency?.name || "USD"
-  );
-  const dispatch = useDispatch();
-  // console.log(availableCurrencies);
+  const [selectedCurrency, setSelectedCurrency] = useState("USD");
+
+  // Fetch currency rates on component mount
   useEffect(() => {
     dispatch(fetchCurrencyRates());
   }, [dispatch]);
 
+  // Update selected currency when currency data loads
+  useEffect(() => {
+    if (availableCurrencies?.selectedCurrency?.name) {
+      setSelectedCurrency(availableCurrencies.selectedCurrency.name);
+    }
+  }, [availableCurrencies]);
+
+  // Handle language change
   const handleLanguageChange = (event) => {
-    setSelectedLanguage(event.target.value);
-    i18n.changeLanguage(event.target.value);
+    const newLang = event.target.value;
+    setSelectedLanguage(newLang);
+    i18n.changeLanguage(newLang);
+  };
+
+  // Handle currency change
+  const handleCurrencyChange = (event) => {
+    const newCurrency = event.target.value;
+    const selectedCurrencyData = availableCurrencies.currencies?.[newCurrency];
+
+    if (selectedCurrencyData) {
+      setSelectedCurrency(newCurrency);
+      dispatch(setCurrency(selectedCurrencyData));
+    }
   };
 
   return (
-    <div className="language-currency-changer">
+    <div className="language-currency-changer flex gap-4">
+      {/* Language Selector */}
       <div className="language-selector">
-        {/* <label htmlFor="language-select">Language:</label> */}
         <select
           id="language-select"
           value={selectedLanguage}
           onChange={handleLanguageChange}
-          className="form-select"
+          className="form-select p-2 border rounded"
         >
           <option value="en">English</option>
           <option value="fr">French</option>
@@ -40,28 +59,24 @@ function LanguageCurrencyChanger() {
         </select>
       </div>
 
+      {/* Currency Selector */}
       <div className="currency-selector">
-        {/* <label htmlFor="currency-select">Currency:</label> */}
         <select
           id="currency-select"
           value={selectedCurrency}
-          onChange={(e) => {
-            const selectedCurrencyData =
-              availableCurrencies.currencies[e.target.value];
-            setSelectedCurrency(e.target.value);
-            dispatch(setCurrency(selectedCurrencyData));
-          }}
-          className="form-select"
+          onChange={handleCurrencyChange}
+          className="form-select p-2 border rounded"
+          disabled={!availableCurrencies.currencies} // Disable if currencies are not available
         >
-          {Object.entries(availableCurrencies.currencies).map(
-            ([currencyKey, currencyData]) => {
-              return (
-                <option key={currencyKey} value={currencyKey}>
-                  {currencyData.name} ({currencyData.country})
-                </option>
-              );
-            }
-          )}
+          {availableCurrencies.currencies
+            ? Object.entries(availableCurrencies.currencies).map(
+                ([currencyKey, currencyData]) => (
+                  <option key={currencyKey} value={currencyKey}>
+                    {currencyData.name} ({currencyData.country})
+                  </option>
+                )
+              )
+            : null}
         </select>
       </div>
     </div>

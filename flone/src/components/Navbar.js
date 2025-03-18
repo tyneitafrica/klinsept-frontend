@@ -13,7 +13,7 @@ import { Form, Button, Alert } from "react-bootstrap";
 import Logo from "../assets/logo.png";
 import "../assets/css/Navbar.css";
 import { useTranslation } from "react-i18next";
-import { isAuthenticated } from "../helpers/backendFectch";
+// import { isAuthenticated } from "../helpers/backendFectch";
 import { FaBars } from "react-icons/fa6";
 
 
