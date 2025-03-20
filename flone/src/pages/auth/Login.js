@@ -6,9 +6,20 @@ import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../../components/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useLocation } from "react-router-dom";
-import { Spinner, Nav, Form, Button } from "react-bootstrap";
+import {
+  Spinner,
+  Nav,
+  Form,
+  Button,
+  Container,
+  Row,
+  Col,
+} from "react-bootstrap";
 import { LoginFetch } from "../../helpers/backendFectch";
 import { useDispatch } from "react-redux";
+
+import klinseptLogo from "../../assets/images/klinsept-logo.png";
+import shoppingCartImage from "../../assets/images/shopping-cart.png";
 
 const Login = ({ authData }) => {
   const { pathname } = useLocation();
@@ -27,7 +38,7 @@ const Login = ({ authData }) => {
     } else {
       setLoading(true);
       try {
-        await LoginFetch(loginData, dispatch, navigate);
+        await LoginFetch(loginData, setLoading, navigate);
       } finally {
         setLoading(false);
       }
@@ -45,7 +56,7 @@ const Login = ({ authData }) => {
   };
 
   return (
-    <div className="mt-90">
+    <div className="mt-90 ">
       <MetaTags>
         <title>Klinsept | Login</title>
         <meta
@@ -59,18 +70,42 @@ const Login = ({ authData }) => {
       </BreadcrumbsItem>
       <LayoutOne headerTop="visible">
         <Breadcrumb />
-        <div className="login-register-area pt-100 pb-100">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-7 col-md-12 ml-auto mr-auto">
-                <div className="login-register-wrapper">
-                  <Nav className="login-register-tab-list">
-                    <Nav.Item>
-                      <Nav.Link>
-                        <h4>Login</h4>
-                      </Nav.Link>
-                    </Nav.Item>
-                  </Nav>
+        <div
+          className="login-register-area pt-100 pb-100"
+          style={{ backgroundColor: "#f8f9fa" }}
+        >
+          <Container>
+            <Row
+              style={{
+                backgroundColor: "white",
+                borderRadius: "8px",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+              }}
+              className="">
+              {/* Login Form Column */}
+              <Col
+                lg={6}
+                md={12}
+                className="mx-auto login-register-wrapper"
+              >
+                <div className="">
+                  <div className="text-center mb-4">
+                    <img
+                      src={klinseptLogo}
+                      alt="Klinsept Logo"
+                      style={{ maxHeight: "60px", marginBottom: "15px" }}
+                    />
+                    <h3
+                      className="login-register-tab-list"
+                      style={{ fontWeight: "600" }}
+                    >
+                      Welcome Back
+                      <span role="img" aria-label="waving hand">
+                        👋
+                      </span>
+                    </h3>
+                  </div>
+
                   <div className="login-form-container">
                     <div className="login-register-form">
                       <Form
@@ -78,11 +113,8 @@ const Login = ({ authData }) => {
                         validated={validated}
                         onSubmit={handleLoginSubmit}
                       >
-                        {/* {error && <Alert variant="danger">{error}</Alert>}
-                        {message && <Alert variant="success">{message}</Alert>} */}
-
-                        <Form.Group controlId="formEmail">
-                          <Form.Label>Email</Form.Label>
+                        <Form.Group controlId="formEmail" className="mb-3">
+                          <Form.Label>Email Address</Form.Label>
                           <Form.Control
                             required
                             type="email"
@@ -90,13 +122,14 @@ const Login = ({ authData }) => {
                             name="email"
                             value={loginData.email}
                             onChange={handleInputChange}
+                            style={{ padding: "10px", borderColor: "#dee2e6" }}
                           />
                           <Form.Control.Feedback type="invalid">
                             Please provide a valid email.
                           </Form.Control.Feedback>
                         </Form.Group>
 
-                        <Form.Group controlId="formPassword">
+                        <Form.Group controlId="formPassword" className="mb-4">
                           <Form.Label>Password</Form.Label>
                           <Form.Control
                             required
@@ -106,6 +139,7 @@ const Login = ({ authData }) => {
                             value={loginData.password}
                             onChange={handleInputChange}
                             minLength="6"
+                            style={{ padding: "10px", borderColor: "#dee2e6" }}
                           />
                           <Form.Control.Feedback type="invalid">
                             Please provide a password with at least 6
@@ -113,40 +147,34 @@ const Login = ({ authData }) => {
                           </Form.Control.Feedback>
                         </Form.Group>
 
-                        <div className="button-box mt-4">
+                        <div className="button-box">
                           <div className="login-toggle-btn d-flex align-items-center justify-content-between mb-3">
                             <Form.Check
                               type="checkbox"
                               label="Remember me"
-                              className="mb-3 "
+                              className="mb-0"
                             />
                             <Link
                               to={process.env.PUBLIC_URL + "/forgot"}
                               className="text-primary"
-                              style={{ textDecoration: "underline" }}
+                              style={{
+                                textDecoration: "underline",
+                                fontSize: "0.9rem",
+                              }}
                             >
                               Forgot Password?
-                            </Link>
-                          </div>
-
-                          <div className="text-center mb-3">
-                            <Link
-                              to={process.env.PUBLIC_URL + "/register"}
-                              className="text-muted"
-                              style={{ fontSize: "0.9rem" }}
-                            >
-                              Not registered?{" "}
-                              <span className="text-primary">
-                                Sign up here.
-                              </span>
                             </Link>
                           </div>
 
                           <Button
                             type="submit"
                             variant="primary"
-                            className="w-100"
-                            style={{ fontWeight: "bold" }}
+                            className="w-100 py-2"
+                            style={{
+                              fontWeight: "600",
+                              backgroundColor: "#0047AB",
+                              borderColor: "#0047AB",
+                            }}
                             disabled={loading}
                           >
                             {loading ? (
@@ -156,7 +184,7 @@ const Login = ({ authData }) => {
                                   animation="border"
                                   size="sm"
                                   role="status"
-                                  arai-hidden="true"
+                                  aria-hidden="true"
                                 />
                                 {"  "}
                                 Logging in...
@@ -165,14 +193,39 @@ const Login = ({ authData }) => {
                               "Login"
                             )}
                           </Button>
+
+                          <div className="text-center mt-3">
+                            <p className="mb-0" style={{ fontSize: "0.9rem" }}>
+                              Don't have an account?{" "}
+                              <Link
+                                to={process.env.PUBLIC_URL + "/register"}
+                                className="text-primary"
+                                style={{ fontWeight: "600" }}
+                              >
+                                Sign up
+                              </Link>
+                            </p>
+                          </div>
                         </div>
                       </Form>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
+              </Col>
+
+              {/* Cart Image Column - Hidden on small screens */}
+              <Col lg={6} className="d-none d-lg-block text-center">
+                <div className="login-image-container">
+                  <img
+                    src={shoppingCartImage}
+                    alt="Shopping Cart"
+                    className="img-fluid"
+                    style={{ maxHeight: "700px" }}
+                  />
+                </div>
+              </Col>
+            </Row>
+          </Container>
         </div>
       </LayoutOne>
     </div>

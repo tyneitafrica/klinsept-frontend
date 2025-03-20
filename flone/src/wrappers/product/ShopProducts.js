@@ -15,10 +15,12 @@ import {
 } from "react-icons/ai";
 import { FcLike, FcLikePlaceholder } from "react-icons/fc";
 import { useDispatch } from "react-redux";
-import { Card } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 import { ProductModal } from "../../components/ProductModal";
 import { toast } from "react-hot-toast";
 import "../../assets/css/ProductCard.css";
+
+import { FaShoppingCart } from "react-icons/fa";
 
 const ShopProducts = ({
   products,
@@ -35,147 +37,130 @@ const ShopProducts = ({
 
   const dispatch = useDispatch();
   return (
-    <Fragment>
-      <div className="products-container justify-content-center flex-wrap">
-        {finalProducts.map((product, index) => {
-          //  console.log(finalProducts)
-          const priceConverter = (price) => {
-            let convertedPrice = price;
-            let currencySymbol = "$";
+    <>
+      <Fragment>
+        <div className="products-container justify-content-center flex-wrap">
+          {finalProducts.map((product, index) => {
+            //  console.log(finalProducts)
+            const priceConverter = (price) => {
+              let convertedPrice = price;
+              let currencySymbol = "$";
 
-            if (currency?.selectedCurrency) {
-              const { rates, symbol } = currency.selectedCurrency;
-              convertedPrice = (price * rates).toFixed(2);
-              currencySymbol = symbol || "$";
-            }
+              if (currency?.selectedCurrency) {
+                const { rates, symbol } = currency.selectedCurrency;
+                convertedPrice = (price * rates).toFixed(2);
+                currencySymbol = symbol || "$";
+              }
 
-            // Format the price with commas
-            convertedPrice = parseFloat(convertedPrice).toLocaleString();
+              // Format the price with commas
+              convertedPrice = parseFloat(convertedPrice).toLocaleString();
 
-            return { convertedPrice, currencySymbol };
-          };
+              return { convertedPrice, currencySymbol };
+            };
 
-          let variation =
-            product.variations[
-              Math.floor(Math.random() * product.variations.length)
-            ];
+            let variation =
+              product.variations[
+                Math.floor(Math.random() * product.variations.length)
+              ];
 
-          const { convertedPrice, currencySymbol } = priceConverter(
-            variation?.price || 0
-          );
-          const convertedDiscount = priceConverter(
-            variation?.discount || 0
-          ).convertedPrice;
+            const { convertedPrice, currencySymbol } = priceConverter(
+              variation?.price || 0
+            );
+            const convertedDiscount = priceConverter(
+              variation?.discount || 0
+            ).convertedPrice;
 
-          const isProductInCompare = compareItems.some(
-            (item) => item.id === product.id
-          );
-          const isProductInWishlist = wishlistItems.some(
-            (item) => item.id === product.id
-          );
-          return (
-            <Card key={index} className="product-car mb-3">
-              <div className="image-container">
-                <img
-                  src={product.images[0]?.image || '/assets/img/banner/KlinSav.jpg'}
-                  alt={product.name}
-                  className="product-image"
-                  loading="lazy" 
-                />
-                <div className="overlay-icons">
-                  <AiOutlineShoppingCart
-                    onClick={() => {
-                      addToCart(product, 1, variation.size, "Retail");
-                    }}
-                    className="icon"
-                    title="Add to Cart"
+            const isProductInCompare = compareItems.some(
+              (item) => item.id === product.id
+            );
+            const isProductInWishlist = wishlistItems.some(
+              (item) => item.id === product.id
+            );
+            return (
+              <Card key={index} className="product-car mb-3">
+                <div className="image-container">
+                  <img
+                    src={
+                      product.images[0]?.image ||
+                      "/assets/img/banner/KlinSav.jpg"
+                    }
+                    alt={product.name}
+                    className="product-image"
+                    loading="lazy"
                   />
-                  <AiOutlineEye
-                    onClick={() => {
-                      setSelectedProduct(product);
-                      setModalShow(true);
-                    }}
-                    className="icon"
-                    title="View Details"
-                  />
-                  {isProductInCompare ? (
-                    <AiOutlineCloseCircle
-                      onClick={() => {
-                        dispatch(deleteFromCompare(product));
-                      }}
-                      className="icon compare-icon active"
-                      title="Already in Compare"
-                    />
-                  ) : (
-                    <AiOutlineSwap
-                      onClick={() => {
-                        addToCompare(product);
-                      }}
-                      className="icon"
-                      title="Add to Compare"
-                    />
-                  )}
-                </div>
-              </div>
-              <Card.Body>
-                <div className="d-flex align-items-center justify-content-between">
-                  <Card.Title className="product-name">
-                    <Card.Link href={`/product/${product.id}`}>
-                      {product.name}
-                    </Card.Link>
-                  </Card.Title>{" "}
-                  {isProductInWishlist ? (
-                    <FcLike
-                      onClick={() =>
-                        dispatch(deleteFromWishlist(product, toast))
-                      }
-                      className="heart-icon"
-                      title="Add to Wishlist"
-                    />
-                  ) : (
-                    <FcLikePlaceholder
-                      onClick={() => {
-                        dispatch(addToWishlist(product, toast)); // Dispatch to Redux
-                      }}
-                      className="heart-icon"
-                      title="Already in Wishlist"
-                    />
-                  )}
+                  <div className="overlay-icons">
+                    {isProductInWishlist ? (
+                      <FcLike
+                        onClick={() =>
+                          dispatch(deleteFromWishlist(product, toast))
+                        }
+                        className="heart-icon active"
+                        title="Remove from Wishlist"
+                      />
+                    ) : (
+                      <FcLikePlaceholder
+                        onClick={() => dispatch(addToWishlist(product, toast))}
+                        className="heart-icon"
+                        title="Add to Wishlist"
+                      />
+                    )}
+                  </div>
                 </div>
 
-                <div className="row my-3 col-auto">
-                  <Card.Text className="product-description text-primary fw-bold">
-                    {variation?.size}
-                  </Card.Text>
-                </div>
-                <div className="d-flex justify-content-between">
-                  {variation?.discount > 0 && (
-                    <Card.Text
-                      className="text-muted"
-                      style={{ textDecoration: "line-through" }}
-                    >
-                      {currencySymbol} {convertedPrice}
+                <Card.Body>
+                  <div className="d-flex align-items-center justify-content-between">
+                    <Card.Title className="product-name">
+                      <Card.Link href={`/product/${product.id}`}>
+                        {product.name}
+                      </Card.Link>
+                    </Card.Title>{" "}
+                    {/* description */}
+                    {/* <Card.Text>{product?.description}</Card.Text> */}
+                    <Card.Text className="product-description text-primary fw-bold">
+                      {variation?.size}
                     </Card.Text>
-                  )}
+                  </div>
 
-                  <Card.Text className="text-success">
-                    {currencySymbol}{" "}
-                    {variation?.discount > 0
-                      ? convertedDiscount
-                      : convertedPrice}
-                  </Card.Text>
-                </div>
-              </Card.Body>
-            </Card>
-          );
-        })}
-      </div>
-      <ProductModal
-        show={modalShow}
-        handleClose={() => setModalShow(false)}
-        productData={selectedProduct}
-      />
-    </Fragment>
+                  <div className="d-flex justify-content-between">
+                    {variation?.discount > 0 && (
+                      <Card.Text
+                        className="text-muted"
+                        style={{ textDecoration: "line-through" }}
+                      >
+                        {currencySymbol} {convertedPrice}
+                      </Card.Text>
+                    )}
+
+                    <Card.Text className="text-success">
+                      {currencySymbol}{" "}
+                      {variation?.discount > 0
+                        ? convertedDiscount
+                        : convertedPrice}
+                    </Card.Text>
+                  </div>
+                  <div className="mt-3">
+                    <Button
+                      className=""
+                      onClick={() => {
+                        addToCart(product, 1, variation.size, "Retail");
+                      }}
+                    >
+                      <FaShoppingCart className="mr-2" />
+                      Add to Cart
+                    </Button>
+                  </div>
+                </Card.Body>
+              </Card>
+            );
+          })}
+        </div>
+        <ProductModal
+          show={modalShow}
+          handleClose={() => setModalShow(false)}
+          productData={selectedProduct}
+        />
+      </Fragment>
+    </>
   );
 };
 

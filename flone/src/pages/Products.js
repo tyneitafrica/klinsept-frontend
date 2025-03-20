@@ -36,10 +36,16 @@ const Products = ({ products }) => {
           content="Shop page of  react minimalist eCommerce template."
         />
       </MetaTags>
+      {/* shop page banner */}
 
       <LayoutOne headerTop="visible">
-        <div className="shop-area pt-105 pb-100">
-          <div className="container">
+        <div className="shop-area pt-10 ">
+          <div className="products-banner ">
+            <div className="products-banner-content">
+              <strong className="text-dark">Products</strong>
+            </div>
+          </div>
+          <div className="pt-100 container">
             <div className="row">
               <div className="col-lg-3 order-2 order-lg-1">
                 <ShopSidebar

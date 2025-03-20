@@ -35,10 +35,13 @@ export const registerFetch = async (registerData, navigate, setError) => {
   );
 };
 
+
 export const LoginFetch = async (loginData, setLoading) => {
-  // Display a loading toast while making the request
-  return toast
-    .promise(
+  setLoading(true);
+
+  try {
+    // Display a loading toast while making the request
+    const response = await toast.promise(
       axios.post(`${API_URL}auth/login/`, loginData, {
         withCredentials: true,
         headers: {
@@ -48,24 +51,24 @@ export const LoginFetch = async (loginData, setLoading) => {
       }),
       {
         loading: "Logging in...",
-        success: (response) => {
-          return response.data.message;
-        },
-        error: (error) => {
+        success: (res) => res.data.message,
+        error: (err) => {
           const errorMessage =
-            error.response?.data?.detail ||
-            error.message ||
-            "An error occurred";
+            err.response?.data?.detail || err.message || "An error occurred";
           return ` ${errorMessage}`;
         },
       }
-    )
-    .catch((err) => {
-      console.error("Unhandled Error:", err);
-      return err;
-      // You can catch any unhandled promise rejections here if needed
-    });
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Unhandled Error:", error);
+    throw error; // Rethrow the error so it can be handled by the caller
+  } finally {
+    setLoading(false); // Ensure loading state is reset
+  }
 };
+
 
 export const forgotPassword = async (email) => {
   try {
