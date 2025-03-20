@@ -1,22 +1,22 @@
 import PropTypes from "prop-types";
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { getProducts } from "../../helpers/product";
 import { addToCart } from "../../redux/actions/cartActions";
 import { addToWishlist } from "../../redux/actions/wishlistActions";
 import { addToCompare } from "../../redux/actions/compareActions";
 import { deleteFromWishlist } from "../../redux/actions/wishlistActions";
-import { deleteFromCompare } from "../../redux/actions/compareActions";
-import {
-  AiOutlineShoppingCart,
-  AiOutlineEye,
-  AiOutlineSwap,
-  AiOutlineCloseCircle,
-} from "react-icons/ai";
+// import { deleteFromCompare } from "../../redux/actions/compareActions";
+// import {
+//   AiOutlineShoppingCart,
+//   AiOutlineEye,
+//   AiOutlineSwap,
+//   AiOutlineCloseCircle,
+// } from "react-icons/ai";
 import { FcLike, FcLikePlaceholder } from "react-icons/fc";
 import { useDispatch } from "react-redux";
 import { Card, Button } from "react-bootstrap";
-import { ProductModal } from "../../components/ProductModal";
+// import { ProductModal } from "../../components/ProductModal";
 import { toast } from "react-hot-toast";
 import "../../assets/css/ProductCard.css";
 
@@ -27,12 +27,12 @@ const ShopProducts = ({
   currentData,
   currency,
   addToCart,
-  addToCompare,
+  // addToCompare,
   wishlistItems,
-  compareItems,
+  // compareItems,
 }) => {
-  const [modalShow, setModalShow] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  // const [modalShow, setModalShow] = useState(false);
+  // const [selectedProduct, setSelectedProduct] = useState(null);
   const finalProducts = currentData || products;
 
   const dispatch = useDispatch();
@@ -70,9 +70,9 @@ const ShopProducts = ({
               variation?.discount || 0
             ).convertedPrice;
 
-            const isProductInCompare = compareItems.some(
-              (item) => item.id === product.id
-            );
+            // const isProductInCompare = compareItems.some(
+            //   (item) => item.id === product.id
+            // );
             const isProductInWishlist = wishlistItems.some(
               (item) => item.id === product.id
             );
@@ -154,11 +154,11 @@ const ShopProducts = ({
             );
           })}
         </div>
-        <ProductModal
+        {/* <ProductModal
           show={modalShow}
           handleClose={() => setModalShow(false)}
           productData={selectedProduct}
-        />
+        /> */}
       </Fragment>
     </>
   );

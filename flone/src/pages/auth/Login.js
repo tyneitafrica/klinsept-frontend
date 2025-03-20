@@ -2,13 +2,12 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import MetaTags from "react-meta-tags";
 import { Link, useNavigate } from "react-router-dom";
-import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../../components/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 import {
   Spinner,
-  Nav,
+  
   Form,
   Button,
   Container,
@@ -16,17 +15,17 @@ import {
   Col,
 } from "react-bootstrap";
 import { LoginFetch } from "../../helpers/backendFectch";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 
 import klinseptLogo from "../../assets/images/klinsept-logo.png";
 import shoppingCartImage from "../../assets/images/shopping-cart.png";
 
-const Login = ({ authData }) => {
-  const { pathname } = useLocation();
+const Login = () => {
+  // const { pathname } = useLocation();
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [validated, setValidated] = useState(false);
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLoginSubmit = async (e) => {
@@ -64,15 +63,15 @@ const Login = ({ authData }) => {
           content="Login page of Klinsept eCommerce template."
         />
       </MetaTags>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
+      {/* <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
         Login
-      </BreadcrumbsItem>
+      </BreadcrumbsItem> */}
       <LayoutOne headerTop="visible">
         <Breadcrumb />
         <div
           className="login-register-area pt-100 pb-100"
-          style={{ backgroundColor: "#f8f9fa" }}
+          style={{ backgroundColor: "#F7F7F7" }}
         >
           <Container>
             <Row
@@ -81,13 +80,10 @@ const Login = ({ authData }) => {
                 borderRadius: "8px",
                 boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
               }}
-              className="">
+              className=""
+            >
               {/* Login Form Column */}
-              <Col
-                lg={6}
-                md={12}
-                className="mx-auto login-register-wrapper"
-              >
+              <Col lg={6} md={12} className="mx-auto login-register-wrapper">
                 <div className="">
                   <div className="text-center mb-4">
                     <img
@@ -169,7 +165,7 @@ const Login = ({ authData }) => {
                           <Button
                             type="submit"
                             variant="primary"
-                            className="w-100 py-2"
+                            className="w-100 py-2 text-light"
                             style={{
                               fontWeight: "600",
                               backgroundColor: "#0047AB",

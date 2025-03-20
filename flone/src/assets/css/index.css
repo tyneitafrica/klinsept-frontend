@@ -36,3 +36,47 @@
   align-items: center;
   justify-content: center;
 }
+
+/* No Blogs Container */
+.no-blogs-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+/* No Blogs Image */
+.no-blogs-image {
+  width: 150px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+/* No Blogs Text */
+.no-blogs-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.no-blogs-text {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Button Styling */
+.no-blogs-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.no-blogs-btn:hover {
+  background-color: #0056b3;
+}

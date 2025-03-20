@@ -327,3 +327,21 @@ export const createOrder = async (payload) => {
     throw error;
   }
 };
+
+
+export const getBlogs = async () => {
+  try {
+    const response = await axios.get(`${API_URL}blog/`, {
+      headers: {
+        "x-api-key": API_KEY,
+      },
+    });
+    console.log(response)
+    if (response.status === 200) { 
+      return response.data;
+    }
+  } catch (error) {
+    console.error("Error getting order:", error);
+    throw error;
+  }
+}
