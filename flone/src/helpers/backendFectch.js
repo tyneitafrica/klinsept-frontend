@@ -160,7 +160,7 @@ export const fetchProducts = () => {
       const newTimestamp = new Date().getTime();
       dispatch(fetchProductsSuccess(response.data.results, newTimestamp));
 
-      return response.data;
+      return response.data.data;
     } catch (error) {
       console.error("Get Products error:", error.response?.data);
       throw error;
