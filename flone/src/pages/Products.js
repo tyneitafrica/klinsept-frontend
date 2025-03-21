@@ -13,7 +13,7 @@ const Products = ({ products }) => {
   // const [filterType, setFilterType] = useState("");
   const [currentData, setCurrentData] = useState([]);
   const [sortedProducts, setSortedProducts] = useState([]);
-  console.log(sortedProducts);
+  // console.log(sortedProducts);
 
   const getSortParams = (sortType, sortValue) => {
     setSortType(sortType);

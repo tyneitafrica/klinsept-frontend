@@ -34,7 +34,7 @@ const ShopProducts = ({
   // const [modalShow, setModalShow] = useState(false);
   // const [selectedProduct, setSelectedProduct] = useState(null);
   const finalProducts = currentData || products;
-
+// console.log(finalProducts)
   const dispatch = useDispatch();
   return (
     <>

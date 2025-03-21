@@ -144,7 +144,6 @@ export const fetchProducts = () => {
     const timestamp = state.timestamp;
     const currentTime = new Date().getTime();
     const timeDifference = (currentTime - timestamp) / (1000 * 60 * 60);
-
     if (cachedProducts.length > 0 && timeDifference < 0.5) {
       dispatch(fetchProductsSuccess(cachedProducts, timestamp));
       return cachedProducts;
@@ -157,12 +156,13 @@ export const fetchProducts = () => {
         },
       });
 
+      // console.log(response.data);
       const newTimestamp = new Date().getTime();
-      dispatch(fetchProductsSuccess(response.data.results, newTimestamp));
+      dispatch(fetchProductsSuccess(response.data.data, newTimestamp));
 
       return response.data.data;
     } catch (error) {
-      console.error("Get Products error:", error.response?.data);
+      console.error("Get Products error:", error);
       throw error;
     }
   };
@@ -328,20 +328,32 @@ export const createOrder = async (payload) => {
   }
 };
 
-
 export const getBlogs = async () => {
+  const toastId = toast.loading("Fetching blogs...");
+
   try {
-    const response = await axios.get(`${API_URL}blog/`, {
+    const response = await axios.get(`${API_URL}blogs/`, {
       headers: {
         "x-api-key": API_KEY,
       },
     });
-    console.log(response)
-    if (response.status === 200) { 
+
+    toast.dismiss(toastId);
+    console.log(response.data);
+
+    if (response.status === 200) {
+      toast.success("Blogs fetched successfully!");
       return response.data;
+    } else {
+      toast.error("Failed to fetch blogs!");
+      return [];
     }
   } catch (error) {
-    console.error("Error getting order:", error);
-    throw error;
+    toast.dismiss(toastId);
+    toast.error("Error fetching blogs. Please try again.");
+    console.error("Error getting blogs:", error);
+    return [];
+  } finally {
+    
   }
-}
+};
