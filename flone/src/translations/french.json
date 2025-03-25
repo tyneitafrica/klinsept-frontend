@@ -3,8 +3,8 @@
   "About Us": "À propos de nous",
   "Products": "Produits",
   "Blogs": "Blogs",
-  "Home":"Hom",
-  "Phone":"fon",
+  "Home": "Hom",
+  "Phone": "fon",
   "Our Products": "Nos Produits",
   "Profile": "Profile",
   "Contact Us": "Contactez-nous",
@@ -127,5 +127,8 @@
   "bottles_sold": "Bouteilles Vendues",
   "orders_completed": "Commandes Terminées",
   "countries_we_operate_in": "Pays dans lesquels nous opérons",
-  "satisfied_customers": "Clients Satisfaits"
+  "satisfied_customers": "Clients Satisfaits",
+  "No Blogs Available": "Aucun blog disponible",
+  "Stay tuned! New blogs will be added soon.": "Restez à l'écoute ! De nouveaux blogs seront ajoutés bientôt.",
+  "Write a Blog": "Écrire un blog"
 }

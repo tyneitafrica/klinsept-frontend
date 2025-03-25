@@ -81,8 +81,7 @@ const BlogPostsNoSidebar = () => {
 
   // Fetch blogs only once when the component mounts
   useEffect(() => {
-    if (blogs.length <= 0) { 
-
+    if (blogs.length <= 0) {
       getBlogs(setBlogs);
     }
   }, []);
@@ -96,31 +95,42 @@ const BlogPostsNoSidebar = () => {
             alt="No Blogs Found"
             className="no-blogs-image"
           />
-          <h4 className="no-blogs-title">No Blogs Available</h4>
+          <h4 className="no-blogs-title">{t("No Blogs Available")} </h4>
           <p className="no-blogs-text">
-            Stay tuned! New blogs will be added soon.
+            {t("Stay tuned! New blogs will be added soon.")}
           </p>
-          <button className="no-blogs-btn">Write a Blog</button>
+          <button className="no-blogs-btn">{t("Write a Blog")}</button>
         </div>
       ) : (
         blogs.map((post) => (
           <div key={post.id} className="col-lg-4 col-md-6 col-sm-12">
             <div className="blog-wrap-2 mb-30">
+              <div className="blog-img-2">
+                <img
+                  src={
+                    post.images?.find((img) => img.section === "BANNER")
+                      ?.image || "/default-image.jpg"
+                  }
+                  alt={post.title}
+                  className="img-fluid"
+                />
+              </div>
               <div className="blog-content-2">
                 <div className="blog-meta-2">
                   <ul>
-                    <li>{post.date}</li>
+                    <li>{new Date(post.created_at).toLocaleDateString()}</li>
                     <li>
-                      <Link>
-                        {post.comments} <i className="fa fa-comments-o" />
-                      </Link>
+                      <a href="#">
+                        {/* Placeholder for comments */}
+                        0 <i className="fa fa-comments-o" />
+                      </a>
                     </li>
                   </ul>
                 </div>
                 <h4>
-                  <Link>{t(post.title)}</Link>
+                  <a href={`/blog/${post.slug}`}>{post.title}</a>
                 </h4>
-                <p>{t(post.description)}</p>
+                <p>{post.content}</p>
                 <div className="blog-share-comment">
                   <div className="blog-share">
                     <span>Share:</span>

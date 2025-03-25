@@ -126,5 +126,8 @@
     "bottles_sold": "Bottles Sold",
     "orders_completed": "Orders Completed",
     "countries_we_operate_in": "Countries We Operate In",
-    "satisfied_customers": "Satisfied Customers"
+    "satisfied_customers": "Satisfied Customers",
+      "No Blogs Available": "No Blogs Available",
+      "Stay tuned! New blogs will be added soon.": "Stay tuned! New blogs will be added soon.",
+      "Write a Blog": "Write a Blog"
   }

@@ -7,7 +7,6 @@
   "Profile": "Accounti",
   "Our Products": "Bidhaa Zetu",
   "Contact Us": "Wasiliana Nasi",
-  
   "FAQs": "Maswali Yanayoulizwa Mara Kwa Mara",
   "Working Hours": "Masaa ya Kufanya Kazi",
   "Monday to Friday": "Jumatatu hadi Ijumaa",
@@ -127,5 +126,8 @@
   "bottles_sold": "Mabomba Yaliyouzwa",
   "orders_completed": "Amri Zilizokamilika",
   "countries_we_operate_in": "Nchi Tunazofanyia Kazi",
-  "satisfied_customers": "Wateja Walioridhika"
+  "satisfied_customers": "Wateja Walioridhika",
+  "No Blogs Available": "Hakuna Blogu Zinazopatikana",
+  "Stay tuned! New blogs will be added soon.": "Endelea kufuatilia! Blogu mpya zitaongezwa hivi karibuni.",
+  "Write a Blog": "Andika Blogu"
 }

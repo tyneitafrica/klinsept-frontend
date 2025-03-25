@@ -3,9 +3,9 @@ import axios from "axios";
 import { fetchProductsSuccess } from "../redux/actions/productActions";
 import toast from "react-hot-toast";
 const API_KEY = process.env.REACT_APP_API_KEY;
-const API_URL = process.env.REACT_APP_API_URL;
+// const API_URL = process.env.REACT_APP_API_URL;
 // const API_URL = "https://klinsept-backend.onrender.com/api/v1.0/";
-// const API_URL = "http://localhost:8000/api/v1.0/";
+const API_URL = "http://localhost:8000/api/v1.0/";
 // const API_URL = "http://192.168.1.88:8000/api/v1.0/";
 
 export const registerFetch = async (registerData, navigate, setError) => {
@@ -328,7 +328,7 @@ export const createOrder = async (payload) => {
   }
 };
 
-export const getBlogs = async () => {
+export const getBlogs = async (setBlogs) => {
   const toastId = toast.loading("Fetching blogs...");
 
   try {
@@ -339,9 +339,10 @@ export const getBlogs = async () => {
     });
 
     toast.dismiss(toastId);
-    console.log(response.data);
+    console.log(response.data?.message);
 
     if (response.status === 200) {
+      setBlogs(response?.data?.data);
       toast.success("Blogs fetched successfully!");
       return response.data;
     } else {
