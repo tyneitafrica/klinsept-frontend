@@ -8,7 +8,7 @@ import { save, load } from "redux-localstorage-simple";
 import { Provider } from "react-redux";
 import { fetchProducts } from "./helpers/backendFectch";
 import rootReducer from "./redux/reducers/rootReducer";
-import products from "./data/products.json";
+// import products from "./data/products.json";
 import App from "./App";
 import "./assets/scss/style.scss";
 import '../src/assets/css/index.css'

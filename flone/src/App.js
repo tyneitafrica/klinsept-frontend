@@ -12,7 +12,10 @@ import { isAuthenticated } from "./helpers/backendFectch";
 const Home = lazy(() => import("./pages/Home"));
 const Products = lazy(() => import("./pages/Products"));
 const Product = lazy(() => import("./pages/Product"));
+
 const Blogs = lazy(() => import("./pages/Blogs"));
+const Blog = lazy(() => import("./pages/Blog"));
+
 const About = lazy(() => import("./pages/other/About"));
 const Contact = lazy(() => import("./pages/other/Contact"));
 const MyAccount = lazy(() => import("./pages/other/MyAccount"));
@@ -85,6 +88,7 @@ const App = () => {
                 <Route path={"/product/:id"} element={<Product />} />
                 {/* Blog pages */}
                 <Route path={"/blogs"} element={<Blogs />} />
+                <Route path={"/blog/:id"} element={<Blog />} />
                 {/* auth */}
                 <Route path={"/register"} element={<Register />} />
                 <Route path={"/login"} element={<Login />} />
