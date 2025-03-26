@@ -50,10 +50,8 @@
   padding: 20px;
   margin: 0 auto;
   max-width: 500px;
-  height: 35vh; /* Takes 70% of viewport height */
+  height: 35vh; 
   border-radius: 12px;
-  background-color: #f9f9f9; /* Light background */
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); /* Soft shadow */
   transition: all 0.3s ease-in-out;
 }
 
@@ -182,5 +180,103 @@
 }
 
 .read-more-btn:hover {
+  background-color: #0044cc;
+}
+
+
+/* Loading State */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 35vh;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 500px;
+  transition: all 0.3s ease-in-out;
+}
+
+.spinner {
+  border: 8px solid #f3f3f3; /* Light gray background */
+  border-top: 8px solid #002147; /* Primary color */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+/* Error State */
+.error-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 35vh;
+  background-color: #ffefef;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 500px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.error-image {
+  width: 100px;
+  height: auto;
+  margin-bottom: 15px;
+  opacity: 0.9;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.error-image:hover {
+  opacity: 1;
+}
+
+.error-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #b00020;
+  margin-bottom: 10px;
+}
+
+.error-text {
+  font-size: 1rem;
+  color: #b00020;
+  line-height: 1.5;
+  margin-top: 5px;
+  max-width: 400px;
+}
+
+.retry-button {
+  padding: 10px 20px;
+  background-color: #002147;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 15px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.retry-button:hover {
   background-color: #0044cc;
 }

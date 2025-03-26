@@ -2,19 +2,29 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getBlogs } from "../../helpers/backendFectch";
 import { useTranslation } from "react-i18next";
+import { useDispatch,useSelector } from "react-redux";
 
-const BlogPostsNoSidebar = () => {
-  const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true); // New loading state
+export default function BlogPostsNoSidebar () {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null); // New error state
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const blogs = useSelector((state) => state.productData.blogs);
+  // console.log(blogs);
 
-  const fetchBlogs = useCallback(() => {
-    setLoading(true); // Set loading to true before fetching
-    getBlogs((data) => {
-      setBlogs(data);
-      setLoading(false); // Set loading to false after fetching
-    });
-  }, []);
+  const fetchBlogs = useCallback(async () => {
+    setLoading(true);
+    setError(null); // Reset error state before fetching
+
+    try {
+      await getBlogs(dispatch);
+
+    } catch (err) {
+      setError(t("Failed to fetch blogs. Please try again."));
+    } finally {
+      setLoading(false);
+    }
+  }, [dispatch,t]);
 
   useEffect(() => {
     fetchBlogs();
@@ -22,10 +32,18 @@ const BlogPostsNoSidebar = () => {
 
   return (
     <>
-      {loading ? (
-        <div className="loading-container">
-          <div className="spinner"></div>
-          <p>{t("Loading blogs...")}</p>
+      {error ? (
+        <div className="error-container">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/463/463612.png"
+            alt="Error"
+            className="error-image"
+          />
+          <h4 className="error-title">{t("Oops!")}</h4>
+          <p className="error-text">{error}</p>
+          <button className="retry-button" onClick={fetchBlogs}>
+            {t("Retry")}
+          </button>
         </div>
       ) : blogs.length === 0 ? (
         <div className="no-blogs-container">
@@ -42,7 +60,7 @@ const BlogPostsNoSidebar = () => {
       ) : (
         <div className="blog-list">
           {blogs.map((post) => (
-            <Card post={post} blogs={blogs} />
+            <Card key={post.id} post={post} blogs={blogs} />
           ))}
         </div>
       )}
@@ -50,12 +68,13 @@ const BlogPostsNoSidebar = () => {
   );
 };
 
-export default BlogPostsNoSidebar;
 
-export const Card = ({ post,blogs }) => {
+
+export const Card = ({ post, blogs }) => {
   return (
     <div key={post.id} className="blog-card">
       {/* Image Section */}
+
       <div className="blog-card-image">
         <img
           src={
@@ -85,7 +104,7 @@ export const Card = ({ post,blogs }) => {
           state={{
             post: post,
             blogs: blogs,
-            relatedBlogs: blogs.filter((blog) => blog.id !== post.id),
+            relatedBlogs: blogs.filter((blog) => blog.id !== post.id).slice(0,3),
           }}
           className="read-more-btn"
         >
@@ -95,3 +114,6 @@ export const Card = ({ post,blogs }) => {
     </div>
   );
 };
+
+
+

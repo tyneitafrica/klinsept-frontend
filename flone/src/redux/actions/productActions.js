@@ -5,3 +5,12 @@ export const fetchProductsSuccess = (products, timestamp) => ({
   payload: products,
   timestamp,
 });
+
+// fetch blogs
+
+export const FETCH_BLOGS_SUCCESS = "FETCH_BLOGS_SUCCESS";
+
+export const fetchBlogsSuccess = (blogs) => ({
+  type: FETCH_BLOGS_SUCCESS,
+  payload: blogs,
+});

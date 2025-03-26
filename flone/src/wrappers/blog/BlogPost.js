@@ -1,35 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
-// import "./BlogPost.css"; // We'll create this CSS file
+import { useSelector } from "react-redux";
+import { Card } from "./BlogPostsNoSidebar";
+
 
 const BlogPost = () => {
   const location = useLocation();
-  const [post, setPost] = useState(null);
-  const [relatedBlogs, setRelatedBlogs] = useState([]);
-  const blogs = location.state?.blogs
-  console.log(location.state?.relatedBlogs);
-  
-  useEffect(() => {
-    const locationPost = location.state?.post;
-    const locationBlogs = location.state?.relatedBlogs || [];
 
-    if (locationPost) {
-      setPost(locationPost);
+  const blogs = useSelector((state) => state.productData.blogs);
+  const { post, relatedBlogs } = location.state || {};
+  // const post = location.state?.post;
 
-      // If no related blogs were passed, you could fetch them here
-      // For now, we'll use a random selection or a default logic
-      if (locationBlogs.length < 3) { 
-
-        const randomBlogs = locationBlogs
-          .sort(() => 0.5 - Math.random()) // Randomly shuffle
-          .slice(0, 3); // Take first 3
-  
-        setRelatedBlogs(randomBlogs);
-      } else {
-        setRelatedBlogs(locationBlogs);
-      }
-    }
-  }, [location.state]);
+  const formattedDate = new Date(post.created_at).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   if (!post) {
     return (
@@ -48,7 +34,7 @@ const BlogPost = () => {
         <div className="blog-header-content">
           <h1>{post.title}</h1>
           <div className="blog-meta">
-            <span className="blog-date">{post.created_at}</span>
+            <span className="blog-date">{formattedDate}</span>
           </div>
         </div>
       </div>
@@ -66,50 +52,49 @@ const BlogPost = () => {
       <div className="blog-post-content">
         <div className="content-wrapper">
           <h2 className="content-title">{post.heading}</h2>
-          <p className="content-text">{post.content}</p>
+          <div className="content-text">
+            {post.content.split("\r\n").map((paragraph, index) => (
+              <React.Fragment key={index}>
+                <p>{paragraph}</p>
 
-          {post.images?.find((img) => img.section === "CONTENT") && (
-            <div className="content-image">
-              <img
-                src={
-                  post.images.find((img) => img.section === "CONTENT")?.image
-                }
-                alt={`${post.title} - Content `}
-              />
-            </div>
-          )}
+                {/* Insert image after the 3rd paragraph or any specific point */}
+                {index === 2 &&
+                  post.images?.find((img) => img.section === "CONTENT") && (
+                    <div className="content-image">
+                      <img
+                        src={
+                          post.images.find((img) => img.section === "CONTENT")
+                            ?.image
+                        }
+                        alt={`${post.title} - Content`}
+                      />
+                    </div>
+                  )}
+              </React.Fragment>
+            ))}
+          </div>
+
+          {/* <p className="content-text">{post.content}</p> */}
+
+          
         </div>
       </div>
 
       <div className="related-blogs">
-        <h3>Other Related Blogs</h3>
-        <div className="related-blogs-grid">
+        <div className="d-flex justify-content-between align-items-center custom-flex">
+          <h3>Other Related Blogs</h3>
+          <div className="d-flex align-items-center gap-9">
+            <Link to="/blogs" className="text-decoration-none ml-3">
+              View All
+            </Link>
+            <i className="fa fa-arrow-right"></i>
+          </div>
+        </div>
+
+        <div className="blog-list">
           {relatedBlogs.map((relatedBlog) => (
-            <div key={relatedBlog.id} className="related-blog-item">
-              <img
-                src={
-                  relatedBlog.images?.find((img) => img.section === "BANNER")
-                    ?.image || "/assets/img/blog/default-blog.jpg"
-                }
-                alt={relatedBlog.title}
-              />
-              <div className="related-blog-content">
-                <h4>{relatedBlog.title}</h4>
-                <Link
-                  to={`/blog/${relatedBlog.slug}`}
-                  state={{
-                    post: relatedBlog,
-                    blogs: blogs,
-                    relatedBlogs: blogs?.filter(
-                      (b) => b.id !== relatedBlog.id
-                    ),
-                  }}
-                  className="read-more-btn"
-                >
-                  <i className="fa fa-arrow-right"></i>
-                </Link>
-              </div>
-            </div>
+            // console.log("relatedBlogs", relatedBlog.id)
+            <Card post={relatedBlog} blogs={blogs} key={relatedBlog.id} />
           ))}
         </div>
       </div>

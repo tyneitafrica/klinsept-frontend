@@ -1,11 +1,11 @@
 import axios from "axios";
 // import { logoutUser } from "../redux/actions/appAction";
-import { fetchProductsSuccess } from "../redux/actions/productActions";
+import { fetchProductsSuccess,fetchBlogsSuccess } from "../redux/actions/productActions";
 import toast from "react-hot-toast";
 const API_KEY = process.env.REACT_APP_API_KEY;
-// const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = process.env.REACT_APP_API_URL;
 // const API_URL = "https://klinsept-backend.onrender.com/api/v1.0/";
-const API_URL = "http://localhost:8000/api/v1.0/";
+// const API_URL = "http://localhost:8000/api/v1.0/";
 // const API_URL = "http://192.168.1.88:8000/api/v1.0/";
 
 export const registerFetch = async (registerData, navigate, setError) => {
@@ -328,7 +328,8 @@ export const createOrder = async (payload) => {
   }
 };
 
-export const getBlogs = async (setBlogs) => {
+
+export const getBlogs = async (dispatch) => {
   const toastId = toast.loading("Fetching blogs...");
 
   try {
@@ -339,22 +340,20 @@ export const getBlogs = async (setBlogs) => {
     });
 
     toast.dismiss(toastId);
-    console.log(response.data?.data);
 
     if (response.status === 200) {
-      setBlogs(response?.data?.data);
       toast.success("Blogs fetched successfully!");
-      return response.data;
+      dispatch(fetchBlogsSuccess(response.data?.data || []));
+      console.log(response.data?.data[2])
+      return response.data?.data || [];
     } else {
       toast.error("Failed to fetch blogs!");
-      return [];
+      throw new Error("Failed to fetch blogs");
     }
   } catch (error) {
     toast.dismiss(toastId);
     toast.error("Error fetching blogs. Please try again.");
     console.error("Error getting blogs:", error);
-    return [];
-  } finally {
-    
+    throw error; // Important to throw for catch block
   }
 };
