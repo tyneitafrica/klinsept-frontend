@@ -7,14 +7,13 @@ const BlogPostsNoSidebar = () => {
   const [blogs, setBlogs] = useState([]);
   const { t } = useTranslation();
 
-const fetchBlogs = useCallback(() => {
-  getBlogs(setBlogs);
-}, []);
+  const fetchBlogs = useCallback(() => {
+    getBlogs(setBlogs);
+  }, []);
 
-useEffect(() => {
-  fetchBlogs();
-}, [fetchBlogs]);
-
+  useEffect(() => {
+    fetchBlogs();
+  }, [fetchBlogs]);
 
   return (
     <>
@@ -60,7 +59,14 @@ useEffect(() => {
                 </p>
 
                 {/* Read More Button */}
-                <Link to={`/blog/${post.slug}`} className="read-more-btn">
+                <Link
+                  to={`/blog/${post.slug}`}
+                  state={{
+                    post: post,
+                    relatedBlogs: blogs.filter((blog) => blog.id !== post.id),
+                  }}
+                  className="read-more-btn"
+                >
                   <i className="fa fa-arrow-right"></i>
                 </Link>
               </div>
