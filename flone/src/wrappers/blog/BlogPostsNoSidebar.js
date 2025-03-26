@@ -138,6 +138,7 @@ export const Card = ({ post, blogs }) => {
         <img
           src={
             post.images?.find((img) => img.section === "BANNER")?.image ||
+            post.image ||
             "/default-image.jpg"
           }
           alt={post.title}
@@ -152,8 +153,8 @@ export const Card = ({ post, blogs }) => {
       <div className="blog-card-content">
         <h4 className="blog-title">{post.title}</h4>
         <p className="blog-description">
-          {post.content.length > 100
-            ? `${post.content.substring(0, 100)}...`
+          {post.content?.length > 100
+            ? `${post.content?.substring(0, 100)}...`
             : post.content}
         </p>
 
@@ -163,7 +164,9 @@ export const Card = ({ post, blogs }) => {
           state={{
             post: post,
             blogs: blogs,
-            relatedBlogs: blogs.filter((blog) => blog.id !== post.id).slice(0,3),
+            relatedBlogs: blogs
+              .filter((blog) => blog.id !== post.id)
+              .slice(0, 3),
           }}
           className="read-more-btn"
         >
