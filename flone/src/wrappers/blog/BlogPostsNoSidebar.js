@@ -5,10 +5,15 @@ import { useTranslation } from "react-i18next";
 
 const BlogPostsNoSidebar = () => {
   const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true); // New loading state
   const { t } = useTranslation();
 
   const fetchBlogs = useCallback(() => {
-    getBlogs(setBlogs);
+    setLoading(true); // Set loading to true before fetching
+    getBlogs((data) => {
+      setBlogs(data);
+      setLoading(false); // Set loading to false after fetching
+    });
   }, []);
 
   useEffect(() => {
@@ -17,7 +22,12 @@ const BlogPostsNoSidebar = () => {
 
   return (
     <>
-      {blogs.length === 0 ? (
+      {loading ? (
+        <div className="loading-container">
+          <div className="spinner"></div>
+          <p>{t("Loading blogs...")}</p>
+        </div>
+      ) : blogs.length === 0 ? (
         <div className="no-blogs-container">
           <img
             src="https://logosear.ch/favicon.svg"
@@ -28,49 +38,11 @@ const BlogPostsNoSidebar = () => {
           <p className="no-blogs-text">
             {t("Stay tuned! New blogs will be added soon.")}
           </p>
-          <button className="no-blogs-btn">{t("Write a Blog")}</button>
         </div>
       ) : (
         <div className="blog-list">
           {blogs.map((post) => (
-            <div key={post.id} className="blog-card">
-              {/* Image Section */}
-              <div className="blog-card-image">
-                <img
-                  src={
-                    post.images?.find((img) => img.section === "BANNER")
-                      ?.image || "/default-image.jpg"
-                  }
-                  alt={post.title}
-                />
-                {/* Favorite Icon */}
-                <button className="favorite-btn">
-                  <i className="fa fa-heart-o"></i>
-                </button>
-              </div>
-
-              {/* Content Section */}
-              <div className="blog-card-content">
-                <h4 className="blog-title">{post.title}</h4>
-                <p className="blog-description">
-                  {post.content.length > 100
-                    ? `${post.content.substring(0, 100)}...`
-                    : post.content}
-                </p>
-
-                {/* Read More Button */}
-                <Link
-                  to={`/blog/${post.slug}`}
-                  state={{
-                    post: post,
-                    relatedBlogs: blogs.filter((blog) => blog.id !== post.id),
-                  }}
-                  className="read-more-btn"
-                >
-                  <i className="fa fa-arrow-right"></i>
-                </Link>
-              </div>
-            </div>
+            <Card post={post} blogs={blogs} />
           ))}
         </div>
       )}
@@ -79,3 +51,47 @@ const BlogPostsNoSidebar = () => {
 };
 
 export default BlogPostsNoSidebar;
+
+export const Card = ({ post,blogs }) => {
+  return (
+    <div key={post.id} className="blog-card">
+      {/* Image Section */}
+      <div className="blog-card-image">
+        <img
+          src={
+            post.images?.find((img) => img.section === "BANNER")?.image ||
+            "/default-image.jpg"
+          }
+          alt={post.title}
+        />
+        {/* Favorite Icon */}
+        <button className="favorite-btn">
+          <i className="fa fa-heart-o"></i>
+        </button>
+      </div>
+
+      {/* Content Section */}
+      <div className="blog-card-content">
+        <h4 className="blog-title">{post.title}</h4>
+        <p className="blog-description">
+          {post.content.length > 100
+            ? `${post.content.substring(0, 100)}...`
+            : post.content}
+        </p>
+
+        {/* Read More Button */}
+        <Link
+          to={`/blog/${post.slug}`}
+          state={{
+            post: post,
+            blogs: blogs,
+            relatedBlogs: blogs.filter((blog) => blog.id !== post.id),
+          }}
+          className="read-more-btn"
+        >
+          <i className="fa fa-arrow-right"></i>
+        </Link>
+      </div>
+    </div>
+  );
+};

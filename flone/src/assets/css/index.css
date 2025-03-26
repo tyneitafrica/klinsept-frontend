@@ -39,6 +39,56 @@
   justify-content: center;
 }
 
+
+/* Blogs */
+.no-blogs-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 500px;
+  height: 35vh; /* Takes 70% of viewport height */
+  border-radius: 12px;
+  background-color: #f9f9f9; /* Light background */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  transition: all 0.3s ease-in-out;
+}
+
+.no-blogs-container:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.no-blogs-image {
+  width: 100px;
+  height: auto;
+  margin-bottom: 15px;
+  opacity: 0.9;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.no-blogs-image:hover {
+  opacity: 1;
+}
+
+.no-blogs-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.no-blogs-text {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.5;
+  margin-top: 5px;
+}
+
+
 .blog-list {
   display: flex;
   flex-wrap: wrap;
