@@ -2,8 +2,10 @@ import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { getIndividualCategories } from "../../helpers/product";
 import { setActiveSort } from "../../helpers/product";
+import { useTranslation } from "react-i18next";
 
 const ShopSidebar = ({ products, getSortParams }) => {
+  const { t } = useTranslation();
   const [uniqueVariations, setUniqueVariations] = useState([]);
 
   // Extract categories (same as before)
@@ -30,7 +32,7 @@ const ShopSidebar = ({ products, getSortParams }) => {
     <div className={`sidebar-style mr-30`}>
       {/* Filter by categories */}
       <div className="sidebar-widget">
-        <h4 className="pro-sidebar-title">Categories </h4>
+        <h4 className="pro-sidebar-title">{t("Categories")} </h4>
         <div className="sidebar-widget-list mt-30">
           {categories ? (
             <ul>
@@ -42,7 +44,7 @@ const ShopSidebar = ({ products, getSortParams }) => {
                       setActiveSort(e);
                     }}
                   >
-                    <span className="checkmark" /> All Categories
+                    <span className="checkmark" /> {t("All Categories")}
                   </button>
                 </div>
               </li>
@@ -62,7 +64,7 @@ const ShopSidebar = ({ products, getSortParams }) => {
               ))}
             </ul>
           ) : (
-            "No categories found"
+            t("No categories found")
           )}
         </div>
       </div>

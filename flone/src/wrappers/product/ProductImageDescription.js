@@ -86,15 +86,18 @@ const ProductImageDescription = ({
               <div className="product-rating">
                 {[...Array(5)].map((_, index) => (
                   <span key={index} className="star-icon">
-                    {index < product.rating ? "★" : "★"} {/* Solid or hollow star */}
+                    {index < product.rating ? "★" : "★"}{" "}
+                    {/* Solid or hollow star */}
                   </span>
                 ))}
-                <span className="rating-number">{product.rating} 5 Star Rating</span>
+                <span className="rating-number">
+                  {product.rating} {t("5 Star Rating")}
+                </span>
               </div>
               <h2>{product.name}</h2>
               {product.category ? (
                 <div className="pro-details-meta">
-                  <span>Categories :</span>
+                  <span>{t("Category")} :</span>
                   <ul>
                     {product.category.map((single, key) => {
                       return (
@@ -112,19 +115,24 @@ const ProductImageDescription = ({
               )}
 
               <div>
-              {selectedVariation && (
-                <p
-                  style={{
-                    color: selectedVariation.stock > 0 ? "green" : "red",
-                    fontWeight: "bold",
-                    marginTop: "5px",
-                    marginBottom: "30px",
-                  }}
-                >
-                  Availability:{" "}
-                  {selectedVariation.stock > 0 ? "In Stock" : "Out of Stock"}
-                </p>
-              )}
+                {selectedVariation && (
+                  <p
+                    style={{
+                      color: selectedVariation.stock > 0 ? "green" : "red",
+                      fontWeight: "bold",
+                      marginTop: "5px",
+                      marginBottom: "30px",
+                    }}
+                  >
+                    {t(
+                      `Availability: ${
+                        selectedVariation.stock > 0
+                          ? "In Stock"
+                          : "Out of Stock"
+                      }`
+                    )}
+                  </p>
+                )}
               </div>
 
               <div className="product-details-price d-flex align-items-center">
@@ -164,7 +172,6 @@ const ProductImageDescription = ({
                 )}
               </div>
 
-
               <Card className="mb-3">
                 <Card.Header>
                   <Nav variant="tabs" defaultActiveKey="variations">
@@ -174,7 +181,7 @@ const ProductImageDescription = ({
                         active={!isChecked}
                         onClick={() => setIsChecked(false)}
                       >
-                        Retail
+                        {t("Retail")}
                       </Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
@@ -183,7 +190,7 @@ const ProductImageDescription = ({
                         active={isChecked}
                         onClick={() => setIsChecked(true)}
                       >
-                        Wholesale{" "}
+                        {t("Wholesale")}
                       </Nav.Link>
                     </Nav.Item>
                   </Nav>
@@ -202,7 +209,6 @@ const ProductImageDescription = ({
                           onClick={() => handleVariationClick(single)}
                         >
                           {single.size}
-                          
                         </Button>
                       ))}
                     </ButtonGroup>
@@ -210,7 +216,7 @@ const ProductImageDescription = ({
                     <>
                       {product.bulk_wholesale.length > 0 && (
                         <Badge variant="info" className="ms-2">
-                          Min: {selectedBulk.min_quantity}
+                          {t("Min")}: {selectedBulk.min_quantity}
                         </Badge>
                       )}
                       <ButtonGroup aria-label="bulk-options">
@@ -233,210 +239,212 @@ const ProductImageDescription = ({
                 </Card.Body>
               </Card>
 
-              
-                <div className="pro-details-quality">
-                  <div className="cart-plus-minus">
-                    <button
-                      onClick={() =>
-                        setQuantityCount(
-                          quantityCount > 1 ? quantityCount - 1 : 1
+              <div className="pro-details-quality">
+                <div className="cart-plus-minus">
+                  <button
+                    onClick={() =>
+                      setQuantityCount(
+                        quantityCount > 1 ? quantityCount - 1 : 1
+                      )
+                    }
+                    className="dec qtybutton"
+                  >
+                    -
+                  </button>
+                  <input
+                    className="cart-plus-minus-box"
+                    type="text"
+                    value={quantityCount}
+                    readOnly
+                  />
+                  <button
+                    onClick={() =>
+                      setQuantityCount((prevCount) => prevCount + 1)
+                    }
+                    className="inc qtybutton"
+                  >
+                    +
+                  </button>
+                </div>
+                <div className="pro-details-cart ">
+                  <button
+                    onClick={() => {
+                      const selectedItem = isChecked
+                        ? selectedBulk
+                        : selectedVariation;
+                      const order_type = isChecked ? "Wholesale" : "Retail";
+
+                      dispatch(
+                        addToCart(
+                          product,
+                          quantityCount,
+                          selectedItem.size,
+                          order_type
                         )
-                      }
-                      className="dec qtybutton"
-                    >
-                      -
-                    </button>
-                    <input
-                      className="cart-plus-minus-box"
-                      type="text"
-                      value={quantityCount}
-                      readOnly
-                    />
-                    <button
+                      );
+                    }}
+                  >
+                    {t("Add To Cart")} <FaShoppingCart size={19} />
+                  </button>
+                </div>
+              </div>
+
+              <div className="wishlist-compare-container">
+                <div className="wishlist-item">
+                  {isProductInWishlist ? (
+                    <FcLike
                       onClick={() =>
-                        setQuantityCount((prevCount) => prevCount + 1)
+                        dispatch(deleteFromWishlist(product, toast))
                       }
-                      className="inc qtybutton"
-                    >
-                      +
-                    </button>
-                  </div>
-                  <div className="pro-details-cart ">
-                    <button
+                      className="heart-icon"
+                      title="Remove from Wishlist"
+                    />
+                  ) : (
+                    <FcLikePlaceholder
                       onClick={() => {
-                        const selectedItem = isChecked
-                          ? selectedBulk
-                          : selectedVariation;
-                        const order_type = isChecked ? "Wholesale" : "Retail";
-
-                        dispatch(
-                          addToCart(
-                            product,
-                            quantityCount,
-                            selectedItem.size,
-                            order_type
-                          )
-                        );
+                        dispatch(addToWishlist(product, toast)); // Dispatch to Redux
                       }}
-                      >
-                      Add To Cart  <FaShoppingCart size={19} />
-                    </button>
-                  </div>
+                      className="heart-icon"
+                    />
+                  )}
+                  <span>{t("Add to Wishlist")}</span>
                 </div>
 
-                <div className="wishlist-compare-container">
-                  <div className="wishlist-item">
-                    {isProductInWishlist ? (
-                      <FcLike
-                        onClick={() => dispatch(deleteFromWishlist(product, toast))}
-                        className="heart-icon"
-                        title="Remove from Wishlist"
-                      />
-                    ) : (
-                      <FcLikePlaceholder
-                        onClick={() => {
-                          dispatch(addToWishlist(product, toast)); // Dispatch to Redux
-                        }}
-                        className="heart-icon"
-                      />
-                    )}
-                    <span>Add to Wishlist</span>
-                  </div>
-
-                  <div className="compare-item">
-                    {!isProductInCompare ? (
-                      <SlRefresh
-                        size={22}
-                        onClick={() => {
-                          dispatch(addToCompare(product)); // No need to pass toast
-                        }}
-                      />
-                    ) : (
-                      <FcCancel
-                        size={25}
-                        title="Remove from Compare"
-                        onClick={() => dispatch(deleteFromCompare(product))} // No need to pass toast
-                      />
-                    )}
-                    <span>Add to Compare</span>
-                  </div>
+                <div className="compare-item">
+                  {!isProductInCompare ? (
+                    <SlRefresh
+                      size={22}
+                      onClick={() => {
+                        dispatch(addToCompare(product)); // No need to pass toast
+                      }}
+                    />
+                  ) : (
+                    <FcCancel
+                      size={25}
+                      title="Remove from Compare"
+                      onClick={() => dispatch(deleteFromCompare(product))} // No need to pass toast
+                    />
+                  )}
+                  <span>{t("Add to Compare")}</span>
                 </div>
-
+              </div>
             </div>
           </div>
 
           {/* insert table */}
-          
+
           <Card className="mt-20 mb-5">
-          <Card.Header>
-                  <Nav variant="tabs" defaultActiveKey="description">
-                    <Nav.Item>
-                      <Nav.Link
-                        eventKey="description"
-                        active={show}
-                        onClick={() => handleDescriptionClick()}
-                      >
-                        Description
-                      </Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                      <Nav.Link
-                        eventKey="additionalinformation"
-                        active={!show}
-                        onClick={() => handleDescriptionClick()}
-                      >
-                        Additional Information
-                      </Nav.Link>
-                    </Nav.Item>
-                  </Nav>
-                </Card.Header>
-                <Card.Body>
-                  {show ? (
-                    <ButtonGroup
-                    aria-label="description"
+            <Card.Header>
+              <Nav variant="tabs" defaultActiveKey="description">
+                <Nav.Item>
+                  <Nav.Link
+                    eventKey="description"
+                    active={show}
+                    onClick={() => handleDescriptionClick()}
+                  >
+                    {t("Description")}
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link
+                    eventKey="additionalinformation"
+                    active={!show}
+                    onClick={() => handleDescriptionClick()}
+                  >
+                    {t("Additional Information")}
+                  </Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </Card.Header>
+            <Card.Body>
+              {show ? (
+                <ButtonGroup
+                  aria-label="description"
+                  style={{
+                    display: "flex",
+                    gap: "20px",
+                    flexWrap: "wrap", // Allows wrapping on smaller screens
+                  }}
+                >
+                  {/* Product Description */}
+                  <div
                     style={{
-                      display: "flex",
-                      gap: "20px",
-                      flexWrap: "wrap", // Allows wrapping on smaller screens
+                      flex: 1,
+                      paddingRight: "10px",
+                      borderRight: "1px solid #ddd",
+                      marginBottom: "20px", // Adds space when stacked
+                      minWidth: "300px", // Ensures consistent size
                     }}
                   >
-                    {/* Product Description */}
-                    <div
+                    <span
                       style={{
-                        flex: 1,
-                        paddingRight: "10px",
-                        borderRight: "1px solid #ddd",
-                        marginBottom: "20px", // Adds space when stacked
-                        minWidth: "300px", // Ensures consistent size
+                        fontSize: "14px",
+                        color: "#555",
+                        display: "block",
+                        lineHeight: "2.8",
                       }}
                     >
-                      <span
+                      {product.description}
+                    </span>
+                  </div>
+
+                  {/* Additional Static Data */}
+                  <div
+                    style={{
+                      flex: 1,
+                      paddingLeft: "10px",
+                      minWidth: "300px", // Ensures consistent size
+                    }}
+                  >
+                    <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                      <h3>{t("Features")}</h3>
+                      <li
                         style={{
-                          fontSize: "14px",
-                          color: "#555",
-                          display: "block",
-                          lineHeight: "2.8",
+                          marginBottom: "10px",
+                          marginLeft: "20px",
+                          display: "flex",
+                          alignItems: "center",
                         }}
                       >
-                        {product.description}
-                      </span>
-                    </div>
-                  
-                    {/* Additional Static Data */}
-                    <div
-                      style={{
-                        flex: 1,
-                        paddingLeft: "10px",
-                        minWidth: "300px", // Ensures consistent size
-                      }}
-                    >
-                      <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-                        <h3>Features</h3>
-                        <li
-                          style={{
-                            marginBottom: "10px",
-                            marginLeft:"20px",
-                            display: "flex",
-                            alignItems: "center",
-                          }}
-                        >
-                        <FaTruck size={20}
+                        <FaTruck
+                          size={20}
                           style={{ marginRight: "10px" }} // Adds space between the icon and text
-                        /> Fast Delivery
-                        </li>
-                        <li
-                          style={{
-                            marginBottom: "10px",
-                            marginLeft:"20px",
-                            display: "flex",
-                            alignItems: "center",
-                          }}
-                          >
-                            <CiCreditCard1 size={20}
-                            style={{ marginRight: "10px" }} // Adds space between the icon and text
-
-                            /> Secure Payment
-                        </li>
-                        <li
-                          style={{
-                            marginBottom: "10px",
-                            marginLeft:"20px",
-                            display: "flex",
-                            alignItems: "center",
-                          }}
-                          >
-                            <FaHeadphones size={20} 
-                             style={{ marginRight: "10px" }} // Adds space between the icon and text
-                            /> 24/7 Customer Support
-
-                        </li>
-                      </ul>
-                    </div>
-                  </ButtonGroup>                  
-
-                  ) : (
-                  <>
-
+                        />{" "}
+                       {t("Fast Delivery")}
+                      </li>
+                      <li
+                        style={{
+                          marginBottom: "10px",
+                          marginLeft: "20px",
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <CiCreditCard1
+                          size={20}
+                          style={{ marginRight: "10px" }} // Adds space between the icon and text
+                        />{" "}
+                        {t("Secure Payment")}
+                      </li>
+                      <li
+                        style={{
+                          marginBottom: "10px",
+                          marginLeft: "20px",
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <FaHeadphones
+                          size={20}
+                          style={{ marginRight: "10px" }} // Adds space between the icon and text
+                        />{" "}
+                        {t("24/7 Customer Support")}
+                      </li>
+                    </ul>
+                  </div>
+                </ButtonGroup>
+              ) : (
+                <>
                   <ButtonGroup aria-label="additionalinformation">
                     <div
                       style={{
@@ -448,22 +456,38 @@ const ProductImageDescription = ({
                       className="product-details-updated"
                     >
                       {[
-                        { label: "Storage Instructions", data: product.storage_instructions },
-                        { label: "Mechanism Of Action", data: product.mechanism_of_action },
-                        { label: "Product Usage", data: product.usage },
-                        { label: "Dilution Instructions", data: product.dilution_instructions },
-                        { label: "Indication", data: product.indications },
-                        { label: "Presentation", data: product.presentation },
-                        { label: "Warning", data: product.warnings },
-                        { label: "Storage", data: product.storage },
-                        { label: "Active Ingredients", data: product.active_ingredients },
+                        {
+                          label: t("Storage Instructions"),
+                          data: product.storage_instructions,
+                        },
+                        {
+                          label: t("Mechanism Of Action"),
+                          data: product.mechanism_of_action,
+                        },
+                        { label: t("Product Usage"), data: product.usage },
+                        {
+                          label: t("Dilution Instructions"),
+                          data: product.dilution_instructions,
+                        },
+                        { label: t("Indication"), data: product.indications },
+                        { label: t("Presentation"), data: product.presentation },
+                        { label: t("Warning"), data: product.warnings },
+                        { label: t("Storage"), data: product.storage },
+                        {
+                          label: t("Active Ingredients"),
+                          data: product.active_ingredients,
+                        },
                       ].map((item, index) => (
                         <div
                           key={index}
                           style={{
                             display: "flex",
-                            flexDirection: window.innerWidth <= 768 ? "column" : "row", // Adjust layout based on screen size
-                            justifyContent: window.innerWidth <= 768 ? "flex-start" : "space-between",
+                            flexDirection:
+                              window.innerWidth <= 768 ? "column" : "row", // Adjust layout based on screen size
+                            justifyContent:
+                              window.innerWidth <= 768
+                                ? "flex-start"
+                                : "space-between",
                             alignItems: "flex-start",
                             padding: "10px",
                             borderBottom: "1px solid #ddd",
@@ -476,7 +500,8 @@ const ProductImageDescription = ({
                               fontSize: "16px",
                               color: "#333",
                               flex: "1",
-                              marginBottom: window.innerWidth <= 768 ? "5px" : "0",
+                              marginBottom:
+                                window.innerWidth <= 768 ? "5px" : "0",
                             }}
                             className="product-detail-label"
                           >
@@ -497,13 +522,10 @@ const ProductImageDescription = ({
                       ))}
                     </div>
                   </ButtonGroup>
-
-
-                    </>
-                  )}
-                </Card.Body>
-              </Card>
-
+                </>
+              )}
+            </Card.Body>
+          </Card>
         </div>
       </div>
     </div>

@@ -193,11 +193,11 @@ const ProductDescriptionInfoSlider = ({
                 }
                 disabled={productCartQty >= productStock}
               >
-                {" "}
-                Add To Cart{" "}
+                
+                {t("Add To Cart")}
               </button>
             ) : (
-              <button disabled>Out of Stock</button>
+              <button disabled>{t("Out of Stock")}</button>
             )}
           </div>
           <div className="pro-details-wishlist">
@@ -206,8 +206,8 @@ const ProductDescriptionInfoSlider = ({
               disabled={wishlistItem !== undefined}
               title={
                 wishlistItem !== undefined
-                  ? "Added to wishlist"
-                  : "Add to wishlist"
+                  ? t("Added to wishlist")
+                  : t("Add to wishlist")
               }
               onClick={() => addToWishlist(product, addToast)}
             >
@@ -220,8 +220,8 @@ const ProductDescriptionInfoSlider = ({
               disabled={compareItem !== undefined}
               title={
                 compareItem !== undefined
-                  ? "Added to compare"
-                  : "Add to compare"
+                  ? t("Added to compare")
+                  : t("Add to compare")
               }
               onClick={() => addToCompare(product, addToast)}
             >
@@ -232,7 +232,7 @@ const ProductDescriptionInfoSlider = ({
       )}
       {product.category ? (
         <div className="pro-details-meta justify-content-center">
-          <span>Categories :</span>
+          <span>{t("Categories")} :</span>
           <ul>
             {product.category.map((single, key) => {
               return (
@@ -250,7 +250,7 @@ const ProductDescriptionInfoSlider = ({
       )}
       {product.tag ? (
         <div className="pro-details-meta justify-content-center">
-          <span>Tags :</span>
+          <span>{t("Tags")} :</span>
           <ul>
             {product.tag.map((single, key) => {
               return (

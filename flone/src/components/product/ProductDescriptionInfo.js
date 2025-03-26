@@ -69,7 +69,7 @@ const ProductDescriptionInfo = ({
           </div>
           <div className="pro-details-cart btn-hover">
             <button onClick={() => addToCart(product, addToast, quantityCount)}>
-              Add To Cart
+              {t("Add To Cart")}
             </button>
           </div>
           <div className="pro-details-wishlist">
@@ -104,7 +104,7 @@ const ProductDescriptionInfo = ({
       }
       {product.category ? (
         <div className="pro-details-meta">
-          <span>Categories :</span>
+          <span>{t("Categories")} :</span>
           <ul>
             {product.category.map((single, key) => {
               return (

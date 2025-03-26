@@ -11,6 +11,24 @@ export default function BlogPostsNoSidebar () {
   const dispatch = useDispatch();
   const blogs = useSelector((state) => state.productData.blogs);
   // console.log(blogs);
+  const [sortCategory, setSortCategory] = useState("All");
+  const [activeView, setActiveView] = useState("Grid");
+
+  const categories = ["All", "Technology", "Lifestyle", "Travel", "Business"];
+  const viewOptions = ["Grid", "List", "Compact"];
+
+  const handleCategorySort = (e) => {
+    setSortCategory(e.target.value);
+  };
+
+  const handleViewChange = (view) => {
+    setActiveView(view);
+  };
+
+  const filteredBlogs =
+    sortCategory === "All"
+      ? blogs
+      : blogs.filter((blog) => blog.category === sortCategory);
 
   const fetchBlogs = useCallback(async () => {
     setLoading(true);
@@ -58,11 +76,52 @@ export default function BlogPostsNoSidebar () {
           </p>
         </div>
       ) : (
-        <div className="blog-list">
-          {blogs.map((post) => (
-            <Card key={post.id} post={post} blogs={blogs} />
-          ))}
-        </div>
+        <>
+          <div className="container-fluid px-4 py-5">
+            <div className="row mb-4 align-items-center">
+              <div className="col-md-6 d-flex align-items-center">
+                <select
+                  className="form-select me-3"
+                  value={sortCategory}
+                  onChange={handleCategorySort}
+                  style={{ maxWidth: "200px" }}
+                >
+                  {categories.map((category) => (
+                    <option key={category} value={category}>
+                      Sort by: {category}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="col-md-6 text-end">
+                <div
+                  className="btn-group"
+                  role="group"
+                  aria-label="Blog view options"
+                >
+                  {viewOptions.map((view) => (
+                    <button
+                      key={view}
+                      type="button"
+                      className={`btn btn-outline-dark ${
+                        activeView === view ? "active" : ""
+                      }`}
+                      onClick={() => handleViewChange(view)}
+                    >
+                      {view} View
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="blog-list row row-cols-1 row-cols-md-3 g-4">
+              {blogs.map((post) => (
+                <Card key={post.id} post={post} blogs={blogs} />
+              ))}
+            </div>
+          </div>
+        </>
       )}
     </>
   );

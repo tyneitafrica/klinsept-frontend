@@ -53,17 +53,21 @@
   display: flex;
 }
 .product-car {
-  width: 250px;
-  border: none;
+  width: 280px;
+  /* border: none; */
   overflow: hidden;
-  position: relative;
+  /* position: relative; */
   text-align: center;
-  /* transition: transform 0.3s; */
+  transition: transform 0.3s;
+}
+.card{
+  border-radius: 20px;
+
 }
 
 /* Image styles */
 .image-container {
-  position: relative;
+  /* position: relative; */
   overflow: hidden;
   border-radius: 8px; /* Smooth edges */
 }

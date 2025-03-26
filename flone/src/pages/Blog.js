@@ -7,8 +7,10 @@ import Breadcrumb from "../wrappers/breadcrumb/Breadcrumb";
 // import BlogPostsNoSidebar from "../wrappers/blog/BlogPostsNoSidebar";
 import { useLocation } from "react-router-dom";
 import BlogPost from "../wrappers/blog/BlogPost";
+import { useTranslation } from "react-i18next";
 const Blog = () => {
   const pathname = useLocation();
+  const { t } = useTranslation();
 
   return (
     <div className="mt-90">
@@ -19,7 +21,7 @@ const Blog = () => {
           content="Blog of  react minimalist eCommerce template."
         />
       </MetaTags>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
+      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>{t("Home")}</BreadcrumbsItem>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
         Blog
       </BreadcrumbsItem>
