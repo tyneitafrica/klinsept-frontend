@@ -20,7 +20,7 @@ const BlogFeaturedFour = () => {
   };
 
   useEffect(() => {
-    if (blogs.length <= 0) {
+    if (blogs?.length <= 0) {
       getBlogs(dispatch);
     } else {
       // Set random blogs whenever blogs are fetched
@@ -41,7 +41,7 @@ const BlogFeaturedFour = () => {
           borderClass="no-border"
         />
         <div className="row blog-list g-4">
-          {randomBlogs.map((singlePost) => {
+          {randomBlogs?.map((singlePost) => {
             return <Card key={singlePost.id} post={singlePost} blogs={blogs} />;
           })}
         </div>
