@@ -19,14 +19,14 @@ import { composeWithDevTools } from "redux-devtools-extension";
 
 
 // clear localstorage
-window.addEventListener('load',()=>localStorage.clear())
+// window.addEventListener('load',()=>localStorage.clear())
 
 const store = createStore(
   rootReducer,
   load(),
-  composeWithDevTools(applyMiddleware(thunk, save()))
+  composeWithDevTools(applyMiddleware(thunk))
 );
-// fetch products from json file
+
 store.dispatch(fetchProducts());
 
 ReactDOM.render(
@@ -36,6 +36,8 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
+
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

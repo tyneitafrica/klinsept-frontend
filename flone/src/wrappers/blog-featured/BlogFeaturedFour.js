@@ -21,7 +21,7 @@ const BlogFeaturedFour = () => {
 
   useEffect(() => {
     if (blogs?.length <= 0) {
-      getBlogs(dispatch);
+      dispatch(getBlogs());
     } else {
       // Set random blogs whenever blogs are fetched
       setRandomBlogs(getRandomBlogs(blogs));

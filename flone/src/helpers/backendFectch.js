@@ -1,6 +1,10 @@
 import axios from "axios";
 // import { logoutUser } from "../redux/actions/appAction";
-import { fetchProductsSuccess,fetchBlogsSuccess } from "../redux/actions/productActions";
+import {
+  fetchProductsSuccess,
+  fetchBlogsSuccess,
+} from "../redux/actions/productActions";
+import apiClient from "./apiClient";
 import toast from "react-hot-toast";
 const API_KEY = process.env.REACT_APP_API_KEY;
 const API_URL = process.env.REACT_APP_API_URL;
@@ -35,7 +39,6 @@ export const registerFetch = async (registerData, navigate, setError) => {
   );
 };
 
-
 export const LoginFetch = async (loginData, setLoading) => {
   setLoading(true);
 
@@ -68,7 +71,6 @@ export const LoginFetch = async (loginData, setLoading) => {
     setLoading(false); // Ensure loading state is reset
   }
 };
-
 
 export const forgotPassword = async (email) => {
   try {
@@ -139,24 +141,27 @@ export const serverLogOut = async (dispatch, toast) => {
 
 export const fetchProducts = () => {
   return async (dispatch, getState) => {
-    const state = getState().productData;
-    const cachedProducts = state.products;
-    const timestamp = state.timestamp;
-    const currentTime = new Date().getTime();
-    const timeDifference = (currentTime - timestamp) / (1000 * 60 * 60);
-    if (cachedProducts.length > 0 && timeDifference < 0.5) {
-      dispatch(fetchProductsSuccess(cachedProducts, timestamp));
-      return cachedProducts;
-    }
+    const toastId = toast.loading("Getting Products...");
 
     try {
+      const state = getState().productData;
+      console.log(state);
+      const cachedProducts = state.products;
+      const timestamp = state.timestamp;
+      const currentTime = new Date().getTime();
+      const timeDifference = (currentTime - timestamp) / (1000 * 60 * 60);
+
+      if (cachedProducts.length > 0 && timeDifference < 0.5) {
+        dispatch(fetchProductsSuccess(cachedProducts, timestamp));
+        return cachedProducts;
+      }
+
       const response = await axios.get(`${API_URL}products/`, {
         headers: {
           "x-api-key": `${API_KEY}`,
         },
       });
 
-      // console.log(response.data);
       const newTimestamp = new Date().getTime();
       dispatch(fetchProductsSuccess(response.data.data, newTimestamp));
 
@@ -164,6 +169,8 @@ export const fetchProducts = () => {
     } catch (error) {
       console.error("Get Products error:", error);
       throw error;
+    } finally {
+      toast.dismiss(toastId);
     }
   };
 };
@@ -194,11 +201,11 @@ export const isAuthenticated = async (setLoading) => {
       },
       withCredentials: true,
     });
-    console.log(response)
-    
+    console.log(response);
+
     localStorage.setItem("userData", JSON.stringify(response.data));
     localStorage.setItem("userDataTimestamp", currentTime);
-    
+
     return response;
   } catch (error) {
     // console.log(error)
@@ -328,32 +335,29 @@ export const createOrder = async (payload) => {
   }
 };
 
+export const getBlogs = () => {
+  return async (dispatch) => {
+    const toastId = toast.loading("Fetching blogs...");
 
-export const getBlogs = async (dispatch) => {
-  const toastId = toast.loading("Fetching blogs...");
+    try {
+      const response = await apiClient.get(`blogs/`);
 
-  try {
-    const response = await axios.get(`${API_URL}blogs/`, {
-      headers: {
-        "x-api-key": API_KEY,
-      },
-    });
+      toast.dismiss(toastId);
 
-    toast.dismiss(toastId);
-
-    if (response.status === 200) {
-      toast.success("Blogs fetched successfully!");
-      dispatch(fetchBlogsSuccess(response.data?.data || []));
-      console.log(response.data?.data[2])
-      return response.data?.data || [];
-    } else {
-      toast.error("Failed to fetch blogs!");
-      throw new Error("Failed to fetch blogs");
+      if (response.status === 200) {
+        toast.success("Blogs fetched successfully!");
+        dispatch(fetchBlogsSuccess(response.data?.data || []));
+        console.log(response.data?.data[2]);
+        return response.data?.data || [];
+      } else {
+        toast.error("Failed to fetch blogs!");
+        throw new Error("Failed to fetch blogs");
+      }
+    } catch (error) {
+      toast.dismiss(toastId);
+      toast.error("Error fetching blogs. Please try again.");
+      console.error("Error getting blogs:", error);
+      throw error; // Important to throw for catch block
     }
-  } catch (error) {
-    toast.dismiss(toastId);
-    toast.error("Error fetching blogs. Please try again.");
-    console.error("Error getting blogs:", error);
-    throw error; // Important to throw for catch block
-  }
+  };
 };

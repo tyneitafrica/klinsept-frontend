@@ -35,7 +35,7 @@ export default function BlogPostsNoSidebar () {
     setError(null); // Reset error state before fetching
 
     try {
-      await getBlogs(dispatch);
+      await dispatch(getBlogs());
 
     } catch (err) {
       setError(t("Failed to fetch blogs. Please try again."));
