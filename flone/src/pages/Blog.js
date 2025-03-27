@@ -21,28 +21,23 @@ const Blog = () => {
           content="Blog of  react minimalist eCommerce template."
         />
       </MetaTags>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>{t("Home")}</BreadcrumbsItem>
+      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>
+        {t("Home")}
+      </BreadcrumbsItem>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
         Blog
       </BreadcrumbsItem>
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
         <Breadcrumb />
-        <div className="blog-area pt-100 pb-100 blog-no-sidebar">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-12">
-                <div className="row mr-20">
-                    {/* blog posts */}
-                    <BlogPost />
-                 
+        <div className="blog- area pt-100 pb-100 blog-n o-sidebar">
+          
+              {/* blog posts */}
+              <BlogPost />
 
-                  {/* blog pagination */}
-                  {/* <BlogPagination /> */}
-                </div>
-              </div>
-            </div>
-          </div>
+              {/* blog pagination */}
+              {/* <BlogPagination /> */}
+            
         </div>
       </LayoutOne>
     </div>

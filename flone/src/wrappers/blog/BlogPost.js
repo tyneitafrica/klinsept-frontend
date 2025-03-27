@@ -75,19 +75,17 @@ const BlogPost = () => {
           </div>
 
           {/* <p className="content-text">{post.content}</p> */}
-
-          
         </div>
       </div>
 
       <div className="related-blogs">
         <div className="d-flex justify-content-between align-items-center custom-flex">
-          <h3>Other Related Blogs</h3>
+          <h3>Related Blogs</h3>
           <div className="d-flex align-items-center gap-9">
-            <Link to="/blogs" className="text-decoration-none ml-3">
+            <Link to="/blogs" className="text-decoration-none mr-3">
               View All
             </Link>
-            <i className="fa fa-arrow-right"></i>
+            <Link to="/blogs"  className="fa fa-arrow-right"></Link>
           </div>
         </div>
 
