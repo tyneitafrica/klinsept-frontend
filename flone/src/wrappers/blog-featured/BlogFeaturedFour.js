@@ -30,7 +30,7 @@ const BlogFeaturedFour = () => {
 
   return (
     <div className={`blog-area pt-95 pb-55`}>
-      <div className="container">
+      <div className="contai ner">
         <SectionTitle
           titleText={t("Latest News")}
           subtitleText={t(
@@ -40,7 +40,7 @@ const BlogFeaturedFour = () => {
           spaceClass="mb-55"
           borderClass="no-border"
         />
-        <div className="row blog-list g-4">
+        <div className="ro w blog-list g-4">
           {randomBlogs?.map((singlePost) => {
             return <Card key={singlePost.id} post={singlePost} blogs={blogs} />;
           })}

@@ -36,7 +36,7 @@ function Testimonial() {
     <div className="testimonial-container">
       <SectionTitle
         titleText={t("What Our Clients Say")}
-        // subTitleText={t("We are committed to delivering tailored cleaning and disinfectant solutions that meet the unique needs of your business.")}
+        subTitleText={t("We are committed to delivering tailored cleaning and disinfectant solutions that meet the unique needs of your business.")}
         positionClass="text-center"
         spaceClass="mb-0"
       />

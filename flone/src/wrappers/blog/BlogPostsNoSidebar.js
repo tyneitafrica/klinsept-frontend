@@ -77,7 +77,7 @@ export default function BlogPostsNoSidebar () {
         </div>
       ) : (
         <>
-          <div className="container-fluid px-4 py-5">
+          <div className="          container-fluid px-4 py-5">
             <div className="row mb-4 align-items-center">
               <div className="col-md-6 d-flex align-items-center">
                 <select
@@ -115,7 +115,7 @@ export default function BlogPostsNoSidebar () {
               </div>
             </div>
 
-            <div className="blog-list row row-cols-1 row-cols-md-3 g-4">
+            <div className="blog-list g-4">
               {blogs.map((post) => (
                 <Card key={post.id} post={post} blogs={blogs} />
               ))}

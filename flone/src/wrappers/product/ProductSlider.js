@@ -30,7 +30,7 @@ const ProductSlider = ({  category }) => {
     <div
       className={`related-product-area `}
     >
-      <div className="container">
+      <div className="contain er">
         <SectionTitle
           titleText={t("Top Products")}
           subtitleText={t("Discover our most popular items")}

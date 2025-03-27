@@ -18,8 +18,6 @@ import { Toaster } from "react-hot-toast";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 
-window.addEventListener('load',()=>localStorage.clear())
-
 // clear localstorage
 window.addEventListener('load',()=>localStorage.clear())
 
