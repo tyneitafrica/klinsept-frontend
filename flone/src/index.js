@@ -4,11 +4,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
-import { save, load } from "redux-localstorage-simple";
+// import { save, load } from "redux-localstorage-simple";
 import { Provider } from "react-redux";
 import { fetchProducts } from "./helpers/backendFectch";
 import rootReducer from "./redux/reducers/rootReducer";
-// import products from "./data/products.json";
 import App from "./App";
 import "./assets/scss/style.scss";
 import '../src/assets/css/index.css'
@@ -23,7 +22,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 
 const store = createStore(
   rootReducer,
-  load(),
+  // load(),
   composeWithDevTools(applyMiddleware(thunk))
 );
 

@@ -140,32 +140,21 @@ export const serverLogOut = async (dispatch, toast) => {
 };
 
 export const fetchProducts = () => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     const toastId = toast.loading("Getting Products...");
 
     try {
-      const state = getState().productData;
-      console.log(state);
-      const cachedProducts = state.products;
-      const timestamp = state.timestamp;
-      const currentTime = new Date().getTime();
-      const timeDifference = (currentTime - timestamp) / (1000 * 60 * 60);
+      // const state = getState().productData;
+      // console.log(state);
 
-      if (cachedProducts.length > 0 && timeDifference < 0.5) {
-        dispatch(fetchProductsSuccess(cachedProducts, timestamp));
-        return cachedProducts;
-      }
 
-      const response = await axios.get(`${API_URL}products/`, {
-        headers: {
-          "x-api-key": `${API_KEY}`,
-        },
-      });
+      const response = await apiClient.get(`products/`);
+      // console.log(response)
 
       const newTimestamp = new Date().getTime();
-      dispatch(fetchProductsSuccess(response.data.data, newTimestamp));
+      dispatch(fetchProductsSuccess(response?.data?.data, newTimestamp));
 
-      return response.data.data;
+      return response?.data?.data;
     } catch (error) {
       console.error("Get Products error:", error);
       throw error;
