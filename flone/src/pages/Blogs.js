@@ -27,18 +27,16 @@ const BlogNoSidebar = () => {
         {/* breadcrumb */}
         <Breadcrumb />
         <div className="blog-area pt-100 pb-100 blog-no-sidebar">
-          <div className="container">
+          <div className="con tainer">
             <div className="row">
               <div className="col-lg-12">
-                <div className="mr-20">
-                  <div className="row">
                     {/* blog posts */}
                     <BlogPostsNoSidebar />
-                  </div>
+                
 
                   {/* blog pagination */}
                   {/* <BlogPagination /> */}
-                </div>
+                
               </div>
             </div>
           </div>

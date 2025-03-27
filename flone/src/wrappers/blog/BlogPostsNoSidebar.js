@@ -78,7 +78,7 @@ export default function BlogPostsNoSidebar () {
       ) : (
         <>
           <div className="          container-fluid px-4 py-5">
-            <div className="row mb-4 align-items-center">
+            <div className="container row mb-4 align-items-center">
               <div className="col-md-6 d-flex align-items-center">
                 <select
                   className="form-select me-3"
