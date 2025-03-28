@@ -7,9 +7,9 @@ import {
 import apiClient from "./apiClient";
 import toast from "react-hot-toast";
 const API_KEY = process.env.REACT_APP_API_KEY;
-// const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = process.env.REACT_APP_API_URL;
 // const API_URL = "https://klinsept-backend.onrender.com/api/v1.0/";
-const API_URL = "http://localhost:8000/api/v1.0/";
+// const API_URL = "http://localhost:8000/api/v1.0/";
 // const API_URL = "http://192.168.1.88:8000/api/v1.0/";
 
 export const registerFetch = async (registerData, navigate, setError) => {
@@ -140,20 +140,18 @@ export const serverLogOut = async (dispatch, toast) => {
 };
 
 export const fetchProducts = () => {
-  return async (dispatch,getState) => {
+  return async (dispatch, getState) => {
     const toastId = toast.loading("Getting Products...");
 
     try {
       // const state = getState().productData;
       // console.log(state);
 
-
       const response = await apiClient.get(`products/`);
-      
+
       const newTimestamp = new Date().getTime();
       dispatch(fetchProductsSuccess(response?.data?.data, newTimestamp));
-      //  log redux data after dispatching 
-      
+      //  log redux data after dispatching
 
       return response?.data?.data;
     } catch (error) {
@@ -167,7 +165,6 @@ export const fetchProducts = () => {
 
 export const isAuthenticated = async (setLoading) => {
   try {
-
     if (setLoading) {
       setLoading(true);
     }
@@ -180,7 +177,6 @@ export const isAuthenticated = async (setLoading) => {
       withCredentials: true,
     });
     // console.log(response);
-
 
     return response;
   } catch (error) {
@@ -204,22 +200,12 @@ export const addItemToCart = async (
   try {
     toast.dismiss();
 
-    const addToCartPromise = axios.post(
-      `${API_URL}cart/add/`,
-      {
-        product_id: item.id,
-        quantity: quantityCount,
-        size: size,
-        order_type: order_type,
-      },
-      {
-        headers: {
-          "x-api-key": `${API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      }
-    );
+    const addToCartPromise = apiClient.post(`cart/add/`, {
+      product_id: item.id,
+      quantity: quantityCount,
+      size: size,
+      order_type: order_type,
+    });
 
     const response = await toast.promise(
       addToCartPromise,
@@ -250,15 +236,12 @@ export const addItemToCart = async (
 
 export const getCartItems = async (toast) => {
   try {
-    const response = await axios.get(`${API_URL}cart/`, {
-      headers: {
-        "x-api-key": API_KEY,
-      },
-      withCredentials: true,
-    });
+    const response = await apiClient.get(`cart/`);
+    console.log(response);
 
     return response.data;
   } catch (error) {
+    console.error("Get Cart Items error:", error.response);
     throw error;
   }
 };
@@ -316,7 +299,6 @@ export const getBlogs = () => {
     try {
       const response = await apiClient.get(`blogs/`);
 
-      toast.dismiss(toastId);
 
       if (response.status === 200) {
         toast.success("Blogs fetched successfully!");
@@ -328,10 +310,11 @@ export const getBlogs = () => {
         throw new Error("Failed to fetch blogs");
       }
     } catch (error) {
-      toast.dismiss(toastId);
       toast.error("Error fetching blogs. Please try again.");
       console.error("Error getting blogs:", error);
       throw error; // Important to throw for catch block
+    } finally {
+      toast.dismiss(toastId);
     }
   };
 };

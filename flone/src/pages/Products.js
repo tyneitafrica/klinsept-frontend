@@ -43,37 +43,19 @@ const Products = () => {
               <strong className="text-dark">Products</strong>
             </div>
           </div>
-          <div className="pt-100">
-            <div className="ro w">
+            <div className="col pt-100">
               <div className="col-lg-3 order-2 order-lg-1">
                 <ShopSidebar
                   products={products}
                   getSortParams={getSortParams}
                 />
               </div>
-              <div className="col-lg-9 order-1 order-lg-2">
-                <div className="shop-top-bar mb-35">
-                  <div className="select-shoing-wrap">
-                    {/* <div className="shop-select">
-                      <select
-                        onChange={(e) => {
-                          console.log(e.target.value);
-                        }}
-                      >
-                        <option value="default">Default</option>
-                        <option value="highToLow">Price - High to Low</option>
-                        <option value="lowToHigh">Price - Low to High</option>
-                      </select>
-                    </div> */}
-                  </div>
-                </div>
-
+              <div className="shop-top-bar mb-35">
                 {/* shop page content default */}
                 <ShopProducts
                   products={currentData}
                   currentData={currentData}
                 />
-              </div>
             </div>
           </div>
         </div>

@@ -13,7 +13,7 @@ import ProductSlider from "../wrappers/product/ProductSlider";
 const Home = () => {
   return (
     
-    <div className="mt-90">
+    <div className="mt-90 overflow-hidden">
 
     <Fragment>
       <MetaTags>
