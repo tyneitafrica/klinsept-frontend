@@ -7,9 +7,9 @@ import {
 import apiClient from "./apiClient";
 import toast from "react-hot-toast";
 const API_KEY = process.env.REACT_APP_API_KEY;
-const API_URL = process.env.REACT_APP_API_URL;
+// const API_URL = process.env.REACT_APP_API_URL;
 // const API_URL = "https://klinsept-backend.onrender.com/api/v1.0/";
-// const API_URL = "http://localhost:8000/api/v1.0/";
+const API_URL = "http://localhost:8000/api/v1.0/";
 // const API_URL = "http://192.168.1.88:8000/api/v1.0/";
 
 export const registerFetch = async (registerData, navigate, setError) => {
@@ -140,7 +140,7 @@ export const serverLogOut = async (dispatch, toast) => {
 };
 
 export const fetchProducts = () => {
-  return async (dispatch) => {
+  return async (dispatch,getState) => {
     const toastId = toast.loading("Getting Products...");
 
     try {
@@ -149,10 +149,11 @@ export const fetchProducts = () => {
 
 
       const response = await apiClient.get(`products/`);
-      // console.log(response)
-
+      
       const newTimestamp = new Date().getTime();
       dispatch(fetchProductsSuccess(response?.data?.data, newTimestamp));
+      //  log redux data after dispatching 
+      
 
       return response?.data?.data;
     } catch (error) {
@@ -166,41 +167,25 @@ export const fetchProducts = () => {
 
 export const isAuthenticated = async (setLoading) => {
   try {
-    const storedUserData = JSON.parse(localStorage.getItem("userData")) || null;
-    const storedTimestamp = localStorage.getItem("userDataTimestamp");
-
-    const currentTime = new Date().getTime();
-
-    if (
-      storedUserData &&
-      storedTimestamp &&
-      currentTime - storedTimestamp < 60 * 60 * 1000
-    ) {
-      return { status: 200, data: storedUserData };
-    }
 
     if (setLoading) {
       setLoading(true);
     }
 
-    const response = await axios.get(`${API_URL}auth/cookie/`, {
+    const response = await apiClient.get(`auth/cookie/`, {
       headers: {
         "x-api-key": API_KEY,
         "Content-Type": "application/json",
       },
       withCredentials: true,
     });
-    console.log(response);
+    // console.log(response);
 
-    localStorage.setItem("userData", JSON.stringify(response.data));
-    localStorage.setItem("userDataTimestamp", currentTime);
 
     return response;
   } catch (error) {
-    // console.log(error)
+    // console.error(error.response.data)
 
-    localStorage.removeItem("userData");
-    localStorage.removeItem("userDataTimestamp");
     // toast.error(error?.response?.data?.error || error.message);
     return error ? error : { error: "Authentication failed." };
   } finally {
@@ -336,7 +321,7 @@ export const getBlogs = () => {
       if (response.status === 200) {
         toast.success("Blogs fetched successfully!");
         dispatch(fetchBlogsSuccess(response.data?.data || []));
-        console.log(response.data?.data[2]);
+        // console.log(response.data?.data[2]);
         return response.data?.data || [];
       } else {
         toast.error("Failed to fetch blogs!");

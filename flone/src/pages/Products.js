@@ -1,19 +1,19 @@
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import MetaTags from "react-meta-tags";
-import { connect } from "react-redux";
+import { connect,useSelector } from "react-redux";
 import { getSortedProducts } from "../helpers/product";
 import LayoutOne from "../components/LayoutOne";
 import ShopSidebar from "../wrappers/product/ShopSidebar";
 import ShopProducts from "../wrappers/product/ShopProducts";
 
-const Products = ({ products }) => {
+
+const Products = () => {
   const [sortType, setSortType] = useState("");
   const [sortValue, setSortValue] = useState("");
   // const [filterType, setFilterType] = useState("");
   const [currentData, setCurrentData] = useState([]);
-  const [sortedProducts, setSortedProducts] = useState([]);
-  console.log(sortedProducts.length);
+  const products = useSelector((state) => state.productData.products);
 
   const getSortParams = (sortType, sortValue) => {
     setSortType(sortType);
@@ -22,8 +22,6 @@ const Products = ({ products }) => {
 
   useEffect(() => {
     let sortedProducts = getSortedProducts(products, sortType, sortValue);
-    const filterSortedProducts = getSortedProducts(sortedProducts);
-    setSortedProducts(filterSortedProducts);
     setCurrentData(sortedProducts);
   }, [products, sortType, sortValue]);
 
@@ -45,8 +43,8 @@ const Products = ({ products }) => {
               <strong className="text-dark">Products</strong>
             </div>
           </div>
-          <div className="pt-100 container">
-            <div className="row">
+          <div className="pt-100">
+            <div className="ro w">
               <div className="col-lg-3 order-2 order-lg-1">
                 <ShopSidebar
                   products={products}

@@ -1,18 +1,18 @@
 import axios from "axios";
 import toast from "react-hot-toast";
 
-
 const API_URL = process.env.REACT_APP_API_URL;
 const API_KEY = process.env.REACT_APP_API_KEY;
+// const API_URL = "http://localhost:8000/api/v1.0/";
 
 // Create an axios instance
 const apiClient = axios.create({
-  baseURL: API_URL, // Replace with your API base URL
-  timeout: 10000, // 10 seconds timeout
-
+  baseURL: API_URL,
+  timeout: 10000,
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
-    "Accept": "application/json",
+    Accept: "application/json",
     "x-api-key": API_KEY,
   },
 });
@@ -28,8 +28,8 @@ apiClient.interceptors.request.use(
     return config;
   },
   (error) => {
-      console.error("Request Error:", error);
-      toast.error("Request Error! Check your connection.");
+    console.error("Request Error:", error);
+    toast.error("Request Error! Check your connection.");
     return Promise.reject(error);
   }
 );
@@ -45,20 +45,21 @@ apiClient.interceptors.response.use(
     if (error.response) {
       const { status } = error.response;
       if (status === 401) {
-          console.warn("Unauthorized! Redirecting to login...");
-        toast.error("Unauthorized! Redirecting to login...");
-        // localStorage.removeItem("token");
-        // window.location.href = "/login"; // Redirect to login page
+        console.error(
+          error.response?.data?.error || "Unauthorized! Redirecting to login..."
+        );
+        // toast.error("Unauthorized! Redirecting to login...");
       } else if (status === 403) {
-          console.warn("Forbidden! You don't have access.");
+        console.error("Forbidden! You don't have access.");
         toast.error("Forbidden! You don't have access.");
       } else if (status === 500) {
-          console.error("Server error! Try again later.");
+        console.error("Server error! Try again later.");
         toast.error("Server error! Try again later.");
       }
     } else {
-        console.error("Network Error! Check your connection.");
-        toast.error("Network Error! Check your connection.");
+console.log("Network error:",error)
+      console.error("Network Error! Check your connection.");
+      toast.error("Network Error! Check your connection.");
     }
     return Promise.reject(error);
   }

@@ -72,7 +72,7 @@ const Cart = () => {
         <Breadcrumb />
 
         <div className="cart-main-area pt-90 pb-100">
-          <div className="container">
+          <div className="con tainer">
             {cartItems && cartItems.length >= 1 ? (
               <Fragment>
                 <h3 className="cart-page-title">Your cart items</h3>

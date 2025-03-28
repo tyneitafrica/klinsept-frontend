@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import DOMPurify from "dompurify";
+
 import { Card } from "./BlogPostsNoSidebar";
 
 
@@ -16,6 +18,8 @@ const BlogPost = () => {
     month: "long",
     day: "numeric",
   });
+
+
 
   if (!post) {
     return (
@@ -52,27 +56,18 @@ const BlogPost = () => {
       <div className="blog-post-content">
         <div className="content-wrapper">
           <h2 className="content-title">{post.heading}</h2>
-          <div className="content-text">
-            {post.content.split("\r\n").map((paragraph, index) => (
-              <React.Fragment key={index}>
-                <p>{paragraph}</p>
 
-                {/* Insert image after the 3rd paragraph or any specific point */}
-                {index === 2 &&
-                  post.images?.find((img) => img.section === "CONTENT") && (
-                    <div className="content-image">
-                      <img
-                        src={
-                          post.images.find((img) => img.section === "CONTENT")
-                            ?.image
-                        }
-                        alt={`${post.title} - Content`}
-                      />
-                    </div>
-                  )}
-              </React.Fragment>
-            ))}
-          </div>
+          <div
+            className="content-text"
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(post.content),
+            }}
+          />
+
+          {/* <div
+            className="content-text"
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          /> */}
 
           {/* <p className="content-text">{post.content}</p> */}
         </div>
@@ -85,7 +80,7 @@ const BlogPost = () => {
             <Link to="/blogs" className="text-decoration-none mr-3">
               View All
             </Link>
-            <Link to="/blogs"  className="fa fa-arrow-right"></Link>
+            <Link to="/blogs" className="fa fa-arrow-right"></Link>
           </div>
         </div>
 

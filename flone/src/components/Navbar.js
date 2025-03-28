@@ -4,7 +4,7 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import {
   FaCartShopping,
   // FaRegHeart,
-  FaCodeCompare,
+  // FaCodeCompare,
   // FaRegUser,
   FaMagnifyingGlass,
 } from "react-icons/fa6";
@@ -28,7 +28,7 @@ function Navbar() {
   const { t } = useTranslation();
 
   const cartData = useSelector((state) => state.cartData);
-  const compareData = useSelector((state) => state.compareData);
+  // const compareData = useSelector((state) => state.compareData);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -140,12 +140,12 @@ function Navbar() {
                   {wishlistData?.length || 0}
                   </span>
                   </NavLink> */}
-              <NavLink to="/compare">
+              {/* <NavLink to="/compare">
                 <FaCodeCompare size={20} />
                 <span className="badge badge-danger">
                   {compareData?.length || 0}
                 </span>
-              </NavLink>
+              </NavLink> */}
               
               <NavLink to={userData !== null ? "/my-account" : "/login"} className="login-btn"
               >

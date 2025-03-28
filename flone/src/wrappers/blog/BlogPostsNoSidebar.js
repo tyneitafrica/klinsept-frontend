@@ -25,10 +25,10 @@ export default function BlogPostsNoSidebar () {
     setActiveView(view);
   };
 
-  const filteredBlogs =
-    sortCategory === "All"
-      ? blogs
-      : blogs.filter((blog) => blog.category === sortCategory);
+  // const filteredBlogs =
+  //   sortCategory === "All"
+  //     ? blogs
+  //     : blogs.filter((blog) => blog.category === sortCategory);
 
   const fetchBlogs = useCallback(async () => {
     setLoading(true);
@@ -47,6 +47,15 @@ export default function BlogPostsNoSidebar () {
   useEffect(() => {
     fetchBlogs();
   }, [fetchBlogs]);
+
+  // if loading 
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner">loading.....</div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -77,8 +86,8 @@ export default function BlogPostsNoSidebar () {
         </div>
       ) : (
         <>
-          <div className="          container-fluid px-4 py-5">
-            <div className="container row mb-4 align-items-center">
+          <div className=" container-fluid px-4 py-5">
+            <div className=" row mb-4 align-items-center">
               <div className="col-md-6 d-flex align-items-center">
                 <select
                   className="form-select me-3"
@@ -153,9 +162,9 @@ export const Card = ({ post, blogs }) => {
       <div className="blog-card-content">
         <h4 className="blog-title">{post.title}</h4>
         <p className="blog-description">
-          {post.content?.length > 100
-            ? `${post.content?.substring(0, 100)}...`
-            : post.content}
+          {post.heading?.length > 100
+            ? `${post.heading?.substring(0, 100)}...`
+            : post.heading}
         </p>
 
         {/* Read More Button */}
