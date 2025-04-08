@@ -65,7 +65,8 @@ const Contact = () => {
                 <Card className="mb-3">
                   <Card.Body>
                     <Card.Title>{t("Phone")}</Card.Title>
-                    <Card.Text>+257 79 076 198</Card.Text>
+                    <Card.Text className="font-weight-bold">+257 67 101 111 - Gitega </Card.Text>
+                    <Card.Text className="font-weight-bold" >+257 79 076 198</Card.Text>
                   </Card.Body>
                 </Card>
                 <Card className="mb-3">
