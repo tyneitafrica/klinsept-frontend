@@ -61,13 +61,13 @@ export default function Footer({ darkMode = !true }) {
             </span>
             <div className="social-icons">
               <Link to="https://www.facebook.com/klinsept" target="_blank">
-                <FaFacebookF />
+                 <FaFacebookF size={20} />@Klinsept Burundi 
               </Link>
               <Link to="https://www.instagram.com/klinsept_burundi/" target="_blank">
-                <FaInstagram />
+              <FaInstagram size={20} />@Klinsept Burundi
               </Link>
               <Link to="https://x.com/klinsept">
-                <FaXTwitter />
+              <FaXTwitter size={20} />@Klinsept Burundi
               </Link>
               {/* <Link to="/" target="_blank">
                 <FaTiktok />
