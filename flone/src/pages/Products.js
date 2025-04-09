@@ -145,7 +145,7 @@ const Products = () => {
   };
 
   return (
-    <div className="mt-5">
+    <div className="mt-5 ">
       <MetaTags>
         <title>Klinsept</title>
         <meta
@@ -160,7 +160,7 @@ const Products = () => {
               <h2 className="text-dark">Products</h2>
             </div>
           </div>
-        <div className="container">
+        <div className="container-nene den">
           
           <div className="row">
             {/* Filter sidebar */}
