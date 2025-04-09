@@ -32,11 +32,30 @@ const Home = () => {
         {/* Good Services */}
         <WhyUs />
         {/* Our product */}
+        <div
+      style={{
+        marginTop: '20px', // Space above the element
+        marginBottom: '20px', // Space below the element
+        marginLeft: '40px', // Space to the left of the element
+        marginRight: '40px' // Space to the right of the element
+      }}
+    >
+
         <TabProductSixteen  />
+    </div>
         {/* gallery */}
         <Gallery />
+        <div
+      style={{
+        marginTop: '20px', // Space above the element
+        marginBottom: '20px', // Space below the element
+        marginLeft: '40px', // Space to the left of the element
+        marginRight: '40px' // Space to the right of the element
+      }}
+    >
+      <ProductSlider category="Antiseptics" />
+    </div>
         {/* product slider */}
-        <ProductSlider category="Antiseptics" />
         {/* blog */}
         <BlogFeaturedFour />
 

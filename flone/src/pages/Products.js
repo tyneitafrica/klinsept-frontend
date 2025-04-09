@@ -18,7 +18,6 @@ const Products = () => {
   const [selectedSize, setSelectedSize] = useState("");
 
   const products = useSelector((state) => state.productData.products);
-  console.log(products);
 
   // Initialize and filter data
   useEffect(() => {
@@ -60,12 +59,11 @@ const Products = () => {
         }
       });
       
-      // if (minProductPrice !== Number.MAX_SAFE_INTEGER) {
-      //   setMinPrice(minProductPrice);
-      //   setMaxPrice(maxProductPrice);
-      //   setPriceRange({ min: minProductPrice, max: maxProductPrice });
-      // }
-      console.log(products);
+      if (minProductPrice !== Number.MAX_SAFE_INTEGER) {
+        setMinPrice(minProductPrice);
+        setMaxPrice(maxProductPrice);
+        setPriceRange({ min: minProductPrice, max: maxProductPrice });
+      }
 
       // Set initial data
       setCurrentData(products);

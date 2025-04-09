@@ -40,7 +40,7 @@ const ProductSlider = ({  category }) => {
           borderClass="no-border"
         />
 
-        <div className="row">
+        <div className="r ow">
           <Swiper {...settings}>
             <ShopProducts
               category={category}
