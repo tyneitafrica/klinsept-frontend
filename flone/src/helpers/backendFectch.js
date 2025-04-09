@@ -148,6 +148,7 @@ export const fetchProducts = () => {
       // console.log(state);
 
       const response = await apiClient.get(`products/`);
+      console.log(response);
 
       const newTimestamp = new Date().getTime();
       dispatch(fetchProductsSuccess(response?.data?.data, newTimestamp));

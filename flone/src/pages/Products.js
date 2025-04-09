@@ -12,12 +12,13 @@ const Products = () => {
   const [uniqueSizes, setUniqueSizes] = useState([]);
   const [priceRange, setPriceRange] = useState({ min: 0, max: 100000 });
   const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(100000);
+  const [maxPrice, setMaxPrice] = useState(10000000);
   const [sortBy, setSortBy] = useState("default");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
 
   const products = useSelector((state) => state.productData.products);
+  console.log(products);
 
   // Initialize and filter data
   useEffect(() => {
@@ -59,11 +60,12 @@ const Products = () => {
         }
       });
       
-      if (minProductPrice !== Number.MAX_SAFE_INTEGER) {
-        setMinPrice(minProductPrice);
-        setMaxPrice(maxProductPrice);
-        setPriceRange({ min: minProductPrice, max: maxProductPrice });
-      }
+      // if (minProductPrice !== Number.MAX_SAFE_INTEGER) {
+      //   setMinPrice(minProductPrice);
+      //   setMaxPrice(maxProductPrice);
+      //   setPriceRange({ min: minProductPrice, max: maxProductPrice });
+      // }
+      console.log(products);
 
       // Set initial data
       setCurrentData(products);
@@ -114,6 +116,7 @@ const Products = () => {
           return priceB - priceA;
         });
       }
+      // console.log("filteredProducts",filteredProducts);
 
       setCurrentData(filteredProducts);
     }
@@ -228,7 +231,7 @@ const Products = () => {
                   </div>
                   
                   {/* Price Range Filter */}
-                  <div className="filter-section">
+                 <div className="filter-section">
                     <h6>Price Range</h6>
                     <div className="price-range-inputs">
                       <div className="row">
@@ -264,7 +267,7 @@ const Products = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> 
                   
                   {/* Reset Filters button */}
                   <button 

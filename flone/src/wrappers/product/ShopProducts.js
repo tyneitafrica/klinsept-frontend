@@ -13,6 +13,8 @@ import { toast } from "react-hot-toast";
 import { FaShoppingCart, FaEye } from "react-icons/fa";
 import "../../assets/css/ProductCard.css";
 
+import { Link } from "react-router-dom";
+
 // CSS will be in a separate stylesheet
 
 const ShopProducts = ({
@@ -114,6 +116,7 @@ const ProductCard = ({
 
   return (
     <Card className="product-card">
+
       <div className="product-badge-container">
         {selectedVariation?.discount > 0 && (
           <Badge bg="danger" className="discount-badge">
@@ -153,15 +156,15 @@ const ProductCard = ({
               title="Add to Wishlist"
             />
           )}
-          <a href={`/product/${product.id}`} className="quick-view-icon" title="View Details">
+          <Link to={`/product/${product.id}`} className="quick-view-icon" title="View Details">
             <FaEye />
-          </a>
+          </Link>
         </div>
       </div>
 
       <Card.Body className="product-card-body">
         <Card.Title className="product-name">
-          <a href={`/product/${product.id}`}>{product.name}</a>
+          <Link to={`/product/${product.id}`}>{product.name}</Link>
         </Card.Title>
         
         <div className="product-description">
