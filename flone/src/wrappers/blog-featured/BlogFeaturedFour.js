@@ -26,7 +26,7 @@ const BlogFeaturedFour = () => {
       // Set random blogs whenever blogs are fetched
       setRandomBlogs(getRandomBlogs(blogs));
     }
-  }, [blogs, dispatch]);
+  }, [ dispatch]);
 
   return (
     <div className={`blog-area pt-95 pb-55`}>
