@@ -87,42 +87,6 @@ export default function BlogPostsNoSidebar () {
       ) : (
         <>
           <div className=" container-fluid px-4 py-5">
-            <div className=" row mb-4 align-items-center">
-              <div className="col-md-6 d-flex align-items-center">
-                <select
-                  className="form-select me-3"
-                  value={sortCategory}
-                  onChange={handleCategorySort}
-                  style={{ maxWidth: "200px" }}
-                >
-                  {categories.map((category) => (
-                    <option key={category} value={category}>
-                      Sort by: {category}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="col-md-6 text-end">
-                <div
-                  className="btn-group"
-                  role="group"
-                  aria-label="Blog view options"
-                >
-                  {viewOptions.map((view) => (
-                    <button
-                      key={view}
-                      type="button"
-                      className={`btn btn-outline-dark ${
-                        activeView === view ? "active" : ""
-                      }`}
-                      onClick={() => handleViewChange(view)}
-                    >
-                      {view} View
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
 
             <div className="blog-list g-4">
               {blogs.map((post) => (

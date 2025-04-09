@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, {  } from "react";
+import React, { } from "react";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../components/LayoutOne";
@@ -8,7 +8,7 @@ import BlogPostsNoSidebar from "../wrappers/blog/BlogPostsNoSidebar";
 import { useLocation } from "react-router-dom";
 
 const BlogNoSidebar = () => {
-  const  pathname  = useLocation();
+  const pathname = useLocation();
 
   return (
     <div className="mt-90">
@@ -26,20 +26,15 @@ const BlogNoSidebar = () => {
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
         <Breadcrumb />
-        <div className="blog-area pt-100 pb-100 blog-no-sidebar">
-          <div className="con tainer">
-            <div className="row">
-              <div className="col-lg-12">
-                    {/* blog posts */}
-                    <BlogPostsNoSidebar />
-                
+        <div className="blog -area pt-5 pb-10 blog-no-si debar">
 
-                  {/* blog pagination */}
-                  {/* <BlogPagination /> */}
-                
-              </div>
-            </div>
-          </div>
+          {/* blog posts */}
+          <BlogPostsNoSidebar />
+
+
+          {/* blog pagination */}
+          {/* <BlogPagination /> */}
+
         </div>
       </LayoutOne>
     </div>
