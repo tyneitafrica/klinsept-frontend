@@ -3,12 +3,12 @@
 // export const SET_USER_DATA = "SET_USER_DATA";
 
 // // Action to set the user data
-// export const setUserData = (userData) => {
-//   return {
-//     type: "SET_USER_DATA",
-//     payload: userData,
-//   };
-// };
+export const setUserData = (userData) => {
+  return {
+    type: "SET_USER_DATA",
+    payload: userData,
+  };
+};
 
 export const logoutUser = () => {
   localStorage.removeItem('redux_localstorage_simple'); // or specific keys

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import { connect } from "react-redux";
@@ -10,12 +10,25 @@ import { useLocation, useParams } from "react-router-dom";
 import SectionTitle from "../components/SectionTitle";
 import Fuse from "fuse.js";
 import ShopProducts from "../wrappers/product/ShopProducts";
+import { useTranslation } from "react-i18next";
 
 const Product = ({ products }) => {
   const { id } = useParams();
   const { pathname } = useLocation();
+  const { t } = useTranslation();
 
-  const product = products.find((product) => product.id === Number(id));
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading delay (optional if data is fetched asynchronously)
+    const timer = setTimeout(() => {
+      const foundProduct = products.find((product) => product.id === Number(id));
+      setProduct(foundProduct);
+      setLoading(false);
+    }, 500); // Adjust delay as needed
+    return () => clearTimeout(timer);
+  }, [id, products]);
 
   const getRelatedProducts = (currentProduct) => {
     if (!currentProduct) return [];
@@ -69,33 +82,33 @@ const Product = ({ products }) => {
       <LayoutOne headerTop="visible">
         <Breadcrumb />
 
-        {/* Product description with image */}
-        {product ? (
+        {/* Loading State */}
+        {loading ? (
+          <p>{t("Loading product details...")}</p> // Replace with a spinner or skeleton UI for better UX
+        ) : product ? (
           <>
-            <ProductImageDescription product={product} />
+            <ProductImageDescription t={t} product={product} />
 
             {/* Related Products Section */}
             <div className="related-product-area pb-95">
               <div className="container">
                 <SectionTitle
-                  titleText="Related Products"
+                  titleText={t("Related Products")}
                   positionClass="text-center"
                   spaceClass="mb-50"
                 />
                 <div className="row">
                   {relatedProducts.length > 0 ? (
-                    <>
-                      <ShopProducts currentData={relatedProducts} />
-                    </>
+                    <ShopProducts currentData={relatedProducts} />
                   ) : (
-                    <p>No related products found.</p>
+                    <p>{t("No related products found.")}</p>
                   )}
                 </div>
               </div>
             </div>
           </>
         ) : (
-          <p>Product not found</p>
+          <p>{t("Loading product details...")}</p> // Replace with a spinner or skeleton UI for better UX
         )}
       </LayoutOne>
     </div>

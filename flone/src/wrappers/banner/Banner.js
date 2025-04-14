@@ -1,12 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Card } from "react-bootstrap";
-import "../../assets/css/BannerTwentyFiveSingle.css";
 import { useTranslation } from "react-i18next";
+import "../../assets/css/BannerTwentyFiveSingle.css";
 
 const Banner = () => {
-  const { t } = useTranslation(); // Hook to get the translation function
-
+  const { t } = useTranslation();
   const bannerData = [
     {
       id: 1,
@@ -34,29 +33,34 @@ const Banner = () => {
   return (
     <section className="banner-section py-5">
       <Container>
-        <Row className="justify-content-center">
+        <Row className="d-flex flex-wrap justify-content-center">
           {bannerData.map((banner) => (
-            <Col key={banner.id} xs={12} sm={6} lg={4} className="mb-4">
-              <Link to={banner.link} className="text-decoration-none">
-                <Card className="banner-card">
-                  <div className="banner-image-wrapper">
+            <Col key={banner.id} xs={12} sm={6} lg={4} className="mb-4 d-flex">
+              <Link to={banner.link} className="text-decoration-none w-100">
+                <Card className="banner-card w-100 h-100 d-flex flex-column">
+                  <div className="banner-image-wrapper flex-shrink-0">
                     <Card.Img
+                      variant="top"
                       src={banner.image}
                       alt={banner.title}
-                      className="banner-image"
+                      className="banner-image w-100 h-100 object-fit-cover"
                     />
                   </div>
-                  <div className="banner-content-wrapper">
+                  <Card.Body className="banner-content-wrapper d-flex flex-column justify-content-between">
                     <div className="banner-content">
-                      <h3 className="banner-title">{banner.title}</h3>
-                      <p className="banner-subtitle">{banner.subtitle}</p>
-                      <div className="banner-btn-wrapper">
-                        <button className="banner-btn">
-                          {t("Shop Now")} {/* Translates the button text */}
-                        </button>
-                      </div>
+                      <Card.Title className="banner-title">
+                        {banner.title}
+                      </Card.Title>
+                      <Card.Text className="banner-subtitle">
+                        {banner.subtitle}
+                      </Card.Text>
                     </div>
-                  </div>
+                    <div className="banner-btn-wrapper mt-3">
+                      <button className="banner-btn btn btn-primary w-100">
+                        {t("Shop Now")}
+                      </button>
+                    </div>
+                  </Card.Body>
                 </Card>
               </Link>
             </Col>

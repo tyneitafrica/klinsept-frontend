@@ -1,0 +1,163 @@
+/* products.css */
+
+.container-nene{
+
+  max-width: 1300px;
+  margin: 0 auto;
+
+}
+/* General Styles */
+.products-container {
+    padding-top: 20px;
+    padding-bottom: 50px;
+  }
+  
+  .products-banner {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .products-banner h2 {
+    margin: 0;
+    font-weight: 600;
+  }
+  
+  /* Filter Sidebar Styles */
+  .filter-card {
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+  }
+  
+  .filter-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .filter-section {
+    margin-bottom: 20px;
+  }
+  
+  .filter-section h6 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  
+  .category-options,
+  .size-options {
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: 5px;
+  }
+  
+  .form-check {
+    margin-bottom: 6px;
+  }
+  
+  .form-check-label {
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .form-check-input {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+  }
+  
+  .price-range-inputs label {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  
+  .price-range-inputs input {
+    font-size: 14px;
+    padding: 5px 10px;
+    height: auto;
+  }
+  
+  /* Products Area Styles */
+  .products-top-bar {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .result-count {
+    margin-bottom: 0;
+    font-size: 14px;
+  }
+  
+  .sort-by {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .sort-by select {
+    width: auto;
+    font-size: 14px;
+    height: 36px;
+  }
+  
+  .no-products-found {
+    padding: 30px;
+    text-align: center;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    margin-top: 20px;
+  }
+  
+  .no-options {
+    font-size: 14px;
+    color: #6c757d;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 991px) {
+    .filter-sidebar {
+      margin-bottom: 20px;
+    }
+    
+    .sort-by {
+      justify-content: flex-start;
+      margin-top: 10px;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .products-top-bar .row {
+      flex-direction: column;
+    }
+    
+    .result-count {
+      margin-bottom: 10px;
+    }
+    
+    .sort-by {
+      justify-content: flex-start;
+    }
+    
+    .filter-card {
+      margin-bottom: 15px;
+    }
+  }
+  
+  /* For very small screens */
+  @media (max-width: 576px) {
+    .products-banner h2 {
+      font-size: 20px;
+    }
+    
+    .filter-title {
+      font-size: 16px;
+    }
+  }

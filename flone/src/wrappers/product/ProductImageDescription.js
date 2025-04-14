@@ -6,7 +6,7 @@ import ProductImageGallery from "../../components/product/ProductImageGallery";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { FcLike, FcLikePlaceholder, FcCancel } from "react-icons/fc";
-import { IoGitCompareOutline } from "react-icons/io5";
+import { SlRefresh } from "react-icons/sl";
 import { useDispatch } from "react-redux";
 import {
   deleteFromWishlist,
@@ -18,7 +18,15 @@ import {
 } from "../../redux/actions/compareActions";
 import { addToCart } from "../../redux/actions/cartActions";
 import { Card, Nav, ButtonGroup, Button, Badge } from "react-bootstrap";
-import SectionTitle from "../../components/SectionTitle";
+// import SectionTitle from "../../components/SectionTitle";
+import { FaShoppingCart } from "react-icons/fa";
+import { FaHeadphones } from "react-icons/fa6";
+import { FaTruck } from "react-icons/fa";
+import { CiCreditCard1 } from "react-icons/ci";
+
+
+
+
 
 const ProductImageDescription = ({
   product,
@@ -26,6 +34,7 @@ const ProductImageDescription = ({
   cartItems,
   wishlistItems,
   compareItems,
+  t
 }) => {
   const [selectedVariation, setSelectedVariation] = useState(
     product.variations[0]
@@ -33,6 +42,7 @@ const ProductImageDescription = ({
   const [selectedBulk, setSelectedBulk] = useState(product.bulk_wholesale[0]);
   const [isChecked, setIsChecked] = useState(false);
   const [quantityCount, setQuantityCount] = useState(1);
+  const [show, setShow] = useState(true);
   const isProductInList = (productId, list) =>
     list.some((item) => item.id === productId);
 
@@ -45,6 +55,13 @@ const ProductImageDescription = ({
   const handleVariationClick = (variation) => {
     setSelectedVariation(variation);
   };
+
+  // handle description and additional information
+  const handleDescriptionClick = () => {
+    setShow(prevState => !prevState);
+  };
+
+
   // console.log(product);
   const handleBulkClick = (item) => {
     setSelectedBulk(item);
@@ -65,7 +82,59 @@ const ProductImageDescription = ({
           </div>
           <div className="col-lg-6 col-md-6">
             <div className="product-details-content ml-70">
+              {/* Star Rating */}
+              <div className="product-rating">
+                {[...Array(5)].map((_, index) => (
+                  <span key={index} className="star-icon">
+                    {index < product.rating ? "★" : "★"}{" "}
+                    {/* Solid or hollow star */}
+                  </span>
+                ))}
+                <span className="rating-number">
+                  {product.rating} {t("5 Star Rating")}
+                </span>
+              </div>
               <h2>{product.name}</h2>
+              {product.category ? (
+                <div className="pro-details-meta">
+                  <span>{t("Category")} :</span>
+                  <ul>
+                    {product.category.map((single, key) => {
+                      return (
+                        <li key={key}>
+                          <Link to={process.env.PUBLIC_URL + "/products"}>
+                            {single}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ) : (
+                ""
+              )}
+
+              <div>
+                {selectedVariation && (
+                  <p
+                    style={{
+                      color: selectedVariation.stock > 0 ? "green" : "red",
+                      fontWeight: "bold",
+                      marginTop: "5px",
+                      marginBottom: "30px",
+                    }}
+                  >
+                    {t(
+                      `Availability: ${
+                        selectedVariation.stock > 0
+                          ? "In Stock"
+                          : "Out of Stock"
+                      }`
+                    )}
+                  </p>
+                )}
+              </div>
+
               <div className="product-details-price d-flex align-items-center">
                 {!isChecked ? (
                   <span className="me-2">
@@ -103,10 +172,6 @@ const ProductImageDescription = ({
                 )}
               </div>
 
-              <div className="pro-details-list">
-                <p>{product.description}</p>
-              </div>
-
               <Card className="mb-3">
                 <Card.Header>
                   <Nav variant="tabs" defaultActiveKey="variations">
@@ -116,7 +181,7 @@ const ProductImageDescription = ({
                         active={!isChecked}
                         onClick={() => setIsChecked(false)}
                       >
-                        Retail
+                        {t("Retail")}
                       </Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
@@ -125,7 +190,7 @@ const ProductImageDescription = ({
                         active={isChecked}
                         onClick={() => setIsChecked(true)}
                       >
-                        Wholesale{" "}
+                        {t("Wholesale")}
                       </Nav.Link>
                     </Nav.Item>
                   </Nav>
@@ -151,7 +216,7 @@ const ProductImageDescription = ({
                     <>
                       {product.bulk_wholesale.length > 0 && (
                         <Badge variant="info" className="ms-2">
-                          Min: {selectedBulk.min_quantity}
+                          {t("Min")}: {selectedBulk.min_quantity}
                         </Badge>
                       )}
                       <ButtonGroup aria-label="bulk-options">
@@ -174,188 +239,293 @@ const ProductImageDescription = ({
                 </Card.Body>
               </Card>
 
-              {
-                <div className="pro-details-quality">
-                  <div className="cart-plus-minus">
-                    <button
-                      onClick={() =>
-                        setQuantityCount(
-                          quantityCount > 1 ? quantityCount - 1 : 1
+              <div className="pro-details-quality">
+                <div className="cart-plus-minus">
+                  <button
+                    onClick={() =>
+                      setQuantityCount(
+                        quantityCount > 1 ? quantityCount - 1 : 1
+                      )
+                    }
+                    className="dec qtybutton"
+                  >
+                    -
+                  </button>
+                  <input
+                    className="cart-plus-minus-box"
+                    type="text"
+                    value={quantityCount}
+                    readOnly
+                  />
+                  <button
+                    onClick={() =>
+                      setQuantityCount((prevCount) => prevCount + 1)
+                    }
+                    className="inc qtybutton"
+                  >
+                    +
+                  </button>
+                </div>
+                <div className="pro-details-cart ">
+                  <button
+                    onClick={() => {
+                      const selectedItem = isChecked
+                        ? selectedBulk
+                        : selectedVariation;
+                      const order_type = isChecked ? "Wholesale" : "Retail";
+
+                      dispatch(
+                        addToCart(
+                          product,
+                          quantityCount,
+                          selectedItem.size,
+                          order_type
                         )
-                      }
-                      className="dec qtybutton"
-                    >
-                      -
-                    </button>
-                    <input
-                      className="cart-plus-minus-box"
-                      type="text"
-                      value={quantityCount}
-                      readOnly
-                    />
-                    <button
-                      onClick={() =>
-                        setQuantityCount((prevCount) => prevCount + 1)
-                      }
-                      className="inc qtybutton"
-                    >
-                      +
-                    </button>
-                  </div>
-                  <div className="pro-details-cart btn-hover">
-                    <button
-                      onClick={() => {
-                        const selectedItem = isChecked
-                          ? selectedBulk
-                          : selectedVariation;
-                        const order_type = isChecked ? "Wholesale" : "Retail";
-
-                        dispatch(
-                          addToCart(
-                            product,
-                            quantityCount,
-                            selectedItem.size,
-                            order_type
-                          )
-                        );
-                      }}
-                    >
-                      Add To Cart
-                    </button>
-                  </div>
-
-                  <div className="pro-details-wishlist">
-                    {isProductInWishlist ? (
-                      <FcLike
-                        onClick={() =>
-                          dispatch(deleteFromWishlist(product, toast))
-                        }
-                        className="heart-icon"
-                        title="Add to Wishlist"
-                      />
-                    ) : (
-                      <FcLikePlaceholder
-                        onClick={() => {
-                          dispatch(addToWishlist(product, toast)); // Dispatch to Redux
-                        }}
-                        className="heart-icon"
-                        title="Already in Wishlist"
-                      />
-                    )}
-                  </div>
-                  <div className="pro-details-compare ml-3 ">
-                    {!isProductInCompare ? (
-                      <IoGitCompareOutline
-                        size={25}
-                        onClick={() => {
-                          dispatch(addToCompare(product)); // No need to pass toast
-                        }}
-                        title="Add to Compare"
-                      />
-                    ) : (
-                      <FcCancel
-                        size={25}
-                        title="Remove from Compare"
-                        onClick={
-                          () => dispatch(deleteFromCompare(product)) // No need to pass toast
-                        }
-                      />
-                    )}
-                  </div>
-                </div>
-              }
-              {product.category ? (
-                <div className="pro-details-meta">
-                  <span>Categories :</span>
-                  <ul>
-                    {product.category.map((single, key) => {
-                      return (
-                        <li key={key}>
-                          <Link to={process.env.PUBLIC_URL + "/products"}>
-                            {single}
-                          </Link>
-                        </li>
                       );
-                    })}
-                  </ul>
+                    }}
+                  >
+                    {t("Add To Cart")} <FaShoppingCart size={19} />
+                  </button>
                 </div>
-              ) : (
-                ""
-              )}
+              </div>
+
+              <div className="wishlist-compare-container">
+                <div className="wishlist-item">
+                  {isProductInWishlist ? (
+                    <FcLike
+                      onClick={() =>
+                        dispatch(deleteFromWishlist(product, toast))
+                      }
+                      className="heart-icon"
+                      title="Remove from Wishlist"
+                    />
+                  ) : (
+                    <FcLikePlaceholder
+                      onClick={() => {
+                        dispatch(addToWishlist(product, toast)); // Dispatch to Redux
+                      }}
+                      className="heart-icon"
+                    />
+                  )}
+                  <span>{t("Add to Wishlist")}</span>
+                </div>
+
+                <div className="compare-item">
+                  {!isProductInCompare ? (
+                    <SlRefresh
+                      size={22}
+                      onClick={() => {
+                        dispatch(addToCompare(product)); // No need to pass toast
+                      }}
+                    />
+                  ) : (
+                    <FcCancel
+                      size={25}
+                      title="Remove from Compare"
+                      onClick={() => dispatch(deleteFromCompare(product))} // No need to pass toast
+                    />
+                  )}
+                  <span>{t("Add to Compare")}</span>
+                </div>
+              </div>
             </div>
           </div>
-<div className="more-desc container">
-  <SectionTitle
-    titleText="More Descriptions"
-    positionClass="text-center"
-    spaceClass="mb-20"
-  />
-  <div className="row">
-    {/* Active Ingredients */}
-    {product.active_ingredients && (
-      <div className="col-md-6 mb-4">
-        <h3>Active Ingredients</h3>
-        <p className="text-primary">{product.active_ingredients}</p>
-      </div>
-    )}
-    {/* Storage Instructions */}
-    {product.storage_instructions && (
-      <div className="col-md-6 mb-4">
-        <h3>Storage Instructions</h3>
-        <p className="text-info">{product.storage_instructions}</p>
-      </div>
-    )}
-  </div>
 
-  {/* Dilution Instructions */}
-  {product.dilution_instructions && (
-    <div className="mb-4">
-      <h3>Dilution Instructions</h3>
-      <p className="text-muted">{product.dilution_instructions}</p>
-    </div>
-  )}
+          {/* insert table */}
 
-  {/* Mechanism of Action */}
-  {product.mechanism_of_action && (
-    <div className="mb-4">
-      <h3>Mechanism of Action</h3>
-      <p className="text-secondary">{product.mechanism_of_action}</p>
-    </div>
-  )}
+          <Card className="mt-20 mb-5">
+            <Card.Header>
+              <Nav variant="tabs" defaultActiveKey="description">
+                <Nav.Item>
+                  <Nav.Link
+                    eventKey="description"
+                    active={show}
+                    onClick={() => handleDescriptionClick()}
+                  >
+                    {t("Description")}
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link
+                    eventKey="additionalinformation"
+                    active={!show}
+                    onClick={() => handleDescriptionClick()}
+                  >
+                    {t("Additional Information")}
+                  </Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </Card.Header>
+            <Card.Body>
+              {show ? (
+                <ButtonGroup
+                  aria-label="description"
+                  style={{
+                    display: "flex",
+                    gap: "20px",
+                    flexWrap: "wrap", // Allows wrapping on smaller screens
+                  }}
+                >
+                  {/* Product Description */}
+                  <div
+                    style={{
+                      flex: 1,
+                      paddingRight: "10px",
+                      borderRight: "1px solid #ddd",
+                      marginBottom: "20px", // Adds space when stacked
+                      minWidth: "300px", // Ensures consistent size
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: "14px",
+                        color: "#555",
+                        display: "block",
+                        lineHeight: "2.8",
+                      }}
+                    >
+                      {product.description}
+                    </span>
+                  </div>
 
-  {/* Product Usage */}
-  {product.usage && (
-    <div className="mb-4">
-      <h3>Product Usage</h3>
-      <p className="text-success">{product.usage}</p>
-    </div>
-  )}
-
-  {/* Presentation */}
-  {product.presentation && (
-    <div className="mb-4">
-      <h3>Presentation</h3>
-      <p className="text-warning">{product.presentation}</p>
-    </div>
-  )}
-
-  {/* Warnings */}
-  {product.warnings && (
-    <div className="mb-4">
-      <h3>Warnings</h3>
-      <p className="text-danger fw-bold">{product.warnings}</p>
-    </div>
-  )}
-
-  {/* Indications */}
-  {product.indications && (
-    <div>
-      <h3>Indications</h3>
-      <p className="text-dark">{product.indications}</p>
-    </div>
-  )}
-</div>
-
+                  {/* Additional Static Data */}
+                  <div
+                    style={{
+                      flex: 1,
+                      paddingLeft: "10px",
+                      minWidth: "300px", // Ensures consistent size
+                    }}
+                  >
+                    <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                      <h3>{t("Features")}</h3>
+                      <li
+                        style={{
+                          marginBottom: "10px",
+                          marginLeft: "20px",
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <FaTruck
+                          size={20}
+                          style={{ marginRight: "10px" }} // Adds space between the icon and text
+                        />{" "}
+                       {t("Fast Delivery")}
+                      </li>
+                      <li
+                        style={{
+                          marginBottom: "10px",
+                          marginLeft: "20px",
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <CiCreditCard1
+                          size={20}
+                          style={{ marginRight: "10px" }} // Adds space between the icon and text
+                        />{" "}
+                        {t("Secure Payment")}
+                      </li>
+                      <li
+                        style={{
+                          marginBottom: "10px",
+                          marginLeft: "20px",
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <FaHeadphones
+                          size={20}
+                          style={{ marginRight: "10px" }} // Adds space between the icon and text
+                        />{" "}
+                        {t("24/7 Customer Support")}
+                      </li>
+                    </ul>
+                  </div>
+                </ButtonGroup>
+              ) : (
+                <>
+                  <ButtonGroup aria-label="additionalinformation">
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "10px",
+                        marginTop: "15px",
+                      }}
+                      className="product-details-updated"
+                    >
+                      {[
+                        {
+                          label: t("Storage Instructions"),
+                          data: product.storage_instructions,
+                        },
+                        {
+                          label: t("Mechanism Of Action"),
+                          data: product.mechanism_of_action,
+                        },
+                        { label: t("Product Usage"), data: product.usage },
+                        {
+                          label: t("Dilution Instructions"),
+                          data: product.dilution_instructions,
+                        },
+                        { label: t("Indication"), data: product.indications },
+                        { label: t("Presentation"), data: product.presentation },
+                        { label: t("Warning"), data: product.warnings },
+                        { label: t("Storage"), data: product.storage },
+                        {
+                          label: t("Active Ingredients"),
+                          data: product.active_ingredients,
+                        },
+                      ].map((item, index) => (
+                        <div
+                          key={index}
+                          style={{
+                            display: "flex",
+                            flexDirection:
+                              window.innerWidth <= 768 ? "column" : "row", // Adjust layout based on screen size
+                            justifyContent:
+                              window.innerWidth <= 768
+                                ? "flex-start"
+                                : "space-between",
+                            alignItems: "flex-start",
+                            padding: "10px",
+                            borderBottom: "1px solid #ddd",
+                          }}
+                          className="product-detail-row-updated"
+                        >
+                          <div
+                            style={{
+                              fontWeight: "bold",
+                              fontSize: "16px",
+                              color: "#333",
+                              flex: "1",
+                              marginBottom:
+                                window.innerWidth <= 768 ? "5px" : "0",
+                            }}
+                            className="product-detail-label"
+                          >
+                            {item.label}
+                          </div>
+                          <div
+                            style={{
+                              fontSize: "14px",
+                              color: "#555",
+                              flex: "2",
+                              textAlign: "left",
+                            }}
+                            className="product-detail-data"
+                          >
+                            {item.data || "N/A"}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </ButtonGroup>
+                </>
+              )}
+            </Card.Body>
+          </Card>
         </div>
       </div>
     </div>

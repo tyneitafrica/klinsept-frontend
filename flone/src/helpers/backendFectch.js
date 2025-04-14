@@ -1,6 +1,10 @@
 import axios from "axios";
 // import { logoutUser } from "../redux/actions/appAction";
-import { fetchProductsSuccess } from "../redux/actions/productActions";
+import {
+  fetchProductsSuccess,
+  fetchBlogsSuccess,
+} from "../redux/actions/productActions";
+import apiClient from "./apiClient";
 import toast from "react-hot-toast";
 const API_KEY = process.env.REACT_APP_API_KEY;
 const API_URL = process.env.REACT_APP_API_URL;
@@ -36,9 +40,11 @@ export const registerFetch = async (registerData, navigate, setError) => {
 };
 
 export const LoginFetch = async (loginData, setLoading) => {
-  // Display a loading toast while making the request
-  return toast
-    .promise(
+  setLoading(true);
+
+  try {
+    // Display a loading toast while making the request
+    const response = await toast.promise(
       axios.post(`${API_URL}auth/login/`, loginData, {
         withCredentials: true,
         headers: {
@@ -48,23 +54,22 @@ export const LoginFetch = async (loginData, setLoading) => {
       }),
       {
         loading: "Logging in...",
-        success: (response) => {
-          return response.data.message;
-        },
-        error: (error) => {
+        success: (res) => res.data.message,
+        error: (err) => {
           const errorMessage =
-            error.response?.data?.detail ||
-            error.message ||
-            "An error occurred";
+            err.response?.data?.detail || err.message || "An error occurred";
           return ` ${errorMessage}`;
         },
       }
-    )
-    .catch((err) => {
-      return err;
-      // You can catch any unhandled promise rejections here if needed
-      // console.error("Unhandled Error:", err);
-    });
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Unhandled Error:", error);
+    throw error; // Rethrow the error so it can be handled by the caller
+  } finally {
+    setLoading(false); // Ensure loading state is reset
+  }
 };
 
 export const forgotPassword = async (email) => {
@@ -136,71 +141,48 @@ export const serverLogOut = async (dispatch, toast) => {
 
 export const fetchProducts = () => {
   return async (dispatch, getState) => {
-    const state = getState().productData;
-    const cachedProducts = state.products;
-    const timestamp = state.timestamp;
-    const currentTime = new Date().getTime();
-    const timeDifference = (currentTime - timestamp) / (1000 * 60 * 60);
-
-    if (cachedProducts.length > 0 && timeDifference < 0.5) {
-      dispatch(fetchProductsSuccess(cachedProducts, timestamp));
-      return cachedProducts;
-    }
+    const toastId = toast.loading("Getting Products...");
 
     try {
-      const response = await axios.get(`${API_URL}products/`, {
-        headers: {
-          "x-api-key": `${API_KEY}`,
-        },
-      });
+      // const state = getState().productData;
+      // console.log(state);
+
+      const response = await apiClient.get(`products/`);
+      console.log(response);
 
       const newTimestamp = new Date().getTime();
-      dispatch(fetchProductsSuccess(response.data.results, newTimestamp));
+      dispatch(fetchProductsSuccess(response?.data?.data, newTimestamp));
+      //  log redux data after dispatching
 
-      return response.data;
+      return response?.data?.data;
     } catch (error) {
-      console.error("Get Products error:", error.response?.data);
+      console.error("Get Products error:", error);
       throw error;
+    } finally {
+      toast.dismiss(toastId);
     }
   };
 };
 
 export const isAuthenticated = async (setLoading) => {
   try {
-    const storedUserData = JSON.parse(localStorage.getItem("userData")) || null;
-    const storedTimestamp = localStorage.getItem("userDataTimestamp");
-
-    const currentTime = new Date().getTime();
-
-    if (
-      storedUserData &&
-      storedTimestamp &&
-      currentTime - storedTimestamp < 60 * 60 * 1000
-    ) {
-      return { status: 200, data: storedUserData };
-    }
-
     if (setLoading) {
       setLoading(true);
     }
 
-    const response = await axios.get(`${API_URL}auth/cookie/`, {
+    const response = await apiClient.get(`auth/cookie/`, {
       headers: {
         "x-api-key": API_KEY,
         "Content-Type": "application/json",
       },
       withCredentials: true,
     });
-    
-    localStorage.setItem("userData", JSON.stringify(response.data));
-    localStorage.setItem("userDataTimestamp", currentTime);
-    
+    // console.log(response);
+
     return response;
   } catch (error) {
-    // console.log(error)
+    // console.error(error.response.data)
 
-    localStorage.removeItem("userData");
-    localStorage.removeItem("userDataTimestamp");
     // toast.error(error?.response?.data?.error || error.message);
     return error ? error : { error: "Authentication failed." };
   } finally {
@@ -219,22 +201,12 @@ export const addItemToCart = async (
   try {
     toast.dismiss();
 
-    const addToCartPromise = axios.post(
-      `${API_URL}cart/add/`,
-      {
-        product_id: item.id,
-        quantity: quantityCount,
-        size: size,
-        order_type: order_type,
-      },
-      {
-        headers: {
-          "x-api-key": `${API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      }
-    );
+    const addToCartPromise = apiClient.post(`cart/add/`, {
+      product_id: item.id,
+      quantity: quantityCount,
+      size: size,
+      order_type: order_type,
+    });
 
     const response = await toast.promise(
       addToCartPromise,
@@ -265,15 +237,12 @@ export const addItemToCart = async (
 
 export const getCartItems = async (toast) => {
   try {
-    const response = await axios.get(`${API_URL}cart/`, {
-      headers: {
-        "x-api-key": API_KEY,
-      },
-      withCredentials: true,
-    });
+    const response = await apiClient.get(`cart/`);
+    console.log(response);
 
     return response.data;
   } catch (error) {
+    console.error("Get Cart Items error:", error.response);
     throw error;
   }
 };
@@ -322,4 +291,31 @@ export const createOrder = async (payload) => {
     console.error("Error creating order:", error);
     throw error;
   }
+};
+
+export const getBlogs = () => {
+  return async (dispatch) => {
+    const toastId = toast.loading("Fetching blogs...");
+
+    try {
+      const response = await apiClient.get(`blogs/`);
+
+
+      if (response.status === 200) {
+        toast.success("Blogs fetched successfully!");
+        dispatch(fetchBlogsSuccess(response.data?.data || []));
+        // console.log(response.data?.data[2]);
+        return response.data?.data || [];
+      } else {
+        toast.error("Failed to fetch blogs!");
+        throw new Error("Failed to fetch blogs");
+      }
+    } catch (error) {
+      toast.error("Error fetching blogs. Please try again.");
+      console.error("Error getting blogs:", error);
+      throw error; // Important to throw for catch block
+    } finally {
+      toast.dismiss(toastId);
+    }
+  };
 };

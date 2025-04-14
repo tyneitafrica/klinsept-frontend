@@ -2,62 +2,58 @@ import React, { Fragment, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
-import LoginModal from "../auth/LoginModal";
+import { MdDelete, MdShoppingCart } from "react-icons/md";
+import { FiShoppingBag } from "react-icons/fi";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { Button, Spinner } from "react-bootstrap";
 import LayoutOne from "../../components/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import { useLocation } from "react-router-dom";
+import LoginModal from "../auth/LoginModal";
 import { isAuthenticated } from "../../helpers/backendFectch";
+import { priceConverter } from "../../redux/actions/currencyActions";
 import {
   fetchAndReplaceCart,
   deleteAllFromCart,
   deleteFromCart,
 } from "../../redux/actions/cartActions";
-import { useDispatch, useSelector } from "react-redux";
-import { Button, Spinner } from "react-bootstrap";
-import { priceConverter } from "../../redux/actions/currencyActions";
+
 const Cart = () => {
   const { pathname } = useLocation();
-  const [showModal, setShowmodal] = useState(false);
   const navigate = useNavigate();
-  const cartItems = useSelector((state) => state.cartData);
-  const currency = useSelector((state) => state.currencyData);
   const dispatch = useDispatch();
+  const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loadingCheckout, setLoadingCheckout] = useState(false);
 
-  const handleProceedCheckout = async (e) => {
-    e.preventDefault();
-    const response = await isAuthenticated(setLoadingCheckout);
+  const cartItems = useSelector((state) => state.cartData);
+  const currency = useSelector((state) => state.currencyData);
 
-    if (response?.data ) {
-      navigate("/checkout");
-    } else {
-      setShowmodal(true);
-    }
-  };
   useEffect(() => {
     dispatch(fetchAndReplaceCart(setLoading));
   }, [dispatch]);
 
+  const handleProceedCheckout = async (e) => {
+    e.preventDefault();
+    const response = await isAuthenticated(setLoadingCheckout);
+    response?.data ? navigate("/checkout") : setShowModal(true);
+  };
+
   if (loading) {
     return (
-      <div className="flone-preloader-wrapper">
-        <div className="flone-preloader">
-          <span></span>
-          <span></span>
-        </div>
+      <div className="cart-loader">
+        <Spinner animation="border" variant="primary" />
       </div>
     );
   }
 
   return (
-    <div className="mt-90">
+  
+    <div className="mt-100">
+    <LayoutOne >
       <MetaTags>
-        <title> Klinsept | Cart</title>
-        <meta
-          name="description"
-          content="Cart page of  react minimalist eCommerce template."
-        />
+        <title>Klinsept | Cart</title>
+        <meta name="description" content="Your shopping cart" />
       </MetaTags>
 
       <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
@@ -65,161 +61,149 @@ const Cart = () => {
         Cart
       </BreadcrumbsItem>
 
-      <LayoutOne headerTop="visible">
-        {/* breadcrumb */}
+      <div className="cart-container">
         <Breadcrumb />
 
-        <div className="cart-main-area pt-90 pb-100">
-          <div className="container">
-            {cartItems && cartItems.length >= 1 ? (
-              <Fragment>
-                <h3 className="cart-page-title">Your cart items</h3>
-                <div className="row">
-                  <div className="col-12">
-                    <div className="table-content table-responsive cart-table-content">
-                      <table>
-                        <thead>
-                          <tr>
-                            <th>Image</th>
-                            <th>Product Name</th>
-                            <th>Unit Price</th>
-                            <th>Qty</th>
-                            <th>Subtotal</th>
-                            <th>action</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {cartItems.map((cartItem, key) => {
-                            const {
-                              convertedPrice: originalPrice,
-                              currencySymbol,
-                            } = priceConverter(
-                              cartItem.price,
-                              currency.selectedCurrency
-                            );
-                            const { convertedPrice: lineTotal } =
-                              priceConverter(
-                                cartItem.line_total,
-                                currency.selectedCurrency
-                              );
+        <div className="cart-content">
+          {cartItems?.length >= 1 ? (
+            <Fragment>
+              <h2 className="cart-title">Your Shopping Cart</h2>
 
-                            return (
-                              <tr key={key}>
-                                <td className="product-thumbnail">
-                                  <Link to={`/product/${cartItem.product_id}`}>
-                                    <img
-                                      className="img-fluid"
-                                      src={cartItem.image}
-                                      alt="cartData"
-                                    />
-                                  </Link>
-                                </td>
+              <div className="cart-table-container">
+                <div className="cart-table-responsive">
+                  <table className="cart-table">
+                    <thead>
+                      <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {cartItems.map((cartItem) => {
+                        const {
+                          convertedPrice: originalPrice,
+                          currencySymbol,
+                        } = priceConverter(
+                          cartItem.price,
+                          currency.selectedCurrency
+                        );
+                        const { convertedPrice: lineTotal } = priceConverter(
+                          cartItem.line_total,
+                          currency.selectedCurrency
+                        );
 
-                                <td className="product-name">
-                                  <Link to={`/product/${cartItem.product_id}`}>
-                                    {cartItem.name}
-                                  </Link>{" "}
-                                  {cartItem.size}
-                                </td>
-
-                                <td className="product-price-cart">
-                                  {currencySymbol} {originalPrice}
-                                </td>
-
-                                <td className="product-quantity">
-                                  <div className="cart-plus-minus">
-                                    <input
-                                      className="cart-plus-minus-box"
-                                      type="text"
-                                      value={cartItem.quantity}
-                                      readOnly
-                                    />
-                                  </div>
-                                </td>
-                                <td className="product-subtotal">
-                                  {currencySymbol} {lineTotal}
-                                </td>
-
-                                <td className="product-remove">
-                                  <button
-                                    onClick={() => {
-                                      dispatch(
-                                        deleteFromCart(cartItem, dispatch)
-                                      );
-                                    }}
+                        return (
+                          <tr key={cartItem.product_id}>
+                            <td className="product-cell">
+                              <div className="product-info">
+                                <Link
+                                  to={`/product/${cartItem.id}`}
+                                  className="product-image"
+                                >
+                                  <img
+                                    src={cartItem.image}
+                                    alt={cartItem.name}
+                                  />
+                                </Link>
+                                <div className="product-details">
+                                  <Link
+                                    to={`/product/${cartItem.id}`}
+                                    className="product-name"
                                   >
-                                    <i className="fa fa-times"></i>
-                                  </button>
-                                </td>
-                              </tr>
-                            );
-                          })}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-                <div className="d-flex m-3 justify-content-between">
-                  <Link className="btn btn-outline-info" to={"/products"}>
-                    Shop
-                  </Link>
-                  <Button
-                    variant="outline-danger"
-                    onClick={() => dispatch(deleteAllFromCart(dispatch))}
-                  >
-                    Clear
-                  </Button>
+                                    {cartItem.name}
+                                  </Link>
+                                  {cartItem.size && (
+                                    <span className="product-size">
+                                      {cartItem.size}
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                            </td>
+                            <td className="price-cell">
+                              {currencySymbol}
+                              {originalPrice}
+                            </td>
+                            <td className="quantity-cell">
+                              <div className="quantity-display">
+                                {cartItem.quantity}
+                              </div>
+                            </td>
+                            <td className="total-cell">
+                              {currencySymbol}
+                              {lineTotal}
+                            </td>
+                            <td className="action-cell">
+                              <button
+                                onClick={() =>
+                                  dispatch(deleteFromCart(cartItem, dispatch))
+                                }
+                                className="remove-btn"
+                                aria-label="Remove item"
+                              >
+                                &times;
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
                 </div>
 
-                <div className="row m-3">
-                  <div className="place-order mt-25">
+                <div className="cart-actions">
+                  <Button
+                    onClick={handleProceedCheckout}
+                    className="checkout-btn"
+                    disabled={loadingCheckout}
+                  >
+                    {loadingCheckout ? (
+                      <>
+                        <Spinner as="span" animation="border" size="sm" />
+                        <span className="ms-2">Processing...</span>
+                      </>
+                    ) : (
+                      "Proceed to Checkout"
+                    )}
+                  </Button>
+
+                  <div className="secondary-actions">
+                    <Link to="/products" className="continue-shopping">
+                      <FiShoppingBag className="me-2" />
+                      Continue Shopping
+                    </Link>
                     <Button
-                      onClick={handleProceedCheckout}
-                      variant="btn btn-outline-success"
-                      style={{ fontWeight: "bold" }}
-                      disabled={loadingCheckout}
+                      variant="outline-danger"
+                      onClick={() => dispatch(deleteAllFromCart(dispatch))}
+                      className="clear-cart"
                     >
-                      {loadingCheckout ? (
-                        <>
-                          <Spinner
-                            animation="border"
-                            size="sm"
-                            role="status"
-                            aria-hidden="true"
-                          />
-                          {"  "}
-                          Checking out...
-                        </>
-                      ) : (
-                        "Checkout"
-                      )}
+                      <MdDelete className="me-2" />
+                      Clear Cart
                     </Button>
-                  </div>
-                  {showModal && (
-                    <LoginModal show={showModal} setShow={setShowmodal} />
-                  )}
-                </div>
-              </Fragment>
-            ) : (
-              <div className="row">
-                <div className="col-lg-12">
-                  <div className="item-empty-area text-center">
-                    <div className="item-empty-area__icon mb-30">
-                      <i className="pe-7s-cart"></i>
-                    </div>
-                    <div className="item-empty-area__text">
-                      No items found in cart <br />{" "}
-                      <Link to={process.env.PUBLIC_URL + "/products"}>
-                        Shop Now
-                      </Link>
-                    </div>
                   </div>
                 </div>
               </div>
-            )}
-          </div>
+            </Fragment>
+          ) : (
+            <div className="empty-cart">
+              <div className="empty-cart-icon">
+                <MdShoppingCart />
+              </div>
+              <h3>Your cart is empty</h3>
+              <p>Looks like you haven't added any items yet</p>
+              <Link to="/products" className="shop-now-btn">
+                Start Shopping
+              </Link>
+            </div>
+          )}
         </div>
-      </LayoutOne>
+      </div>
+
+      <LoginModal show={showModal} setShow={setShowModal} />
+    </LayoutOne>
     </div>
   );
 };

@@ -16,9 +16,13 @@ import { toast } from "react-hot-toast";
 import { FcLike, FcLikePlaceholder, FcCancel } from "react-icons/fc";
 import { Card, Nav, ButtonGroup, Modal, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
 
 export const ProductModal = ({ show, handleClose, productData }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+    const { t } = useTranslation();
+  
   // const wishlistItems = useSelector((state) =>state.wishlistData)
   const [selectedVariation, setSelectedVariation] = useState(
     productData?.variations[0]
@@ -136,7 +140,7 @@ export const ProductModal = ({ show, handleClose, productData }) => {
                     active={!isChecked}
                     onClick={() => setIsChecked(false)}
                   >
-                    Retail
+                    {t("Retail")}
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
@@ -145,7 +149,7 @@ export const ProductModal = ({ show, handleClose, productData }) => {
                     active={isChecked}
                     onClick={() => setIsChecked(true)}
                   >
-                    Wholesale
+                    {t("Wholesale")}
                   </Nav.Link>
                 </Nav.Item>
               </Nav>
@@ -178,7 +182,7 @@ export const ProductModal = ({ show, handleClose, productData }) => {
                       }, 700)
                     }
                   >
-                    Buy in bulk
+                    {t("Buy in bulk")}
                   </Link>
                 </>
               )}
@@ -246,10 +250,10 @@ export const ProductModal = ({ show, handleClose, productData }) => {
       <Modal.Footer>
         <div className="d-flex align-items-center justify-content-between w-100">
           <Button variant="danger" onClick={handleClose}>
-            Close
+            {t("Close")}
           </Button>
           <Button variant="primary" onClick={() => alert("Added to cart!")}>
-            Add to Cart
+            {t("Add to Cart")}
           </Button>
         </div>
       </Modal.Footer>

@@ -61,16 +61,18 @@ const ProductCard = ({
   return (
     <>
       <Card className="product-card shadow-sm position-relative">
-      {alert.show && (
-        <Alert
-          variant={alert.variant}
-          className="position-absolute w-100 text-center"
-          style={{ top: 0, zIndex: 1000 }}
-        >
-          {alert.message}
-        </Alert>
-      )}
-        <Card.Img variant="top" src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?q=80&w=987&auto=format&fit=crop"
+        {alert.show && (
+          <Alert
+            variant={alert.variant}
+            className="position-absolute w-100 text-center"
+            style={{ top: 0, zIndex: 1000 }}
+          >
+            {alert.message}
+          </Alert>
+        )}
+        <Card.Img
+          variant="top"
+          src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?q=80&w=987&auto=format&fit=crop"
         />
         <Card.Body>
           <Card.Title className="product-title">{product.name}</Card.Title>

@@ -1,181 +1,236 @@
 import PropTypes from "prop-types";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { getProducts } from "../../helpers/product";
 import { addToCart } from "../../redux/actions/cartActions";
 import { addToWishlist } from "../../redux/actions/wishlistActions";
 import { addToCompare } from "../../redux/actions/compareActions";
 import { deleteFromWishlist } from "../../redux/actions/wishlistActions";
-import { deleteFromCompare } from "../../redux/actions/compareActions";
-import {
-  AiOutlineShoppingCart,
-  AiOutlineEye,
-  AiOutlineSwap,
-  AiOutlineCloseCircle,
-} from "react-icons/ai";
 import { FcLike, FcLikePlaceholder } from "react-icons/fc";
 import { useDispatch } from "react-redux";
-import { Card } from "react-bootstrap";
-import { ProductModal } from "../../components/ProductModal";
+import { Card, Button, Badge, Form } from "react-bootstrap";
 import { toast } from "react-hot-toast";
+import { FaShoppingCart, FaEye } from "react-icons/fa";
 import "../../assets/css/ProductCard.css";
+
+import { Link } from "react-router-dom";
+
+// CSS will be in a separate stylesheet
 
 const ShopProducts = ({
   products,
   currentData,
   currency,
   addToCart,
-  addToCompare,
   wishlistItems,
-  compareItems,
 }) => {
-  const [modalShow, setModalShow] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState(null);
   const finalProducts = currentData || products;
-
   const dispatch = useDispatch();
+
   return (
     <Fragment>
-      <div className="products-container justify-content-center flex-wrap">
-        {finalProducts.map((product, index) => {
-          //  console.log(finalProducts)
-          const priceConverter = (price) => {
-            let convertedPrice = price;
-            let currencySymbol = "$";
-
-            if (currency?.selectedCurrency) {
-              const { rates, symbol } = currency.selectedCurrency;
-              convertedPrice = (price * rates).toFixed(2);
-              currencySymbol = symbol || "$";
-            }
-
-            // Format the price with commas
-            convertedPrice = parseFloat(convertedPrice).toLocaleString();
-
-            return { convertedPrice, currencySymbol };
-          };
-
-          let variation =
-            product.variations[
-              Math.floor(Math.random() * product.variations.length)
-            ];
-
-          const { convertedPrice, currencySymbol } = priceConverter(
-            variation?.price || 0
-          );
-          const convertedDiscount = priceConverter(
-            variation?.discount || 0
-          ).convertedPrice;
-
-          const isProductInCompare = compareItems.some(
-            (item) => item.id === product.id
-          );
-          const isProductInWishlist = wishlistItems.some(
-            (item) => item.id === product.id
-          );
-          return (
-            <Card key={index} className="product-car mb-3">
-              <div className="image-container">
-                <img
-                  src={product.images[0]?.image || '/assets/img/banner/KlinSav.jpg'}
-                  alt={product.name}
-                  className="product-image"
-                  loading="lazy" 
-                />
-                <div className="overlay-icons">
-                  <AiOutlineShoppingCart
-                    onClick={() => {
-                      addToCart(product, 1, variation.size, "Retail");
-                    }}
-                    className="icon"
-                    title="Add to Cart"
-                  />
-                  <AiOutlineEye
-                    onClick={() => {
-                      setSelectedProduct(product);
-                      setModalShow(true);
-                    }}
-                    className="icon"
-                    title="View Details"
-                  />
-                  {isProductInCompare ? (
-                    <AiOutlineCloseCircle
-                      onClick={() => {
-                        dispatch(deleteFromCompare(product));
-                      }}
-                      className="icon compare-icon active"
-                      title="Already in Compare"
-                    />
-                  ) : (
-                    <AiOutlineSwap
-                      onClick={() => {
-                        addToCompare(product);
-                      }}
-                      className="icon"
-                      title="Add to Compare"
-                    />
-                  )}
-                </div>
-              </div>
-              <Card.Body>
-                <div className="d-flex align-items-center justify-content-between">
-                  <Card.Title className="product-name">
-                    <Card.Link href={`/product/${product.id}`}>
-                      {product.name}
-                    </Card.Link>
-                  </Card.Title>{" "}
-                  {isProductInWishlist ? (
-                    <FcLike
-                      onClick={() =>
-                        dispatch(deleteFromWishlist(product, toast))
-                      }
-                      className="heart-icon"
-                      title="Add to Wishlist"
-                    />
-                  ) : (
-                    <FcLikePlaceholder
-                      onClick={() => {
-                        dispatch(addToWishlist(product, toast)); // Dispatch to Redux
-                      }}
-                      className="heart-icon"
-                      title="Already in Wishlist"
-                    />
-                  )}
-                </div>
-
-                <div className="row my-3 col-auto">
-                  <Card.Text className="product-description text-primary fw-bold">
-                    {variation?.size}
-                  </Card.Text>
-                </div>
-                <div className="d-flex justify-content-between">
-                  {variation?.discount > 0 && (
-                    <Card.Text
-                      className="text-muted"
-                      style={{ textDecoration: "line-through" }}
-                    >
-                      {currencySymbol} {convertedPrice}
-                    </Card.Text>
-                  )}
-
-                  <Card.Text className="text-success">
-                    {currencySymbol}{" "}
-                    {variation?.discount > 0
-                      ? convertedDiscount
-                      : convertedPrice}
-                  </Card.Text>
-                </div>
-              </Card.Body>
-            </Card>
-          );
-        })}
+      <div className="shop-products-container">
+        <div className="products-grid">
+          {finalProducts.map((product, index) => (
+            <ProductCard 
+              key={index} 
+              product={product} 
+              currency={currency}
+              isProductInWishlist={wishlistItems.some(item => item.id === product.id)}
+              addToCart={addToCart}
+              addToWishlist={() => dispatch(addToWishlist(product, toast))}
+              deleteFromWishlist={() => dispatch(deleteFromWishlist(product, toast))}
+            />
+          ))}
+        </div>
       </div>
-      <ProductModal
-        show={modalShow}
-        handleClose={() => setModalShow(false)}
-        productData={selectedProduct}
-      />
     </Fragment>
+  );
+};
+
+const ProductCard = ({ 
+  product, 
+  currency, 
+  isProductInWishlist, 
+  addToCart, 
+  addToWishlist, 
+  deleteFromWishlist 
+}) => {
+  const [selectedVariation, setSelectedVariation] = useState(
+    product.variations.length > 0 ? product.variations[0] : null
+  );
+  const [purchaseType, setPurchaseType] = useState("Retail");
+  const [quantity, setQuantity] = useState(1);
+
+  // Find the corresponding wholesale item for the selected variation
+  const getWholesaleItem = () => {
+    if (!product.bulk_wholesale || purchaseType !== "Wholesale") return null;
+    return product.bulk_wholesale.find(item => item.size === selectedVariation.size);
+  };
+
+  const wholesaleItem = getWholesaleItem();
+
+  const priceConverter = (price) => {
+    let convertedPrice = price;
+    let currencySymbol = "$";
+
+    if (currency?.selectedCurrency) {
+      const { rates, symbol } = currency.selectedCurrency;
+      convertedPrice = (price * rates).toFixed(2);
+      currencySymbol = symbol || "$";
+    }
+
+    // Format the price with commas
+    convertedPrice = parseFloat(convertedPrice).toLocaleString();
+
+    return { convertedPrice, currencySymbol };
+  };
+
+  const { convertedPrice, currencySymbol } = priceConverter(
+    purchaseType === "Wholesale" && wholesaleItem 
+      ? wholesaleItem.bulk_price 
+      : selectedVariation?.price || 0
+  );
+
+  const convertedDiscount = priceConverter(
+    selectedVariation?.discount || 0
+  ).convertedPrice;
+
+  // Minimum quantity check for wholesale
+  const minQuantity = wholesaleItem?.min_quantity || 1;
+  
+  // Update quantity when switching between retail and wholesale
+  useEffect(() => {
+    if (purchaseType === "Wholesale" && wholesaleItem) {
+      setQuantity(Math.max(quantity, minQuantity));
+    } else {
+      setQuantity(1);
+    }
+  }, [purchaseType, selectedVariation, minQuantity, quantity, wholesaleItem]);
+
+  // Handle add to cart
+  const handleAddToCart = () => {
+    addToCart(product, quantity, selectedVariation.size, purchaseType);
+    toast.success(`Added ${product.name} (${selectedVariation.size}) to cart`);
+  };
+
+  return (
+    <Card className="product-card">
+
+      <div className="product-badge-container">
+        {selectedVariation?.discount > 0 && (
+          <Badge bg="danger" className="discount-badge">
+            Sale
+          </Badge>
+        )}
+        {selectedVariation?.stock <= 5 && selectedVariation?.stock > 0 && (
+          <Badge bg="warning" text="dark" className="stock-badge">
+            Low Stock
+          </Badge>
+        )}
+        {selectedVariation?.stock === 0 && (
+          <Badge bg="secondary" className="stock-badge">
+            Out of Stock
+          </Badge>
+        )}
+      </div>
+      
+      <div className="product-image-container">
+        <img
+          src={product.images[0]?.image || "/assets/img/banner/KlinSav.jpg"}
+          alt={product.name}
+          className="product-image"
+          loading="lazy"
+        />
+        <div className="overlay-icons">
+          {isProductInWishlist ? (
+            <FcLike
+              onClick={deleteFromWishlist}
+              className="wishlist-icon active"
+              title="Remove from Wishlist"
+            />
+          ) : (
+            <FcLikePlaceholder
+              onClick={addToWishlist}
+              className="wishlist-icon"
+              title="Add to Wishlist"
+            />
+          )}
+          <Link to={`/product/${product.id}`} className="quick-view-icon" title="View Details">
+            <FaEye />
+          </Link>
+        </div>
+      </div>
+
+      <Card.Body className="product-card-body">
+        <Card.Title className="product-name">
+          <Link to={`/product/${product.id}`}>{product.name}</Link>
+        </Card.Title>
+        
+        <div className="product-description">
+          {product.description && (
+            <p className="description-text">{product.description.substring(0, 60)}...</p>
+          )}
+        </div>
+
+        <div className="product-variations">
+          <Form.Group className="size-selection-group">
+            <Form.Label className="variation-label">Size:</Form.Label>
+            <div className="size-buttons">
+              {product.variations.map((variation, idx) => (
+                <Button
+                  key={idx}
+                  variant={selectedVariation?.size === variation.size ? "primary" : "outline-primary"}
+                  size="sm"
+                  className="size-button"
+                  onClick={() => setSelectedVariation(variation)}
+                  disabled={variation.stock <= 0}
+                >
+                  {variation.size}
+                </Button>
+              ))}
+            </div>
+          </Form.Group>
+        </div>
+
+        <div className="price-section">
+          {selectedVariation?.discount > 0 && (
+            <span className="original-price">
+              {currencySymbol} {convertedPrice}
+            </span>
+          )}
+
+          <span className="current-price">
+            {currencySymbol}{" "}
+            {selectedVariation?.discount > 0 ? convertedDiscount : convertedPrice}
+          </span>
+        </div>
+
+        <div className="purchase-options">
+          <div className="quantity-selector">
+            <Form.Label className="variation-label">Quantity:</Form.Label>
+            <Form.Control
+              type="number"
+              min={purchaseType === "Wholesale" && wholesaleItem ? minQuantity : 1}
+              value={quantity}
+              onChange={(e) => setQuantity(Math.max(parseFloat(e.target.value) || 1, 
+                purchaseType === "Wholesale" && wholesaleItem ? minQuantity : 1))}
+              className="quantity-input"
+            />
+          </div>
+        </div>
+
+        <Button
+          variant="primary"
+          className="add-to-cart-btn"
+          onClick={handleAddToCart}
+          disabled={selectedVariation?.stock <= 0}
+        >
+          <FaShoppingCart className="cart-icon" />
+          Add to Cart
+        </Button>
+      </Card.Body>
+    </Card>
   );
 };
 

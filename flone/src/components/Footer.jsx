@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  FaTiktok,
+  // FaTiktok,
   FaXTwitter,
   FaInstagram,
   FaFacebookF,
@@ -30,11 +30,11 @@ export default function Footer({ darkMode = !true }) {
             <h2 className="section-title">{t("Working Hours")}</h2>
             <div>
               <p>{t("Monday to Friday")}: </p>
-              <span className="text-success">9:00 AM - 5:00 PM</span>
+              <span className="text-success">8:00 AM - 5:00 PM</span>
             </div>
             <div>
               <p>{t("Saturday")}: </p>
-              <span className="text-warning">10:00 AM - 4:00 PM</span>
+              <span className="text-warning">8:45 AM - 1:00 PM</span>
             </div>
             <div>
               <p>{t("Sunday")}: </p>
@@ -61,17 +61,17 @@ export default function Footer({ darkMode = !true }) {
             </span>
             <div className="social-icons">
               <Link to="https://www.facebook.com/klinsept" target="_blank">
-                <FaFacebookF />
+                 <FaFacebookF size={20} />@Klinsept Burundi 
               </Link>
-              <Link to="/" target="_blank">
-                <FaInstagram />
+              <Link to="https://www.instagram.com/klinsept_burundi/" target="_blank">
+              <FaInstagram size={20} />@Klinsept Burundi
               </Link>
-              <Link target="_blank">
-                <FaXTwitter />
+              <Link to="https://x.com/klinsept">
+              <FaXTwitter size={20} />@Klinsept Burundi
               </Link>
-              <Link to="/" target="_blank">
+              {/* <Link to="/" target="_blank">
                 <FaTiktok />
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>

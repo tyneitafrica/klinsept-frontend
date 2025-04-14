@@ -11,7 +11,7 @@ const HeroSlider = () => {
     {
       id: 1,
       title: t("Delivery Across East Africa"),
-      subtitle: t("Fast and reliable delivery in Burundi, Tanzania, Uganda, and Rwanda."),
+      subtitle: t("Fast and reliable delivery"),
       image: "/assets/img/download.jpeg",
       url: "/about",
     },
