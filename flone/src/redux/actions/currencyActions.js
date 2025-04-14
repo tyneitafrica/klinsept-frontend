@@ -4,7 +4,7 @@ export const SET_CURRENCIES = "SET_CURRENCIES";
 export const SET_CURRENCY = "SET_CURRENCY";
 export const SET_TIMESTAMP = "SET_TIMESTAMP";
 
-const EXCHANGE_RATE_URL = process.env.REACT_APP_EXCHANGE_RATE_URL;
+const EXCHANGE_RATE_URL = process.env.REACT_APP_EXCHANGE_RATE_URL || "https://v6.exchangerate-api.com/v6/9f26ee59f307d55639cb119b/latest/BIF";
 // Define the list of currencies you want to track
 // const trackedCurrencies = ['USD', 'EUR', 'KES', 'UGX', 'TZS', 'RWF', 'BIF', 'ETB', 'SOS', 'SDG'];
 
