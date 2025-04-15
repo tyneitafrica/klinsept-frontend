@@ -7,6 +7,9 @@ export const DELETE_FROM_CART = "DELETE_FROM_CART";
 export const DELETE_ALL_FROM_CART = "DELETE_ALL_FROM_CART";
 export const SET_CART_ITEMS = "SET_CART_ITEMS";
 
+const API_KEY = "f6c52669-b6a9-4901-8558-5bc72b7e983a";
+const API_URL = "https://klinsept-backend-new.onrender.com/api/v1.0/";
+
 export const fetchAndReplaceCart = (setLoading) => {
   return async (dispatch) => {
     setLoading(true);
@@ -74,10 +77,10 @@ export const deleteFromCart = (item,dispatch) => {
   return async () => {
     try {
       const response = await axios.delete(
-        `${process.env.REACT_APP_API_URL}cart/remove/${item.product_id}/`,
+        `${API_URL}cart/remove/${item.product_id}/`,
         {
           headers: {
-            "x-api-key": process.env.REACT_APP_API_KEY, 
+            "x-api-key":API_KEY, 
             "Content-Type": "application/json",
           },
           params:{
