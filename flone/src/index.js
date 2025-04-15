@@ -30,7 +30,7 @@ store.dispatch(fetchProducts());
 
 ReactDOM.render(
   <Provider store={store}>
-    <Toaster position='top-right'/>
+    {/* <Toaster position='top-right'/> */}
     <App />
   </Provider>,
   document.getElementById("root")
