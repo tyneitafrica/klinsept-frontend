@@ -6,8 +6,8 @@ import {
 } from "../redux/actions/productActions";
 import apiClient from "./apiClient";
 import toast from "react-hot-toast";
-const API_KEY = process.env.REACT_APP_API_KEY || "f6c52669-b6a9-4901-8558-5bc72b7e983a";
-const API_URL = process.env.REACT_APP_API_URL || "https://klinsept-backend-new.onrender.com/api/v1.0/";
+const API_KEY = "f6c52669-b6a9-4901-8558-5bc72b7e983a";
+const API_URL = "https://klinsept-backend-new.onrender.com/api/v1.0/";
 
 // const API_URL = "https://klinsept-backend.onrender.com/api/v1.0/";
 // const API_URL = "http://localhost:8000/api/v1.0/";
