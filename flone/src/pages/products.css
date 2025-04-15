@@ -23,6 +23,8 @@
   .products-banner h2 {
     margin: 0;
     font-weight: 600;
+    font-size: 44px;
+    color: #e9ecef;
   }
   
   /* Filter Sidebar Styles */
@@ -39,6 +41,7 @@
     margin-bottom: 15px;
     padding-bottom: 10px;
     border-bottom: 1px solid #e9ecef;
+    cursor: pointer;
   }
   
   .filter-section {

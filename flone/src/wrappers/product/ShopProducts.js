@@ -32,9 +32,9 @@ const ShopProducts = ({
       <div className="shop-products-container">
         <div className="products-grid">
           {finalProducts.map((product, index) => (
-            <ProductCard 
-              key={index} 
-              product={product} 
+            <ProductCard
+              key={index}
+              product={product}
               currency={currency}
               isProductInWishlist={wishlistItems.some(item => item.id === product.id)}
               addToCart={addToCart}
@@ -48,27 +48,35 @@ const ShopProducts = ({
   );
 };
 
-const ProductCard = ({ 
-  product, 
-  currency, 
-  isProductInWishlist, 
-  addToCart, 
-  addToWishlist, 
-  deleteFromWishlist 
+const ProductCard = ({
+  product,
+  currency,
+  isProductInWishlist,
+  addToCart,
+  addToWishlist,
+  deleteFromWishlist
 }) => {
+  
   const [selectedVariation, setSelectedVariation] = useState(
     product.variations.length > 0 ? product.variations[0] : null
   );
   const [purchaseType, setPurchaseType] = useState("Retail");
-  const [quantity, setQuantity] = useState(1);
-
-  // Find the corresponding wholesale item for the selected variation
+  
+  
   const getWholesaleItem = () => {
     if (!product.bulk_wholesale || purchaseType !== "Wholesale") return null;
     return product.bulk_wholesale.find(item => item.size === selectedVariation.size);
   };
-
+  
   const wholesaleItem = getWholesaleItem();
+  const minQuantity = wholesaleItem?.min_quantity || 1;
+  const min = purchaseType === "Wholesale" && wholesaleItem ? minQuantity : 1;
+  const [quantity, setQuantity] = useState(min.toString());
+
+
+  // Find the corresponding wholesale item for the selected variation
+
+
 
   const priceConverter = (price) => {
     let convertedPrice = price;
@@ -86,9 +94,15 @@ const ProductCard = ({
     return { convertedPrice, currencySymbol };
   };
 
+
+  useEffect(() => {
+    console.log("Updated quantity:", quantity);
+  }, [quantity]);
+
+
   const { convertedPrice, currencySymbol } = priceConverter(
-    purchaseType === "Wholesale" && wholesaleItem 
-      ? wholesaleItem.bulk_price 
+    purchaseType === "Wholesale" && wholesaleItem
+      ? wholesaleItem.bulk_price
       : selectedVariation?.price || 0
   );
 
@@ -96,9 +110,7 @@ const ProductCard = ({
     selectedVariation?.discount || 0
   ).convertedPrice;
 
-  // Minimum quantity check for wholesale
-  const minQuantity = wholesaleItem?.min_quantity || 1;
-  
+
   // Update quantity when switching between retail and wholesale
   useEffect(() => {
     if (purchaseType === "Wholesale" && wholesaleItem) {
@@ -134,7 +146,7 @@ const ProductCard = ({
           </Badge>
         )}
       </div>
-      
+
       <div className="product-image-container">
         <img
           src={product.images[0]?.image || "/assets/img/banner/KlinSav.jpg"}
@@ -166,7 +178,7 @@ const ProductCard = ({
         <Card.Title className="product-name">
           <Link to={`/product/${product.id}`}>{product.name}</Link>
         </Card.Title>
-        
+
         <div className="product-description">
           {product.description && (
             <p className="description-text">{product.description.substring(0, 60)}...</p>
@@ -205,20 +217,30 @@ const ProductCard = ({
             {selectedVariation?.discount > 0 ? convertedDiscount : convertedPrice}
           </span>
         </div>
-
         <div className="purchase-options">
           <div className="quantity-selector">
-            <Form.Label className="variation-label">Quantity:</Form.Label>
-            <Form.Control
+            <label htmlFor={`quantity-${product.id}`}>Quantity:</label>
+            <input
+              id={`quantity-${product.id}`}
               type="number"
-              min={purchaseType === "Wholesale" && wholesaleItem ? minQuantity : 1}
-              value={quantity}
-              onChange={(e) => setQuantity(Math.max(parseFloat(e.target.value) || 1, 
-                purchaseType === "Wholesale" && wholesaleItem ? minQuantity : 1))}
+              step="any"
+              placeholder="1"
+              min={min}
+              // value={quantity}
+              onChange={(e) => setQuantity(e.target.value)} // allow free typing
+              onBlur={() => {
+                const parsed = parseFloat(quantity);
+                if (!isNaN(parsed) && parsed >= min) {
+                  setQuantity(parsed.toString());
+                } else {
+                  setQuantity(min.toString());
+                }
+              }}
               className="quantity-input"
             />
           </div>
         </div>
+
 
         <Button
           variant="primary"

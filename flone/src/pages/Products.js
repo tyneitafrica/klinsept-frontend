@@ -4,6 +4,8 @@ import MetaTags from "react-meta-tags";
 import { connect, useSelector } from "react-redux";
 import LayoutOne from "../components/LayoutOne";
 import ShopProducts from "../wrappers/product/ShopProducts";
+import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
+import Breadcrumb from "../wrappers/breadcrumb/Breadcrumb";
 import "./products.css"; // Custom CSS file
 
 const Products = () => {
@@ -18,6 +20,8 @@ const Products = () => {
   const [selectedSize, setSelectedSize] = useState("");
 
   const products = useSelector((state) => state.productData.products);
+
+  const [toggleFilter, setToggleFilter] = useState(true)
 
   // Initialize and filter data
   useEffect(() => {
@@ -58,7 +62,7 @@ const Products = () => {
           });
         }
       });
-      
+
       if (minProductPrice !== Number.MAX_SAFE_INTEGER) {
         setMinPrice(minProductPrice);
         setMaxPrice(maxProductPrice);
@@ -77,7 +81,7 @@ const Products = () => {
 
       // Filter by category
       if (selectedCategory) {
-        filteredProducts = filteredProducts.filter(product => 
+        filteredProducts = filteredProducts.filter(product =>
           product.category && product.category.includes(selectedCategory)
         );
       }
@@ -93,7 +97,7 @@ const Products = () => {
       // Filter by price range
       filteredProducts = filteredProducts.filter(product => {
         if (!product.variations || product.variations.length === 0) return false;
-        
+
         return product.variations.some(variation => {
           const price = parseFloat(variation.price);
           return price >= priceRange.min && price <= priceRange.max;
@@ -146,7 +150,7 @@ const Products = () => {
   };
 
   return (
-    <div className="mt-5 ">
+    <div className="mt-90 ">
       <MetaTags>
         <title>Klinsept</title>
         <meta
@@ -154,173 +158,187 @@ const Products = () => {
           content="Shop page of klinsept."
         />
       </MetaTags>
+      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
+      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/products"}>
+        Products
+      </BreadcrumbsItem>
 
       <LayoutOne headerTop="visible">
-          <div className="products-banner mb-4">
+        <Breadcrumb />
+
+        <div className="blog -area pt-5 pb-10 blog-no-si debar">
+
+          <div className="products-banner my-4">
             <div className="products-banner-content">
-              <h2 className="text-dark">Products</h2>
+              <h2 className="text-dark text-3xl">Products</h2>
             </div>
           </div>
-        <div className="container-nene den">
-          
-          <div className="row">
-            {/* Filter sidebar */}
-            <div className="col-lg-3 col-md-4 filter-sidebar">
-              <div className="card filter-card">
-                <div className="card-body">
-                  <h5 className="filter-title">Filter Products</h5>
-                  
-                  {/* Categories Filter */}
-                  <div className="filter-section">
-                    <h6>Categories</h6>
-                    <div className="category-options">
-                      {uniqueCategories && uniqueCategories.length > 0 ? (
-                        uniqueCategories.map((category, index) => (
-                          <div className="form-check" key={index}>
-                            <input
-                              type="checkbox"
-                              className="form-check-input"
-                              id={`category-${index}`}
-                              checked={selectedCategory === category}
-                              onChange={() => handleCategoryChange(category)}
-                            />
-                            <label 
-                              className="form-check-label" 
-                              htmlFor={`category-${index}`}
-                              onClick={() => handleCategoryChange(category)}
-                            >
-                              {category}
-                            </label>
-                          </div>
-                        ))
-                      ) : (
-                        <p className="no-options">No categories available.</p>
-                      )}
+          <div className="container-nene den">
+
+            <div className="row">
+              {/* Filter sidebar */}
+              <div className="col-lg-3 col-md-4 filter-sidebar">
+                <div className="card filter-card">
+                  <div className="card-body">
+                    <h5 onClick={()=>setToggleFilter(!toggleFilter)} className="filter-title ">Filter Products</h5>
+
+                   <div onClick={()=>setToggleFilter(!toggleFilter)} className={`${toggleFilter && "hidden"}`}>
+
+                    {/* Categories Filter */}
+                    <div className="filter-section">
+                      <h6>Categories</h6>
+                      <div className="category-options">
+                        {uniqueCategories && uniqueCategories.length > 0 ? (
+                          uniqueCategories.map((category, index) => (
+                            <div className="form-check" key={index}>
+                              <input
+                                type="checkbox"
+                                className="form-check-input"
+                                id={`category-${index}`}
+                                checked={selectedCategory === category}
+                                onChange={() => handleCategoryChange(category)}
+                              />
+                              <label
+                                className="form-check-label"
+                                htmlFor={`category-${index}`}
+                                onClick={() => handleCategoryChange(category)}
+                              >
+                                {category}
+                              </label>
+                            </div>
+                          ))
+                        ) : (
+                          <p className="no-options">No categories available.</p>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                  
-                  {/* Sizes Filter */}
-                  <div className="filter-section">
-                    <h6>Sizes</h6>
-                    <div className="size-options">
-                      {uniqueSizes && uniqueSizes.length > 0 ? (
-                        uniqueSizes.map((size, index) => (
-                          <div className="form-check" key={index}>
-                            <input
-                              type="checkbox"
-                              className="form-check-input"
-                              id={`size-${index}`}
-                              checked={selectedSize === size}
-                              onChange={() => handleSizeChange(size)}
-                            />
-                            <label 
-                              className="form-check-label" 
-                              htmlFor={`size-${index}`}
-                              onClick={() => handleSizeChange(size)}
-                            >
-                              {size}
-                            </label>
-                          </div>
-                        ))
-                      ) : (
-                        <p className="no-options">No sizes available.</p>
-                      )}
+
+                    {/* Sizes Filter */}
+                    <div className="filter-section">
+                      <h6>Sizes</h6>
+                      <div className="size-options">
+                        {uniqueSizes && uniqueSizes.length > 0 ? (
+                          uniqueSizes.map((size, index) => (
+                            <div className="form-check" key={index}>
+                              <input
+                                type="checkbox"
+                                className="form-check-input"
+                                id={`size-${index}`}
+                                checked={selectedSize === size}
+                                onChange={() => handleSizeChange(size)}
+                              />
+                              <label
+                                className="form-check-label"
+                                htmlFor={`size-${index}`}
+                                onClick={() => handleSizeChange(size)}
+                              >
+                                {size}
+                              </label>
+                            </div>
+                          ))
+                        ) : (
+                          <p className="no-options">No sizes available.</p>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                  
-                  {/* Price Range Filter */}
-                 <div className="filter-section">
-                    <h6>Price Range</h6>
-                    <div className="price-range-inputs">
-                      <div className="row">
-                        <div className="col-6">
-                          <div className="form-group">
-                            <label htmlFor="min-price">Min:</label>
-                            <input
-                              type="number"
-                              className="form-control form-control-sm"
-                              id="min-price"
-                              name="min"
-                              value={priceRange.min}
-                              onChange={handlePriceRangeChange}
-                              min={minPrice}
-                              max={maxPrice}
-                            />
+
+                    {/* Price Range Filter */}
+                    <div className="filter-section">
+                      <h6>Price Range</h6>
+                      <div className="price-range-inputs">
+                        <div className="row">
+                          <div className="col-6">
+                            <div className="form-group">
+                              <label htmlFor="min-price">Min:</label>
+                              <input
+                                type="number"
+                                className="form-control form-control-sm"
+                                id="min-price"
+                                name="min"
+                                value={priceRange.min}
+                                onChange={handlePriceRangeChange}
+                                min={minPrice}
+                                max={maxPrice}
+                              />
+                            </div>
                           </div>
-                        </div>
-                        <div className="col-6">
-                          <div className="form-group">
-                            <label htmlFor="max-price">Max:</label>
-                            <input
-                              type="number"
-                              className="form-control form-control-sm"
-                              id="max-price"
-                              name="max"
-                              value={priceRange.max}
-                              onChange={handlePriceRangeChange}
-                              min={minPrice}
-                              max={maxPrice}
-                            />
+                          <div className="col-6">
+                            <div className="form-group">
+                              <label htmlFor="max-price">Max:</label>
+                              <input
+                                type="number"
+                                className="form-control form-control-sm"
+                                id="max-price"
+                                name="max"
+                                value={priceRange.max}
+                                onChange={handlePriceRangeChange}
+                                min={minPrice}
+                                max={maxPrice}
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div> 
-                  
-                  {/* Reset Filters button */}
-                  <button 
-                    className="btn btn-outline-secondary btn-sm btn-block mt-3"
-                    onClick={() => {
-                      setSelectedCategory("");
-                      setSelectedSize("");
-                      setPriceRange({ min: minPrice, max: maxPrice });
-                      setSortBy("default");
-                    }}
-                  >
-                    Reset Filters
-                  </button>
+                   </div>
+
+
+
+                    {/* Reset Filters button */}
+                    <button
+                      className="btn btn-outline-secondary btn-sm btn-block mt-3"
+                      onClick={() => {
+                        setSelectedCategory("");
+                        setSelectedSize("");
+                        setPriceRange({ min: minPrice, max: maxPrice });
+                        setSortBy("default");
+                      }}
+                    >
+                      Reset Filters
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-            
-            {/* Products area */}
-            <div className="col-lg-9 col-md-8">
-              <div className="products-top-bar">
-                <div className="row align-items-center">
-                  <div className="col-md-6">
-                    <p className="result-count">
-                      Showing {currentData.length} of {products.length} products
-                    </p>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="sort-by">
-                      <select 
-                        className="form-select form-select-sm"
-                        value={sortBy}
-                        onChange={handleSortChange}
-                      >
-                        <option value="default">Default sorting</option>
-                        <option value="price-low-high">Price: Low to High</option>
-                        <option value="price-high-low">Price: High to Low</option>
-                      </select>
+
+              {/* Products area */}
+              <div className="col-lg-9 col-md-8">
+                <div className="products-top-bar">
+                  <div className="row align-items-center">
+                    <div className="col-md-6">
+                      <p className="result-count">
+                        Showing {currentData.length} of {products.length} products
+                      </p>
+                    </div>
+                    <div className="col-md-6">
+                      <div className="sort-by">
+                        <select
+                          className="form-select form-select-sm"
+                          value={sortBy}
+                          onChange={handleSortChange}
+                        >
+                          <option value="default">Default sorting</option>
+                          <option value="price-low-high">Price: Low to High</option>
+                          <option value="price-high-low">Price: High to Low</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              
-              {/* Products grid */}
-              <div className="shop-products-wrapper">
-                <ShopProducts
-                  products={currentData}
-                  currentData={currentData}
-                />
-              </div>
-              
-              {currentData.length === 0 && (
-                <div className="no-products-found">
-                  <p>No products match your current filters. Try adjusting your criteria.</p>
+
+                {/* Products grid */}
+                <div className="shop-products-wrapper">
+                  <ShopProducts
+                    products={currentData}
+                    currentData={currentData}
+                  />
                 </div>
-              )}
+
+                {currentData.length === 0 && (
+                  <div className="no-products-found">
+                    <p>No products match your current filters. Try adjusting your criteria.</p>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
