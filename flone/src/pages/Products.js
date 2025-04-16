@@ -182,7 +182,7 @@ const Products = () => {
                   <div className="card-body">
                     <h5 onClick={()=>setToggleFilter(!toggleFilter)} className="filter-title ">Filter Products</h5>
 
-                   <div onClick={()=>setToggleFilter(!toggleFilter)} className={`${toggleFilter && "hidden"}`}>
+                   <div  className={`${toggleFilter && "hidden"}`}>
 
                     {/* Categories Filter */}
                     <div className="filter-section">
