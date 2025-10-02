@@ -9,6 +9,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 
+const API_KEY = "f6c52669-b6a9-4901-8558-5bc72b7e983a";
+const API_URL = "https://klinsept-backend-new.onrender.com/api/v1.0/";
+
 const Payment = ({ currency }) => {
   const { orderId } = useParams();
   const [loading, setLoading] = useState(false);
@@ -20,12 +23,12 @@ const Payment = ({ currency }) => {
     const confirmOrder = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}user/order/`,
+          `${API_URL}user/order/`,
           {
             params: { order_id: orderId },
             headers: {
               "Content-Type": "application/json",
-              "x-api-key": process.env.REACT_APP_API_KEY,
+              "x-api-key":API_KEY,
             },
           }
         );
@@ -53,12 +56,12 @@ const Payment = ({ currency }) => {
     try {
       setLoading(true);
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}send/email/`,
+        `${API_URL}send/email/`,
         { order_id: orderId },
         {
           headers: {
             "Content-Type": "application/json",
-            "x-api-key": process.env.REACT_APP_API_KEY,
+            "x-api-key": API_KEY,
           },
         }
       );

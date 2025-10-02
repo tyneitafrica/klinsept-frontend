@@ -10,6 +10,9 @@ import { useLocation } from "react-router-dom";
 import { Form, Button, Spinner } from "react-bootstrap";
 import toast from "react-hot-toast";
 
+const API_KEY = "f6c52669-b6a9-4901-8558-5bc72b7e983a";
+const API_URL = "https://klinsept-backend-new.onrender.com/api/v1.0/";
+
 const Checkout = ({ cartItems, currency }) => {
   const { pathname } = useLocation();
   const [validated, setValidated] = useState(false);
@@ -35,11 +38,11 @@ const Checkout = ({ cartItems, currency }) => {
 
       try {
         setLoading(true);
-        const response = await fetch(`${process.env.REACT_APP_API_URL}order/`, {
+        const response = await fetch(`${API_URL}order/`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "x-api-key": process.env.REACT_APP_API_KEY,
+            "x-api-key": API_KEY,
           },
           credentials: "include",
           body: JSON.stringify(formData),
