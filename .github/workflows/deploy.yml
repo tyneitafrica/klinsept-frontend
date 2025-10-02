@@ -28,7 +28,7 @@ jobs:
       # Install dependencies
       - name: 📥 Install dependencies
         working-directory: flone
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       # Build the project
       - name: 🏗️ Build the project
