@@ -27,16 +27,18 @@ jobs:
 
       # Install dependencies
       - name: 📥 Install dependencies
+        working-directory: flone
         run: pnpm install
 
       # Build the project
       - name: 🏗️ Build the project
+        working-directory: flone
         run: pnpm run build
         
       # ✍️ Create .htaccess for SPA routing
       - name: ✍️ Add .htaccess file
         run: |
-          cat <<EOF > dist/.htaccess
+          cat <<EOF > flone/dist/.htaccess
           Options -MultiViews
           RewriteEngine On
           RewriteCond %{REQUEST_FILENAME} !-f
@@ -50,4 +52,4 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: dist/  # 👈 Upload only the built files
+          local-dir: flone/dist/  # 👈 Upload only the built files
