@@ -22,18 +22,18 @@ jobs:
           node-version: '20'  # or your required version
 
       # Install pnpm
-      - name: 📦 Install pnpm
-        run: npm install -g pnpm
+      # - name: 📦 Install pnpm
+      #   run: npm install -g pnpm
 
       # Install dependencies
       - name: 📥 Install dependencies
         working-directory: flone
-        run: pnpm install
+        run: npm install
 
       # Build the project
       - name: 🏗️ Build the project
         working-directory: flone
-        run: pnpm run build
+        run: npm run build
         
       # ✍️ Create .htaccess for SPA routing
       - name: ✍️ Add .htaccess file
