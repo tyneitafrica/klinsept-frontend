@@ -33,7 +33,7 @@ jobs:
       # Build the project
       - name: 🏗️ Build the project
         working-directory: flone
-        run: npm run build
+        run: CI=false npm run build
         
       # ✍️ Create .htaccess for SPA routing
       - name: ✍️ Add .htaccess file
