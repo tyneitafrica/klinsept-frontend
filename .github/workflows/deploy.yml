@@ -1,0 +1,55 @@
+on:
+  push:
+    branches:
+      - master
+
+name: 🚀 Deploy website on push
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploy website
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+
+      # Setup Node.js (use your project's required version)
+      - name: 🧰 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'  # or your required version
+
+      # Install pnpm
+      # - name: 📦 Install pnpm
+      #   run: npm install -g pnpm
+
+      # Install dependencies
+      - name: 📥 Install dependencies
+        working-directory: flone
+        run: npm install --legacy-peer-deps
+
+      # Build the project
+      - name: 🏗️ Build the project
+        working-directory: flone
+        run: npm run build
+        
+      # ✍️ Create .htaccess for SPA routing
+      - name: ✍️ Add .htaccess file
+        run: |
+          cat <<EOF > flone/dist/.htaccess
+          Options -MultiViews
+          RewriteEngine On
+          RewriteCond %{REQUEST_FILENAME} !-f
+          RewriteRule ^ index.html [QSA,L]
+          EOF
+
+      # Upload only the `dist` folder via FTP
+      - name: 📂 Sync files via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: flone/dist/  # 👈 Upload only the built files
