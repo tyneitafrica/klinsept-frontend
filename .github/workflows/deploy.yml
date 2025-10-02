@@ -33,12 +33,12 @@ jobs:
       # Build the project
       - name: 🏗️ Build the project
         working-directory: flone
-        run: npm run build
+        run: CI=false npm run build
         
       # ✍️ Create .htaccess for SPA routing
       - name: ✍️ Add .htaccess file
         run: |
-          cat <<EOF > flone/dist/.htaccess
+          cat <<EOF > flone/build/.htaccess
           Options -MultiViews
           RewriteEngine On
           RewriteCond %{REQUEST_FILENAME} !-f
@@ -52,4 +52,4 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: flone/dist/  # 👈 Upload only the built files
+          local-dir: flone/build/  # 👈 Upload only the built files
